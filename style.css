@@ -209,12 +209,16 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     border-radius: 6px;
     background: transparent;
     cursor: pointer;
-    transition: background-color 0.15s ease;
+    transition: background-color 0.15s ease, transform 0.12s ease;
 }
 
 .nav-toggle:active,
 .nav-toggle[aria-expanded="true"] {
     background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.nav-toggle:active {
+    transform: scale(0.94);
 }
 
 .nav-toggle:focus-visible {
@@ -234,7 +238,7 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-@media (max-width: 768px) {
+@media (max-width: 1280px) {
     .site-header {
         padding: calc(0.75rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right)) 0.75rem calc(1rem + env(safe-area-inset-left));
     }
@@ -272,15 +276,78 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
         overflow-y: auto;
     }
 
-    .site-nav a {
+    .site-nav > a {
         padding: 0.95rem calc(1.2rem + env(safe-area-inset-right)) 0.95rem calc(1.2rem + env(safe-area-inset-left));
         border-bottom: 1px solid var(--border);
-        border-radius: 0;
+        text-align: left;
+        transform: none;
+    }
+
+    .site-nav > a:last-child {
+        border-bottom: 0;
+    }
+
+    /* Auf dem Desktop ist der Akzent ein Unterstrich (Hover = Aktuierung).
+       In der Dropdown-Liste gibt es kein Hover, deshalb wird derselbe
+       Pseudo-Element als linker Akzentbalken wiederverwendet, analog zum
+       Balken der Werkbank-Zeitleiste ("das hier ist aktiv/verbunden"). */
+    .site-nav > a::after,
+    .nav-dropdown__trigger::after {
+        left: 0;
+        right: auto;
+        bottom: 0;
+        top: 0;
+        width: 3px;
+        height: auto;
+        transform: scaleY(0);
+        transform-origin: top;
+    }
+
+    .site-nav > a[aria-current="page"]::after,
+    .site-nav > a:active::after,
+    .nav-dropdown__trigger[aria-expanded="true"]::after,
+    .nav-dropdown__trigger[aria-current]::after {
+        transform: scaleY(1);
+    }
+
+    /* Sprach-/Theme-Toggle sitzen jetzt im Dropdown selbst (siehe HTML:
+       .utility-nav ist ins <nav> gewandert) und bekommen hier eine eigene,
+       abgesetzte Zeile statt der rechtsbündigen Desktop-Platzierung. */
+    .site-nav .utility-nav {
+        margin-left: 0;
+        justify-content: center;
+        gap: 0.75rem;
+        padding: 1rem calc(1.2rem + env(safe-area-inset-right)) calc(1rem + env(safe-area-inset-bottom)) calc(1.2rem + env(safe-area-inset-left));
+        border-top: 1px solid var(--border);
+    }
+
+    /* "Guides & Tutorials" ist im Dropdown eine eigene Akkordeon-Zeile:
+       Trigger verhält sich wie ein normaler Nav-Punkt, das Panel klappt
+       darunter auf statt als schwebendes Desktop-Panel zu erscheinen. */
+    .nav-dropdown {
+        border-bottom: 1px solid var(--border);
+    }
+
+    .nav-dropdown__trigger {
+        width: 100%;
+        justify-content: space-between;
+        padding: 0.95rem calc(1.2rem + env(safe-area-inset-right)) 0.95rem calc(1.2rem + env(safe-area-inset-left));
         text-align: left;
     }
 
-    .site-nav a:last-child {
-        border-bottom: 0;
+    .nav-dropdown__panel {
+        max-height: 0;
+        overflow: hidden;
+        background: color-mix(in srgb, var(--surface-2) 55%, var(--bg));
+        transition: max-height 0.22s ease;
+    }
+
+    .nav-dropdown.is-open .nav-dropdown__panel {
+        max-height: 8rem;
+    }
+
+    .nav-dropdown__panel a {
+        padding: 0.8rem calc(1.2rem + env(safe-area-inset-right)) 0.8rem calc(2.3rem + env(safe-area-inset-left));
     }
 }
 
@@ -326,38 +393,173 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 .site-nav {
     display: flex;
     align-items: center;
+    flex: 1 1 auto;
+    min-width: 0;
     gap: 0.1rem;
     overflow-x: auto;
     white-space: nowrap;
-    font-family: "IBM Plex Sans", var(--font-body);
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
+    scrollbar-width: none;
 }
 
-.site-nav a {
+.site-nav::-webkit-scrollbar {
+    display: none;
+}
+
+.site-nav > a,
+.nav-dropdown__trigger {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+    border: 0;
+    background: transparent;
     color: var(--text-dim);
-    border-radius: var(--radius-sm);
-    padding: 0.55rem 0.65rem;
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 0.02em;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    padding: 0.6rem 0.55rem;
+    font: inherit;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: color 0.15s ease, transform 0.12s ease;
 }
 
-.site-nav a:hover, .site-nav a[aria-current="page"], .site-nav a:active {
+/* Aktuierungs-Strich statt Solid-Fill-Pill: fährt bei Hover ein, bleibt bei
+   der aktuellen Seite dauerhaft sichtbar. Nutzt dieselbe Press/Lift-Physik
+   wie das Keycap-Logo (siehe .keycap:hover/:active), nur zurückhaltender. */
+.site-nav > a::after,
+.nav-dropdown__trigger::after {
+    content: "";
+    position: absolute;
+    left: 0.55rem;
+    right: 0.55rem;
+    bottom: 0.32rem;
+    height: 2px;
+    background: var(--accent-bright);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (hover: hover) and (min-width: 1281px) {
+    .site-nav > a:hover,
+    .nav-dropdown__trigger:hover {
+        color: var(--accent-bright);
+        transform: translateY(-1px);
+    }
+
+    .site-nav > a:hover::after,
+    .nav-dropdown__trigger:hover::after {
+        transform: scaleX(1);
+    }
+}
+
+.site-nav > a:active,
+.nav-dropdown__trigger:active {
+    transform: translateY(1px);
+}
+
+.site-nav > a[aria-current="page"],
+.nav-dropdown__trigger[aria-expanded="true"],
+.nav-dropdown__trigger[aria-current] {
+    color: var(--accent-bright);
+}
+
+.site-nav > a[aria-current="page"]::after,
+.nav-dropdown__trigger[aria-expanded="true"]::after,
+.nav-dropdown__trigger[aria-current]::after {
+    transform: scaleX(1);
+}
+
+/* -- "Guides & Tutorials"-Dropdown -- */
+
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown__caret {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.15s ease;
+}
+
+.nav-dropdown.is-open .nav-dropdown__caret,
+.nav-dropdown:focus-within .nav-dropdown__caret {
+    transform: rotate(180deg);
+}
+
+.nav-dropdown__panel a {
+    display: block;
+    color: var(--text-dim);
+    padding: 0.55rem 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.nav-dropdown__panel a:hover,
+.nav-dropdown__panel a[aria-current="page"] {
     background: var(--accent);
     color: var(--bg);
+}
+
+@media (min-width: 1281px) {
+    .nav-dropdown__panel {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 190px;
+        margin-top: 0.5rem;
+        padding: 0.4rem;
+        background: var(--surface);
+        border: 1px solid var(--border-strong);
+        box-shadow: var(--shadow);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-4px);
+        transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+        z-index: 40;
+    }
+
+    .nav-dropdown:focus-within .nav-dropdown__panel,
+    .nav-dropdown.is-open .nav-dropdown__panel {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+@media (hover: hover) and (min-width: 1281px) {
+    .nav-dropdown:hover .nav-dropdown__panel {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .nav-dropdown:hover .nav-dropdown__caret {
+        transform: rotate(180deg);
+    }
 }
 
 .utility-nav {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
     gap: 0.6rem;
     margin-left: auto;
 }
 
-/* -- Sprach- & Farbschema-Umschalter -- *//
+/* -- Sprach- & Farbschema-Umschalter -- */
 
 .lang-toggle,
 .theme-toggle {
@@ -387,19 +589,23 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     cursor: pointer;
     display: grid;
     place-items: center;
-    transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .lang-toggle button[aria-pressed="true"],
 .theme-toggle button[aria-pressed="true"] {
     background: var(--accent);
     color: var(--bg);
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.28);
 }
 
-.lang-toggle button:not([aria-pressed="true"]):hover,
-.theme-toggle button:not([aria-pressed="true"]):hover {
-    background: transparent;
-    color: var(--accent-bright);
+@media (hover: hover) {
+    .lang-toggle button:not([aria-pressed="true"]):hover,
+    .theme-toggle button:not([aria-pressed="true"]):hover {
+        background: transparent;
+        color: var(--accent-bright);
+        transform: translateY(-1px);
+    }
 }
 
 .theme-toggle button svg { width: 13px; height: 13px; fill: currentColor; stroke: currentColor; }
@@ -727,6 +933,53 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     padding: 0.3rem 0.6rem;
     background: rgba(158, 141, 105, 0.1);
     border-radius: 2px;
+}
+
+/* Karten mit mehreren Badges (z. B. Kategorie + Werbekennzeichnung) */
+.card__badges {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+}
+
+.card__badges .meta {
+    margin-bottom: 0;
+}
+
+.badge--disclosure {
+    display: inline-block;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    color: var(--accent);
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* Partner-Karte: Logo als volle Kopfleiste statt kleinem Sticker, auf
+   --paper montiert – dieselbe "Foto auf Papier"-Sprache wie die Polaroid-
+   Fotos anderswo, nur hier für ein Logo unbekannter Farbgebung genutzt. */
+.partner-card__logo-band {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.7rem 1.4rem;
+    background: var(--paper);
+    border-bottom: 1px solid var(--border);
+}
+
+.partner-card__logo {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    object-fit: contain;
 }
 
 /* -- Werkbank-Zeitleiste -- */
@@ -1333,14 +1586,34 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     padding: clamp(1.2rem, 3.5vw, 2.2rem);
 }
 
-.blog-post__meta {
+.blog-post__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
     margin-bottom: 0.7rem;
+}
+
+.blog-post__meta {
+    margin: 0;
     color: var(--accent);
     font-family: var(--font-mono);
     font-size: 0.78rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
+}
+
+.blog-post__date {
+    flex-shrink: 0;
+    margin-left: auto;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
 }
 
 .blog-post h2 { margin-bottom: 1rem; }
@@ -1430,7 +1703,10 @@ textarea { min-height: 8.5rem; resize: vertical; }
     box-shadow: var(--shadow-soft);
 }
 
-.legal-card .note {
+/* Kleiner Hinweis-Kasten für vorläufige/noch zu ergänzende Inhalte.
+   Ursprünglich nur für Rechtsseiten gedacht, jetzt generell nutzbar
+   (z. B. Partner-Karten, solange echte Infos noch fehlen). */
+.note {
     margin-top: 0.6rem;
     padding: 0.55rem 0.75rem;
     border-left: 3px solid var(--accent-2);

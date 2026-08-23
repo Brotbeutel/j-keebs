@@ -33,32 +33,41 @@
 
     <header class="site-header">
         <a class="brand" href="index.html" aria-label="J-Keebs Startseite" data-i18n-attr="aria-label:utility.brand.aria">
-            <span class="keycap">J</span>
+            <span class="keycap" aria-hidden="true">J</span>
             <span class="brand__name">J-Keebs</span>
         </a>
         <nav class="site-nav" id="siteNav" aria-label="Hauptnavigation" data-i18n-attr="aria-label:utility.nav.aria">
             <a href="index.html" data-i18n="nav.home">Home</a>
             <a href="blog.html" aria-current="page" data-i18n="nav.blog">Blog</a>
             <a href="keyboards.html" data-i18n="nav.keyboards">Keyboards</a>
-            <a href="switches.html" data-i18n="nav.switches">Switches</a>
+            <div class="nav-dropdown">
+                <button type="button" class="nav-dropdown__trigger" aria-haspopup="true" aria-expanded="false" aria-controls="guidesSubmenu" data-i18n="nav.guides">
+                    Guides &amp; Tutorials
+                    <svg class="nav-dropdown__caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5"/></svg>
+                </button>
+                <div class="nav-dropdown__panel" id="guidesSubmenu">
+                    <a href="switches.html" data-i18n="nav.switches">Switches</a>
+                </div>
+            </div>
             <a href="ueber-uns.html" data-i18n="nav.about">Über mich</a>
             <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+            <a href="partner.html" data-i18n="nav.partner">Partner</a>
             <a href="kontakt.html" data-i18n="nav.kontakt">Kontakt</a>
+            <div class="utility-nav">
+                <div class="lang-toggle" role="group" aria-label="Sprache wählen" data-i18n-attr="aria-label:utility.lang.aria">
+                    <button type="button" data-lang-toggle="de" aria-pressed="true" title="Deutsch">DE</button>
+                    <button type="button" data-lang-toggle="en" aria-pressed="false" title="English">EN</button>
+                </div>
+                <div class="theme-toggle" role="group" aria-label="Farbschema wählen" data-i18n-attr="aria-label:utility.theme.aria">
+                    <button type="button" data-theme-toggle="dark" aria-pressed="false" aria-label="Dunkler Modus" title="Dunkler Modus" data-i18n-attr="aria-label:utility.theme.dark,title:utility.theme.dark">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 1 0 10.5 10.5Z"/></svg>
+                    </button>
+                    <button type="button" data-theme-toggle="light" aria-pressed="true" aria-label="Heller Modus" title="Heller Modus" data-i18n-attr="aria-label:utility.theme.light,title:utility.theme.light">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1.5" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22.5" y2="12"/><line x1="4.4" y1="4.4" x2="6.1" y2="6.1"/><line x1="17.9" y1="17.9" x2="19.6" y2="19.6"/><line x1="4.4" y1="19.6" x2="6.1" y2="17.9"/><line x1="17.9" y1="6.1" x2="19.6" y2="4.4"/></g></svg>
+                    </button>
+                </div>
+            </div>
         </nav>
-        <div class="utility-nav">
-            <div class="lang-toggle" role="group" aria-label="Sprache wählen" data-i18n-attr="aria-label:utility.lang.aria">
-                <button type="button" data-lang-toggle="de" aria-pressed="true" title="Deutsch">DE</button>
-                <button type="button" data-lang-toggle="en" aria-pressed="false" title="English">EN</button>
-            </div>
-            <div class="theme-toggle" role="group" aria-label="Farbschema wählen" data-i18n-attr="aria-label:utility.theme.aria">
-                <button type="button" data-theme-toggle="dark" aria-pressed="false" aria-label="Dunkler Modus" title="Dunkler Modus" data-i18n-attr="aria-label:utility.theme.dark,title:utility.theme.dark">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 1 0 10.5 10.5Z"/></svg>
-                </button>
-                <button type="button" data-theme-toggle="light" aria-pressed="true" aria-label="Heller Modus" title="Heller Modus" data-i18n-attr="aria-label:utility.theme.light,title:utility.theme.light">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1.5" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22.5" y2="12"/><line x1="4.4" y1="4.4" x2="6.1" y2="6.1"/><line x1="17.9" y1="17.9" x2="19.6" y2="19.6"/><line x1="4.4" y1="19.6" x2="6.1" y2="17.9"/><line x1="17.9" y1="6.1" x2="19.6" y2="4.4"/></g></svg>
-                </button>
-            </div>
-        </div>
         <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Menü" data-i18n-attr="aria-label:utility.navToggle.aria">
             <span></span><span></span><span></span>
         </button>
@@ -75,7 +84,10 @@
             <div class="section__inner blog-list">
 
                 <article class="blog-post">
-                    <p class="blog-post__meta" data-i18n="post7.meta">Persönlich · Tastaturgeschichte</p>
+                    <div class="blog-post__header">
+                        <p class="blog-post__meta" data-i18n="post7.meta">Persönlich · Tastaturgeschichte</p>
+                        <time class="blog-post__date" datetime="2026-07-27" data-i18n="post7.date">27. Juli 2026</time>
+                    </div>
                     <h2 data-i18n="post7.title">Wie aus einer Corsair K70 ein Tastatur-Hobby wurde</h2>
                     <div class="blog-post__content">
                         <p data-i18n="post7.p1">Der Anfang war eigentlich ziemlich banal: Ich hatte eine Corsair K70 Vengeance. Sie war keineswegs eine schlechte Tastatur – aber ich war mit ihr nicht ganz zufrieden.</p>
@@ -86,7 +98,10 @@
                 </article>
 
                 <article class="blog-post">
-                    <p class="blog-post__meta" data-i18n="post6.meta">Build-Story · Tofu65 V2</p>
+                    <div class="blog-post__header">
+                        <p class="blog-post__meta" data-i18n="post6.meta">Build-Story · Tofu65 V2</p>
+                        <time class="blog-post__date" datetime="2026-06-19" data-i18n="post6.date">19. Juni 2026</time>
+                    </div>
                     <h2 data-i18n="post6.title">Meine erste eigene Tastatur: die Tofu65 V2</h2>
                     <div class="blog-post__content">
                         <p data-i18n="post6.p1">Irgendwann war klar: Lesen reicht nicht mehr. Ich wollte selbst ausprobieren, wie sich verschiedene Komponenten auf eine Tastatur auswirken.</p>
@@ -96,7 +111,10 @@
                 </article>
 
                 <article class="blog-post">
-                    <p class="blog-post__meta" data-i18n="post5.meta">Fundstück · Cherry G80-3000</p>
+                    <div class="blog-post__header">
+                        <p class="blog-post__meta" data-i18n="post5.meta">Fundstück · Cherry G80-3000</p>
+                        <time class="blog-post__date" datetime="2026-05-30" data-i18n="post5.date">30. Mai 2026</time>
+                    </div>
                     <h2 data-i18n="post5.title">10 € und ein PS/2-Stecker</h2>
                     <div class="blog-post__content">
                         <p data-i18n="post5.p1">Dann kam eine Cherry G80-3000 für gerade einmal 10 €. Bei dem Preis musste ich nicht lange überlegen.</p>
@@ -107,7 +125,10 @@
                 </article>
 
                 <article class="blog-post">
-                    <p class="blog-post__meta" data-i18n="post4.meta">Werkstattbericht · Projekt J80-3000</p>
+                    <div class="blog-post__header">
+                        <p class="blog-post__meta" data-i18n="post4.meta">Werkstattbericht · Projekt J80-3000</p>
+                        <time class="blog-post__date" datetime="2026-04-22" data-i18n="post4.date">22. April 2026</time>
+                    </div>
                     <h2 data-i18n="post4.title">J80-3000 – einer alten Cherry ein zweites Leben geben</h2>
                     <div class="blog-post__content">
                         <p data-i18n="post4.p1">Die G80-3000 hat für mich genau das, was viele alte Geräte interessant macht: Sie sieht nach echter Hardware aus und hat Charakter. Gleichzeitig merkt man ihr an, dass sich die Welt der Tastaturen seit ihrer Entstehung weiterentwickelt hat.</p>
@@ -120,7 +141,10 @@
                 </article>
 
                 <article class="blog-post">
-                    <p class="blog-post__meta" data-i18n="post3.meta">Hobby · Community</p>
+                    <div class="blog-post__header">
+                        <p class="blog-post__meta" data-i18n="post3.meta">Hobby · Community</p>
+                        <time class="blog-post__date" datetime="2026-03-15" data-i18n="post3.date">15. März 2026</time>
+                    </div>
                     <h2 data-i18n="post3.title">Der schönste Nebeneffekt: Tastaturen für andere bauen</h2>
                     <div class="blog-post__content">
                         <p data-i18n="post3.p1">Irgendwann blieb es nicht mehr bei meinen eigenen Tastaturen. Freunde und Bekannte bekamen mit, dass man so eine Tastatur tatsächlich komplett nach den eigenen Vorstellungen zusammenstellen kann.</p>
@@ -130,7 +154,10 @@
                 </article>
 
                 <article class="blog-post">
-                    <p class="blog-post__meta" data-i18n="post2.meta">Gedanken · Sammeln &amp; Restaurieren</p>
+                    <div class="blog-post__header">
+                        <p class="blog-post__meta" data-i18n="post2.meta">Gedanken · Sammeln &amp; Restaurieren</p>
+                        <time class="blog-post__date" datetime="2026-02-08" data-i18n="post2.date">8. Februar 2026</time>
+                    </div>
                     <h2 data-i18n="post2.title">Warum alte Tastaturen plötzlich interessant werden</h2>
                     <div class="blog-post__content">
                         <p data-i18n="post2.p1">Seit ich mich intensiver mit Tastaturen beschäftige, sehe ich alte Boards anders. Was früher einfach eine gebrauchte Tastatur war, kann heute ein interessantes Stück Technikgeschichte, ein Ersatzteilspender oder der Anfang eines neuen Projekts sein.</p>
@@ -140,7 +167,10 @@
                 </article>
 
                 <article class="blog-post">
-                    <p class="blog-post__meta" data-i18n="post1.meta">Auftakt</p>
+                    <div class="blog-post__header">
+                        <p class="blog-post__meta" data-i18n="post1.meta">Auftakt</p>
+                        <time class="blog-post__date" datetime="2026-01-12" data-i18n="post1.date">12. Januar 2026</time>
+                    </div>
                     <h2 data-i18n="post1.title">Beginn von etwas ganz Großem</h2>
                     <div class="blog-post__content">
                         <p data-i18n="post1.p1">Hier entsteht eine Webseite rund um mechanische Tastaturen – besonders um solche mit deutschem ISO-Layout, eigene Builds, Restaurierungen und die kleinen technischen Details, die aus einer Tastatur mehr machen als nur ein Eingabegerät.</p>
@@ -173,6 +203,7 @@
                         <li><a href="keyboards.html" data-i18n="nav.keyboards">Keyboards</a></li>
                         <li><a href="switches.html" data-i18n="nav.switches">Switches</a></li>
                         <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
+                        <li><a href="partner.html" data-i18n="nav.partner">Partner</a></li>
                     </ul>
                 </div>
                 <div>
@@ -208,6 +239,13 @@
                 "hero.eyebrow": "Blog",
                 "hero.heading": "Gedanken, Projekte und Tastatur-Kaninchenlöcher.",
                 "hero.intro": "Hier geht es nicht nur um fertige Tastaturen. Ich erzähle, wie ich überhaupt in dieses Hobby gerutscht bin, was ich aus alten Boards heraushole und welche Ideen mich gerade beschäftigen – inklusive Umwegen, Fehlversuchen und gelegentlichem „Warum habe ich das eigentlich angefangen?“",
+                "post1.date": "12. Januar 2026",
+                "post2.date": "8. Februar 2026",
+                "post3.date": "15. März 2026",
+                "post4.date": "22. April 2026",
+                "post5.date": "30. Mai 2026",
+                "post6.date": "19. Juni 2026",
+                "post7.date": "27. Juli 2026",
                 "post7.meta": "Persönlich · Tastaturgeschichte",
                 "post7.title": "Wie aus einer Corsair K70 ein Tastatur-Hobby wurde",
                 "post7.p1": "Der Anfang war eigentlich ziemlich banal: Ich hatte eine Corsair K70 Vengeance. Sie war keineswegs eine schlechte Tastatur – aber ich war mit ihr nicht ganz zufrieden.",
@@ -252,6 +290,13 @@
                 "hero.eyebrow": "Blog",
                 "hero.heading": "Thoughts, projects and keyboard rabbit holes.",
                 "hero.intro": "This isn't just about finished keyboards. I write about how I got into the hobby, what I try to get out of old boards, and what I'm currently thinking about – including detours, failed experiments and the occasional „why did I start this?“",
+                "post1.date": "January 12, 2026",
+                "post2.date": "February 8, 2026",
+                "post3.date": "March 15, 2026",
+                "post4.date": "April 22, 2026",
+                "post5.date": "May 30, 2026",
+                "post6.date": "June 19, 2026",
+                "post7.date": "July 27, 2026",
                 "post7.meta": "Personal · Keyboard story",
                 "post7.title": "How a Corsair K70 turned into a keyboard hobby",
                 "post7.p1": "The beginning was pretty ordinary: I had a Corsair K70 Vengeance. It certainly wasn't a bad keyboard – but I wasn't completely happy with it.",

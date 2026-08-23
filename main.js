@@ -1,7 +1,8 @@
 window.J_KEEBS_I18N_COMMON = {
     de: {
         "nav.home": "Home", "nav.blog": "Blog", "nav.keyboards": "Keyboards",
-        "nav.switches": "Switches", "nav.about": "Über mich", "nav.faq": "FAQ", "nav.kontakt": "Kontakt",
+        "nav.guides": "Guides & Tutorials", "nav.switches": "Switches",
+        "nav.about": "Über mich", "nav.faq": "FAQ", "nav.partner": "Partner", "nav.kontakt": "Kontakt",
         "utility.lang.aria": "Sprache wählen",
         "utility.theme.aria": "Farbschema wählen",
         "utility.theme.dark": "Dunkler Modus",
@@ -30,7 +31,8 @@ window.J_KEEBS_I18N_COMMON = {
     },
     en: {
         "nav.home": "Home", "nav.blog": "Blog", "nav.keyboards": "Keyboards",
-        "nav.switches": "Switches", "nav.about": "About", "nav.faq": "FAQ", "nav.kontakt": "Contact",
+        "nav.guides": "Guides & Tutorials", "nav.switches": "Switches",
+        "nav.about": "About", "nav.faq": "FAQ", "nav.partner": "Partners", "nav.kontakt": "Contact",
         "utility.lang.aria": "Choose language",
         "utility.theme.aria": "Choose color scheme",
         "utility.theme.dark": "Dark mode",
@@ -216,6 +218,9 @@ window.J_KEEBS_I18N_COMMON = {
 
         // Initialize mobile hamburger navigation
         initMobileNav();
+
+        // Initialize "Guides & Tutorials" nav dropdown (desktop hover panel / mobile accordion)
+        initNavDropdowns();
     });
     
     function initFullscreenViewer() {
@@ -451,7 +456,7 @@ window.J_KEEBS_I18N_COMMON = {
     }
 
     // Mobile-Hauptnavigation: Hamburger-Button öffnet/schließt das Dropdown-Panel.
-    // Auf Desktop-Breiten (>768px) bleibt die Navigation ohnehin sichtbar (siehe CSS),
+    // Auf Desktop-Breiten (>1180px) bleibt die Navigation ohnehin sichtbar (siehe CSS),
     // hier wird nur der mobile Ein-/Ausklapp-Zustand verwaltet.
     function initMobileNav() {
         var toggle = document.getElementById("navToggle");
@@ -461,6 +466,13 @@ window.J_KEEBS_I18N_COMMON = {
         function closeNav() {
             nav.classList.remove("is-open");
             toggle.setAttribute("aria-expanded", "false");
+            // Offene "Guides & Tutorials"-Akkordeons nicht hängen lassen,
+            // falls das Menü geschlossen wird, während sie aufgeklappt sind.
+            nav.querySelectorAll(".nav-dropdown.is-open").forEach(function (dropdown) {
+                dropdown.classList.remove("is-open");
+                var trigger = dropdown.querySelector(".nav-dropdown__trigger");
+                if (trigger) trigger.setAttribute("aria-expanded", "false");
+            });
         }
 
         function openNav() {
@@ -496,7 +508,7 @@ window.J_KEEBS_I18N_COMMON = {
 
         // Falls das Fenster über den Mobile-Breakpoint hinweg vergrößert wird (Desktop-Browser),
         // hängengebliebenen "offen"-Zustand zurücksetzen.
-        var desktopQuery = window.matchMedia("(min-width: 769px)");
+        var desktopQuery = window.matchMedia("(min-width: 1281px)");
         function handleBreakpointChange(e) {
             if (e.matches) closeNav();
         }
@@ -505,5 +517,52 @@ window.J_KEEBS_I18N_COMMON = {
         } else if (desktopQuery.addListener) {
             desktopQuery.addListener(handleBreakpointChange);
         }
+    }
+
+    // "Guides & Tutorials"-Dropdown: Klick zum Öffnen/Schließen (funktioniert
+    // auf allen Geräten inkl. Touch), auf Desktop-Breiten ergänzt reines CSS
+    // (:hover/:focus-within) die Klick-Bedienung als Komfort-Layer.
+    function initNavDropdowns() {
+        document.querySelectorAll(".nav-dropdown").forEach(function (dropdown) {
+            var trigger = dropdown.querySelector(".nav-dropdown__trigger");
+            var panel = dropdown.querySelector(".nav-dropdown__panel");
+            if (!trigger || !panel) return;
+
+            function closeDropdown() {
+                dropdown.classList.remove("is-open");
+                trigger.setAttribute("aria-expanded", "false");
+            }
+
+            function openDropdown() {
+                dropdown.classList.add("is-open");
+                trigger.setAttribute("aria-expanded", "true");
+            }
+
+            trigger.addEventListener("click", function (e) {
+                e.stopPropagation();
+                if (dropdown.classList.contains("is-open")) {
+                    closeDropdown();
+                } else {
+                    openDropdown();
+                }
+            });
+
+            panel.querySelectorAll("a").forEach(function (link) {
+                link.addEventListener("click", closeDropdown);
+            });
+
+            document.addEventListener("click", function (e) {
+                if (!dropdown.classList.contains("is-open")) return;
+                if (e.target.closest(".nav-dropdown")) return;
+                closeDropdown();
+            });
+
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape" && dropdown.classList.contains("is-open")) {
+                    closeDropdown();
+                    trigger.focus();
+                }
+            });
+        });
     }
 })();
