@@ -343,7 +343,7 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     }
 
     .nav-dropdown.is-open .nav-dropdown__panel {
-        max-height: 8rem;
+        max-height: 11rem;
     }
 
     .nav-dropdown__panel a {
@@ -1057,7 +1057,11 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     width: 100%;
 }
 
-.cheat-sheet {
+/* Der Stack ist die sichtbare "Papier"-Box (Aufklapp-Animation + Schatten).
+   Jedes Foto im Karussell bekommt darin sein eigenes .cheat-sheet-Kärtchen;
+   main.js schaltet per .is-active immer nur das zum aktiven Foto passende
+   Kärtchen sichtbar (siehe initGallery -> cheatSlides). */
+.cheat-sheet-stack {
     order: 2;
     margin-top: 0;
     max-height: 0;
@@ -1069,20 +1073,24 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     border: 1px solid var(--border-strong);
     border-radius: var(--radius);
     font-family: var(--font-hand);
-    transition: max-height 0.3s ease, opacity 0.2s ease, margin-top 0.3s ease, padding 0.3s ease;
+    transition: max-height 0.3s ease, opacity 0.2s ease, margin-top 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
 }
 
-.gallery-item__stage:hover .cheat-sheet,
-.gallery-item__stage:focus-within .cheat-sheet,
-.gallery-item__stage.is-open .cheat-sheet {
+.gallery-item__stage:hover .cheat-sheet-stack,
+.gallery-item__stage:focus-within .cheat-sheet-stack,
+.gallery-item__stage.is-open .cheat-sheet-stack {
     margin-top: 0.6rem;
-    max-height: 20rem;
+    max-height: 22rem;
     opacity: 1;
     padding: 1rem 1.2rem;
     box-shadow: var(--shadow-soft);
 }
 
+.cheat-sheet { display: none; }
+.cheat-sheet.is-active { display: block; }
+
 .cheat-sheet h3 { font-family: var(--font-hand); color: var(--paper-ink); font-size: 1.5rem; margin-bottom: 0.35rem; }
+.cheat-sheet__desc { margin: 0 0 0.6rem; font-family: var(--font-hand); font-size: 0.85rem; font-weight: 400; font-style: italic; line-height: 1.35; opacity: 0.85; }
 .cheat-sheet ul { list-style: none; padding: 0; margin: 0; font-size: 0.7rem; font-weight: 800; line-height: 1.4; }
 .cheat-sheet li + li { margin-top: 0.1rem; }
 .cheat-sheet li strong { color: var(--accent-2); font-family: var(--font-mono); font-size: 1rem; letter-spacing: 0.02em; }
@@ -1326,6 +1334,105 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     letter-spacing: 0.03em;
 }
 
+a.pill {
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+@media (hover: hover) {
+    a.pill:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: var(--bg);
+    }
+}
+
+a.pill:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 2px;
+}
+
+/* -- Guides & Tutorials: Schnellsprung-Leiste zu den drei Kategorien -- */
+
+.guide-jumpnav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.4rem;
+}
+
+/* -- Guides & Tutorials: Karten für einzelne Guides -- */
+
+.guide-card__link {
+    display: block;
+    color: inherit;
+}
+
+.guide-card__link:hover { color: inherit; }
+
+.guide-card--pending {
+    opacity: 0.7;
+}
+
+@media (hover: hover) {
+    .guide-card--pending:hover {
+        transform: none;
+        box-shadow: var(--shadow-soft);
+        border-color: var(--border-strong);
+    }
+}
+
+.guide-card__status {
+    display: inline-block;
+    margin-top: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border: 1px dashed var(--border-strong);
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.guide-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.7rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Verschachtelte Unterpunkte innerhalb einer Karte (z. B. Mods > Switches > Lubing) */
+.guide-card__subitems {
+    margin: 0.9rem 0 0;
+    padding: 0.7rem 0 0;
+    border-top: 1px solid var(--border);
+    list-style: none;
+}
+
+.guide-card__subitems li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+}
+
+.guide-card__subitems li + li {
+    margin-top: 0.35rem;
+}
+
+.guide-card__subitems li::before {
+    content: "–";
+    color: var(--accent);
+}
+
 /* -- Social-Icons -- */
 
 .social-links { display: flex; gap: 0.6rem; }
@@ -1391,6 +1498,14 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 
 .footer-grid h2, .footer-grid h3 { color: var(--text); }
 .footer-grid h2 { font-size: 1.35rem; }
+
+.footer-credit {
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.02em;
+}
+
 .footer-grid h3 { 
     margin-bottom: 0.65rem; 
     font-family: var(--font-mono); 

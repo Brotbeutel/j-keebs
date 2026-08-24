@@ -2,6 +2,7 @@ window.J_KEEBS_I18N_COMMON = {
     de: {
         "nav.home": "Home", "nav.blog": "Blog", "nav.keyboards": "Keyboards",
         "nav.guides": "Guides & Tutorials", "nav.switches": "Switches",
+        "nav.guides.switches": "Switches", "nav.guides.plates": "Plates", "nav.guides.mods": "Mods",
         "nav.about": "Über mich", "nav.faq": "FAQ", "nav.partner": "Partner", "nav.kontakt": "Kontakt",
         "utility.lang.aria": "Sprache wählen",
         "utility.theme.aria": "Farbschema wählen",
@@ -24,6 +25,7 @@ window.J_KEEBS_I18N_COMMON = {
         "utility.cheatToggle.aria": "Spickzettel anzeigen",
         "utility.navToggle.aria": "Menü",
         "footer.tagline": "Custom Mechanical Keyboards, Modding und Upcycling mit Fokus auf deutsches ISO-Layout.",
+        "footer.poweredBy": "Powered by PCBWay",
         "footer.col1.heading": "Entdecken", "footer.col2.heading": "Community", "footer.col3.heading": "Kontakt",
         "footer.mail": "E-Mail schreiben", "footer.contactpage": "Kontaktseite",
         "footer.copyright": "© 2026 J-Keebs. Alle Rechte vorbehalten.",
@@ -32,6 +34,7 @@ window.J_KEEBS_I18N_COMMON = {
     en: {
         "nav.home": "Home", "nav.blog": "Blog", "nav.keyboards": "Keyboards",
         "nav.guides": "Guides & Tutorials", "nav.switches": "Switches",
+        "nav.guides.switches": "Switches", "nav.guides.plates": "Plates", "nav.guides.mods": "Mods",
         "nav.about": "About", "nav.faq": "FAQ", "nav.partner": "Partners", "nav.kontakt": "Contact",
         "utility.lang.aria": "Choose language",
         "utility.theme.aria": "Choose color scheme",
@@ -54,6 +57,7 @@ window.J_KEEBS_I18N_COMMON = {
         "utility.cheatToggle.aria": "Show cheat sheet",
         "utility.navToggle.aria": "Menu",
         "footer.tagline": "Custom mechanical keyboards, modding and upcycling focused on the German ISO layout.",
+        "footer.poweredBy": "Powered by PCBWay",
         "footer.col1.heading": "Explore", "footer.col2.heading": "Community", "footer.col3.heading": "Contact",
         "footer.mail": "Send an email", "footer.contactpage": "Contact page",
         "footer.copyright": "© 2026 J-Keebs. All rights reserved.",
@@ -128,6 +132,12 @@ window.J_KEEBS_I18N_COMMON = {
         var foot = frame.querySelector(".polaroid-frame__foot");
         var caption = frame.querySelector(".polaroid-frame__caption");
 
+        // Jedes Foto im Karussell hat sein eigenes Spickzettel-Kärtchen (siehe
+        // .cheat-sheet-stack im HTML, ein Sibling von .polaroid-frame). Die
+        // Kärtchen werden hier synchron zum aktiven Foto umgeschaltet.
+        var stage = frame.closest(".gallery-item__stage");
+        var cheatSlides = stage ? stage.querySelectorAll(".cheat-sheet-stack > .cheat-sheet") : [];
+
         if (!caption && foot) {
             caption = document.createElement("span");
             caption.className = "polaroid-frame__caption";
@@ -142,6 +152,7 @@ window.J_KEEBS_I18N_COMMON = {
             index = (i + imgs.length) % imgs.length;
             imgs.forEach(function (el, idx) { el.classList.toggle("is-active", idx === index); });
             dots.forEach(function (dot, idx) { dot.setAttribute("aria-current", idx === index ? "true" : "false"); });
+            cheatSlides.forEach(function (el, idx) { el.classList.toggle("is-active", idx === index); });
             if (caption) {
                 var active = imgs[index];
                 var text = active && (active.getAttribute("title") || active.getAttribute("alt") || "");

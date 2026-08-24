@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Guides & Tutorials von J-Keebs: Switches, Plates und Mods – Anleitungen und Vergleiche rund um den Tastatur-Build.">
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem("jkeebs-theme") || "light";
+                document.documentElement.setAttribute("data-theme", t);
+            } catch (e) {}
+        })();
+    </script>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect fill='%239e8d69' width='32' height='32'/><text x='50%' y='50%' font-family='Helvetica' font-size='20' font-weight='bold' fill='%23363a' text-anchor='middle' dominant-baseline='middle'>J</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%239e8d69' width='180' height='180'/><text x='90' y='90' font-family='Helvetica' font-size='120' font-weight='bold' fill='%23363a' text-anchor='middle' dominant-baseline='middle'>J</text></svg>">
+    
+    <!-- Open Graph & Social -->
+    <meta property="og:title" content="J-Keebs | Guides & Tutorials">
+    <meta property="og:description" content="Guides & Tutorials von J-Keebs: Switches, Plates und Mods – Anleitungen und Vergleiche rund um den Tastatur-Build.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://brotbeutel.github.io/guides.html">
+    <meta property="og:locale" content="de_DE">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="J-Keebs | Guides & Tutorials">
+    <link rel="canonical" href="https://brotbeutel.github.io/guides.html">
+    <link rel="stylesheet" href="./style.css">
+    <title>J-Keebs | Guides & Tutorials</title>
+</head>
+<body>
+    <a class="skip-link" href="#main" data-i18n="utility.skiplink">Zum Inhalt springen</a>
+
+    <header class="site-header">
+        <a class="brand" href="index.html" aria-label="J-Keebs Startseite" data-i18n-attr="aria-label:utility.brand.aria">
+            <span class="keycap" aria-hidden="true">J</span>
+            <span class="brand__name">J-Keebs</span>
+        </a>
+        <nav class="site-nav" id="siteNav" aria-label="Hauptnavigation" data-i18n-attr="aria-label:utility.nav.aria">
+            <a href="index.html" data-i18n="nav.home">Home</a>
+            <a href="blog.html" data-i18n="nav.blog">Blog</a>
+            <a href="keyboards.html" data-i18n="nav.keyboards">Keyboards</a>
+            <div class="nav-dropdown">
+                <button type="button" class="nav-dropdown__trigger" aria-haspopup="true" aria-expanded="false" aria-controls="guidesSubmenu" aria-current="true" data-i18n="nav.guides">
+                    Guides &amp; Tutorials
+                    <svg class="nav-dropdown__caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5"/></svg>
+                </button>
+                <div class="nav-dropdown__panel" id="guidesSubmenu">
+                    <a href="guides.html#switches" data-i18n="nav.guides.switches">Switches</a>
+                    <a href="guides.html#plates" data-i18n="nav.guides.plates">Plates</a>
+                    <a href="guides.html#mods" data-i18n="nav.guides.mods">Mods</a>
+                </div>
+            </div>
+            <a href="ueber-uns.html" data-i18n="nav.about">Über mich</a>
+            <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+            <a href="partner.html" data-i18n="nav.partner">Partner</a>
+            <a href="kontakt.html" data-i18n="nav.kontakt">Kontakt</a>
+            <div class="utility-nav">
+                <div class="lang-toggle" role="group" aria-label="Sprache wählen" data-i18n-attr="aria-label:utility.lang.aria">
+                    <button type="button" data-lang-toggle="de" aria-pressed="true" title="Deutsch">DE</button>
+                    <button type="button" data-lang-toggle="en" aria-pressed="false" title="English">EN</button>
+                </div>
+                <div class="theme-toggle" role="group" aria-label="Farbschema wählen" data-i18n-attr="aria-label:utility.theme.aria">
+                    <button type="button" data-theme-toggle="dark" aria-pressed="false" aria-label="Dunkler Modus" title="Dunkler Modus" data-i18n-attr="aria-label:utility.theme.dark,title:utility.theme.dark">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 1 0 10.5 10.5Z"/></svg>
+                    </button>
+                    <button type="button" data-theme-toggle="light" aria-pressed="true" aria-label="Heller Modus" title="Heller Modus" data-i18n-attr="aria-label:utility.theme.light,title:utility.theme.light">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1.5" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22.5" y2="12"/><line x1="4.4" y1="4.4" x2="6.1" y2="6.1"/><line x1="17.9" y1="17.9" x2="19.6" y2="19.6"/><line x1="4.4" y1="19.6" x2="6.1" y2="17.9"/><line x1="17.9" y1="6.1" x2="19.6" y2="4.4"/></g></svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Menü" data-i18n-attr="aria-label:utility.navToggle.aria">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <main id="main">
+        <section class="page-hero page-hero--single">
+            <p class="eyebrow" data-i18n="hero.eyebrow">Guides &amp; Tutorials</p>
+            <h1 data-i18n="hero.heading">Vom Switch bis zum fertigen Mod.</h1>
+            <p data-i18n="hero.intro">Anleitungen, Vergleiche und Notizen zu allem, was zwischen einzelnem Bauteil und fertiger Tastatur passiert – sortiert nach Switches, Plates und Mods.</p>
+            <nav class="guide-jumpnav" aria-label="Kategorien" data-i18n-attr="aria-label:jumpnav.aria">
+                <a class="pill" href="#switches" data-i18n="nav.guides.switches">Switches</a>
+                <a class="pill" href="#plates" data-i18n="nav.guides.plates">Plates</a>
+                <a class="pill" href="#mods" data-i18n="nav.guides.mods">Mods</a>
+            </nav>
+        </section>
+
+        <section class="section" id="switches">
+            <div class="section__head">
+                <div>
+                    <p class="eyebrow" data-i18n="cat.switches.eyebrow">Kategorie</p>
+                    <h2 data-i18n="cat.switches.heading">Switches</h2>
+                </div>
+                <p data-i18n="cat.switches.intro">Grundlagen, Vergleiche und meine eigene Sammlung.</p>
+            </div>
+            <div class="section__inner grid grid--3">
+
+                <article class="card guide-card">
+                    <a class="guide-card__link" href="switches.html">
+                        <div class="card__body">
+                            <p class="meta" data-i18n="gs1.meta">Guide</p>
+                            <h3 data-i18n="gs1.title">Switch Guide</h3>
+                            <p data-i18n="gs1.body">Linear, Tactile, Clicky oder Silent – die vier Grundtypen im Überblick, inklusive Sound-Vergleichen.</p>
+                            <span class="guide-card__cta" data-i18n="cta.toGuide">Zum Guide →</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gs2.meta">Guide</p>
+                        <h3 data-i18n="gs2.title">Meine Switches</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="section section--muted" id="plates">
+            <div class="section__head">
+                <div>
+                    <p class="eyebrow" data-i18n="cat.plates.eyebrow">Kategorie</p>
+                    <h2 data-i18n="cat.plates.heading">Plates</h2>
+                </div>
+                <p data-i18n="cat.plates.intro">Plate-Materialien und ihre Eigenschaften im Vergleich.</p>
+            </div>
+            <div class="section__inner grid grid--3">
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gp1.meta">Guide</p>
+                        <h3 data-i18n="gp1.title">3D-Gedruckte Plate</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gp2.meta">Guide</p>
+                        <h3 data-i18n="gp2.title">Fat-Plate</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gp3.meta">Guide</p>
+                        <h3 data-i18n="gp3.title">Messing-Plate</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="section" id="mods">
+            <div class="section__head">
+                <div>
+                    <p class="eyebrow" data-i18n="cat.mods.eyebrow">Kategorie</p>
+                    <h2 data-i18n="cat.mods.heading">Mods</h2>
+                </div>
+                <p data-i18n="cat.mods.intro">Modifikationen für Sound, Gefühl und Funktion.</p>
+            </div>
+            <div class="section__inner grid grid--3">
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gm1.meta">Guide</p>
+                        <h3 data-i18n="gm1.title">Tape-Mod</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gm2.meta">Guide</p>
+                        <h3 data-i18n="gm2.title">O-Ring-Mod</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gm3.meta">Mod-Kategorie</p>
+                        <h3 data-i18n="gm3.title">Switches</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                        <ul class="guide-card__subitems">
+                            <li data-i18n="gm3sub1.title">Lubing</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gm4.meta">Mod-Kategorie</p>
+                        <h3 data-i18n="gm4.title">Stabilizer</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                        <ul class="guide-card__subitems">
+                            <li data-i18n="gm4sub1.title">Band-Aid-Mod</li>
+                            <li data-i18n="gm4sub2.title">Lubing</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gm5.meta">Guide</p>
+                        <h3 data-i18n="gm5.title">Hot-Swap-Mod</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gm6.meta">Guide</p>
+                        <h3 data-i18n="gm6.title">PE-Foam-Mod</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <div class="footer-grid">
+                <div>
+                    <h2>J-Keebs</h2>
+                    <p data-i18n="footer.tagline">Custom Mechanical Keyboards, Modding und Upcycling mit Fokus auf deutsches ISO-Layout.</p>
+                    <p class="footer-credit"><a href="partner.html" data-i18n="footer.poweredBy">Powered by PCBWay</a></p>
+                    <div class="social-links" aria-label="Profile" data-i18n-attr="aria-label:utility.social.aria">
+                        <a href="https://github.com/Brotbeutel" target="_blank" rel="noopener noreferrer" aria-label="GitHub-Profil von J-Keebs">
+                            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/jannik-schl%C3%BCter-103270423/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn-Profil von Jannik Schlüter">
+                            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 0h-11A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0ZM4.75 13.5h-2v-7h2v7Zm-1-8a1.15 1.15 0 1 1 0-2.3 1.15 1.15 0 0 1 0 2.3ZM13.5 13.5h-2v-3.6c0-.86-.02-1.97-1.2-1.97-1.2 0-1.39.94-1.39 1.9v3.67h-2v-7h1.92v.96h.03c.27-.5.92-1.03 1.9-1.03 2.03 0 2.74 1.33 2.74 3.06v4.01Z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 data-i18n="footer.col1.heading">Entdecken</h3>
+                    <ul>
+                        <li><a href="keyboards.html" data-i18n="nav.keyboards">Keyboards</a></li>
+                        <li><a href="switches.html" data-i18n="nav.switches">Switches</a></li>
+                        <li><a href="guides.html" aria-current="page" data-i18n="nav.guides">Guides &amp; Tutorials</a></li>
+                        <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
+                        <li><a href="partner.html" data-i18n="nav.partner">Partner</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 data-i18n="footer.col2.heading">Community</h3>
+                    <ul>
+                        <li><a href="faq.html" data-i18n="nav.faq">FAQ</a></li>
+                        <li><a href="ueber-uns.html" data-i18n="nav.about">Über mich</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 data-i18n="footer.col3.heading">Kontakt</h3>
+                    <ul>
+                        <li><a href="mailto:jannik_schlueter@hotmail.de" data-i18n="footer.mail">E-Mail schreiben</a></li>
+                        <li><a href="kontakt.html" data-i18n="footer.contactpage">Kontaktseite</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer.copyright">&copy; 2026 J-Keebs. Alle Rechte vorbehalten.</p>
+                <nav aria-label="Rechtliches" data-i18n-attr="aria-label:utility.legalnav.aria">
+                    <a href="impressum.html" data-i18n="legal.impressum">Impressum</a>
+                    <a href="datenschutz.html" data-i18n="legal.datenschutz">Datenschutz</a>
+                    <a href="cookies.html" data-i18n="legal.cookies">Cookies</a>
+                    <a href="agb.html" data-i18n="legal.agb">AGB</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.J_KEEBS_I18N = {
+            de: {
+                "hero.eyebrow": "Guides & Tutorials",
+                "hero.heading": "Vom Switch bis zum fertigen Mod.",
+                "hero.intro": "Anleitungen, Vergleiche und Notizen zu allem, was zwischen einzelnem Bauteil und fertiger Tastatur passiert – sortiert nach Switches, Plates und Mods.",
+                "jumpnav.aria": "Kategorien",
+                "cta.toGuide": "Zum Guide →",
+                "status.pending": "Folgt",
+                "status.contentFollows": "– Inhalt folgt",
+                "cat.switches.eyebrow": "Kategorie", "cat.switches.heading": "Switches",
+                "cat.switches.intro": "Grundlagen, Vergleiche und meine eigene Sammlung.",
+                "cat.plates.eyebrow": "Kategorie", "cat.plates.heading": "Plates",
+                "cat.plates.intro": "Plate-Materialien und ihre Eigenschaften im Vergleich.",
+                "cat.mods.eyebrow": "Kategorie", "cat.mods.heading": "Mods",
+                "cat.mods.intro": "Modifikationen für Sound, Gefühl und Funktion.",
+                "gs1.meta": "Guide", "gs1.title": "Switch Guide",
+                "gs1.body": "Linear, Tactile, Clicky oder Silent – die vier Grundtypen im Überblick, inklusive Sound-Vergleichen.",
+                "gs2.meta": "Guide", "gs2.title": "Meine Switches",
+                "gp1.meta": "Guide", "gp1.title": "3D-Gedruckte Plate",
+                "gp2.meta": "Guide", "gp2.title": "Fat-Plate",
+                "gp3.meta": "Guide", "gp3.title": "Messing-Plate",
+                "gm1.meta": "Guide", "gm1.title": "Tape-Mod",
+                "gm2.meta": "Guide", "gm2.title": "O-Ring-Mod",
+                "gm3.meta": "Mod-Kategorie", "gm3.title": "Switches",
+                "gm3sub1.title": "Lubing",
+                "gm4.meta": "Mod-Kategorie", "gm4.title": "Stabilizer",
+                "gm4sub1.title": "Band-Aid-Mod", "gm4sub2.title": "Lubing",
+                "gm5.meta": "Guide", "gm5.title": "Hot-Swap-Mod",
+                "gm6.meta": "Guide", "gm6.title": "PE-Foam-Mod"
+            },
+            en: {
+                "hero.eyebrow": "Guides & Tutorials",
+                "hero.heading": "From switch to finished mod.",
+                "hero.intro": "Guides, comparisons and notes on everything that happens between a single part and a finished keyboard – sorted by Switches, Plates and Mods.",
+                "jumpnav.aria": "Categories",
+                "cta.toGuide": "Go to guide →",
+                "status.pending": "Coming soon",
+                "status.contentFollows": "– content coming soon",
+                "cat.switches.eyebrow": "Category", "cat.switches.heading": "Switches",
+                "cat.switches.intro": "Basics, comparisons and my own collection.",
+                "cat.plates.eyebrow": "Category", "cat.plates.heading": "Plates",
+                "cat.plates.intro": "Plate materials and how they compare.",
+                "cat.mods.eyebrow": "Category", "cat.mods.heading": "Mods",
+                "cat.mods.intro": "Modifications for sound, feel and function.",
+                "gs1.meta": "Guide", "gs1.title": "Switch Guide",
+                "gs1.body": "Linear, tactile, clicky or silent – the four base types at a glance, including sound comparisons.",
+                "gs2.meta": "Guide", "gs2.title": "My Switches",
+                "gp1.meta": "Guide", "gp1.title": "3D-Printed Plate",
+                "gp2.meta": "Guide", "gp2.title": "Fat Plate",
+                "gp3.meta": "Guide", "gp3.title": "Brass Plate",
+                "gm1.meta": "Guide", "gm1.title": "Tape Mod",
+                "gm2.meta": "Guide", "gm2.title": "O-Ring Mod",
+                "gm3.meta": "Mod category", "gm3.title": "Switches",
+                "gm3sub1.title": "Lubing",
+                "gm4.meta": "Mod category", "gm4.title": "Stabilizer",
+                "gm4sub1.title": "Band-Aid Mod", "gm4sub2.title": "Lubing",
+                "gm5.meta": "Guide", "gm5.title": "Hot-Swap Mod",
+                "gm6.meta": "Guide", "gm6.title": "PE Foam Mod"
+            }
+        };
+    </script>
+    <script src="./main.js" defer></script>
+</body>
+</html>

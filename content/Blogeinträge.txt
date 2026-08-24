@@ -1,0 +1,110 @@
+Ideen:
+
+- Auftakt
+	- Mission erklären: Tastaturen zeigen, austauschen, connecten
+	- für KI entschuldigen: Inhalte werden nach und nach durch echten Inhalt getauscht
+	- das geht schon: Schaut euch die Galerie an!
+	- das kommt noch: Guides & Tutorials
+
+- Wie alles begann von K70 zu Tofu
+
+- PCBWay-Sponsoring
+- PK95R-Mod
+- J80-3000
+- Offizieller Launch
+- Custom-Kabel
+- Fundstücke
+- Custom-Plates
+- Mechanicon 2026
+
+
+Persönlich · Tastaturgeschichte
+27. Juli 2026
+Wie aus einer Corsair K70 ein Tastatur-Hobby wurde
+
+Der Anfang war eigentlich ziemlich banal: Ich hatte eine Corsair K70 Vengeance. Sie war keineswegs eine schlechte Tastatur – aber ich war mit ihr nicht ganz zufrieden.
+
+Also begann ich zu recherchieren. Dabei landete ich in der riesigen Welt der Mechanical-Keyboard-Community. Plötzlich waren Switches nicht mehr einfach nur „die Dinger unter den Tasten“, sondern ein eigenes Universum. Und ausgerechnet die Switches meiner K70 waren in dieser Community alles andere als beliebt.
+
+Das war der Moment, an dem aus einer kleinen Unzufriedenheit echte Neugier wurde. Was macht einen Switch gut? Warum klingt eine Tastatur anders als eine andere? Und warum geben Menschen absurd viel Geld für kleine Plastik- und Metallteile aus?
+
+Ich wollte irgendwann nicht mehr nur wissen, welche Tastatur besser ist. Ich wollte wissen, warum.
+
+
+
+Build-Story · Tofu65 V2
+19. Juni 2026
+Meine erste eigene Tastatur: die Tofu65 V2
+
+Irgendwann war klar: Lesen reicht nicht mehr. Ich wollte selbst ausprobieren, wie sich verschiedene Komponenten auf eine Tastatur auswirken.
+
+Meine erste selbstgebaute Tastatur wurde eine Tofu65 V2. Zum ersten Mal konnte ich selbst entscheiden, was in der Tastatur steckt und wie das fertige Board aussehen und sich anfühlen soll.
+
+Im Nachhinein war das wahrscheinlich der Punkt ohne Wiederkehr. Denn sobald man einmal verstanden hat, dass man eine Tastatur nicht einfach kaufen muss, sondern sie aus vielen einzelnen Entscheidungen besteht, sieht man plötzlich jede Tastatur mit anderen Augen.
+
+
+
+Fundstück · Cherry G80-3000
+30. Mai 2026
+10 € und ein PS/2-Stecker
+
+Dann kam eine Cherry G80-3000 für gerade einmal 10 €. Bei dem Preis musste ich nicht lange überlegen.
+
+Das Problem: Sie hatte einen PS/2-Anschluss. Für eine Tastatur, die eigentlich viel zu schade zum Wegwerfen war, gleichzeitig aber technisch aus einer anderen Zeit stammte, war das fast schon eine Einladung zum Basteln.
+
+Aus diesem Fundstück entstand schließlich das Projekt J80-3000. Die Idee war nicht, die alte Cherry einfach durch eine moderne Tastatur zu ersetzen, sondern ihren Charakter zu behalten und sie technisch dort hinzubringen, wo ich sie heute gerne hätte.
+
+Und damit begann der Teil des Hobbys, bei dem „ich probiere das mal aus“ plötzlich ziemlich schnell zu „jetzt muss ich wohl C lernen“ werden kann.
+
+
+
+Werkstattbericht · Projekt J80-3000
+22. April 2026
+J80-3000 – einer alten Cherry ein zweites Leben geben
+
+Die G80-3000 hat für mich genau das, was viele alte Geräte interessant macht: Sie sieht nach echter Hardware aus und hat Charakter. Gleichzeitig merkt man ihr an, dass sich die Welt der Tastaturen seit ihrer Entstehung weiterentwickelt hat.
+
+Deshalb wollte ich nicht einfach nur einen Adapter für PS/2 bauen. Das Ziel des Projekts ist ein kompletter Controller-Swap. Der originale Controller musste dafür einem WeAct Blackpill mit STM32-F411 weichen.
+
+Für die Fullsize-Matrix reicht die Zahl der direkt verfügbaren GPIO-Pins nicht aus. Deshalb kommt zusätzlich ein MCP23017 über I2C zum Einsatz. Hardwareseitig ist das Ganze bereits verbunden und die Firmware lässt sich auf den Blackpill flashen. Der PC erkennt ihn auch als Tastatur-Device – nur tippen möchte die G80 bisher noch nicht.
+
+Der PC sagt „Tastatur erkannt“. Die Tastatur sagt: „Nö.“
+
+Der nächste Schritt ist deshalb die Firmware. Durch den I2C-Expander ist eine eigene Scan-Routine nötig. Genau hier wird das Projekt für mich besonders spannend: Ich muss mich in C und die Funktionsweise einer Keyboard-Matrix deutlich tiefer einarbeiten.
+
+Das J80-3000-Projekt ist damit noch lange nicht fertig. Und genau das ist eigentlich der Sinn dieses Blogs: Nicht nur das fertige Ergebnis zeigen, sondern auch den Weg dorthin.
+
+
+
+Hobby · Community
+15. März 2026
+Der schönste Nebeneffekt: Tastaturen für andere bauen
+
+Irgendwann blieb es nicht mehr bei meinen eigenen Tastaturen. Freunde und Bekannte bekamen mit, dass man so eine Tastatur tatsächlich komplett nach den eigenen Vorstellungen zusammenstellen kann.
+
+Und plötzlich durfte ich für andere Leute Boards zusammenbauen. Das macht besonders viel Spaß, weil dabei jedes Projekt andere Anforderungen hat: anderes Layout, andere Optik, anderes Tippgefühl – und manchmal einfach nur der Wunsch nach „einer Tastatur, die nicht aussieht wie jede andere auf dem Schreibtisch“.
+
+Dabei habe ich auch gelernt, dass die perfekte Tastatur nicht zwangsläufig die teuerste ist. Viel wichtiger ist, dass die einzelnen Entscheidungen zusammenpassen und am Ende zur Person passen, die sie benutzt.
+
+
+
+Gedanken · Sammeln &amp; Restaurieren
+8. Februar 2026
+Warum alte Tastaturen plötzlich interessant werden
+
+Seit ich mich intensiver mit Tastaturen beschäftige, sehe ich alte Boards anders. Was früher einfach eine gebrauchte Tastatur war, kann heute ein interessantes Stück Technikgeschichte, ein Ersatzteilspender oder der Anfang eines neuen Projekts sein.
+
+Besonders spannend finde ich Tastaturen, die nicht perfekt sind. Vergilbtes Gehäuse, alte Switches, ein ungewöhnlicher Anschluss oder ein Layout, das heute kaum noch jemand baut – genau solche Dinge machen ein Board interessant.
+
+Natürlich sammelt man dabei schneller Tastaturen, als man Projekte fertig bekommt. Das ist vermutlich eine der Naturkonstanten dieses Hobbys. Aber gerade beim Restaurieren und Modifizieren geht es mir darum, alten Geräten ihren Charakter zu lassen, statt sie einfach durch etwas Neues zu ersetzen.
+
+
+
+Auftakt
+12. Januar 2026
+Beginn von etwas ganz Großem
+
+Hier entsteht eine Webseite rund um mechanische Tastaturen – besonders um solche mit deutschem ISO-Layout, eigene Builds, Restaurierungen und die kleinen technischen Details, die aus einer Tastatur mehr machen als nur ein Eingabegerät.
+
+Noch befindet sich die Seite im Aufbau und es gibt den ein oder anderen KI-Content. Viele Informationen stimmen auch noch nicht. Das wird sich in den nächsten Tagen jedoch ändern.
+

@@ -47,7 +47,9 @@
                     <svg class="nav-dropdown__caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5"/></svg>
                 </button>
                 <div class="nav-dropdown__panel" id="guidesSubmenu">
-                    <a href="switches.html" data-i18n="nav.switches">Switches</a>
+                    <a href="guides.html#switches" data-i18n="nav.guides.switches">Switches</a>
+                    <a href="guides.html#plates" data-i18n="nav.guides.plates">Plates</a>
+                    <a href="guides.html#mods" data-i18n="nav.guides.mods">Mods</a>
                 </div>
             </div>
             <a href="ueber-uns.html" data-i18n="nav.about">Über mich</a>
@@ -77,8 +79,8 @@
     <main id="main">
         <section class="page-hero page-hero--single">
             <p class="eyebrow" data-i18n="hero.eyebrow">Portfolio</p>
-            <h1 data-i18n="hero.heading">Sieben Builds, eine Werkbank.</h1>
-            <p data-i18n="hero.intro">Von der Cherry G80-3000 mit komplett neuer Elektronik bis zum ungeprüften Garagenfund: hier landet alles, was auf der Werkbank war oder gerade ist. Fahr mit der Maus über ein Foto oder tippe es an, um den Spickzettel zu sehen – mehrere Fotos je Build lassen sich mit den Pfeilen durchschalten.</p>
+            <h1 data-i18n="hero.heading">Zehn Builds, eine Werkbank.</h1>
+            <p data-i18n="hero.intro">Von der Cherry G80-3000 mit komplett neuer Elektronik bis zum ungeprüften Garagenfund: hier landet alles, was auf der Werkbank war oder gerade ist. Fahr mit der Maus über ein Foto oder tippe es an, um den Spickzettel zu sehen – jedes Foto im Karussell hat dabei sein eigenes Kärtchen, das sich mit den Pfeilen durchschalten lässt.</p>
         </section>
 
         <section class="section">
@@ -86,23 +88,57 @@
 
                 <div class="gallery-item">
                     <div class="gallery-item__stage">
-                        <div class="cheat-sheet" id="cheat-1">
-                            <h3 data-i18n="b1.title">J80-3000</h3>
-                            <ul>
-                                <li><strong data-i18n="b1.l1">Basis:</strong> <span data-i18n="b1.v1">Cherry G80-3000</span></li>
-                                <li><strong data-i18n="b1.l2">Controller:</strong> <span data-i18n="b1.v2">WeAct Blackpill STM32-F411</span></li>
-                                <li><strong data-i18n="b1.l3">I/O-Expander:</strong> <span data-i18n="b1.v3">MCP23017 (I2C)</span></li>
-                                <li><strong data-i18n="b1.l4">Firmware:</strong> <span data-i18n="b1.v4">QMK, eigene Scan-Routine</span></li>
-                                <li><strong data-i18n="b1.l5">Status:</strong> <span data-i18n="b1.v5">In Arbeit – Debugging</span></li>
-                            </ul>
+                        <div class="cheat-sheet-stack" id="cheat-1">
+                            <div class="cheat-sheet is-active">
+                                <h3 data-i18n="b1.p1.title">J80-3000 I2C</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b1.p1.desc">Umgebaute G80-3000 mit beigen Cherry-Tastenkappen und grauen und roten Akzent-Tastenkappen</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b1.p1.keycaps">Cherry Classic, graue und rote Akzent-Kappen</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b1.p1.case">Plastik</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b1.p1.software">QMK &amp; VIA – selbstgebaute Firmware</span></li>
+                                    <li><strong data-i18n="cheat.custom">Custom-Feature:</strong> <span data-i18n="b1.p1.custom">Schreibgeschwindigkeits-Visualisierung über LED-Animation</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b1.p1.hotswap">Ja</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b1.p1.plate">3D-gedruckt</span></li>
+                                </ul>
+                            </div>
+                            <div class="cheat-sheet">
+                                <h3 data-i18n="b1.p2.title">G80-3000 „Eccentric“</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b1.p2.desc">G80-3000 mit „Eccentric“-Tastenkappen von JTK mit HSA-Profil</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b1.p2.keycaps">JTK HSA Eccentric</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b1.p2.case">Plastik</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b1.p2.hotswap">Nein</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b1.p2.plate">Keine</span></li>
+                                </ul>
+                            </div>
+                            <div class="cheat-sheet">
+                                <h3 data-i18n="b1.p3.title">G80-3000</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b1.p3.desc">G80-3000 mit bilingualen Tastenkappen</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b1.p3.keycaps">U9 L9 Retro</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b1.p3.case">Plastik</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b1.p3.hotswap">Nein</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b1.p3.plate">Keine</span></li>
+                                </ul>
+                            </div>
+                            <div class="cheat-sheet">
+                                <h3 data-i18n="b1.p4.title">G80-3000 „Coffee-Cat“</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b1.p4.desc">G80-3000 mit „Coffee Cat“-Tastenkappen, gemischt mit „Retro 101“ von MaxGaming</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b1.p4.keycaps">YMDK Coffee Cat, MaxGaming Retro 101</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b1.p4.case">Plastik</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b1.p4.hotswap">Nein</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b1.p4.plate">Keine</span></li>
+                                </ul>
+                            </div>
                         </div>
                         <figure class="polaroid-frame" style="--tilt:-2deg;" tabindex="0" aria-describedby="cheat-1">
                             <button type="button" class="cheat-toggle" aria-expanded="false" aria-label="Spickzettel anzeigen" title="Spickzettel anzeigen" data-i18n-attr="aria-label:utility.cheatToggle.aria,title:utility.cheatToggle.aria">i</button>
                             <div class="polaroid-frame__viewport">
-                                <img class="is-active" data-slide src="images/Cherry_J80-3000_I2C.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="J80-3000 Controller-Swap mit I2C-Expander" data-i18n-attr="alt:b1.photo1.alt">
-                                <img data-slide src="images/G80-3000.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Cherry G80-3000 im Retro-Look mit farbigen Tastenkappen" data-i18n-attr="alt:b1.photo2.alt">
-                                <img data-slide src="images/G80-3000_Bilangual_Keycaps.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Cherry G80-3000 mit bilingualen Tastenkappen" data-i18n-attr="alt:b1.photo3.alt">
-                                <img data-slide src="images/G80-3000_Coffe-Cat-Keycaps.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Cherry G80-3000 mit Coffee-Cat-Keycaps" data-i18n-attr="alt:b1.photo4.alt">
+                                <img class="is-active" data-slide src="images/Cherry_J80-3000_I2C.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Umgebaute G80-3000 mit beigen Cherry-Tastenkappen und grauen und roten Akzent-Tastenkappen" title="J80-3000 I2C" data-i18n-attr="alt:b1.p1.desc,title:b1.p1.title">
+                                <img data-slide src="images/G80-3000.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="G80-3000 mit „Eccentric“-Tastenkappen von JTK mit HSA-Profil" title="G80-3000 „Eccentric“" data-i18n-attr="alt:b1.p2.desc,title:b1.p2.title">
+                                <img data-slide src="images/G80-3000_Bilangual_Keycaps.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="G80-3000 mit bilingualen Tastenkappen" title="G80-3000" data-i18n-attr="alt:b1.p3.desc,title:b1.p3.title">
+                                <img data-slide src="images/G80-3000_Coffe-Cat-Keycaps.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="G80-3000 mit „Coffee Cat“-Tastenkappen, gemischt mit „Retro 101“ von MaxGaming" title="G80-3000 „Coffee-Cat“" data-i18n-attr="alt:b1.p4.desc,title:b1.p4.title">
                             </div>
                             <div class="polaroid-frame__foot">
                                 <button type="button" class="carousel-btn carousel-btn--prev" aria-label="Vorheriges Foto">‹</button>
@@ -111,7 +147,6 @@
                                     <button type="button" aria-current="false" aria-label="Foto 2"></button>
                                     <button type="button" aria-current="false" aria-label="Foto 3"></button>
                                     <button type="button" aria-current="false" aria-label="Foto 4"></button>
-
                                 </div>
                                 <button type="button" class="carousel-btn carousel-btn--next" aria-label="Nächstes Foto">›</button>
                             </div>
@@ -121,19 +156,39 @@
 
                 <div class="gallery-item">
                     <div class="gallery-item__stage">
-                        <div class="cheat-sheet" id="cheat-2">
-                            <h3 data-i18n="b2.title">Monsgeek M1</h3>
-                            <ul>
-                                <li><strong data-i18n="b2.l1">Case:</strong> <span data-i18n="b2.v1">CNC-Aluminium, Gasket-Mount</span></li>
-                                <li><strong data-i18n="b2.l2">Hot-Swap:</strong> <span data-i18n="b2.v2">Ja (QMK/VIA)</span></li>
-                                <li><strong data-i18n="b2.l3">Switches:</strong> <span data-i18n="b2.v3">– ergänzen</span></li>
-                            </ul>
+                        <div class="cheat-sheet-stack" id="cheat-2">
+                            <div class="cheat-sheet is-active">
+                                <h3 data-i18n="b2.p1.title">Monsgeek M1</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b2.p1.desc">Monsgeek M1 mit beigen Cherry-Tastenkappen und Retro 101 von MaxGaming</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b2.p1.keycaps">Cherry Classic, Retro 101</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b2.p1.case">Aluminium</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b2.p1.software">QMK &amp; VIA</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b2.p1.light">RGB</span></li>
+                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b2.p1.connectivity">USB-A (Kabel abnehmbar)</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b2.p1.hotswap">Ja</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b2.p1.plate">Plastik, transparent</span></li>
+                                </ul>
+                            </div>
+                            <div class="cheat-sheet">
+                                <h3 data-i18n="b2.p2.title">Monsgeek M1 V5 „EVA04“</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b2.p2.desc">Monsgeek M1 V5 mit EVA04-Tastenkappen</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b2.p2.keycaps">Jaycomia „EVA04“ ISO-DE</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b2.p2.case">Aluminium</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b2.p2.software">QMK &amp; VIA</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b2.p2.light">RGB</span></li>
+                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b2.p2.connectivity">Bluetooth, 2,4 GHz, USB-A</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b2.p2.hotswap">Ja</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b2.p2.plate">Plastik, transparent</span></li>
+                                </ul>
+                            </div>
                         </div>
                         <figure class="polaroid-frame" style="--tilt:1.6deg;" tabindex="0" aria-describedby="cheat-2">
                             <button type="button" class="cheat-toggle" aria-expanded="false" aria-label="Spickzettel anzeigen" title="Spickzettel anzeigen" data-i18n-attr="aria-label:utility.cheatToggle.aria,title:utility.cheatToggle.aria">i</button>
                             <div class="polaroid-frame__viewport">
-                                <img class="is-active" data-slide src="images/Monsgeek M1.jpg" width="2000" height="1126" loading="lazy" decoding="async" alt="Monsgeek M1 Aluminium-Tastatur" data-i18n-attr="alt:b2.photo1.alt">
-                                <img data-slide src="images/Monsgeek_M1_V5_EVA.jpg" width="3768" height="2120" loading="lazy" decoding="async" alt="Monsgeek M1 V5 im EVA-Farbschema" data-i18n-attr="alt:b2.photo2.alt">
+                                <img class="is-active" data-slide src="images/Monsgeek%20M1.jpg" width="2000" height="1126" loading="lazy" decoding="async" alt="Monsgeek M1 mit beigen Cherry-Tastenkappen und Retro 101 von MaxGaming" title="Monsgeek M1" data-i18n-attr="alt:b2.p1.desc,title:b2.p1.title">
+                                <img data-slide src="images/Monsgeek_M1_V5_EVA.jpg" width="3768" height="2120" loading="lazy" decoding="async" alt="Monsgeek M1 V5 mit EVA04-Tastenkappen" title="Monsgeek M1 V5 „EVA04“" data-i18n-attr="alt:b2.p2.desc,title:b2.p2.title">
                             </div>
                             <div class="polaroid-frame__foot">
                                 <button type="button" class="carousel-btn carousel-btn--prev" aria-label="Vorheriges Foto">‹</button>
@@ -149,20 +204,53 @@
 
                 <div class="gallery-item">
                     <div class="gallery-item__stage">
-                        <div class="cheat-sheet" id="cheat-3">
-                            <h3 data-i18n="b3.title">Tofu65</h3>
-                            <ul>
-                                <li><strong data-i18n="b3.l1">Case:</strong> <span data-i18n="b3.v1">Aluminium (KBDfans)</span></li>
-                                <li><strong data-i18n="b3.l2">Mount:</strong> <span data-i18n="b3.v2">Top-/Gasket-Mount</span></li>
-                                <li><strong data-i18n="b3.l3">Switches:</strong> <span data-i18n="b3.v3">– ergänzen</span></li>
-                            </ul>
+                        <div class="cheat-sheet-stack" id="cheat-3">
+                            <div class="cheat-sheet is-active">
+                                <h3 data-i18n="b3.p1.title">Tofu65 2.0 ISO</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b3.p1.desc">Tofu65 2.0 mit bilingualen Tastenkappen</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b3.p1.keycaps">U9 L9 Retro</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b3.p1.case">Aluminium</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b3.p1.software">QMK &amp; VIA</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b3.p1.light">Warmweiß</span></li>
+                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b3.p1.connectivity">USB-A (Kabel abnehmbar)</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b3.p1.hotswap">Ja</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b3.p1.plate">FR4</span></li>
+                                </ul>
+                            </div>
+                            <div class="cheat-sheet">
+                                <h3 data-i18n="b3.p2.title">Tofu65 2.0 ISO „Brutalist“</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b3.p2.desc">Tofu65 2.0 mit „Brutalist“-Tastenkappen von EPBT</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b3.p2.keycaps">EPBT Brutalist</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b3.p2.case">Aluminium</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b3.p2.software">QMK &amp; VIA</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b3.p2.light">Warmweiß</span></li>
+                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b3.p2.connectivity">USB-A (Kabel abnehmbar)</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b3.p2.hotswap">Ja</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b3.p2.plate">FR4</span></li>
+                                </ul>
+                            </div>
+                            <div class="cheat-sheet">
+                                <h3 data-i18n="b3.p3.title">Tofu65 2.0</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b3.p3.desc">Tofu65 2.0 mit gemischten Tastenkappen</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b3.p3.keycaps">Gemischt</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b3.p3.case">Aluminium</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b3.p3.software">QMK &amp; VIA</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b3.p3.light">RGB</span></li>
+                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b3.p3.connectivity">USB-A (Kabel abnehmbar)</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b3.p3.hotswap">Ja</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b3.p3.plate">Aluminium</span></li>
+                                </ul>
+                            </div>
                         </div>
                         <figure class="polaroid-frame" style="--tilt:-1.4deg;" tabindex="0" aria-describedby="cheat-3">
                             <button type="button" class="cheat-toggle" aria-expanded="false" aria-label="Spickzettel anzeigen" title="Spickzettel anzeigen" data-i18n-attr="aria-label:utility.cheatToggle.aria,title:utility.cheatToggle.aria">i</button>
                             <div class="polaroid-frame__viewport">
-                                <img class="is-active" data-slide src="images/Tofu65_Bilangual_Keycaps.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Tofu65 mit bilingualen Tastenkappen" data-i18n-attr="alt:b3.photo1.alt">
-                                <img data-slide src="images/Tofu65_Brutalis-Keycaps.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Tofu65 mit Brutalis-Keycaps" data-i18n-attr="alt:b3.photo2.alt">
-                                <img data-slide src="images/TOFU65_Mixed_Keycaps.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="TOFU65 mit gemischten Tastenkappen" data-i18n-attr="alt:b3.photo3.alt">
+                                <img class="is-active" data-slide src="images/Tofu65_Bilangual_Keycaps.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Tofu65 2.0 mit bilingualen Tastenkappen" title="Tofu65 2.0 ISO" data-i18n-attr="alt:b3.p1.desc,title:b3.p1.title">
+                                <img data-slide src="images/Tofu65_Brutalis-Keycaps.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Tofu65 2.0 mit „Brutalist“-Tastenkappen von EPBT" title="Tofu65 2.0 ISO „Brutalist“" data-i18n-attr="alt:b3.p2.desc,title:b3.p2.title">
+                                <img data-slide src="images/TOFU65_Mixed_Keycaps.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Tofu65 2.0 mit gemischten Tastenkappen" title="Tofu65 2.0" data-i18n-attr="alt:b3.p3.desc,title:b3.p3.title">
                             </div>
                             <div class="polaroid-frame__foot">
                                 <button type="button" class="carousel-btn carousel-btn--prev" aria-label="Vorheriges Foto">‹</button>
@@ -179,21 +267,28 @@
 
                 <div class="gallery-item">
                     <div class="gallery-item__stage">
-                        <div class="cheat-sheet" id="cheat-4">
-                            <h3 data-i18n="b4.title">Weikav Stars75</h3>
-                            <ul>
-                                <li><strong data-i18n="b4.l1">Case:</strong> <span data-i18n="b4.v1">CNC-Aluminium</span></li>
-                                <li><strong data-i18n="b4.l2">Verbindung:</strong> <span data-i18n="b4.v2">Tri-Mode (BT / 2,4 GHz / USB-C)</span></li>
-                                <li><strong data-i18n="b4.l3">Switches:</strong> <span data-i18n="b4.v3">– ergänzen</span></li>
-                            </ul>
+                        <div class="cheat-sheet-stack" id="cheat-4">
+                            <div class="cheat-sheet is-active">
+                                <h3 data-i18n="b4.p1.title">Stars75 „Lesbian Pride“</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b4.p1.desc">Stars75 in „Cheese White“ mit „Cloud“-Tastenkappen von YMDK</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b4.p1.keycaps">YMDK Cloud German</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b4.p1.case">Aluminium</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b4.p1.software">QMK &amp; VIA</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b4.p1.light">RGB</span></li>
+                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b4.p1.connectivity">Bluetooth, 2,4 GHz, USB-A</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b4.p1.hotswap">Ja</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b4.p1.plate">3D-gedruckt</span></li>
+                                </ul>
+                            </div>
                         </div>
                         <figure class="polaroid-frame" style="--tilt:2.2deg;" tabindex="0" aria-describedby="cheat-4">
                             <button type="button" class="cheat-toggle" aria-expanded="false" aria-label="Spickzettel anzeigen" title="Spickzettel anzeigen" data-i18n-attr="aria-label:utility.cheatToggle.aria,title:utility.cheatToggle.aria">i</button>
                             <div class="polaroid-frame__viewport">
-                                <img class="is-active" data-slide src="images/Stars75.jpg" width="1753" height="986" loading="lazy" decoding="async" alt="Weikav Stars75 Custom Keyboard" data-i18n-attr="alt:b4.photo1.alt">
+                                <img class="is-active" data-slide src="images/Stars75.jpg" width="1753" height="986" loading="lazy" decoding="async" alt="Stars75 in „Cheese White“ mit „Cloud“-Tastenkappen von YMDK" title="Stars75 „Lesbian Pride“" data-i18n-attr="alt:b4.p1.desc,title:b4.p1.title">
                             </div>
                             <div class="polaroid-frame__foot">
-                                <span class="pill" data-i18n="b4.title">Weikav Stars75</span>
+                                <span class="pill" data-i18n="b4.p1.title">Stars75 „Lesbian Pride“</span>
                             </div>
                         </figure>
                     </div>
@@ -201,21 +296,47 @@
 
                 <div class="gallery-item">
                     <div class="gallery-item__stage">
-                        <div class="cheat-sheet" id="cheat-5">
-                            <h3 data-i18n="b5.title">Keychron Q3</h3>
-                            <ul>
-                                <li><strong data-i18n="b5.l1">Case:</strong> <span data-i18n="b5.v1">Aluminium, Double-Gasket-Mount</span></li>
-                                <li><strong data-i18n="b5.l2">Hot-Swap:</strong> <span data-i18n="b5.v2">Ja</span></li>
-                                <li><strong data-i18n="b5.l3">Switches:</strong> <span data-i18n="b5.v3">– ergänzen</span></li>
-                            </ul>
+                        <div class="cheat-sheet-stack" id="cheat-5">
+                            <div class="cheat-sheet is-active">
+                                <h3 data-i18n="b5.p1.title">Keychron Q3</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b5.p1.desc">Keychron Q3 mit Pudding-Tastenkappen von Glorious Gaming auf dem Schreibtisch</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b5.p1.keycaps">YMDK Cloud German</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b5.p1.case">Aluminium</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b5.p1.software">QMK &amp; VIA</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b5.p1.light">RGB</span></li>
+                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b5.p1.connectivity">USB-A (Kabel abnehmbar)</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b5.p1.hotswap">Ja</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b5.p1.plate">Aluminium</span></li>
+                                </ul>
+                            </div>
+                            <div class="cheat-sheet">
+                                <h3 data-i18n="b5.p2.title">Keychron Q3</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b5.p2.desc">Keychron Q3 mit Pudding-Tastenkappen von Glorious Gaming im Dunkeln</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b5.p2.keycaps">YMDK Cloud German</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b5.p2.case">Aluminium</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b5.p2.software">QMK &amp; VIA</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b5.p2.light">RGB</span></li>
+                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b5.p2.connectivity">USB-A (Kabel abnehmbar)</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b5.p2.hotswap">Ja</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b5.p2.plate">Aluminium</span></li>
+                                </ul>
+                            </div>
                         </div>
                         <figure class="polaroid-frame" style="--tilt:-2.6deg;" tabindex="0" aria-describedby="cheat-5">
                             <button type="button" class="cheat-toggle" aria-expanded="false" aria-label="Spickzettel anzeigen" title="Spickzettel anzeigen" data-i18n-attr="aria-label:utility.cheatToggle.aria,title:utility.cheatToggle.aria">i</button>
                             <div class="polaroid-frame__viewport">
-                                <img class="is-active" data-slide src="images/Keychron%20Q3.jpg" width="2000" height="1126" loading="lazy" decoding="async" alt="Keychron Q3 Aluminium-Tastatur" data-i18n-attr="alt:b5.photo1.alt">
+                                <img class="is-active" data-slide src="images/Keychron%20Q3_2.JPG" width="1920" height="1080" loading="lazy" decoding="async" alt="Keychron Q3 mit Pudding-Tastenkappen von Glorious Gaming auf dem Schreibtisch" title="Keychron Q3" data-i18n-attr="alt:b5.p1.desc,title:b5.p1.title">
+                                <img data-slide src="images/Keychron%20Q3_1.JPG" width="1920" height="1080" loading="lazy" decoding="async" alt="Keychron Q3 mit Pudding-Tastenkappen von Glorious Gaming im Dunkeln" title="Keychron Q3" data-i18n-attr="alt:b5.p2.desc,title:b5.p2.title">
                             </div>
                             <div class="polaroid-frame__foot">
-                                <span class="pill" data-i18n="b5.title">Keychron Q3</span>
+                                <button type="button" class="carousel-btn carousel-btn--prev" aria-label="Vorheriges Foto">‹</button>
+                                <div class="carousel-dots">
+                                    <button type="button" aria-current="true" aria-label="Foto 1"></button>
+                                    <button type="button" aria-current="false" aria-label="Foto 2"></button>
+                                </div>
+                                <button type="button" class="carousel-btn carousel-btn--next" aria-label="Nächstes Foto">›</button>
                             </div>
                         </figure>
                     </div>
@@ -223,21 +344,53 @@
 
                 <div class="gallery-item">
                     <div class="gallery-item__stage">
-                        <div class="cheat-sheet" id="cheat-6">
-                            <h3 data-i18n="b6.title">Holz-Case</h3>
-                            <ul>
-                                <li><strong data-i18n="b6.l1">Gehäuse:</strong> <span data-i18n="b6.v1">Holz</span></li>
-                                <li><strong data-i18n="b6.l2">Look:</strong> <span data-i18n="b6.v2">warm, ruhig, handwerklich</span></li>
-                                <li><strong data-i18n="b6.l3">Switches:</strong> <span data-i18n="b6.v3">– ergänzen</span></li>
-                            </ul>
+                        <div class="cheat-sheet-stack" id="cheat-6">
+                            <div class="cheat-sheet is-active">
+                                <h3 data-i18n="b6.p1.title">YMDK68 Nussbaum</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b6.p1.desc">YMDK68 aus Nussbaum mit Handauflage und YMDK-Retro-Tastenkappen</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b6.p1.keycaps">YMDK Retro Beige German</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b6.p1.case">Holz (Nussbaum)</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b6.p1.software">QMK &amp; VIA</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b6.p1.light">Keine</span></li>
+                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b6.p1.connectivity">USB-A (Kabel abnehmbar)</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b6.p1.hotswap">Nein</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b6.p1.plate">Aluminium</span></li>
+                                </ul>
+                            </div>
+                            <div class="cheat-sheet">
+                                <h3 data-i18n="b6.p2.title">YMDK68 Nussbaum</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b6.p2.desc">YMDK68 aus Nussbaum mit YMDK-Retro-Tastenkappen</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b6.p2.keycaps">YMDK Retro Beige German</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b6.p2.case">Holz (Nussbaum)</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b6.p2.software">QMK &amp; VIA</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b6.p2.light">Keine</span></li>
+                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b6.p2.connectivity">USB-A (Kabel abnehmbar)</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b6.p2.hotswap">Nein</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b6.p2.plate">Aluminium</span></li>
+                                </ul>
+                            </div>
+                            <div class="cheat-sheet">
+                                <h3 data-i18n="b6.p3.title">YMDK68 Nussbaum</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b6.p3.desc">YMDK68 aus Nussbaum mit YMDK-Retro-Tastenkappen auf der Werkbank</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b6.p3.keycaps">YMDK Retro Beige German</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b6.p3.case">Holz (Nussbaum)</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b6.p3.software">QMK &amp; VIA</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b6.p3.light">Keine</span></li>
+                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b6.p3.connectivity">USB-A (Kabel abnehmbar)</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b6.p3.hotswap">Nein</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b6.p3.plate">Aluminium</span></li>
+                                </ul>
+                            </div>
                         </div>
                         <figure class="polaroid-frame" style="--tilt:1.2deg;" tabindex="0" aria-describedby="cheat-6">
                             <button type="button" class="cheat-toggle" aria-expanded="false" aria-label="Spickzettel anzeigen" title="Spickzettel anzeigen" data-i18n-attr="aria-label:utility.cheatToggle.aria,title:utility.cheatToggle.aria">i</button>
                             <div class="polaroid-frame__viewport">
-                                <img class="is-active" data-slide src="images/YMDK68_Wood_with_wristrest.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="YMDK68 Holz-Tastatur mit Handballenauflage" data-i18n-attr="alt:b6.photo1.alt">
-                                <img data-slide src="images/YMDK68_Wood_without_wristrest.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="YMDK68 Holz-Tastatur ohne Handballenauflage" data-i18n-attr="alt:b6.photo2.alt">
-                                <img data-slide src="images/YMDK68_Wood_workbench.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="YMDK68 Holz-Tastatur auf der Werkbank" data-i18n-attr="alt:b6.photo3.alt">
-                                <img data-slide src="images/YMDK75_Walnut.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="YMDK75 Holz-Tastatur mit Coffee-Cat-Keycaps" data-i18n-attr="alt:b6.photo4.alt">
+                                <img class="is-active" data-slide src="images/YMDK68_Wood_with_wristrest.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="YMDK68 aus Nussbaum mit Handauflage und YMDK-Retro-Tastenkappen" title="YMDK68 Nussbaum" data-i18n-attr="alt:b6.p1.desc,title:b6.p1.title">
+                                <img data-slide src="images/YMDK68_Wood_without_wristrest.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="YMDK68 aus Nussbaum mit YMDK-Retro-Tastenkappen" title="YMDK68 Nussbaum" data-i18n-attr="alt:b6.p2.desc,title:b6.p2.title">
+                                <img data-slide src="images/YMDK68_Wood_workbench.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="YMDK68 aus Nussbaum mit YMDK-Retro-Tastenkappen auf der Werkbank" title="YMDK68 Nussbaum" data-i18n-attr="alt:b6.p3.desc,title:b6.p3.title">
                             </div>
                             <div class="polaroid-frame__foot">
                                 <button type="button" class="carousel-btn carousel-btn--prev" aria-label="Vorheriges Foto">‹</button>
@@ -245,7 +398,6 @@
                                     <button type="button" aria-current="true" aria-label="Foto 1"></button>
                                     <button type="button" aria-current="false" aria-label="Foto 2"></button>
                                     <button type="button" aria-current="false" aria-label="Foto 3"></button>
-                                    <button type="button" aria-current="false" aria-label="Foto 4"></button>
                                 </div>
                                 <button type="button" class="carousel-btn carousel-btn--next" aria-label="Nächstes Foto">›</button>
                             </div>
@@ -255,27 +407,28 @@
 
                 <div class="gallery-item">
                     <div class="gallery-item__stage">
-                        <div class="cheat-sheet" id="cheat-7">
-                            <h3 data-i18n="b7.title">Cherry KC 200</h3>
-                            <ul>
-                                <li><strong data-i18n="b7.l1">Herkunft:</strong> <span data-i18n="b7.v1">Zufallsfund</span></li>
-                                <li><strong data-i18n="b7.l2">Zustand bei Fund:</strong> <span data-i18n="b7.v2">verstaubt, ungetestet</span></li>
-                                <li><strong data-i18n="b7.l3">Status:</strong> <span data-i18n="b7.v3">Cleanup &amp; Check</span></li>
-                            </ul>
+                        <div class="cheat-sheet-stack" id="cheat-7">
+                            <div class="cheat-sheet is-active">
+                                <h3 data-i18n="b7.p1.title">YMDK75 „Coffee-Cat“</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b7.p1.desc">YMDK75 aus Nussbaum mit „Coffee Cat“-Tastenkappen von YMDK und „Retro 101“ von MaxGaming</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b7.p1.keycaps">YMDK Coffee Cat &amp; MaxGaming Retro 101</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b7.p1.case">Holz (Nussbaum)</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b7.p1.software">QMK &amp; VIA</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b7.p1.light">RGB</span></li>
+                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b7.p1.connectivity">USB-A (Kabel abnehmbar)</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b7.p1.hotswap">Ja</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b7.p1.plate">3D-gedruckt</span></li>
+                                </ul>
+                            </div>
                         </div>
-                        <figure class="polaroid-frame" style="--tilt:-1.8deg;" tabindex="0" aria-describedby="cheat-7">
+                        <figure class="polaroid-frame" style="--tilt:-1.6deg;" tabindex="0" aria-describedby="cheat-7">
                             <button type="button" class="cheat-toggle" aria-expanded="false" aria-label="Spickzettel anzeigen" title="Spickzettel anzeigen" data-i18n-attr="aria-label:utility.cheatToggle.aria,title:utility.cheatToggle.aria">i</button>
                             <div class="polaroid-frame__viewport">
-                                <img class="is-active" data-slide src="images/Cherry_KC_200.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Cherry KC 200 Garagenfund" data-i18n-attr="alt:b7.photo1.alt">
-                                <img data-slide src="images/Lucky65_Red.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Rotes Lucky65 Keyboard als weiterer Werkbank-Fund" data-i18n-attr="alt:b7.photo2.alt">
+                                <img class="is-active" data-slide src="images/YMDK75_Walnut.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="YMDK75 aus Nussbaum mit „Coffee Cat“-Tastenkappen von YMDK und „Retro 101“ von MaxGaming" title="YMDK75 „Coffee-Cat“" data-i18n-attr="alt:b7.p1.desc,title:b7.p1.title">
                             </div>
                             <div class="polaroid-frame__foot">
-                                <button type="button" class="carousel-btn carousel-btn--prev" aria-label="Vorheriges Foto">‹</button>
-                                <div class="carousel-dots">
-                                    <button type="button" aria-current="true" aria-label="Foto 1"></button>
-                                    <button type="button" aria-current="false" aria-label="Foto 2"></button>
-                                </div>
-                                <button type="button" class="carousel-btn carousel-btn--next" aria-label="Nächstes Foto">›</button>
+                                <span class="pill" data-i18n="b7.p1.title">YMDK75 „Coffee-Cat“</span>
                             </div>
                         </figure>
                     </div>
@@ -283,27 +436,28 @@
 
                 <div class="gallery-item">
                     <div class="gallery-item__stage">
-                        <div class="cheat-sheet" id="cheat-8">
-                            <h3 data-i18n="b8.title">DMG65 - Konzept</h3>
-                            <ul>
-                                <li><strong data-i18n="b8.l1">Herkunft:</strong> <span data-i18n="b8.v1">Zufallsfund</span></li>
-                                <li><strong data-i18n="b8.l2">Zustand bei Fund:</strong> <span data-i18n="b8.v2">verstaubt, ungetestet</span></li>
-                                <li><strong data-i18n="b8.l3">Status:</strong> <span data-i18n="b8.v3">Cleanup &amp; Check</span></li>
-                            </ul>
+                        <div class="cheat-sheet-stack" id="cheat-8">
+                            <div class="cheat-sheet is-active">
+                                <h3 data-i18n="b8.p1.title">KC 200 „Retro“</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b8.p1.desc">KC 200 mit Retro-Tastenkappen von Cherry und YMDK</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b8.p1.keycaps">Classic Cherry, YMDK Retro Beige</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b8.p1.case">Plastik, Aluminium</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b8.p1.software">Cherry Utility Software</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b8.p1.light">Keine</span></li>
+                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b8.p1.connectivity">USB-A</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b8.p1.hotswap">Nein</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b8.p1.plate">Integriert</span></li>
+                                </ul>
+                            </div>
                         </div>
                         <figure class="polaroid-frame" style="--tilt:-1.8deg;" tabindex="0" aria-describedby="cheat-8">
                             <button type="button" class="cheat-toggle" aria-expanded="false" aria-label="Spickzettel anzeigen" title="Spickzettel anzeigen" data-i18n-attr="aria-label:utility.cheatToggle.aria,title:utility.cheatToggle.aria">i</button>
                             <div class="polaroid-frame__viewport">
-                                <img class="is-active" data-slide src="images/DMG-65_concept.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="DMG65 Konzept-Tastatur" data-i18n-attr="alt:b8.photo1.alt">
-                                <img data-slide src="images/Lucky65_Red.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Rotes Lucky65 Keyboard als weiterer Werkbank-Fund" data-i18n-attr="alt:b8.photo2.alt">
+                                <img class="is-active" data-slide src="images/Cherry_KC_200.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="KC 200 mit Retro-Tastenkappen von Cherry und YMDK" title="KC 200 „Retro“" data-i18n-attr="alt:b8.p1.desc,title:b8.p1.title">
                             </div>
                             <div class="polaroid-frame__foot">
-                                <button type="button" class="carousel-btn carousel-btn--prev" aria-label="Vorheriges Foto">‹</button>
-                                <div class="carousel-dots">
-                                    <button type="button" aria-current="true" aria-label="Foto 1"></button>
-                                    <button type="button" aria-current="false" aria-label="Foto 2"></button>
-                                </div>
-                                <button type="button" class="carousel-btn carousel-btn--next" aria-label="Nächstes Foto">›</button>
+                                <span class="pill" data-i18n="b8.p1.title">KC 200 „Retro“</span>
                             </div>
                         </figure>
                     </div>
@@ -311,19 +465,67 @@
 
                 <div class="gallery-item">
                     <div class="gallery-item__stage">
-                        <div class="cheat-sheet" id="cheat-9">
-                            <h3 data-i18n="b9.title">Cherry G80-1000</h3>
-                            <ul>
-                                <li><strong data-i18n="b9.l1">Herkunft:</strong> <span data-i18n="b9.v1">Zufallsfund</span></li>
-                                <li><strong data-i18n="b9.l2">Zustand bei Fund:</strong> <span data-i18n="b9.v2">verstaubt, ungetestet</span></li>
-                                <li><strong data-i18n="b9.l3">Status:</strong> <span data-i18n="b9.v3">Cleanup &amp; Check</span></li>
-                            </ul>
+                        <div class="cheat-sheet-stack" id="cheat-9">
+                            <div class="cheat-sheet is-active">
+                                <h3 data-i18n="b9.p1.title">DMG-65</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b9.p1.desc">Konzept einer Tastatur im Gameboy-Design (Bild mit KI generiert)</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.design">Design:</strong> <span data-i18n="b9.p1.design">Von mir designt</span></li>
+                                    <li><strong data-i18n="cheat.pcb">PCB:</strong> <span data-i18n="b9.p1.pcb">Tofu65 2.0</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b9.p1.light">RGB</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b9.p1.software">QMK &amp; VIA</span></li>
+                                    <li><strong data-i18n="cheat.status">Status:</strong> <span data-i18n="b9.p1.status">Designphase</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b9.p1.hotswap">Ja</span></li>
+                                </ul>
+                            </div>
                         </div>
-                        <figure class="polaroid-frame" style="--tilt:-1.8deg;" tabindex="0" aria-describedby="cheat-9">
+                        <figure class="polaroid-frame" style="--tilt:1.8deg;" tabindex="0" aria-describedby="cheat-9">
                             <button type="button" class="cheat-toggle" aria-expanded="false" aria-label="Spickzettel anzeigen" title="Spickzettel anzeigen" data-i18n-attr="aria-label:utility.cheatToggle.aria,title:utility.cheatToggle.aria">i</button>
                             <div class="polaroid-frame__viewport">
-                                <img class="is-active" data-slide src="images/Cherry_G80-1000.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Cherry G80-1000 auf der Werkbank" data-i18n-attr="alt:b9.photo1.alt">
-                                <img data-slide src="images/Lucky65_Red.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Rotes Lucky65 Keyboard als weiterer Werkbank-Fund" data-i18n-attr="alt:b9.photo2.alt">
+                                <img class="is-active" data-slide src="images/DMG-65_concept.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Konzept einer Tastatur im Gameboy-Design (Bild mit KI generiert)" title="DMG-65" data-i18n-attr="alt:b9.p1.desc,title:b9.p1.title">
+                            </div>
+                            <div class="polaroid-frame__foot">
+                                <span class="pill" data-i18n="b9.p1.title">DMG-65</span>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-item__stage">
+                        <div class="cheat-sheet-stack" id="cheat-10">
+                            <div class="cheat-sheet is-active">
+                                <h3 data-i18n="b10.p1.title">G80-1000</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b10.p1.desc">G80-1000 Retro-Tastatur mit neuen bilingualen Tastenkappen</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b10.p1.keycaps">U9 L9 Retro</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b10.p1.case">Plastik</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b10.p1.software">Keine</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b10.p1.light">Keine</span></li>
+                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b10.p1.connectivity">PS/2</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b10.p1.hotswap">Nein</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b10.p1.plate">Keine</span></li>
+                                </ul>
+                            </div>
+                            <div class="cheat-sheet">
+                                <h3 data-i18n="b10.p2.title">G80-1000</h3>
+                                <p class="cheat-sheet__desc" data-i18n="b10.p2.desc">G80-1000 Retro-Tastatur mit neuen bilingualen Tastenkappen</p>
+                                <ul>
+                                    <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b10.p2.keycaps">U9 L9 Retro</span></li>
+                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b10.p2.case">Plastik</span></li>
+                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b10.p2.software">Keine</span></li>
+                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b10.p2.light">Keine</span></li>
+                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b10.p2.connectivity">PS/2</span></li>
+                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b10.p2.hotswap">Nein</span></li>
+                                    <li><strong data-i18n="cheat.plate">Switch-Plate:</strong> <span data-i18n="b10.p2.plate">Keine</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <figure class="polaroid-frame" style="--tilt:-2.4deg;" tabindex="0" aria-describedby="cheat-10">
+                            <button type="button" class="cheat-toggle" aria-expanded="false" aria-label="Spickzettel anzeigen" title="Spickzettel anzeigen" data-i18n-attr="aria-label:utility.cheatToggle.aria,title:utility.cheatToggle.aria">i</button>
+                            <div class="polaroid-frame__viewport">
+                                <img class="is-active" data-slide src="images/Cherry_G80-1000_1.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="G80-1000 Retro-Tastatur mit neuen bilingualen Tastenkappen" title="G80-1000" data-i18n-attr="alt:b10.p1.desc,title:b10.p1.title">
+                                <img data-slide src="images/Cherry_G80-1000_2.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="G80-1000 Retro-Tastatur mit neuen bilingualen Tastenkappen" title="G80-1000" data-i18n-attr="alt:b10.p2.desc,title:b10.p2.title">
                             </div>
                             <div class="polaroid-frame__foot">
                                 <button type="button" class="carousel-btn carousel-btn--prev" aria-label="Vorheriges Foto">‹</button>
@@ -347,6 +549,7 @@
                 <div>
                     <h2>J-Keebs</h2>
                     <p data-i18n="footer.tagline">Custom Mechanical Keyboards, Modding und Upcycling mit Fokus auf deutsches ISO-Layout.</p>
+                    <p class="footer-credit"><a href="partner.html" data-i18n="footer.poweredBy">Powered by PCBWay</a></p>
                     <div class="social-links" aria-label="Profile" data-i18n-attr="aria-label:utility.social.aria">
                         <a href="https://github.com/Brotbeutel" target="_blank" rel="noopener noreferrer" aria-label="GitHub-Profil von J-Keebs">
                             <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
@@ -361,6 +564,7 @@
                     <ul>
                         <li><a href="keyboards.html" data-i18n="nav.keyboards">Keyboards</a></li>
                         <li><a href="switches.html" data-i18n="nav.switches">Switches</a></li>
+                        <li><a href="guides.html" data-i18n="nav.guides">Guides &amp; Tutorials</a></li>
                         <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
                         <li><a href="partner.html" data-i18n="nav.partner">Partner</a></li>
                     </ul>
@@ -406,97 +610,373 @@
         window.J_KEEBS_I18N = {
             de: {
                 "hero.eyebrow": "Portfolio",
-                "hero.heading": "Sieben Builds, eine Werkbank.",
-                "hero.intro": "Von der Cherry G80-3000 mit komplett neuer Elektronik bis zum ungeprüften Garagenfund: hier landet alles, was auf der Werkbank war oder gerade ist. Fahr mit der Maus über ein Foto oder tippe es an, um den Spickzettel zu sehen – mehrere Fotos je Build lassen sich mit den Pfeilen durchschalten.",
-                "b1.title": "J80-3000", "b1.l1": "Basis:", "b1.v1": "Cherry G80-3000",
-                "b1.l2": "Controller:", "b1.v2": "WeAct Blackpill STM32-F411",
-                "b1.l3": "I/O-Expander:", "b1.v3": "MCP23017 (I2C)",
-                "b1.l4": "Firmware:", "b1.v4": "QMK, eigene Scan-Routine",
-                "b1.l5": "Status:", "b1.v5": "In Arbeit – Debugging",
-                "b2.title": "Monsgeek M1", "b2.l1": "Case:", "b2.v1": "CNC-Aluminium, Gasket-Mount",
-                "b2.l2": "Hot-Swap:", "b2.v2": "Ja (QMK/VIA)", "b2.l3": "Switches:", "b2.v3": "– ergänzen",
-                "b3.title": "Tofu65", "b3.l1": "Case:", "b3.v1": "Aluminium (KBDfans)",
-                "b3.l2": "Mount:", "b3.v2": "Top-/Gasket-Mount", "b3.l3": "Switches:", "b3.v3": "– ergänzen",
-                "b4.title": "Weikav Stars75", "b4.l1": "Case:", "b4.v1": "CNC-Aluminium",
-                "b4.l2": "Verbindung:", "b4.v2": "Tri-Mode (BT / 2,4 GHz / USB-C)", "b4.l3": "Switches:", "b4.v3": "– ergänzen",
-                "b5.title": "Keychron Q3", "b5.l1": "Case:", "b5.v1": "Aluminium, Double-Gasket-Mount",
-                "b5.l2": "Hot-Swap:", "b5.v2": "Ja", "b5.l3": "Switches:", "b5.v3": "– ergänzen",
-                "b6.title": "YMDK68 Nussbaum", "b6.l1": "Gehäuse:", "b6.v1": "Holz",
-                "b6.l2": "Look:", "b6.v2": "warm, ruhig, handwerklich", "b6.l3": "Switches:", "b6.v3": "– ergänzen",
-                "b7.title": "Cherry KC 200", "b7.l1": "Herkunft:", "b7.v1": "Zufallsfund",
-                "b7.l2": "Zustand bei Fund:", "b7.v2": "verstaubt, ungetestet", "b7.l3": "Status:", "b7.v3": "Cleanup & Check",
-                "b1.photo1.alt": "J80-3000 Controller-Swap mit I2C-Expander",
-                "b1.photo2.alt": "Cherry G80-3000 im Retro-Look mit farbigen Tastenkappen",
-                "b1.photo3.alt": "Cherry G80-3000 mit bilingualen Tastenkappen",
-                "b1.photo4.alt": "Cherry G80-3000 mit Coffee-Cat-Keycaps",
-                "b2.photo1.alt": "Monsgeek M1 Aluminium-Tastatur",
-                "b2.photo2.alt": "Monsgeek M1 V5 im EVA-Farbschema",
-                "b3.photo1.alt": "Tofu65 mit bilingualen Tastenkappen",
-                "b3.photo2.alt": "Tofu65 mit Brutalis-Keycaps",
-                "b3.photo3.alt": "TOFU65 mit gemischten Tastenkappen",
-                "b4.photo1.alt": "Weikav Stars75 Custom Keyboard",
-                "b5.photo1.alt": "Keychron Q3 Aluminium-Tastatur",
-                "b6.photo1.alt": "YMDK68 Holz-Tastatur mit Handballenauflage",
-                "b6.photo2.alt": "YMDK68 Holz-Tastatur ohne Handballenauflage",
-                "b6.photo3.alt": "YMDK68 Holz-Tastatur auf der Werkbank",
-                "b6.photo4.alt": "YMDK75 Holz-Tastatur mit Coffee-Cat-Keycaps",
-                "b7.photo1.alt": "Cherry KC 200 Garagenfund",
-                "b7.photo2.alt": "Rotes Lucky65 Keyboard als weiterer Werkbank-Fund",
-                "b8.title": "DMG65 – Konzept", "b8.l1": "Herkunft:", "b8.v1": "Zufallsfund",
-                "b8.l2": "Zustand bei Fund:", "b8.v2": "verstaubt, ungetestet", "b8.l3": "Status:", "b8.v3": "Cleanup & Check",
-                "b8.photo1.alt": "DMG65 Konzept-Tastatur",
-                "b8.photo2.alt": "Rotes Lucky65 Keyboard als weiterer Werkbank-Fund",
-                "b9.title": "Cherry G80-1000", "b9.l1": "Herkunft:", "b9.v1": "Zufallsfund",
-                "b9.l2": "Zustand bei Fund:", "b9.v2": "verstaubt, ungetestet", "b9.l3": "Status:", "b9.v3": "Cleanup & Check",
-                "b9.photo1.alt": "Cherry G80-1000 auf der Werkbank",
-                "b9.photo2.alt": "Rotes Lucky65 Keyboard als weiterer Werkbank-Fund"
+                "hero.heading": "Zehn Builds, eine Werkbank.",
+                "hero.intro": "Von der Cherry G80-3000 mit komplett neuer Elektronik bis zum ungeprüften Garagenfund: hier landet alles, was auf der Werkbank war oder gerade ist. Fahr mit der Maus über ein Foto oder tippe es an, um den Spickzettel zu sehen – jedes Foto im Karussell hat dabei sein eigenes Kärtchen, das sich mit den Pfeilen durchschalten lässt.",
+                "cheat.keycaps": "Tastenkappen:",
+                "cheat.case": "Gehäusematerial:",
+                "cheat.software": "Software:",
+                "cheat.custom": "Custom-Feature:",
+                "cheat.light": "Beleuchtung:",
+                "cheat.connectivity": "Verbindung:",
+                "cheat.hotswap": "Hot-Swap:",
+                "cheat.plate": "Switch-Plate:",
+                "cheat.design": "Design:",
+                "cheat.pcb": "PCB:",
+                "cheat.status": "Status:",
+                "b1.p1.title": "J80-3000 I2C",
+                "b1.p1.desc": "Umgebaute G80-3000 mit beigen Cherry-Tastenkappen und grauen und roten Akzent-Tastenkappen",
+                "b1.p1.keycaps": "Cherry Classic, graue und rote Akzent-Kappen",
+                "b1.p1.case": "Plastik",
+                "b1.p1.software": "QMK & VIA – selbstgebaute Firmware",
+                "b1.p1.custom": "Schreibgeschwindigkeits-Visualisierung über LED-Animation",
+                "b1.p1.hotswap": "Ja",
+                "b1.p1.plate": "3D-gedruckt",
+                "b1.p2.title": "G80-3000 „Eccentric“",
+                "b1.p2.desc": "G80-3000 mit „Eccentric“-Tastenkappen von JTK mit HSA-Profil",
+                "b1.p2.keycaps": "JTK HSA Eccentric",
+                "b1.p2.case": "Plastik",
+                "b1.p2.hotswap": "Nein",
+                "b1.p2.plate": "Keine",
+                "b1.p3.title": "G80-3000",
+                "b1.p3.desc": "G80-3000 mit bilingualen Tastenkappen",
+                "b1.p3.keycaps": "U9 L9 Retro",
+                "b1.p3.case": "Plastik",
+                "b1.p3.hotswap": "Nein",
+                "b1.p3.plate": "Keine",
+                "b1.p4.title": "G80-3000 „Coffee-Cat“",
+                "b1.p4.desc": "G80-3000 mit „Coffee Cat“-Tastenkappen, gemischt mit „Retro 101“ von MaxGaming",
+                "b1.p4.keycaps": "YMDK Coffee Cat, MaxGaming Retro 101",
+                "b1.p4.case": "Plastik",
+                "b1.p4.hotswap": "Nein",
+                "b1.p4.plate": "Keine",
+                "b2.p1.title": "Monsgeek M1",
+                "b2.p1.desc": "Monsgeek M1 mit beigen Cherry-Tastenkappen und Retro 101 von MaxGaming",
+                "b2.p1.keycaps": "Cherry Classic, Retro 101",
+                "b2.p1.case": "Aluminium",
+                "b2.p1.software": "QMK & VIA",
+                "b2.p1.light": "RGB",
+                "b2.p1.connectivity": "USB-A (Kabel abnehmbar)",
+                "b2.p1.hotswap": "Ja",
+                "b2.p1.plate": "Plastik, transparent",
+                "b2.p2.title": "Monsgeek M1 V5 „EVA04“",
+                "b2.p2.desc": "Monsgeek M1 V5 mit EVA04-Tastenkappen",
+                "b2.p2.keycaps": "Jaycomia „EVA04“ ISO-DE",
+                "b2.p2.case": "Aluminium",
+                "b2.p2.software": "QMK & VIA",
+                "b2.p2.light": "RGB",
+                "b2.p2.connectivity": "Bluetooth, 2,4 GHz, USB-A",
+                "b2.p2.hotswap": "Ja",
+                "b2.p2.plate": "Plastik, transparent",
+                "b3.p1.title": "Tofu65 2.0 ISO",
+                "b3.p1.desc": "Tofu65 2.0 mit bilingualen Tastenkappen",
+                "b3.p1.keycaps": "U9 L9 Retro",
+                "b3.p1.case": "Aluminium",
+                "b3.p1.software": "QMK & VIA",
+                "b3.p1.light": "Warmweiß",
+                "b3.p1.connectivity": "USB-A (Kabel abnehmbar)",
+                "b3.p1.hotswap": "Ja",
+                "b3.p1.plate": "FR4",
+                "b3.p2.title": "Tofu65 2.0 ISO „Brutalist“",
+                "b3.p2.desc": "Tofu65 2.0 mit „Brutalist“-Tastenkappen von EPBT",
+                "b3.p2.keycaps": "EPBT Brutalist",
+                "b3.p2.case": "Aluminium",
+                "b3.p2.software": "QMK & VIA",
+                "b3.p2.light": "Warmweiß",
+                "b3.p2.connectivity": "USB-A (Kabel abnehmbar)",
+                "b3.p2.hotswap": "Ja",
+                "b3.p2.plate": "FR4",
+                "b3.p3.title": "Tofu65 2.0",
+                "b3.p3.desc": "Tofu65 2.0 mit gemischten Tastenkappen",
+                "b3.p3.keycaps": "Gemischt",
+                "b3.p3.case": "Aluminium",
+                "b3.p3.software": "QMK & VIA",
+                "b3.p3.light": "RGB",
+                "b3.p3.connectivity": "USB-A (Kabel abnehmbar)",
+                "b3.p3.hotswap": "Ja",
+                "b3.p3.plate": "Aluminium",
+                "b4.p1.title": "Stars75 „Lesbian Pride“",
+                "b4.p1.desc": "Stars75 in „Cheese White“ mit „Cloud“-Tastenkappen von YMDK",
+                "b4.p1.keycaps": "YMDK Cloud German",
+                "b4.p1.case": "Aluminium",
+                "b4.p1.software": "QMK & VIA",
+                "b4.p1.light": "RGB",
+                "b4.p1.connectivity": "Bluetooth, 2,4 GHz, USB-A",
+                "b4.p1.hotswap": "Ja",
+                "b4.p1.plate": "3D-gedruckt",
+                "b5.p1.title": "Keychron Q3",
+                "b5.p1.desc": "Keychron Q3 mit Pudding-Tastenkappen von Glorious Gaming auf dem Schreibtisch",
+                "b5.p1.keycaps": "YMDK Cloud German",
+                "b5.p1.case": "Aluminium",
+                "b5.p1.software": "QMK & VIA",
+                "b5.p1.light": "RGB",
+                "b5.p1.connectivity": "USB-A (Kabel abnehmbar)",
+                "b5.p1.hotswap": "Ja",
+                "b5.p1.plate": "Aluminium",
+                "b5.p2.title": "Keychron Q3",
+                "b5.p2.desc": "Keychron Q3 mit Pudding-Tastenkappen von Glorious Gaming im Dunkeln",
+                "b5.p2.keycaps": "YMDK Cloud German",
+                "b5.p2.case": "Aluminium",
+                "b5.p2.software": "QMK & VIA",
+                "b5.p2.light": "RGB",
+                "b5.p2.connectivity": "USB-A (Kabel abnehmbar)",
+                "b5.p2.hotswap": "Ja",
+                "b5.p2.plate": "Aluminium",
+                "b6.p1.title": "YMDK68 Nussbaum",
+                "b6.p1.desc": "YMDK68 aus Nussbaum mit Handauflage und YMDK-Retro-Tastenkappen",
+                "b6.p1.keycaps": "YMDK Retro Beige German",
+                "b6.p1.case": "Holz (Nussbaum)",
+                "b6.p1.software": "QMK & VIA",
+                "b6.p1.light": "Keine",
+                "b6.p1.connectivity": "USB-A (Kabel abnehmbar)",
+                "b6.p1.hotswap": "Nein",
+                "b6.p1.plate": "Aluminium",
+                "b6.p2.title": "YMDK68 Nussbaum",
+                "b6.p2.desc": "YMDK68 aus Nussbaum mit YMDK-Retro-Tastenkappen",
+                "b6.p2.keycaps": "YMDK Retro Beige German",
+                "b6.p2.case": "Holz (Nussbaum)",
+                "b6.p2.software": "QMK & VIA",
+                "b6.p2.light": "Keine",
+                "b6.p2.connectivity": "USB-A (Kabel abnehmbar)",
+                "b6.p2.hotswap": "Nein",
+                "b6.p2.plate": "Aluminium",
+                "b6.p3.title": "YMDK68 Nussbaum",
+                "b6.p3.desc": "YMDK68 aus Nussbaum mit YMDK-Retro-Tastenkappen auf der Werkbank",
+                "b6.p3.keycaps": "YMDK Retro Beige German",
+                "b6.p3.case": "Holz (Nussbaum)",
+                "b6.p3.software": "QMK & VIA",
+                "b6.p3.light": "Keine",
+                "b6.p3.connectivity": "USB-A (Kabel abnehmbar)",
+                "b6.p3.hotswap": "Nein",
+                "b6.p3.plate": "Aluminium",
+                "b7.p1.title": "YMDK75 „Coffee-Cat“",
+                "b7.p1.desc": "YMDK75 aus Nussbaum mit „Coffee Cat“-Tastenkappen von YMDK und „Retro 101“ von MaxGaming",
+                "b7.p1.keycaps": "YMDK Coffee Cat & MaxGaming Retro 101",
+                "b7.p1.case": "Holz (Nussbaum)",
+                "b7.p1.software": "QMK & VIA",
+                "b7.p1.light": "RGB",
+                "b7.p1.connectivity": "USB-A (Kabel abnehmbar)",
+                "b7.p1.hotswap": "Ja",
+                "b7.p1.plate": "3D-gedruckt",
+                "b8.p1.title": "KC 200 „Retro“",
+                "b8.p1.desc": "KC 200 mit Retro-Tastenkappen von Cherry und YMDK",
+                "b8.p1.keycaps": "Classic Cherry, YMDK Retro Beige",
+                "b8.p1.case": "Plastik, Aluminium",
+                "b8.p1.software": "Cherry Utility Software",
+                "b8.p1.light": "Keine",
+                "b8.p1.connectivity": "USB-A",
+                "b8.p1.hotswap": "Nein",
+                "b8.p1.plate": "Integriert",
+                "b9.p1.title": "DMG-65",
+                "b9.p1.desc": "Konzept einer Tastatur im Gameboy-Design (Bild mit KI generiert)",
+                "b9.p1.design": "Von mir designt",
+                "b9.p1.pcb": "Tofu65 2.0",
+                "b9.p1.light": "RGB",
+                "b9.p1.software": "QMK & VIA",
+                "b9.p1.status": "Designphase",
+                "b9.p1.hotswap": "Ja",
+                "b10.p1.title": "G80-1000",
+                "b10.p1.desc": "G80-1000 Retro-Tastatur mit neuen bilingualen Tastenkappen",
+                "b10.p1.keycaps": "U9 L9 Retro",
+                "b10.p1.case": "Plastik",
+                "b10.p1.software": "Keine",
+                "b10.p1.light": "Keine",
+                "b10.p1.connectivity": "PS/2",
+                "b10.p1.hotswap": "Nein",
+                "b10.p1.plate": "Keine",
+                "b10.p2.title": "G80-1000",
+                "b10.p2.desc": "G80-1000 Retro-Tastatur mit neuen bilingualen Tastenkappen",
+                "b10.p2.keycaps": "U9 L9 Retro",
+                "b10.p2.case": "Plastik",
+                "b10.p2.software": "Keine",
+                "b10.p2.light": "Keine",
+                "b10.p2.connectivity": "PS/2",
+                "b10.p2.hotswap": "Nein",
+                "b10.p2.plate": "Keine",
             },
             en: {
                 "hero.eyebrow": "Portfolio",
-                "hero.heading": "Seven builds, one workbench.",
-                "hero.intro": "From the Cherry G80-3000 with all-new electronics to the untested garage find: everything that's been on the workbench (or still is) lives here. Hover or tap a photo to reveal its cheat sheet – builds with more than one photo can be cycled with the arrows.",
-                "b1.title": "J80-3000", "b1.l1": "Base:", "b1.v1": "Cherry G80-3000",
-                "b1.l2": "Controller:", "b1.v2": "WeAct Blackpill STM32-F411",
-                "b1.l3": "I/O expander:", "b1.v3": "MCP23017 (I2C)",
-                "b1.l4": "Firmware:", "b1.v4": "QMK, custom scan routine",
-                "b1.l5": "Status:", "b1.v5": "In progress – debugging",
-                "b2.title": "Monsgeek M1", "b2.l1": "Case:", "b2.v1": "CNC aluminum, gasket mount",
-                "b2.l2": "Hot-swap:", "b2.v2": "Yes (QMK/VIA)", "b2.l3": "Switches:", "b2.v3": "– to add",
-                "b3.title": "Tofu65", "b3.l1": "Case:", "b3.v1": "Aluminum (KBDfans)",
-                "b3.l2": "Mount:", "b3.v2": "Top/gasket mount", "b3.l3": "Switches:", "b3.v3": "– to add",
-                "b4.title": "Weikav Stars75", "b4.l1": "Case:", "b4.v1": "CNC aluminum",
-                "b4.l2": "Connectivity:", "b4.v2": "Tri-mode (BT / 2.4GHz / USB-C)", "b4.l3": "Switches:", "b4.v3": "– to add",
-                "b5.title": "Keychron Q3", "b5.l1": "Case:", "b5.v1": "Aluminum, double-gasket mount",
-                "b5.l2": "Hot-swap:", "b5.v2": "Yes", "b5.l3": "Switches:", "b5.v3": "– to add",
-                "b6.title": "YMDK68", "b6.l1": "Case:", "b6.v1": "Wood",
-                "b6.l2": "Look:", "b6.v2": "warm, calm, handcrafted", "b6.l3": "Switches:", "b6.v3": "– to add",
-                "b7.title": "The garage find", "b7.l1": "Origin:", "b7.v1": "Chance find",
-                "b7.l2": "Condition found:", "b7.v2": "dusty, untested", "b7.l3": "Status:", "b7.v3": "Cleanup & check",
-                "b1.photo1.alt": "J80-3000 controller swap with I2C expander",
-                "b1.photo2.alt": "Cherry G80-3000 in a retro look with colorful keycaps",
-                "b1.photo3.alt": "Cherry G80-3000 with bilingual keycaps",
-                "b1.photo4.alt": "Cherry G80-3000 with Coffee Cat keycaps",
-                "b2.photo1.alt": "Monsgeek M1 aluminum keyboard",
-                "b2.photo2.alt": "Monsgeek M1 V5 in the EVA color scheme",
-                "b3.photo1.alt": "Tofu65 with bilingual keycaps",
-                "b3.photo2.alt": "Tofu65 with Brutalis keycaps",
-                "b3.photo3.alt": "TOFU65 with mixed keycaps",
-                "b4.photo1.alt": "Weikav Stars75 custom keyboard",
-                "b5.photo1.alt": "Keychron Q3 aluminum keyboard",
-                "b6.photo1.alt": "YMDK68 wood keyboard with wrist rest",
-                "b6.photo2.alt": "YMDK68 wood keyboard without wrist rest",
-                "b6.photo3.alt": "YMDK68 wood keyboard on the workbench",
-                "b6.photo4.alt": "YMDK75 wood keyboard with Coffee Cat keycaps",
-                "b7.photo1.alt": "Cherry KC 200 garage find",
-                "b7.photo2.alt": "Red Lucky65 keyboard, another workbench find",
-                "b8.title": "DMG65 – concept", "b8.l1": "Origin:", "b8.v1": "Chance find",
-                "b8.l2": "Condition found:", "b8.v2": "dusty, untested", "b8.l3": "Status:", "b8.v3": "Cleanup & check",
-                "b8.photo1.alt": "DMG65 concept keyboard",
-                "b8.photo2.alt": "Red Lucky65 keyboard, another workbench find",
-                "b9.title": "Cherry G80-1000", "b9.l1": "Origin:", "b9.v1": "Chance find",
-                "b9.l2": "Condition found:", "b9.v2": "dusty, untested", "b9.l3": "Status:", "b9.v3": "Cleanup & check",
-                "b9.photo1.alt": "Cherry G80-1000 on the workbench",
-                "b9.photo2.alt": "Red Lucky65 keyboard, another workbench find"
+                "hero.heading": "Ten builds, one workbench.",
+                "hero.intro": "From the Cherry G80-3000 with all-new electronics to the untested garage find: everything that’s been on the workbench (or still is) lives here. Hover or tap a photo to reveal its cheat sheet – every photo in a carousel has its own card, which you can cycle through with the arrows.",
+                "cheat.keycaps": "Keycaps:",
+                "cheat.case": "Case material:",
+                "cheat.software": "Software:",
+                "cheat.custom": "Custom feature:",
+                "cheat.light": "Lighting:",
+                "cheat.connectivity": "Connectivity:",
+                "cheat.hotswap": "Hot-swap:",
+                "cheat.plate": "Switch plate:",
+                "cheat.design": "Design:",
+                "cheat.pcb": "PCB:",
+                "cheat.status": "Status:",
+                "b1.p1.title": "J80-3000 I2C",
+                "b1.p1.desc": "Modded G80-3000 with beige Cherry keycaps and gray and red accent caps",
+                "b1.p1.keycaps": "Cherry Classic, gray and red accent caps",
+                "b1.p1.case": "Plastic",
+                "b1.p1.software": "QMK & VIA – custom-built firmware",
+                "b1.p1.custom": "Typing-speed visualization via LED animation",
+                "b1.p1.hotswap": "Yes",
+                "b1.p1.plate": "3D-printed",
+                "b1.p2.title": "G80-3000 “Eccentric”",
+                "b1.p2.desc": "G80-3000 with JTK “Eccentric” keycaps in HSA profile",
+                "b1.p2.keycaps": "JTK HSA Eccentric",
+                "b1.p2.case": "Plastic",
+                "b1.p2.hotswap": "No",
+                "b1.p2.plate": "None",
+                "b1.p3.title": "G80-3000",
+                "b1.p3.desc": "G80-3000 with bilingual keycaps",
+                "b1.p3.keycaps": "U9 L9 Retro",
+                "b1.p3.case": "Plastic",
+                "b1.p3.hotswap": "No",
+                "b1.p3.plate": "None",
+                "b1.p4.title": "G80-3000 “Coffee-Cat”",
+                "b1.p4.desc": "G80-3000 with “Coffee Cat” keycaps, mixed with MaxGaming “Retro 101”",
+                "b1.p4.keycaps": "YMDK Coffee Cat, MaxGaming Retro 101",
+                "b1.p4.case": "Plastic",
+                "b1.p4.hotswap": "No",
+                "b1.p4.plate": "None",
+                "b2.p1.title": "Monsgeek M1",
+                "b2.p1.desc": "Monsgeek M1 with beige Cherry keycaps and MaxGaming Retro 101",
+                "b2.p1.keycaps": "Cherry Classic, Retro 101",
+                "b2.p1.case": "Aluminum",
+                "b2.p1.software": "QMK & VIA",
+                "b2.p1.light": "RGB",
+                "b2.p1.connectivity": "USB-A (detachable cable)",
+                "b2.p1.hotswap": "Yes",
+                "b2.p1.plate": "Plastic, transparent",
+                "b2.p2.title": "Monsgeek M1 V5 “EVA04”",
+                "b2.p2.desc": "Monsgeek M1 V5 with EVA04 keycaps",
+                "b2.p2.keycaps": "Jaycomia “EVA04” ISO-DE",
+                "b2.p2.case": "Aluminum",
+                "b2.p2.software": "QMK & VIA",
+                "b2.p2.light": "RGB",
+                "b2.p2.connectivity": "Bluetooth, 2.4GHz, USB-A",
+                "b2.p2.hotswap": "Yes",
+                "b2.p2.plate": "Plastic, transparent",
+                "b3.p1.title": "Tofu65 2.0 ISO",
+                "b3.p1.desc": "Tofu65 2.0 with bilingual keycaps",
+                "b3.p1.keycaps": "U9 L9 Retro",
+                "b3.p1.case": "Aluminum",
+                "b3.p1.software": "QMK & VIA",
+                "b3.p1.light": "Warm white",
+                "b3.p1.connectivity": "USB-A (detachable cable)",
+                "b3.p1.hotswap": "Yes",
+                "b3.p1.plate": "FR4",
+                "b3.p2.title": "Tofu65 2.0 ISO “Brutalist”",
+                "b3.p2.desc": "Tofu65 2.0 with EPBT “Brutalist” keycaps",
+                "b3.p2.keycaps": "EPBT Brutalist",
+                "b3.p2.case": "Aluminum",
+                "b3.p2.software": "QMK & VIA",
+                "b3.p2.light": "Warm white",
+                "b3.p2.connectivity": "USB-A (detachable cable)",
+                "b3.p2.hotswap": "Yes",
+                "b3.p2.plate": "FR4",
+                "b3.p3.title": "Tofu65 2.0",
+                "b3.p3.desc": "Tofu65 2.0 with mixed keycaps",
+                "b3.p3.keycaps": "Mixed",
+                "b3.p3.case": "Aluminum",
+                "b3.p3.software": "QMK & VIA",
+                "b3.p3.light": "RGB",
+                "b3.p3.connectivity": "USB-A (detachable cable)",
+                "b3.p3.hotswap": "Yes",
+                "b3.p3.plate": "Aluminum",
+                "b4.p1.title": "Stars75 “Lesbian Pride”",
+                "b4.p1.desc": "Stars75 in “Cheese White” with YMDK “Cloud” keycaps",
+                "b4.p1.keycaps": "YMDK Cloud German",
+                "b4.p1.case": "Aluminum",
+                "b4.p1.software": "QMK & VIA",
+                "b4.p1.light": "RGB",
+                "b4.p1.connectivity": "Bluetooth, 2.4GHz, USB-A",
+                "b4.p1.hotswap": "Yes",
+                "b4.p1.plate": "3D-printed",
+                "b5.p1.title": "Keychron Q3",
+                "b5.p1.desc": "Keychron Q3 with Glorious Gaming pudding keycaps on the desk",
+                "b5.p1.keycaps": "YMDK Cloud German",
+                "b5.p1.case": "Aluminum",
+                "b5.p1.software": "QMK & VIA",
+                "b5.p1.light": "RGB",
+                "b5.p1.connectivity": "USB-A (detachable cable)",
+                "b5.p1.hotswap": "Yes",
+                "b5.p1.plate": "Aluminum",
+                "b5.p2.title": "Keychron Q3",
+                "b5.p2.desc": "Keychron Q3 with Glorious Gaming pudding keycaps in the dark",
+                "b5.p2.keycaps": "YMDK Cloud German",
+                "b5.p2.case": "Aluminum",
+                "b5.p2.software": "QMK & VIA",
+                "b5.p2.light": "RGB",
+                "b5.p2.connectivity": "USB-A (detachable cable)",
+                "b5.p2.hotswap": "Yes",
+                "b5.p2.plate": "Aluminum",
+                "b6.p1.title": "YMDK68 Walnut",
+                "b6.p1.desc": "YMDK68 in walnut with wrist rest and YMDK Retro keycaps",
+                "b6.p1.keycaps": "YMDK Retro Beige German",
+                "b6.p1.case": "Wood (walnut)",
+                "b6.p1.software": "QMK & VIA",
+                "b6.p1.light": "None",
+                "b6.p1.connectivity": "USB-A (detachable cable)",
+                "b6.p1.hotswap": "No",
+                "b6.p1.plate": "Aluminum",
+                "b6.p2.title": "YMDK68 Walnut",
+                "b6.p2.desc": "YMDK68 in walnut with YMDK Retro keycaps",
+                "b6.p2.keycaps": "YMDK Retro Beige German",
+                "b6.p2.case": "Wood (walnut)",
+                "b6.p2.software": "QMK & VIA",
+                "b6.p2.light": "None",
+                "b6.p2.connectivity": "USB-A (detachable cable)",
+                "b6.p2.hotswap": "No",
+                "b6.p2.plate": "Aluminum",
+                "b6.p3.title": "YMDK68 Walnut",
+                "b6.p3.desc": "YMDK68 in walnut with YMDK Retro keycaps on the workbench",
+                "b6.p3.keycaps": "YMDK Retro Beige German",
+                "b6.p3.case": "Wood (walnut)",
+                "b6.p3.software": "QMK & VIA",
+                "b6.p3.light": "None",
+                "b6.p3.connectivity": "USB-A (detachable cable)",
+                "b6.p3.hotswap": "No",
+                "b6.p3.plate": "Aluminum",
+                "b7.p1.title": "YMDK75 “Coffee-Cat”",
+                "b7.p1.desc": "YMDK75 in walnut with YMDK “Coffee Cat” keycaps and MaxGaming “Retro 101”",
+                "b7.p1.keycaps": "YMDK Coffee Cat & MaxGaming Retro 101",
+                "b7.p1.case": "Wood (walnut)",
+                "b7.p1.software": "QMK & VIA",
+                "b7.p1.light": "RGB",
+                "b7.p1.connectivity": "USB-A (detachable cable)",
+                "b7.p1.hotswap": "Yes",
+                "b7.p1.plate": "3D-printed",
+                "b8.p1.title": "KC 200 “Retro”",
+                "b8.p1.desc": "KC 200 with retro keycaps from Cherry and YMDK",
+                "b8.p1.keycaps": "Classic Cherry, YMDK Retro Beige",
+                "b8.p1.case": "Plastic, aluminum",
+                "b8.p1.software": "Cherry Utility Software",
+                "b8.p1.light": "None",
+                "b8.p1.connectivity": "USB-A",
+                "b8.p1.hotswap": "No",
+                "b8.p1.plate": "Integrated",
+                "b9.p1.title": "DMG-65",
+                "b9.p1.desc": "Concept for a keyboard in Game Boy styling (image AI-generated)",
+                "b9.p1.design": "Designed by me",
+                "b9.p1.pcb": "Tofu65 2.0",
+                "b9.p1.light": "RGB",
+                "b9.p1.software": "QMK & VIA",
+                "b9.p1.status": "Design phase",
+                "b9.p1.hotswap": "Yes",
+                "b10.p1.title": "G80-1000",
+                "b10.p1.desc": "G80-1000 retro keyboard with new bilingual keycaps",
+                "b10.p1.keycaps": "U9 L9 Retro",
+                "b10.p1.case": "Plastic",
+                "b10.p1.software": "None",
+                "b10.p1.light": "None",
+                "b10.p1.connectivity": "PS/2",
+                "b10.p1.hotswap": "No",
+                "b10.p1.plate": "None",
+                "b10.p2.title": "G80-1000",
+                "b10.p2.desc": "G80-1000 retro keyboard with new bilingual keycaps",
+                "b10.p2.keycaps": "U9 L9 Retro",
+                "b10.p2.case": "Plastic",
+                "b10.p2.software": "None",
+                "b10.p2.light": "None",
+                "b10.p2.connectivity": "PS/2",
+                "b10.p2.hotswap": "No",
+                "b10.p2.plate": "None",
             }
         };
     </script>

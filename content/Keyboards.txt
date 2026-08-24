@@ -1,0 +1,246 @@
+Keyboards
+
+
+G80-3000
+
+Bild 1: Cherry_J80-3000_I2C.jpg
+Name: J80-3000 I2C
+Beschreibung: Umgebaute G80-3000 mit beigen Cherry-Tastenkappen und grauen und roten Akzent-Tastenkappen
+Tastenkappen: Cherry Classic, graue und rote Akzent-Kappen
+Gehäusematerial: Plastik
+Software: QMK & VIA - selbstgebaute Firmware
+Custom-Feature: Schreibgeschwindigkeits-Visualisierung über LED-Animation
+Hot-Swap: Ja
+Switch-Plate: 3D-gedruckt
+
+
+Bild 2: G80-3000.jpg
+Name: G80-3000 "Eccentric"
+Beschreibung: G80-3000 mit "Eccentric"-Tastenkappen von JTK mit HSA-Profil
+Tastenkappen: JTK HSA Eccentric
+Gehäusematerial: Plastik
+Software: -
+Custom-Feature: -
+Hot-Swap: Nein
+Switch-Plate: Keine
+
+Bild 3: G80-3000_Bilangual_Keycaps.jpg
+Name: G80-3000
+Beschreibung: G80-3000 mit bilingualen Tastenkappen
+Tastenkappen: U9 L9 Retro
+Gehäusematerial: Plastik
+Software: -
+Custom-Feature: -
+Hot-Swap: Nein
+Switch-Plate: Keine
+
+Bild 4: G80-3000_Coffe-Cat-Keycaps.jpg
+Name: G80-3000 "Coffee-Cat"
+Beschreibung: G80-3000 mit "Coffee Cat"-Tastenkappen, gemischt mit "Retro 101" von MaxGaming
+Tastenkappen: YMDK Coffee Cat, MaxGaming Retro 101
+Gehäusematerial: Plastik
+Software: -
+Custom-Feature: -
+Hot-Swap: Nein
+Switch-Plate: Keine
+
+
+Monsgeek M1
+
+Bild 1: Monsgeek M1.jpg
+Name: Monsgeek M1
+Beschreibung: Monsgeek M1 mit beigen Cherry-Tastenkappen und Retro 101 von MaxGaming
+Tastenkappen: Cherry Classic, Retro 101
+Gehäusematerial: Aluminium
+Software: QMK & VIA
+Beleuchtung: RGB
+Verbindung: USB-A (Kabel abnehmbar)
+Hot-Swap: Ja
+Switch-Plate: Plastik, transparent
+
+Bild 2: Monsgeek_M1_V5_EVA.jpg
+Name: Monsgeek M1 V5 "EVA04"
+Beschreibung: Monsgeek M1 V5 mit EVA04-Tastenkappen
+Tastenkappen: Jaycomia "EVA04" ISO-DE
+Gehäusematerial: Aluminium
+Software: QMK & VIA
+Beleuchtung: RGB
+Verbindung: Bluetooth, 2,4 Ghz, USB-A
+Hot-Swap: Ja
+Switch-Plate: Plastik, transparent
+
+
+Tofu65 2.0
+
+Bild 1: Tofu65_Bilangual_Keycaps.jpg
+Name: Tofu65 2.0 ISO
+Beschreibung: Tofu65 2.0 mit bilingualen Tastenkappen
+Tastenkappen: U9 L9 Retro
+Gehäusematerial: Aluminium
+Software: QMK & VIA
+Beleuchtung: Warmweiß
+Verbindung: USB-A (Kabel abnehmbar)
+Hot-Swap: Ja
+Switch-Plate: FR4
+
+Bild 2: Tofu65_Brutalis-Keycaps.jpg
+Name: Tofu65 2.0 ISO "Brutalist"
+Beschreibung: Tofu65 2.0 mit "Brutalist"-Tastenkappen von EPBT
+Tastenkappen: EPBT Brutalist
+Gehäusematerial: Aluminium
+Software: QMK & VIA
+Beleuchtung: Warmweiß
+Verbindung: USB-A (Kabel abnehmbar)
+Hot-Swap: Ja
+Switch-Plate: FR4
+
+Bild 3: TOFU65_Mixed_Keycaps.jpg
+Name: Tofu65 2.0
+Beschreibung: Tofu65 2.0 mit gemischten Tastenkappen
+Tastenkappen: Gemischt
+Gehäusematerial: Aluminium
+Software: QMK & VIA
+Beleuchtung: RGB
+Verbindung: USB-A (Kabel abnehmbar)
+Hot-Swap: Ja
+Switch-Plate: Aluminium
+
+
+Stars75
+
+Bild 1: Stars75.jpg
+Name: Stars75 "Lesbian Pride"
+Beschreibung: Stars75 in "Cheese White" mit "Cloud"-Tastenkappen von YMDK
+Tastenkappen: YMDK Cloud German
+Gehäusematerial: Aluminium
+Software: QMK & VIA
+Beleuchtung: RGB
+Verbindung: Bluetooth, 2,4 Ghz, USB-A
+Hot-Swap: Ja
+Switch-Plate: 3D-gedruckt
+
+
+Keychron Q3
+
+Bild 1: Keychron Q3_2.JPG
+Name: Keychron Q3
+Beschreibung: Keychron Q3 mit Pudding-Tastenkappen von Glorious Gaming auf dem Schreibtisch
+Tastenkappen: YMDK Cloud German
+Gehäusematerial: Aluminium
+Software: QMK & VIA
+Beleuchtung: RGB
+Verbindung: USB-A (Kabel abnehmbar)
+Hot-Swap: Ja
+Switch-Plate: Aluminium
+
+Bild 2: Keychron Q3_1.JPG
+Name: Keychron Q3
+Beschreibung: Keychron Q3 mit Pudding-Tastenkappen von Glorious Gaming im Dunkeln
+Tastenkappen: YMDK Cloud German
+Gehäusematerial: Aluminium
+Software: QMK & VIA
+Beleuchtung: RGB
+Verbindung: USB-A (Kabel abnehmbar)
+Hot-Swap: Ja
+Switch-Plate: Aluminium
+
+
+YMDK68
+
+Bild 1: YMDK68_Wood_with_wristrest.jpg
+Name: YMDK68 Nussbaum
+Beschreibung: YDMK68 aus Nussbaum mit Handauflage und YMDK-Retro-Tastenkappen
+Tastenkappen: YMDK Retro Beige German
+Gehäusematerial: Holz (Nussbaum)
+Software: QMK & VIA
+Beleuchtung: Keine
+Verbindung: USB-A (Kabel abnehmbar)
+Hot-Swap: Nein
+Switch-Plate: Aluminium
+
+Bild 2: YMDK68_Wood_without_wristrest.jpg
+Beschreibung: YDMK68 aus Nussbaum mit YMDK-Retro-Tastenkappen
+Name: YMDK68 Nussbaum
+Tastenkappen: YMDK Retro Beige German
+Gehäusematerial: Holz (Nussbaum)
+Software: QMK & VIA
+Beleuchtung: Keine
+Verbindung: USB-A (Kabel abnehmbar)
+Hot-Swap: Nein
+Switch-Plate: Aluminium
+
+Bild 3: YMDK68_Wood_workbench.jpg
+Beschreibung: YDMK68 aus Nussbaum mit YMDK-Retro-Tastenkappen auf der Workbench
+Name: YMDK68 Nussbaum
+Tastenkappen: YMDK Retro Beige German
+Gehäusematerial: Holz (Nussbaum)
+Software: QMK & VIA
+Beleuchtung: Keine
+Verbindung: USB-A (Kabel abnehmbar)
+Hot-Swap: Nein
+Switch-Plate: Aluminium
+
+
+YMDK75
+
+Bild 1: YMDK75_Walnut.jpg
+Name: YMDK75 "Coffee-Cat"
+Beschreibung: YMDK75 aus Nussbaum mit "Coffee Cat"-Tastenkappen von YMDK und "Retro 101" von MaxGaming
+Tastenkappen: YMDK Coffee Cat & MaxGaming Retro 101
+Gehäusematerial: Holz (Nussbaum)
+Software: QMK & VIA
+Beleuchtung: RGB
+Verbindung: USB-A (Kabel abnehmbar)
+Hot-Swap: Ja
+Switch-Plate: 3D-gedruckt
+
+
+KC 200
+
+Bild 1: Cherry_KC_200.jpg
+Name: KC 200 "Retro"
+Beschreibung: KC 200 mit Retro-Tastenkappen von Cherry und YMDK
+Tastenkappen: Classic Cherry, YMDK Retro Beige
+Gehäusematerial: Plastik, Aluminium
+Software: Cherry Utility Software
+Beleuchtung: Keine
+Verbindung: USB-A
+Hot-Swap: Nein
+Switch-Plate: Integriert
+
+DMG-65-Konzept
+
+Name: DMG-65
+Bild 1: DMG-65_concept.jpg
+Beschreibung: Konzept einer Tastatur im Gameboy-Design (Bild mit KI generiert)
+Design: Von mir designt
+PCB: Tofu65 2.0
+Beleuchtung: RGB
+Software: QMK & VIA
+Status: Designphase
+Hot-Swap: Ja
+
+
+G80-1000
+
+Bild 1: Cherry_G80-1000_1.jpg
+Name: G80-1000
+Beschreibung: G80-1000 Retro-Tastatur mit neuen bilingualen Tastenkappen
+Tastenkappen: U9 L9 Retro
+Gehäusematerial: Plastik
+Software: Keine
+Beleuchtung: Keine
+Verbindung: PS/2
+Hot-Swap: Nein
+Switch-Plate: Keine
+
+Bild 2: Cherry_G80-1000_2.jpg
+Name: G80-1000
+Beschreibung: G80-1000 Retro-Tastatur mit neuen bilingualen Tastenkappen
+Tastenkappen: U9 L9 Retro
+Gehäusematerial: Plastik
+Software: Keine
+Beleuchtung: Keine
+Verbindung: PS/2
+Hot-Swap: Nein
+Switch-Plate: Keine
