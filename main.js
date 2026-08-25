@@ -24,6 +24,8 @@ window.J_KEEBS_I18N_COMMON = {
         "utility.social.linkedin": "Besuchen Sie das LinkedIn-Profil",
         "utility.cheatToggle.aria": "Spickzettel anzeigen",
         "utility.navToggle.aria": "Menü",
+        "utility.breadcrumb.aria": "Navigationspfad",
+        "breadcrumb.guides": "← Guides & Tutorials",
         "footer.tagline": "Custom Mechanical Keyboards, Modding und Upcycling mit Fokus auf deutsches ISO-Layout.",
         "footer.poweredBy": "Powered by PCBWay",
         "footer.col1.heading": "Entdecken", "footer.col2.heading": "Community", "footer.col3.heading": "Kontakt",
@@ -56,6 +58,8 @@ window.J_KEEBS_I18N_COMMON = {
         "utility.social.linkedin": "Visit the LinkedIn profile",
         "utility.cheatToggle.aria": "Show cheat sheet",
         "utility.navToggle.aria": "Menu",
+        "utility.breadcrumb.aria": "Breadcrumb",
+        "breadcrumb.guides": "← Guides & Tutorials",
         "footer.tagline": "Custom mechanical keyboards, modding and upcycling focused on the German ISO layout.",
         "footer.poweredBy": "Powered by PCBWay",
         "footer.col1.heading": "Explore", "footer.col2.heading": "Community", "footer.col3.heading": "Contact",
@@ -103,6 +107,7 @@ window.J_KEEBS_I18N_COMMON = {
             btn.setAttribute("aria-pressed", btn.getAttribute("data-lang-toggle") === lang ? "true" : "false");
         });
         relabelCarousels(dict);
+        updateGuideCategoryStatus(dict);
     }
 
     // Karussell-Dots und Vor/Zurück-Buttons sind positionsbasiert ("Foto 2 von 4") statt
@@ -122,6 +127,24 @@ window.J_KEEBS_I18N_COMMON = {
             var next = frame.querySelector(".carousel-btn--next");
             if (prev) prev.setAttribute("aria-label", prevLabel);
             if (next) next.setAttribute("aria-label", nextLabel);
+        });
+    }
+
+    // guides.html: zählt pro Kategorie automatisch, wie viele .guide-card
+    // schon verfügbar sind (echter Link) vs. noch als .guide-card--pending
+    // ("Folgt") markiert sind. So muss die Zusammenfassung nicht von Hand
+    // gepflegt werden, sobald neue Guides live gehen - no-op auf allen
+    // anderen Seiten ohne [data-guide-status].
+    function updateGuideCategoryStatus(dict) {
+        var statusEls = document.querySelectorAll("[data-guide-status]");
+        if (!statusEls.length) return;
+        var template = dict["status.summary"] || "{available}/{total}";
+        statusEls.forEach(function (el) {
+            var section = document.getElementById(el.getAttribute("data-guide-status"));
+            if (!section) return;
+            var total = section.querySelectorAll(".guide-card").length;
+            var pending = section.querySelectorAll(".guide-card--pending").length;
+            el.textContent = template.replace("{available}", total - pending).replace("{total}", total);
         });
     }
 
@@ -232,6 +255,9 @@ window.J_KEEBS_I18N_COMMON = {
 
         // Initialize "Guides & Tutorials" nav dropdown (desktop hover panel / mobile accordion)
         initNavDropdowns();
+
+        // guides.html: markiert in der Jumpnav, welche Kategorie gerade im Viewport ist
+        initGuideJumpnav();
     });
     
     function initFullscreenViewer() {
@@ -534,10 +560,28 @@ window.J_KEEBS_I18N_COMMON = {
     // auf allen Geräten inkl. Touch), auf Desktop-Breiten ergänzt reines CSS
     // (:hover/:focus-within) die Klick-Bedienung als Komfort-Layer.
     function initNavDropdowns() {
+        var desktopQuery = window.matchMedia("(min-width: 1281px)");
+
         document.querySelectorAll(".nav-dropdown").forEach(function (dropdown) {
             var trigger = dropdown.querySelector(".nav-dropdown__trigger");
             var panel = dropdown.querySelector(".nav-dropdown__panel");
             if (!trigger || !panel) return;
+
+            // Auf Desktop-Breiten ist .nav-dropdown__panel position:fixed (siehe
+            // style.css), damit es dem overflow-Clipping von .site-nav entkommt.
+            // top/left gelten dann relativ zum Viewport statt relativ zu
+            // .nav-dropdown, deshalb hier per getBoundingClientRect berechnet.
+            // Auf Mobil-Breiten (Akkordeon, position:static) wird nichts gesetzt.
+            function positionPanel() {
+                if (!desktopQuery.matches) {
+                    panel.style.top = "";
+                    panel.style.left = "";
+                    return;
+                }
+                var rect = trigger.getBoundingClientRect();
+                panel.style.top = Math.round(rect.bottom + 8) + "px";
+                panel.style.left = Math.round(rect.left) + "px";
+            }
 
             function closeDropdown() {
                 dropdown.classList.remove("is-open");
@@ -547,6 +591,7 @@ window.J_KEEBS_I18N_COMMON = {
             function openDropdown() {
                 dropdown.classList.add("is-open");
                 trigger.setAttribute("aria-expanded", "true");
+                positionPanel();
             }
 
             trigger.addEventListener("click", function (e) {
@@ -557,6 +602,11 @@ window.J_KEEBS_I18N_COMMON = {
                     openDropdown();
                 }
             });
+
+            // :focus-within (Tab-Taste) oeffnet das Panel rein per CSS, ohne
+            // openDropdown() zu durchlaufen - Position trotzdem berechnen,
+            // sonst haengt das Panel beim ersten Tab-Fokus noch bei top/left:0.
+            trigger.addEventListener("focus", positionPanel);
 
             panel.querySelectorAll("a").forEach(function (link) {
                 link.addEventListener("click", closeDropdown);
@@ -574,6 +624,39 @@ window.J_KEEBS_I18N_COMMON = {
                     trigger.focus();
                 }
             });
+
+            window.addEventListener("resize", function () {
+                if (dropdown.classList.contains("is-open")) positionPanel();
+            });
         });
+    }
+
+    // guides.html: markiert per IntersectionObserver, welche Kategorie
+    // (Switches/Plates/Mods) gerade im Viewport ist - reine Komfortfunktion,
+    // no-op auf allen anderen Seiten ohne .guide-jumpnav.
+    function initGuideJumpnav() {
+        var nav = document.querySelector(".guide-jumpnav");
+        if (!nav || !("IntersectionObserver" in window)) return;
+
+        var links = Array.from(nav.querySelectorAll("a[href^='#']"));
+        var sections = links
+            .map(function (link) { return document.getElementById(link.getAttribute("href").slice(1)); })
+            .filter(Boolean);
+        if (!sections.length) return;
+
+        function setActive(id) {
+            links.forEach(function (link) {
+                var isActive = link.getAttribute("href") === "#" + id;
+                link.setAttribute("aria-current", isActive ? "true" : "false");
+            });
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) setActive(entry.target.id);
+            });
+        }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+
+        sections.forEach(function (section) { observer.observe(section); });
     }
 })();

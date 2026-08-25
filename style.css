@@ -89,7 +89,13 @@ button, input, textarea, select {
 
 .carousel-dots button { border-radius: 0; }
 
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+    /* Kompensiert den sticky .site-header (~70-80px), damit #switches/#plates/#mods
+       (Guides-Jumpnav und Nav-Dropdown-Links von jeder anderen Seite) nicht unter
+       dem Header landen. Etwas großzügig bemessen statt exakt an der Kante. */
+    scroll-padding-top: 96px;
+}
 
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
@@ -514,12 +520,23 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 }
 
 @media (min-width: 1281px) {
+    /* position:fixed statt absolute: .nav-dropdown liegt innerhalb von
+       .site-nav, das wegen overflow-x:auto (Sicherheitsnetz gegen zu viele
+       Nav-Punkte auf schmalen Desktop-Breiten) laut CSS-Spec automatisch
+       auch overflow-y auf "auto" setzt (eine Achse kann nicht "auto" sein,
+       waehrend die andere "visible" bleibt). Dadurch wurde das Panel, das
+       per top:100% unterhalb der Nav-Zeile rausragt, unsichtbar weg-
+       geschnitten - obwohl opacity/visibility korrekt auf "sichtbar"
+       standen (deshalb drehte sich der Pfeil auch bereits korrekt). Mit
+       position:fixed entkommt das Panel diesem Clipping; die Position wird
+       per JS relativ zum Viewport berechnet (main.js, initNavDropdowns ->
+       positionPanel), da top/left bei fixed nicht mehr relativ zu
+       .nav-dropdown gelten. */
     .nav-dropdown__panel {
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 0;
         left: 0;
         min-width: 190px;
-        margin-top: 0.5rem;
         padding: 0.4rem;
         background: var(--surface);
         border: 1px solid var(--border-strong);
@@ -539,17 +556,13 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     }
 }
 
-@media (hover: hover) and (min-width: 1281px) {
-    .nav-dropdown:hover .nav-dropdown__panel {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-
-    .nav-dropdown:hover .nav-dropdown__caret {
-        transform: rotate(180deg);
-    }
-}
+/* Bewusst KEIN :hover-Auto-Open hier: Vorher öffnete .nav-dropdown:hover
+   das Panel unabhängig vom Klick-Zustand. Da man mit der Maus fast immer
+   erst über den Trigger hovert, bevor man klickt, war das Panel beim Klick
+   schon offen (und blieb es auch nach erneutem Klick, solange die Maus
+   darüber stand) - der Klick wirkte dadurch funktionslos. Öffnen/Schließen
+   läuft jetzt ausschließlich über Klick (.is-open, siehe main.js
+   initNavDropdowns) und Tastatur-Fokus (:focus-within, siehe oben). */
 
 .utility-nav {
     display: flex;
@@ -859,6 +872,16 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 }
 
 .section__head p { max-width: 540px; color: var(--text-dim); }
+
+/* Zweite Spalte im Kategorie-Kopf auf guides.html: Intro-Text + automatisch
+   berechnetes Status-Badge ("1 von 2 verfügbar") übereinander statt nebeneinander,
+   damit .section__head weiterhin nur 2 Flex-Kinder hat (space-between bleibt stabil). */
+.section__head-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
 
 @media (max-width: 768px) {
     .section__head {
@@ -1361,6 +1384,14 @@ a.pill:focus-visible {
     margin-top: 1.4rem;
 }
 
+/* Wird per IntersectionObserver (main.js -> initGuideJumpnav) gesetzt, sobald
+   die zugehörige Kategorie im Viewport ist. */
+.guide-jumpnav .pill[aria-current="true"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+}
+
 /* -- Guides & Tutorials: Karten für einzelne Guides -- */
 
 .guide-card__link {
@@ -1543,6 +1574,37 @@ a.pill:focus-visible {
     .footer-bottom nav {
         width: 100%;
     }
+}
+
+/* -- Breadcrumb (Rückweg von Guide-Unterseiten zur zugehörigen Übersichtsseite) -- */
+
+.breadcrumb {
+    width: min(var(--max), 100%);
+    margin: 0 auto;
+    padding: 1.3rem clamp(1rem, 4vw, 2rem) 0;
+}
+
+.breadcrumb a {
+    display: inline-flex;
+    align-items: center;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.15s ease;
+}
+
+@media (hover: hover) {
+    .breadcrumb a:hover {
+        color: var(--accent-bright);
+    }
+}
+
+.breadcrumb a:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 3px;
 }
 
 /* -- Seiten-Hero (für Unterseiten ohne grosses Hero-Bild) -- */
