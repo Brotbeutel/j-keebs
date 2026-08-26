@@ -15,16 +15,16 @@
 
     --swatch-mocha: #8c7e74;
     --swatch-greige: #c3b8ad;
-    --swatch-offwhite: #e6e2de;
+    --swatch-offwhite: #e9e3d3;
     --swatch-cream: #f4f0e1;
-    --swatch-charcoal: #4e4e54;
-    --swatch-steel: #6a8494;
-    --swatch-slate: #595b69;
+    --swatch-charcoal: #4c4b4e;
+    --swatch-steel: #030a0c;
+    --swatch-slate: #5c5654;
     --swatch-camel: #b2977e;
     --swatch-olive: #5a5c58;
     --swatch-terracotta: #b37563;
 
-    --bg: #36383a;
+    --bg: #3a3736;
     --surface: var(--swatch-charcoal);
     --surface-2: var(--swatch-slate);
     --border: rgba(195, 184, 173, 0.16);
@@ -32,9 +32,9 @@
     --text: var(--swatch-cream);
     --text-dim: var(--swatch-greige);
 
-    --accent: #9e8d69;
-    --accent-bright: #ddc79c;
-    --accent-shade: #63522d;
+    --accent: #b3a078;
+    --accent-bright: #cfbc96;
+    --accent-shade: #6e644e;
     --accent-2: var(--swatch-greige);
     --accent-2-bright: #ebded1;
 
@@ -66,16 +66,16 @@
     --text: var(--swatch-charcoal);
     --text-dim: var(--swatch-olive);
 
-    --accent: #9c7d3f;
-    --accent-bright: #c69a3d;
-    --accent-shade: #6f5419;
-    --accent-2: #4c6674;
-    --accent-2-bright: var(--swatch-steel);
+    --accent: #b3a078;
+    --accent-bright: #cfbc96;
+    --accent-shade: #6e644e;
+    --accent-2: #61482c;
+    --accent-2-bright: #a88771;
 
-    --paper: #ffffff;
+    --paper: #f2f6fa;
     --paper-ink: var(--swatch-charcoal);
 
-    --shadow: 0 18px 34px rgba(83, 84, 84, 0.18);
+    --shadow: 0 18px 34px rgba(83, 84, 84, 0.479);
     --shadow-soft: 0 8px 18px rgba(83, 84, 84, 0.14);
 }
 
@@ -1018,7 +1018,7 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 .timeline { 
     position: relative; 
     margin-top: 1.8rem; 
-    padding-left: 1.8rem; 
+    padding-left: 1.6rem; 
     border-left: 3px solid var(--accent); 
 }
 
@@ -1130,7 +1130,7 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     order: 1;
     position: relative;
     z-index: 2;
-    width: 100%;
+    width: 90%;
     background: var(--paper);
     padding: 0.55rem 0.55rem 0;
     border: 1px solid var(--border-strong);
@@ -1317,6 +1317,7 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 
 .single-polaroid {
     width: 100%;
+    height: 100%;
     margin: 0;
     background: var(--paper);
     padding: 0.65rem 0.65rem 0.85rem;
@@ -1332,6 +1333,7 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 
 .single-polaroid img {
     width: 100%;
+    height: fit-content;
     aspect-ratio: 16 / 9;
     object-fit: contain;
     object-position: center;
