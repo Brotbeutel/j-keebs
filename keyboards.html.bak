@@ -42,8 +42,8 @@
             <a href="blog.html" data-i18n="nav.blog">Blog</a>
             <a href="keyboards.html" aria-current="page" data-i18n="nav.keyboards">Keyboards</a>
             <div class="nav-dropdown">
-                <button type="button" class="nav-dropdown__trigger" aria-haspopup="true" aria-expanded="false" aria-controls="guidesSubmenu" data-i18n="nav.guides">
-                    Guides &amp; Tutorials
+                <button type="button" class="nav-dropdown__trigger" aria-haspopup="true" aria-expanded="false" aria-controls="guidesSubmenu">
+                    <span data-i18n="nav.guides">Guides &amp; Tutorials</span>
                     <svg class="nav-dropdown__caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5"/></svg>
                 </button>
                 <div class="nav-dropdown__panel" id="guidesSubmenu">
@@ -79,8 +79,8 @@
     <main id="main">
         <section class="page-hero page-hero--single">
             <p class="eyebrow" data-i18n="hero.eyebrow">Portfolio</p>
-            <h1 data-i18n="hero.heading">Jede Tastatur hat ihre eigene Geschichte.</h1>
-            <p data-i18n="hero.intro">Von der Cherry G80-3000 mit komplett neuer Elektronik bis zum Lucky65 V2 mitten im ISO-Umbau: hier sammle ich, was auf der Werkbank war oder gerade ist. Fahr mit der Maus über ein Foto oder tippe es an, um den Spickzettel zu sehen – jedes Foto im Karussell hat sein eigenes Kärtchen, das sich mit den Pfeilen durchschalten lässt.</p>
+            <h1 data-i18n="hero.heading">Zehn Builds, eine Werkbank.</h1>
+            <p data-i18n="hero.intro">Von der Cherry G80-3000 mit komplett neuer Elektronik bis zum ungeprüften Garagenfund: hier landet alles, was auf der Werkbank war oder gerade ist. Fahr mit der Maus über ein Foto oder tippe es an, um den Spickzettel zu sehen – jedes Foto im Karussell hat dabei sein eigenes Kärtchen, das sich mit den Pfeilen durchschalten lässt.</p>
         </section>
 
         <section class="section">
@@ -269,7 +269,7 @@
                     <div class="gallery-item__stage">
                         <div class="cheat-sheet-stack" id="cheat-4">
                             <div class="cheat-sheet is-active">
-                                <h3 data-i18n="b4.p1.title">Stars75 „Lesbian Pride“</h3>
+                                <h3 data-i18n="b4.p1.title">Stars75</h3>
                                 <p class="cheat-sheet__desc" data-i18n="b4.p1.desc">Stars75 in „Cheese White“ mit „Cloud“-Tastenkappen von YMDK</p>
                                 <ul>
                                     <li><strong data-i18n="cheat.keycaps">Tastenkappen:</strong> <span data-i18n="b4.p1.keycaps">YMDK Cloud German</span></li>
@@ -285,10 +285,10 @@
                         <figure class="polaroid-frame" style="--tilt:2.2deg;" tabindex="0" aria-describedby="cheat-4">
                             <button type="button" class="cheat-toggle" aria-expanded="false" aria-label="Spickzettel anzeigen" title="Spickzettel anzeigen" data-i18n-attr="aria-label:utility.cheatToggle.aria,title:utility.cheatToggle.aria">i</button>
                             <div class="polaroid-frame__viewport">
-                                <img class="is-active" data-slide src="images/Stars75.jpg" width="1753" height="986" loading="lazy" decoding="async" alt="Stars75 in „Cheese White“ mit „Cloud“-Tastenkappen von YMDK" title="Stars75 „Lesbian Pride“" data-i18n-attr="alt:b4.p1.desc,title:b4.p1.title">
+                                <img class="is-active" data-slide src="images/Stars75.jpg" width="1753" height="986" loading="lazy" decoding="async" alt="Stars75 in „Cheese White“ mit „Cloud“-Tastenkappen von YMDK" title="Stars75" data-i18n-attr="alt:b4.p1.desc,title:b4.p1.title">
                             </div>
                             <div class="polaroid-frame__foot">
-                                <span class="pill" data-i18n="b4.p1.title">Stars75 „Lesbian Pride“</span>
+                                <span class="pill" data-i18n="b4.p1.title">Stars75</span>
                             </div>
                         </figure>
                     </div>
@@ -482,7 +482,7 @@
                         <figure class="polaroid-frame" style="--tilt:1.8deg;" tabindex="0" aria-describedby="cheat-9">
                             <button type="button" class="cheat-toggle" aria-expanded="false" aria-label="Spickzettel anzeigen" title="Spickzettel anzeigen" data-i18n-attr="aria-label:utility.cheatToggle.aria,title:utility.cheatToggle.aria">i</button>
                             <div class="polaroid-frame__viewport">
-                                <img class="is-active" data-slide src="images/DMG-65_concept.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Konzept einer Tastatur im Gameboy-Design (Bild mit KI generiert)" title="DMG-65" data-i18n-attr="alt:b9.p1.desc,title:b9.p1.title">
+                                <img class="is-active" data-slide src="images/DMG-65_concept.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Konzept einer Tastatur im Gameboy-Design (Bild mit KI generiert - auf Basis eines eigenen Renders)" title="DMG-65" data-i18n-attr="alt:b9.p1.desc,title:b9.p1.title">
                             </div>
                             <div class="polaroid-frame__foot">
                                 <span class="pill" data-i18n="b9.p1.title">DMG-65</span>
@@ -534,34 +534,6 @@
                                     <button type="button" aria-current="false" aria-label="Foto 2"></button>
                                 </div>
                                 <button type="button" class="carousel-btn carousel-btn--next" aria-label="Nächstes Foto">›</button>
-                            </div>
-                        </figure>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-item__stage">
-                        <div class="cheat-sheet-stack" id="cheat-11">
-                            <div class="cheat-sheet is-active">
-                                <h3 data-i18n="b11.p1.title">Lucky65 V2</h3>
-                                <p class="cheat-sheet__desc" data-i18n="b11.p1.desc">Rote Aluminium Tastatur mit ANSI-Layout</p>
-                                <ul>
-                                    <li><strong data-i18n="cheat.case">Gehäusematerial:</strong> <span data-i18n="b11.p1.case">Aluminium</span></li>
-                                    <li><strong data-i18n="cheat.software">Software:</strong> <span data-i18n="b11.p1.software">QMK &amp; VIA</span></li>
-                                    <li><strong data-i18n="cheat.connectivity">Verbindung:</strong> <span data-i18n="b11.p1.connectivity">Bluetooth, 2,4 GHz, USB-A</span></li>
-                                    <li><strong data-i18n="cheat.light">Beleuchtung:</strong> <span data-i18n="b11.p1.light">RGB</span></li>
-                                    <li><strong data-i18n="cheat.hotswap">Hot-Swap:</strong> <span data-i18n="b11.p1.hotswap">Ja</span></li>
-                                    <li><strong data-i18n="cheat.status">Status:</strong> <span data-i18n="b11.p1.status">Im Umbau zu ISO-Layout</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <figure class="polaroid-frame" style="--tilt:2.6deg;" tabindex="0" aria-describedby="cheat-11">
-                            <button type="button" class="cheat-toggle" aria-expanded="false" aria-label="Spickzettel anzeigen" title="Spickzettel anzeigen" data-i18n-attr="aria-label:utility.cheatToggle.aria,title:utility.cheatToggle.aria">i</button>
-                            <div class="polaroid-frame__viewport">
-                                <img class="is-active" data-slide src="images/Lucky65_Red.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Rote Aluminium Tastatur mit ANSI-Layout" title="Lucky65 V2" data-i18n-attr="alt:b11.p1.desc,title:b11.p1.title">
-                            </div>
-                            <div class="polaroid-frame__foot">
-                                <span class="pill" data-i18n="b11.p1.title">Lucky65 V2</span>
                             </div>
                         </figure>
                     </div>
@@ -638,8 +610,8 @@
         window.J_KEEBS_I18N = {
             de: {
                 "hero.eyebrow": "Portfolio",
-                "hero.heading": "Jede Tastatur hat ihre eigene Geschichte.",
-                "hero.intro": "Von der Cherry G80-3000 mit komplett neuer Elektronik bis zum Lucky65 V2 mitten im ISO-Umbau: hier sammle ich, was auf der Werkbank war oder gerade ist. Fahr mit der Maus über ein Foto oder tippe es an, um den Spickzettel zu sehen – jedes Foto im Karussell hat sein eigenes Kärtchen, das sich mit den Pfeilen durchschalten lässt.",
+                "hero.heading": "Zehn Builds, eine Werkbank.",
+                "hero.intro": "Von der Cherry G80-3000 mit komplett neuer Elektronik bis zum ungeprüften Garagenfund: hier landet alles, was auf der Werkbank war oder gerade ist. Fahr mit der Maus über ein Foto oder tippe es an, um den Spickzettel zu sehen – jedes Foto im Karussell hat dabei sein eigenes Kärtchen, das sich mit den Pfeilen durchschalten lässt.",
                 "cheat.keycaps": "Tastenkappen:",
                 "cheat.case": "Gehäusematerial:",
                 "cheat.software": "Software:",
@@ -722,7 +694,7 @@
                 "b3.p3.connectivity": "USB-A (Kabel abnehmbar)",
                 "b3.p3.hotswap": "Ja",
                 "b3.p3.plate": "Aluminium",
-                "b4.p1.title": "Stars75 „Lesbian Pride“",
+                "b4.p1.title": "Stars75",
                 "b4.p1.desc": "Stars75 in „Cheese White“ mit „Cloud“-Tastenkappen von YMDK",
                 "b4.p1.keycaps": "YMDK Cloud German",
                 "b4.p1.case": "Aluminium",
@@ -820,19 +792,11 @@
                 "b10.p2.connectivity": "PS/2",
                 "b10.p2.hotswap": "Nein",
                 "b10.p2.plate": "Keine",
-                "b11.p1.title": "Lucky65 V2",
-                "b11.p1.desc": "Rote Aluminium Tastatur mit ANSI-Layout",
-                "b11.p1.case": "Aluminium",
-                "b11.p1.software": "QMK & VIA",
-                "b11.p1.connectivity": "Bluetooth, 2,4 GHz, USB-A",
-                "b11.p1.light": "RGB",
-                "b11.p1.hotswap": "Ja",
-                "b11.p1.status": "Im Umbau zu ISO-Layout",
             },
             en: {
                 "hero.eyebrow": "Portfolio",
-                "hero.heading": "Every keyboard has its own story.",
-                "hero.intro": "From the Cherry G80-3000 with all-new electronics to the Lucky65 V2 mid-conversion to ISO: this is where everything that’s been on the workbench (or still is) ends up. Hover or tap a photo to reveal its cheat sheet – every photo in a carousel has its own card, which you can cycle through with the arrows.",
+                "hero.heading": "Ten builds, one workbench.",
+                "hero.intro": "From the Cherry G80-3000 with all-new electronics to the untested garage find: everything that’s been on the workbench (or still is) lives here. Hover or tap a photo to reveal its cheat sheet – every photo in a carousel has its own card, which you can cycle through with the arrows.",
                 "cheat.keycaps": "Keycaps:",
                 "cheat.case": "Case material:",
                 "cheat.software": "Software:",
@@ -915,7 +879,7 @@
                 "b3.p3.connectivity": "USB-A (detachable cable)",
                 "b3.p3.hotswap": "Yes",
                 "b3.p3.plate": "Aluminum",
-                "b4.p1.title": "Stars75 “Lesbian Pride”",
+                "b4.p1.title": "Stars75",
                 "b4.p1.desc": "Stars75 in “Cheese White” with YMDK “Cloud” keycaps",
                 "b4.p1.keycaps": "YMDK Cloud German",
                 "b4.p1.case": "Aluminum",
@@ -1013,14 +977,6 @@
                 "b10.p2.connectivity": "PS/2",
                 "b10.p2.hotswap": "No",
                 "b10.p2.plate": "None",
-                "b11.p1.title": "Lucky65 V2",
-                "b11.p1.desc": "Red aluminum keyboard with ANSI layout",
-                "b11.p1.case": "Aluminum",
-                "b11.p1.software": "QMK & VIA",
-                "b11.p1.connectivity": "Bluetooth, 2.4GHz, USB-A",
-                "b11.p1.light": "RGB",
-                "b11.p1.hotswap": "Yes",
-                "b11.p1.status": "Being converted to ISO layout",
             }
         };
     </script>

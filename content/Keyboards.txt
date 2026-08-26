@@ -109,7 +109,7 @@ Switch-Plate: Aluminium
 Stars75
 
 Bild 1: Stars75.jpg
-Name: Stars75 "Lesbian Pride"
+Name: Stars75 
 Beschreibung: Stars75 in "Cheese White" mit "Cloud"-Tastenkappen von YMDK
 Tastenkappen: YMDK Cloud German
 Gehäusematerial: Aluminium
@@ -210,8 +210,8 @@ Switch-Plate: Integriert
 
 DMG-65-Konzept
 
-Name: DMG-65
 Bild 1: DMG-65_concept.jpg
+Name: DMG-65
 Beschreibung: Konzept einer Tastatur im Gameboy-Design (Bild mit KI generiert)
 Design: Von mir designt
 PCB: Tofu65 2.0
@@ -244,3 +244,16 @@ Beleuchtung: Keine
 Verbindung: PS/2
 Hot-Swap: Nein
 Switch-Plate: Keine
+
+
+Lucky65 V2
+
+Bild 1: Lucky65_Red.jpg
+Name: Lucky65 V2
+Beschreibung: Rote Aluminium Tastatur mit ANSI-Layout
+Gehäusematerial: Aluminium
+Software: QMK & VIA
+Verbindung: Bluetooth, 2,4 Ghz, USB-A
+Beleuchtung: RGB
+Hot-Swap: Ja
+Status: Im Umbau zu ISO-Layout
