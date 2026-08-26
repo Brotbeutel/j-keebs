@@ -95,6 +95,13 @@ html {
        (Guides-Jumpnav und Nav-Dropdown-Links von jeder anderen Seite) nicht unter
        dem Header landen. Etwas großzügig bemessen statt exakt an der Kante. */
     scroll-padding-top: 96px;
+    /* .polaroid-frame/.single-polaroid werden per transform:rotate() gekippt.
+       Das ändert nicht ihre Layout-Breite, wohl aber ihre gerenderte Fläche -
+       auf schmalen Mobile-Breiten reicht der gekippte Rand aus, um über den
+       Viewport-Rand zu ragen und dadurch horizontales Scrollen/Wackeln der
+       ganzen Seite auszulösen. overflow-x:hidden kappt das sauber, ohne
+       vertikales Scrollen zu beeinflussen. */
+    overflow-x: hidden;
 }
 
 /* Respect user's motion preferences */
@@ -120,6 +127,7 @@ body {
     font-size: 17px;
     line-height: 1.65;
     overflow-wrap: break-word;
+    overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
