@@ -32,6 +32,12 @@ window.J_KEEBS_I18N_COMMON = {
         "footer.mail": "E-Mail schreiben", "footer.contactpage": "Kontaktseite",
         "footer.copyright": "© 2026 J-Keebs. Alle Rechte vorbehalten.",
         "legal.impressum": "Impressum", "legal.datenschutz": "Datenschutz", "legal.cookies": "Cookies", "legal.agb": "AGB",
+        "breadcrumb.blog": "← Blog",
+        "utility.articleNav.aria": "Weitere Artikel",
+        "blog.featuredLabel": "Featured",
+        "cta.readMore": "Weiterlesen →",
+        "article.prevLabel": "Vorheriger Artikel",
+        "article.nextLabel": "Nächster Artikel",
     },
     en: {
         "nav.home": "Home", "nav.blog": "Blog", "nav.keyboards": "Keyboards",
@@ -66,6 +72,12 @@ window.J_KEEBS_I18N_COMMON = {
         "footer.mail": "Send an email", "footer.contactpage": "Contact page",
         "footer.copyright": "© 2026 J-Keebs. All rights reserved.",
         "legal.impressum": "Legal notice", "legal.datenschutz": "Privacy", "legal.cookies": "Cookies", "legal.agb": "Terms",
+        "breadcrumb.blog": "← Blog",
+        "utility.articleNav.aria": "More articles",
+        "blog.featuredLabel": "Featured",
+        "cta.readMore": "Read more →",
+        "article.prevLabel": "Previous article",
+        "article.nextLabel": "Next article",
     }
 };
 
