@@ -1,0 +1,4 @@
+*.bak
+content/*.txt
+!content/Keyboards.txt
+.DS_Store

@@ -90,7 +90,7 @@ window.J_KEEBS_I18N_COMMON = {
 
     function applyTheme(theme) {
         root.setAttribute("data-theme", theme);
-        try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+        try { localStorage.setItem(THEME_KEY, theme); } catch (e) { console.warn("J-Keebs: localStorage unavailable.", e); }
         document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
             btn.setAttribute("aria-pressed", btn.getAttribute("data-theme-toggle") === theme ? "true" : "false");
         });
@@ -98,7 +98,7 @@ window.J_KEEBS_I18N_COMMON = {
 
     function applyLang(lang) {
         root.setAttribute("lang", lang);
-        try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+        try { localStorage.setItem(LANG_KEY, lang); } catch (e) { console.warn("J-Keebs: localStorage unavailable.", e); }
         var common = (window.J_KEEBS_I18N_COMMON && window.J_KEEBS_I18N_COMMON[lang]) || {};
         var page = (window.J_KEEBS_I18N && window.J_KEEBS_I18N[lang]) || {};
         var dict = Object.assign({}, common, page);
@@ -106,6 +106,10 @@ window.J_KEEBS_I18N_COMMON = {
             document.querySelectorAll("[data-i18n]").forEach(function (el) {
                 var key = el.getAttribute("data-i18n");
                 if (dict[key] !== undefined) el.textContent = dict[key];
+            });
+            document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
+                var key = el.getAttribute("data-i18n-html");
+                if (dict[key] !== undefined) el.innerHTML = dict[key];
             });
             document.querySelectorAll("[data-i18n-attr]").forEach(function (el) {
                 el.getAttribute("data-i18n-attr").split(",").forEach(function (pair) {
@@ -241,11 +245,14 @@ window.J_KEEBS_I18N_COMMON = {
         try { savedLang = localStorage.getItem(LANG_KEY) || "de"; } catch (e) {}
         applyLang(savedLang);
 
+        var currentTheme = root.getAttribute("data-theme") || "light";
         document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
+            btn.setAttribute("aria-pressed", btn.getAttribute("data-theme-toggle") === currentTheme ? "true" : "false");
             btn.addEventListener("click", function () {
                 applyTheme(btn.getAttribute("data-theme-toggle"));
             });
         });
+
 
         document.querySelectorAll("[data-lang-toggle]").forEach(function (btn) {
             btn.addEventListener("click", function () {

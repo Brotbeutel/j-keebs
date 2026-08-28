@@ -24,6 +24,7 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="J-Keebs | Kontakt">
     <link rel="canonical" href="https://brotbeutel.github.io/kontakt.html">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display:wght@400&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Playwrite+DE+Grund:wght@100..400&display=swap">
     <link rel="stylesheet" href="./style.css">
     <title>J-Keebs | Kontakt</title>
 </head>
@@ -128,11 +129,23 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card__body">
-                        <p class="meta" data-i18n="c.form.meta">Nachricht</p>
-                        <h3 data-i18n="c.form.heading">Schreib mir direkt</h3>
-                        <p class="muted"><span data-i18n="c.form.intro">Landet direkt in meinem Postfach – keine Anmeldung, kein Newsletter, keine Weitergabe an Dritte außer dem Formular-Dienst selbst (Details dazu in der </span><a href="datenschutz.html" data-i18n="c.form.privacyLink">Datenschutzerklärung</a>).</p>
+                <div class="win2k-window" id="contactWindow">
+                    <div class="win2k-titlebar">
+                        <div class="win2k-titlebar__text">
+                            <span data-i18n="c.form.heading">Schreib mir direkt</span>
+                        </div>
+                        <div class="win2k-titlebar__controls">
+                            <button type="button" class="win2k-btn win2k-btn--close" aria-label="Schließen" onclick="document.getElementById('contactForm').reset()">X</button>
+                        </div>
+                    </div>
+                    <div class="win2k-body">
+                        <div class="win2k-dialog-header">
+                            <img src="images/Retro-PC_pixelart_generated.png" class="win2k-monitor-icon" alt="" aria-hidden="true">
+                            <div>
+                                <p class="meta" data-i18n="c.form.meta" style="margin-top:0;">Nachricht</p>
+                                <p class="muted" style="margin-top:0;"><span data-i18n="c.form.intro">Landet direkt in meinem Postfach – keine Anmeldung, kein Newsletter, keine Weitergabe an Dritte außer dem Formular-Dienst selbst (Details dazu in der </span><a href="datenschutz.html" data-i18n="c.form.privacyLink">Datenschutzerklärung</a>).</p>
+                            </div>
+                        </div>
 
                         <form class="contact-form" id="contactForm" action="https://formsubmit.co/jannik_schlueter@hotmail.de" method="POST">
                             <input type="hidden" name="_subject" value="Neue Nachricht über J-Keebs">

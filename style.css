@@ -1018,7 +1018,7 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 .timeline { 
     position: relative; 
     margin-top: 1.8rem; 
-    padding-left: 1.6rem; 
+    padding-left: 1.53rem; 
     border-left: 3px solid var(--accent); 
 }
 
@@ -2183,6 +2183,25 @@ textarea { min-height: 8.5rem; resize: vertical; }
     .blog-teaser-grid { grid-template-columns: 1fr; }
 }
 
+.blog-teaser-card__media {
+    margin: 0;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--bg);
+}
+
+.blog-teaser-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+.guide-card__link:hover .blog-teaser-card__media img {
+    transform: scale(1.04);
+}
+
 .blog-teaser-card__excerpt {
     margin-top: 0.6rem;
     color: var(--text-dim);
@@ -2258,3 +2277,205 @@ textarea { min-height: 8.5rem; resize: vertical; }
     .article-nav { flex-direction: column; }
     .article-nav__link--next { text-align: left; align-items: flex-start; margin-left: 0; }
 }
+
+/* ==========================================================================
+/* ==========================================================================
+   J-Keebs — Win2K Window UI (Theme-Adapted & Pixelated)
+   ========================================================================== */
+.win2k-window {
+    background-color: var(--surface) !important;
+    border-top: 2px solid rgba(255, 255, 255, 0.7) !important;
+    border-left: 2px solid rgba(255, 255, 255, 0.7) !important;
+    border-right: 2px solid rgba(0, 0, 0, 0.6) !important;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.6) !important;
+    box-shadow: inset 1px 1px var(--bg), inset -1px -1px var(--border-strong) !important;
+    padding: 3px;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    -webkit-font-smoothing: none !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    font-smooth: never !important;
+    color: var(--text) !important;
+    margin-bottom: 2rem;
+}
+
+[data-theme="dark"] .win2k-window {
+    border-top: 2px solid rgba(255, 255, 255, 0.15) !important;
+    border-left: 2px solid rgba(255, 255, 255, 0.15) !important;
+    border-right: 2px solid rgba(0, 0, 0, 0.9) !important;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.9) !important;
+}
+
+.win2k-titlebar {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2)) !important;
+    color: var(--swatch-charcoal) !important;
+    padding: 5px 6px 5px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    font-weight: bold;
+    font-size: 15px !important;
+    letter-spacing: 0.04em;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+}
+
+.win2k-titlebar__text {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.win2k-btn {
+    background-color: var(--surface) !important;
+    border-top: 2px solid rgba(255, 255, 255, 0.7) !important;
+    border-left: 2px solid rgba(255, 255, 255, 0.7) !important;
+    border-right: 2px solid rgba(0, 0, 0, 0.6) !important;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.6) !important;
+    box-shadow: inset -1px -1px var(--border-strong), inset 1px 1px rgba(255,255,255,0.3) !important;
+    color: var(--text) !important;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    font-weight: bold;
+    font-size: 15px !important;
+    line-height: 1;
+    padding: 2px 7px 4px 7px !important;
+    cursor: default;
+    min-width: 0;
+    -webkit-font-smoothing: none !important;
+}
+
+[data-theme="dark"] .win2k-btn {
+    border-top: 2px solid rgba(255, 255, 255, 0.15) !important;
+    border-left: 2px solid rgba(255, 255, 255, 0.15) !important;
+    border-right: 2px solid rgba(0, 0, 0, 0.9) !important;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.9) !important;
+}
+
+.win2k-btn--close {
+    margin-left: auto;
+}
+
+.win2k-btn:active {
+    border-top: 2px solid rgba(0, 0, 0, 0.6) !important;
+    border-left: 2px solid rgba(0, 0, 0, 0.6) !important;
+    border-right: 2px solid rgba(255, 255, 255, 0.7) !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.7) !important;
+    box-shadow: inset 1px 1px var(--border-strong) !important;
+    padding: 3px 6px 3px 8px !important;
+}
+
+[data-theme="dark"] .win2k-btn:active {
+    border-top: 2px solid rgba(0, 0, 0, 0.9) !important;
+    border-left: 2px solid rgba(0, 0, 0, 0.9) !important;
+    border-right: 2px solid rgba(255, 255, 255, 0.15) !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.win2k-body {
+    padding: 16px;
+    background-color: var(--surface) !important;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.win2k-dialog-header {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.win2k-monitor-icon {
+    width: 25%;
+    height: auto;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+.win2k-body p, .win2k-body span, .win2k-body h3, .win2k-body label {
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    -webkit-font-smoothing: none !important;
+    color: var(--text) !important;
+    font-size: 13px !important;
+}
+
+.win2k-body a {
+    color: var(--accent-strong) !important;
+    text-decoration: underline !important;
+    font-weight: bold !important;
+}
+
+.win2k-window input[type="text"],
+.win2k-window input[type="email"],
+.win2k-window textarea {
+    border-top: 2px solid rgba(0, 0, 0, 0.6) !important;
+    border-left: 2px solid rgba(0, 0, 0, 0.6) !important;
+    border-right: 2px solid rgba(255, 255, 255, 0.7) !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.7) !important;
+    box-shadow: inset 1px 1px var(--border-strong), inset -1px -1px var(--surface) !important;
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+    border-radius: 0 !important;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    -webkit-font-smoothing: none !important;
+    font-size: 13px !important;
+    padding: 5px 6px !important;
+    transition: none !important;
+}
+
+[data-theme="dark"] .win2k-window input[type="text"],
+[data-theme="dark"] .win2k-window input[type="email"],
+[data-theme="dark"] .win2k-window textarea {
+    border-top: 2px solid rgba(0, 0, 0, 0.9) !important;
+    border-left: 2px solid rgba(0, 0, 0, 0.9) !important;
+    border-right: 2px solid rgba(255, 255, 255, 0.15) !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.win2k-window input[type="text"]:focus,
+.win2k-window input[type="email"]:focus,
+.win2k-window textarea:focus {
+    outline: 1px dotted var(--text) !important;
+    outline-offset: -3px !important;
+}
+
+.win2k-window button[type="submit"] {
+    background-color: var(--surface) !important;
+    border-top: 2px solid rgba(255, 255, 255, 0.7) !important;
+    border-left: 2px solid rgba(255, 255, 255, 0.7) !important;
+    border-right: 2px solid rgba(0, 0, 0, 0.6) !important;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.6) !important;
+    box-shadow: inset -1px -1px var(--border-strong), inset 1px 1px rgba(255,255,255,0.3) !important;
+    color: var(--text) !important;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    -webkit-font-smoothing: none !important;
+    font-size: 13px !important;
+    font-weight: bold !important;
+    padding: 6px 16px !important;
+    cursor: default !important;
+    border-radius: 0 !important;
+    transition: none !important;
+}
+
+[data-theme="dark"] .win2k-window button[type="submit"] {
+    border-top: 2px solid rgba(255, 255, 255, 0.15) !important;
+    border-left: 2px solid rgba(255, 255, 255, 0.15) !important;
+    border-right: 2px solid rgba(0, 0, 0, 0.9) !important;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.9) !important;
+}
+
+.win2k-window button[type="submit"]:active {
+    border-top: 2px solid rgba(0, 0, 0, 0.6) !important;
+    border-left: 2px solid rgba(0, 0, 0, 0.6) !important;
+    border-right: 2px solid rgba(255, 255, 255, 0.7) !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.7) !important;
+    box-shadow: inset 1px 1px var(--border-strong) !important;
+    transform: none !important;
+    padding: 7px 15px 5px 17px !important;
+}
+
+[data-theme="dark"] .win2k-window button[type="submit"]:active {
+    border-top: 2px solid rgba(0, 0, 0, 0.9) !important;
+    border-left: 2px solid rgba(0, 0, 0, 0.9) !important;
+    border-right: 2px solid rgba(255, 255, 255, 0.15) !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15) !important;
