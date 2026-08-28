@@ -1862,7 +1862,7 @@ a.pill:focus-visible {
 .contact-form { display: grid; gap: 1rem; }
 .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
 
-label { display: grid; gap: 0.3rem; color: var(--text-dim); font-family: var(--font-mono); font-size: 0.8rem; font-weight: 200; text-transform: none; letter-spacing: 0.03em; }
+label { display: grid; gap: .3rem; color: var(--text-dim); font-family: var(--font-mono); font-size: 0.8rem; font-weight: 200; text-transform: none; letter-spacing: 0.03em; }
 
 input, textarea, select {
     width: 100%;
@@ -2290,8 +2290,8 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border-right: 3px solid rgba(0, 0, 0, 0.6) !important;
     border-bottom: 3px solid rgba(0, 0, 0, 0.6) !important;
     box-shadow: inset 2px 2px var(--bg), inset -1px -1px var(--border-strong) !important;
-    padding: 3px;
-    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    padding: 1px;
+    font-family: 'Geist Pixel', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
     -webkit-font-smoothing: none !important;
     -moz-osx-font-smoothing: grayscale !important;
     font-smooth: never !important;
@@ -2309,11 +2309,16 @@ textarea { min-height: 8.5rem; resize: vertical; }
 .win2k-titlebar {
     background: linear-gradient(90deg, var(--accent), var(--accent-2)) !important;
     color: var(--swatch-charcoal) !important;
-    padding: 5px 6px 5px 8px;
+    border-top: 2px solid var(--accent-shade) !important;
+    border-left: 2px solid var(--accent-shade) !important;
+    border-right: 2px solid var(--accent-shade) !important;
+    border-bottom: 2px solid var(--accent-shade) !important;
+    box-shadow: inset -2px -2px var(--border-strong) !important;
+    padding: 5px !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    font-family: 'Geist Pixel', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
     font-weight: bold;
     font-size: 15px !important;
     letter-spacing: 0.04em;
@@ -2334,7 +2339,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border-bottom: 3px solid rgba(0, 0, 0, 0.6) !important;
     box-shadow: inset -2px -2px var(--border-strong), inset 1px 1px rgba(255,255,255,0.3) !important;
     color: var(--text) !important;
-    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    font-family: 'Geist Pixel', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
     font-weight: bold;
     font-size: 15px !important;
     line-height: 1;
@@ -2394,7 +2399,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
 }
 
 .win2k-body p, .win2k-body span, .win2k-body h3, .win2k-body label {
-    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    font-family: 'Geist Pixel', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
     -webkit-font-smoothing: none !important;
     color: var(--text) !important;
     font-size: 13px !important;
@@ -2417,7 +2422,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
     background-color: var(--bg) !important;
     color: var(--text) !important;
     border-radius: 0 !important;
-    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    font-family: 'Geist Pixel', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
     -webkit-font-smoothing: none !important;
     font-size: 13px !important;
     padding: 5px 6px !important;
@@ -2448,10 +2453,10 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border-bottom: 3px solid rgba(0, 0, 0, 0.6) !important;
     box-shadow: inset -2px -2px var(--border-strong), inset 1px 1px rgba(255,255,255,0.3) !important;
     color: var(--text) !important;
-    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    font-family: 'Geist Pixel', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
     -webkit-font-smoothing: none !important;
     font-size: 15px !important;
-    font-weight: normal !important;
+    font-weight: 100 !important;
     letter-spacing: normal;
     padding: 6px 16px !important;
     cursor: default !important;
