@@ -2387,8 +2387,8 @@ textarea { min-height: 8.5rem; resize: vertical; }
 }
 
 .win2k-monitor-icon {
-    width: 10rem;
-    height: 10rem;
+    width: 128px;
+    height: 128px;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
 }
