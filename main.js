@@ -189,7 +189,14 @@ window.J_KEEBS_I18N_COMMON = {
 
         function show(i) {
             index = (i + imgs.length) % imgs.length;
-            imgs.forEach(function (el, idx) { el.classList.toggle("is-active", idx === index); });
+            imgs.forEach(function (el, idx) {
+                var active = idx === index;
+                el.classList.toggle("is-active", active);
+                // Nur das sichtbare Foto bleibt per Tab erreichbar - sonst würde
+                // Tab durch unsichtbare (opacity:0) Karussell-Fotos "hindurch"-
+                // springen, ohne dass optisch etwas passiert.
+                el.setAttribute("tabindex", active ? "0" : "-1");
+            });
             dots.forEach(function (dot, idx) { dot.setAttribute("aria-current", idx === index ? "true" : "false"); });
             cheatSlides.forEach(function (el, idx) { el.classList.toggle("is-active", idx === index); });
             if (caption) {
@@ -291,6 +298,33 @@ window.J_KEEBS_I18N_COMMON = {
 
         var currentGallery = [];
         var currentIndex = 0;
+        // Merkt sich, welches Element den Vollbild-Viewer geöffnet hat, damit der
+        // Fokus beim Schließen dorthin zurückspringt statt irgendwo auf der Seite
+        // zu landen (wichtig für Tastatur-Bedienung - passend zum Thema der Seite).
+        var lastTrigger = null;
+
+        function getFocusableInOverlay() {
+            return Array.from(overlay.querySelectorAll("button"))
+                .filter(function (el) { return !el.hasAttribute("hidden"); });
+        }
+
+        // Hält Tab/Shift+Tab innerhalb des Overlays gefangen, solange es offen ist,
+        // damit Tastatur-Fokus nicht unsichtbar hinter dem abgedunkelten Hintergrund
+        // landet.
+        function trapFocus(e) {
+            if (e.key !== "Tab") return;
+            var focusable = getFocusableInOverlay();
+            if (!focusable.length) return;
+            var first = focusable[0];
+            var last = focusable[focusable.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        }
 
         function getGalleryFor(img) {
             var frame = img.closest(".polaroid-frame");
@@ -351,6 +385,7 @@ window.J_KEEBS_I18N_COMMON = {
         function openFullscreen(img) {
             if (!img || !img.src) return;
 
+            lastTrigger = img;
             var frame = img.closest(".polaroid-frame");
             currentGallery = getGalleryFor(img);
 
@@ -368,6 +403,15 @@ window.J_KEEBS_I18N_COMMON = {
             overlay.classList.add("is-active");
             overlay.setAttribute("aria-hidden", "false");
             document.body.style.overflow = "hidden";
+            // Fokus erst nach zwei rAF-Ticks setzen: nach nur einem Tick kann der
+            // Browser die durch classList.add() ausgelöste Sichtbarkeits-Neuberechnung
+            // (opacity/visibility) noch nicht abgeschlossen haben, wodurch .focus()
+            // auf dem gerade erst sichtbar gewordenen Button sonst stillschweigend
+            // ins Leere läuft (empirisch geprüft: ein einzelner rAF-Tick reicht nicht,
+            // setTimeout(0) auch nicht - zwei rAF-Ticks sind zuverlässig).
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () { closeBtn.focus(); });
+            });
         }
 
         function closeFullscreen() {
@@ -388,13 +432,33 @@ window.J_KEEBS_I18N_COMMON = {
             overlay.classList.remove("is-active");
             overlay.setAttribute("aria-hidden", "true");
             document.body.style.overflow = "";
+            if (lastTrigger) {
+                lastTrigger.focus();
+                lastTrigger = null;
+            }
         }
 
         document.querySelectorAll(".single-polaroid img, .polaroid-frame__viewport img").forEach(function (img) {
             img.style.cursor = "pointer";
+            img.setAttribute("role", "button");
+            // Bilder in .single-polaroid sind immer sichtbar -> immer per Tab erreichbar.
+            // Karussell-Fotos (data-slide) starten nur tabbar, wenn sie das aktive Bild
+            // sind; initGallery()'s show() haelt das beim Durchschalten aktuell.
+            if (!img.hasAttribute("data-slide") || img.classList.contains("is-active")) {
+                img.setAttribute("tabindex", "0");
+            } else {
+                img.setAttribute("tabindex", "-1");
+            }
             img.addEventListener("click", function (e) {
                 e.stopPropagation();
                 openFullscreen(this);
+            });
+            img.addEventListener("keydown", function (e) {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openFullscreen(this);
+                }
             });
         });
 
@@ -436,6 +500,11 @@ window.J_KEEBS_I18N_COMMON = {
 
             if (e.key === "Escape") {
                 closeFullscreen();
+                return;
+            }
+
+            if (e.key === "Tab") {
+                trapFocus(e);
                 return;
             }
 

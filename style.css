@@ -7,7 +7,12 @@
    kein Apple-Rounding. Light/Dark via [data-theme]. DE/EN via [data-i18n].
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Display:wght@400&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Playwrite+DE+Grund:wght@100..400&display=swap');
+/* Fonts: loaded via <link rel="preconnect"> + <link rel="stylesheet"> in every
+   page's <head> (see fix_fonts.py migration) - NOT via @import here. @import
+   inside a stylesheet is render-blocking and sequential (browser must fetch and
+   start parsing style.css before it can even discover the font request), and
+   every page already carries its own <link> for the same font family, so the
+   @import that used to sit here was a pure duplicate fetch on top of being slow. */
 
 :root {
     color-scheme: light dark;
@@ -1926,6 +1931,11 @@ textarea { min-height: 8.5rem; resize: vertical; }
     font-size: 0.86rem;
 }
 
+.cookie-state-list {
+    display: grid;
+    gap: 1rem;
+}
+
 .cookie-state { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.85rem; align-items: start; }
 
 .cookie-state__mark {
@@ -1985,18 +1995,17 @@ textarea { min-height: 8.5rem; resize: vertical; }
     display: flex;
     align-items: baseline;
     gap: 0.85rem;
-    margin-bottom: 0rem;
-    margin-top: 2rem;
+    margin-bottom: 0.9rem;
 }
 
 .legal-section__index {
     flex-shrink: 0;
     display: inline-block;
     border: 1px solid var(--accent);
-    padding: 0.3rem 0.6rem;
+    padding: 0.1rem 0.4rem;
     color: var(--accent);
     font-family: var(--font-mono);
-    font-size: 1em;
+    font-size: 0.78rem;
     font-weight: 700;
     line-height: 1.5;
 }
@@ -2373,6 +2382,12 @@ textarea { min-height: 8.5rem; resize: vertical; }
    rules (incl. their responsive breakpoints) — only spacing is added here,
    so there's no same-specificity/source-order fight over which width wins. */
 
+/* Ersetzt das vorher 7x identisch wiederholte style="max-width:800px;" auf jeder
+   Blogartikel-Seite (blog-*.html) - eine Regel statt sieben Kopien im Markup. */
+.article-body {
+    max-width: 800px;
+}
+
 .blog-article-photo {
     margin-bottom: clamp(2rem, 5vw, 3rem);
 }
@@ -2636,3 +2651,80 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border-left: 3px solid rgba(0, 0, 0, 0.9) !important;
     border-right: 3px solid rgba(255, 255, 255, 0.15) !important;
     border-bottom: 3px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ==========================================================================
+   Druckansicht - v.a. für Impressum, Datenschutz, AGB und Cookies gedacht:
+   dunkler Header/Footer, Film-Grain-Textur und Farbverläufe verschwenden nur
+   Tinte und verschlechtern die Lesbarkeit auf Papier. Reduziert auf schwarzen
+   Text auf weißem Grund, blendet reine UI-Elemente (Nav, Theme-/Sprachtoggle,
+   Buttons, Sprungnav) aus und druckt Link-Ziele mit aus, da sie auf Papier
+   nicht klickbar sind.
+   ========================================================================== */
+@media print {
+    body {
+        background: #fff;
+        color: #000;
+    }
+
+    .site-header,
+    .nav-toggle,
+    .utility-nav,
+    .skip-link,
+    .legal-jumpnav,
+    .guide-jumpnav,
+    .cheat-toggle,
+    .carousel-btn,
+    .carousel-dots,
+    .fullscreen-overlay {
+        display: none !important;
+    }
+
+    .section,
+    .section--paper,
+    .section--muted {
+        background: #fff !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        border-color: #999 !important;
+    }
+
+    .legal-card,
+    .card,
+    .callout {
+        background: #fff !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        border: 1px solid #999 !important;
+    }
+
+    h1, h2, h3, .legal-section__index, .eyebrow {
+        color: #000 !important;
+    }
+
+    a {
+        color: #000 !important;
+        text-decoration: underline;
+    }
+
+    /* Linkziel hinter externen bzw. internen Links mit ausdrucken, da URLs auf
+       Papier nicht anklickbar sind - Mail-/Tel-Links ausgenommen, die sprechen
+       für sich. */
+    .legal a[href^="http"]::after,
+    .legal a[href$=".html"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        font-weight: normal;
+    }
+
+    .site-footer {
+        background: #fff !important;
+        color: #000 !important;
+        border-top: 1px solid #999;
+    }
+
+    .site-footer svg,
+    .social-links {
+        display: none;
+    }
+}
