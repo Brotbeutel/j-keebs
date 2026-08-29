@@ -650,32 +650,36 @@ window.J_KEEBS_I18N_COMMON = {
         });
     }
 
-    // guides.html: markiert per IntersectionObserver, welche Kategorie
-    // (Switches/Plates/Mods) gerade im Viewport ist - reine Komfortfunktion,
-    // no-op auf allen anderen Seiten ohne .guide-jumpnav.
+    // guides.html + Rechtliches (impressum/datenschutz/agb/cookies.html): markiert
+    // per IntersectionObserver, welcher Abschnitt gerade im Viewport ist - reine
+    // Komfortfunktion, no-op auf allen anderen Seiten ohne .guide-jumpnav/.legal-jumpnav.
+    // Ein Observer pro Nav, damit mehrere Sprungnavs auf derselben Seite theoretisch
+    // unabhängig voneinander funktionieren würden (aktuell hat jede Seite nur eine).
     function initGuideJumpnav() {
-        var nav = document.querySelector(".guide-jumpnav");
-        if (!nav || !("IntersectionObserver" in window)) return;
+        var navs = document.querySelectorAll(".guide-jumpnav, .legal-jumpnav");
+        if (!navs.length || !("IntersectionObserver" in window)) return;
 
-        var links = Array.from(nav.querySelectorAll("a[href^='#']"));
-        var sections = links
-            .map(function (link) { return document.getElementById(link.getAttribute("href").slice(1)); })
-            .filter(Boolean);
-        if (!sections.length) return;
+        navs.forEach(function (nav) {
+            var links = Array.from(nav.querySelectorAll("a[href^='#']"));
+            var sections = links
+                .map(function (link) { return document.getElementById(link.getAttribute("href").slice(1)); })
+                .filter(Boolean);
+            if (!sections.length) return;
 
-        function setActive(id) {
-            links.forEach(function (link) {
-                var isActive = link.getAttribute("href") === "#" + id;
-                link.setAttribute("aria-current", isActive ? "true" : "false");
-            });
-        }
+            function setActive(id) {
+                links.forEach(function (link) {
+                    var isActive = link.getAttribute("href") === "#" + id;
+                    link.setAttribute("aria-current", isActive ? "true" : "false");
+                });
+            }
 
-        var observer = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) setActive(entry.target.id);
-            });
-        }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) setActive(entry.target.id);
+                });
+            }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
 
-        sections.forEach(function (section) { observer.observe(section); });
+            sections.forEach(function (section) { observer.observe(section); });
+        });
     }
 })();

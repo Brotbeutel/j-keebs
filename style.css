@@ -1386,6 +1386,18 @@ a.pill:focus-visible {
     outline-offset: 2px;
 }
 
+/* Partner-Grid: startet mit 1 Karte (PCBWay) - .grid--3 wuerde eine einzelne Karte
+   oben links isoliert stehen lassen, mit viel totem Raum rechts daneben. auto-fit
+   mit fester Kartenbreite + justify-content:center zentriert das jetzige Einzelkarten-
+   Layout und wächst später von selbst zu einer zentrierten Mehrspalten-Reihe, sobald
+   weitere Partner dazukommen - ohne dass diese Regel dann erneut angepasst werden muss. */
+.partner-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 360px));
+    justify-content: center;
+    gap: 1.4rem;
+}
+
 /* -- Guides & Tutorials: Schnellsprung-Leiste zu den drei Kategorien -- */
 
 .guide-jumpnav {
@@ -1862,7 +1874,7 @@ a.pill:focus-visible {
 .contact-form { display: grid; gap: 1rem; }
 .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
 
-label { display: grid; gap: .3rem; color: var(--text-dim); font-family: var(--font-mono); font-size: 0.8rem; font-weight: 200; text-transform: none; letter-spacing: 0.03em; }
+label { display: grid; gap: 0.3rem; color: var(--text-dim); font-family: var(--font-mono); font-size: 0.8rem; font-weight: 200; text-transform: none; letter-spacing: 0.03em; }
 
 input, textarea, select {
     width: 100%;
@@ -1927,6 +1939,149 @@ textarea { min-height: 8.5rem; resize: vertical; }
     color: var(--accent-bright);
     font-family: var(--font-mono);
     font-weight: 700;
+}
+
+/* -- Rechtliches: Sprungnav, nummerierte Abschnitte, Stand-Datum, Kontaktzeilen --
+   Erweitert das bestehende .legal/.legal-card-System auf Impressum, Datenschutz,
+   AGB und Cookies um echte Navigationshilfen für längere Seiten. Die Nummerierung
+   ist bewusst am jeweiligen Dokumenttyp ausgerichtet: Impressum/Datenschutz/Cookies
+   nutzen einfache Ordnungszahlen (wie in deutschen Datenschutzerklärungen üblich),
+   die AGB nutzt "§"-Nummerierung, weil ihre Abschnitte tatsächlich Vertragsklauseln
+   sind. .legal-jumpnav teilt sich die Scrollspy-Logik aus initGuideJumpnav in
+   main.js (dort auf ".guide-jumpnav, .legal-jumpnav" erweitert). */
+
+.legal-jumpnav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.4rem;
+}
+
+.guide-jumpnav .pill[aria-current="true"],
+.legal-jumpnav .pill[aria-current="true"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+}
+
+.legal-meta {
+    display: block;
+    margin-top: 0.9rem;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+}
+
+.legal-meta__label {
+    margin-right: 0.35rem;
+    color: var(--accent);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.legal-section__head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+    margin-bottom: 0rem;
+    margin-top: 2rem;
+}
+
+.legal-section__index {
+    flex-shrink: 0;
+    display: inline-block;
+    border: 1px solid var(--accent);
+    padding: 0.3rem 0.6rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.legal h2 {
+    font-size: clamp(1.25rem, 2.1vw, 1.6rem);
+}
+
+/* Kontaktzeilen mit Icon (Anschrift/Telefon/E-Mail) innerhalb einer .legal-card */
+.legal-contact {
+    display: grid;
+    gap: 1rem;
+}
+
+.legal-contact__row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+}
+
+.legal-contact__icon {
+    flex-shrink: 0;
+    width: 1.3rem;
+    height: 1.3rem;
+    margin-top: 0.2rem;
+    color: var(--accent);
+}
+
+.legal-contact__row p {
+    margin: 0;
+}
+
+@media (max-width: 640px) {
+    .legal-section__head {
+        gap: 0.6rem;
+    }
+}
+
+/* -- FAQ: eigener Aufklapp-Pfeil statt Browser-Standard-Dreieck --
+   Nutzt dieselbe Caret-SVG wie .nav-dropdown__caret fuer visuelle Konsistenz;
+   data-i18n sitzt bewusst auf einem inneren <span>, nie auf <summary> selbst,
+   sonst würde der Sprachwechsel die SVG als Kind-Element mit entfernen (siehe
+   main.js applyLang -> textContent-Zuweisung). */
+
+.faq-list summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    padding: 1rem 1.1rem;
+    list-style: none;
+    font-family: var(--font-display);
+    font-weight: 700;
+    transition: color 0.15s ease;
+}
+
+.faq-list summary::-webkit-details-marker {
+    display: none;
+}
+
+@media (hover: hover) {
+    .faq-list summary:hover {
+        color: var(--accent);
+    }
+}
+
+.faq-list details[open] > summary {
+    border-bottom: 1px solid var(--border);
+}
+
+.faq-caret {
+    flex-shrink: 0;
+    width: 11px;
+    height: 8px;
+    stroke: var(--accent);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    transition: transform 0.2s ease;
+}
+
+.faq-list details[open] .faq-caret {
+    transform: rotate(180deg);
 }
 
 /* -- Paper-Section: Nachfahren an das helle Papier anpassen -- */
@@ -2290,8 +2445,8 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border-right: 3px solid rgba(0, 0, 0, 0.6) !important;
     border-bottom: 3px solid rgba(0, 0, 0, 0.6) !important;
     box-shadow: inset 2px 2px var(--bg), inset -1px -1px var(--border-strong) !important;
-    padding: 1px;
-    font-family: 'Geist Pixel', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    padding: 3px;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
     -webkit-font-smoothing: none !important;
     -moz-osx-font-smoothing: grayscale !important;
     font-smooth: never !important;
@@ -2309,16 +2464,11 @@ textarea { min-height: 8.5rem; resize: vertical; }
 .win2k-titlebar {
     background: linear-gradient(90deg, var(--accent), var(--accent-2)) !important;
     color: var(--swatch-charcoal) !important;
-    border-top: 2px solid var(--accent-shade) !important;
-    border-left: 2px solid var(--accent-shade) !important;
-    border-right: 2px solid var(--accent-shade) !important;
-    border-bottom: 2px solid var(--accent-shade) !important;
-    box-shadow: inset -2px -2px var(--border-strong) !important;
-    padding: 5px !important;
+    padding: 5px 6px 5px 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: 'Geist Pixel', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
     font-weight: bold;
     font-size: 15px !important;
     letter-spacing: 0.04em;
@@ -2339,7 +2489,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border-bottom: 3px solid rgba(0, 0, 0, 0.6) !important;
     box-shadow: inset -2px -2px var(--border-strong), inset 1px 1px rgba(255,255,255,0.3) !important;
     color: var(--text) !important;
-    font-family: 'Geist Pixel', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
     font-weight: bold;
     font-size: 15px !important;
     line-height: 1;
@@ -2392,14 +2542,14 @@ textarea { min-height: 8.5rem; resize: vertical; }
 }
 
 .win2k-monitor-icon {
-    width: 128px;
-    height: 128px;
+    width: 8rem;
+    height: auto;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
 }
 
 .win2k-body p, .win2k-body span, .win2k-body h3, .win2k-body label {
-    font-family: 'Geist Pixel', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
     -webkit-font-smoothing: none !important;
     color: var(--text) !important;
     font-size: 13px !important;
@@ -2422,7 +2572,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
     background-color: var(--bg) !important;
     color: var(--text) !important;
     border-radius: 0 !important;
-    font-family: 'Geist Pixel', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
     -webkit-font-smoothing: none !important;
     font-size: 13px !important;
     padding: 5px 6px !important;
@@ -2453,10 +2603,10 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border-bottom: 3px solid rgba(0, 0, 0, 0.6) !important;
     box-shadow: inset -2px -2px var(--border-strong), inset 1px 1px rgba(255,255,255,0.3) !important;
     color: var(--text) !important;
-    font-family: 'Geist Pixel', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
     -webkit-font-smoothing: none !important;
     font-size: 15px !important;
-    font-weight: 100 !important;
+    font-weight: normal !important;
     letter-spacing: normal;
     padding: 6px 16px !important;
     cursor: default !important;
