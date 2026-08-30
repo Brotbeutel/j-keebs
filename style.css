@@ -1018,6 +1018,14 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     object-fit: contain;
 }
 
+/* Semantisch h2 (kein umschließendes h2 vor der Karte auf dieser Seite,
+   siehe initGuideJumpnav-Kommentar zur Heading-Reihenfolge), optisch aber
+   weiterhin auf Kartentitel-Größe wie bei Guide-/Blog-Karten (die dort
+   korrekt h3 nutzen, weil sie unter einem h2-Abschnitt sitzen). */
+.partner-card h2 {
+    font-size: clamp(1.15rem, 1.7vw, 1.4rem);
+}
+
 /* -- Werkbank-Zeitleiste -- */
 
 .timeline { 
@@ -1125,7 +1133,7 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 .cheat-sheet { display: none; }
 .cheat-sheet.is-active { display: block; }
 
-.cheat-sheet h3 { font-family: var(--font-hand); color: var(--paper-ink); font-size: 1.5rem; margin-bottom: 0.35rem; }
+.cheat-sheet h2, .cheat-sheet h3 { font-family: var(--font-hand); color: var(--paper-ink); font-size: 1.5rem; margin-bottom: 0.35rem; }
 .cheat-sheet__desc { margin: 0 0 0.6rem; font-family: var(--font-hand); font-size: 1rem; font-weight: 400; font-style: italic; line-height: 1.35; opacity: 0.85; }
 .cheat-sheet ul { list-style: none; padding: 0; margin: 0; font-size: 0.8rem; font-weight: 800; line-height: 1.4; }
 .cheat-sheet li + li { margin-top: 0.1rem; }

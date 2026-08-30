@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://brotbeutel.github.io/sitemap.xml
