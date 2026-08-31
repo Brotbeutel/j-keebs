@@ -306,29 +306,6 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
         border-bottom: 0;
     }
 
-    /* Auf dem Desktop ist der Akzent ein Unterstrich (Hover = Aktuierung).
-       In der Dropdown-Liste gibt es kein Hover, deshalb wird derselbe
-       Pseudo-Element als linker Akzentbalken wiederverwendet, analog zum
-       Balken der Werkbank-Zeitleiste ("das hier ist aktiv/verbunden"). */
-    .site-nav > a::after,
-    .nav-dropdown__trigger::after {
-        left: 0;
-        right: auto;
-        bottom: 0;
-        top: 0;
-        width: 3px;
-        height: auto;
-        transform: scaleY(0);
-        transform-origin: top;
-    }
-
-    .site-nav > a[aria-current="page"]::after,
-    .site-nav > a:active::after,
-    .nav-dropdown__trigger[aria-expanded="true"]::after,
-    .nav-dropdown__trigger[aria-current]::after {
-        transform: scaleY(1);
-    }
-
     /* Sprach-/Theme-Toggle sitzen jetzt im Dropdown selbst (siehe HTML:
        .utility-nav ist ins <nav> gewandert) und bekommen hier eine eigene,
        abgesetzte Zeile statt der rechtsbündigen Desktop-Platzierung. */
@@ -491,6 +468,38 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     transform: scaleX(1);
 }
 
+/* Mobil wird derselbe Pseudo-Element-Akzent zu einem linken Balken statt
+   einem Unterstrich (siehe .site-nav > a::after oben - dort der Kommentar
+   zur Herkunft dieser Wiederverwendung). WICHTIG: dieser Block muss NACH
+   der Basisregel oben stehen. Beide Selektoren haben identische Spezifität;
+   bei gleicher Spezifität gewinnt bei Kaskaden-Konflikten die Regel, die
+   im Quelltext zuletzt steht - unabhängig davon, ob ihr Media Query gerade
+   aktiv ist. Stand dieser Block vor der Basisregel (wie es hier ursprünglich
+   der Fall war), gewann auf Mobile für bottom/height weiterhin die
+   Desktop-Regel, während nur width/left korrekt vom Media Query kamen -
+   das Ergebnis war ein 3×2px-Punkt oben links im Menüpunkt statt eines
+   durchgehenden Balkens. */
+@media (max-width: 1280px) {
+    .site-nav > a::after,
+    .nav-dropdown__trigger::after {
+        left: 0;
+        right: auto;
+        bottom: 0;
+        top: 0;
+        width: 3px;
+        height: auto;
+        transform: scaleY(0);
+        transform-origin: top;
+    }
+
+    .site-nav > a[aria-current="page"]::after,
+    .site-nav > a:active::after,
+    .nav-dropdown__trigger[aria-expanded="true"]::after,
+    .nav-dropdown__trigger[aria-current]::after {
+        transform: scaleY(1);
+    }
+}
+
 /* -- "Guides & Tutorials"-Dropdown -- */
 
 .nav-dropdown {
@@ -645,17 +654,13 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 
 .hero__inner {
     width: min(var(--max), 100%);
+    max-width: 840px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.85fr);
-    gap: clamp(1.5rem, 5vw, 3rem);
-    align-items: center;
     padding: clamp(3.2rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem);
 }
 
 @media (max-width: 768px) {
     .hero__inner {
-        grid-template-columns: 1fr;
         padding: clamp(2rem, 6vw, 3rem) clamp(1rem, 4vw, 1.5rem);
     }
 }
@@ -826,40 +831,6 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     letter-spacing: 0.15em;
     text-transform: uppercase;
     display: inline-block;
-}
-
-/* -- Keycap-Illustration (Hero-Signature) -- */
-
-.keycap-stage {
-    position: relative;
-    aspect-ratio: 1 / 1;
-    max-height: 400px;
-    background:
-        radial-gradient(circle at 1px 1px, var(--border) 1.2px, transparent 0) 0 0 / 22px 22px,
-        var(--surface);
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius);
-}
-
-.keycap-stage .keycap {
-    position: absolute;
-    width: var(--kc-size, 3.4rem);
-    height: var(--kc-size, 3.4rem);
-    font-size: calc(var(--kc-size, 3.4rem) * 0.34);
-    transform: rotate(var(--kc-rot, 0deg));
-    top: var(--kc-top);
-    left: var(--kc-left);
-}
-
-.keycap--muted {
-    background: linear-gradient(180deg, var(--surface-2), var(--surface));
-    color: var(--text-dim);
-    box-shadow: 0 3px 0 var(--border-strong), 0 6px 10px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-}
-
-.keycap--cool {
-    background: linear-gradient(180deg, var(--accent-2-bright), var(--accent-2) 70%);
-    box-shadow: 0 3px 0 #4a5c68, 0 6px 10px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 /* -- Abschnitte -- */
@@ -1918,7 +1889,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
 /* -- Rechtliches -- */
 
 .legal { max-width: 900px; }
-.legal section + section { margin-top: 1.3rem; }
+.legal section + section { margin-top: 1rem; }
 
 .legal-card {
     border: 1px solid var(--border-strong);
@@ -2003,7 +1974,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
     display: flex;
     align-items: baseline;
     gap: 0.85rem;
-    margin-bottom: 0.9rem;
+    margin-bottom: 1rem;
 }
 
 .legal-section__index {
@@ -2124,8 +2095,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
 
 @media (max-width: 980px) {
     .grid--3, .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .hero__inner, .page-hero, .contact-grid, .split { grid-template-columns: 1fr; }
-    .keycap-stage { max-height: 280px; order: -1; }
+    .page-hero, .contact-grid, .split { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 720px) {
