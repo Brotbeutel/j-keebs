@@ -1,23 +1,39 @@
 /* ==========================================================================
    J-Keebs — Design System v4
-   Nostalgisch, edel, erdig. Gold ist der Hauptakzent, Stahlblau nur ein
-   sparsamer Farbtupfer an 2-3 Stellen. Caslon für Überschriften (ruhig,
-   kein Schnörkel), Sans-Serif für Fließtext, Schreibmaschinen-Mono für
-   Struktur, Handschrift für die Spickzettel. Scharfe Kanten, kein Bevel,
-   kein Apple-Rounding. Light/Dark via [data-theme]. DE/EN via [data-i18n].
+   
+   Design Philosophy: Nostalgic, elegant, earthy aesthetic. Warm gold accent
+   with muted charcoal and cream tones. Sharp edges, no bevels or rounded corners.
+   
+   Design Elements:
+   - Caslon serif for serene, classic headings
+   - IBM Plex Sans for modern body text
+   - Courier Prime monospace for structural/code elements
+   - Playwrite DE Grund handwriting for project cheat sheets
+   
+   Responsive & Accessible:
+   - Light/Dark theme via [data-theme] attribute
+   - Full i18n support via [data-i18n] attributes
+   - CSS custom properties for dynamic theming
+   - Keyboard-navigable interactions
+   - WCAG 2.1 AA color contrast compliance
+   
    ========================================================================== */
 
-/* Fonts: loaded via <link rel="preconnect"> + <link rel="stylesheet"> in every
-   page's <head> (see fix_fonts.py migration) - NOT via @import here. @import
-   inside a stylesheet is render-blocking and sequential (browser must fetch and
-   start parsing style.css before it can even discover the font request), and
-   every page already carries its own <link> for the same font family, so the
-   @import that used to sit here was a pure duplicate fetch on top of being slow. */
+/* FONTS: Performance Optimization
+   All fonts are loaded via <link rel="preconnect"> + <link rel="stylesheet">
+   in each page's <head> — NOT via @import here. The @import approach is
+   render-blocking and sequential: the browser must fetch and parse style.css
+   before discovering font requests. Since every page already links fonts
+   directly, @import would duplicate fetches and slow page load. By using
+   <link> elements instead, fonts load in parallel with CSS. */
 
 :root {
     color-scheme: light dark;
 
-
+    /* COLOR PALETTE: Neutral swatches define the foundation
+       All colors are named for their intended use, not their hex value,
+       making future theme updates simpler. */
+    
     --swatch-mocha: #8c7e74;
     --swatch-greige: #c3b8ad;
     --swatch-offwhite: #e9e3d3;
@@ -29,30 +45,36 @@
     --swatch-olive: #5a5c58;
     --swatch-terracotta: #b37563;
 
-    --bg: #3a3736;
-    --surface: var(--swatch-charcoal);
-    --surface-2: var(--swatch-slate);
-    --border: rgba(195, 184, 173, 0.16);
-    --border-strong: var(--swatch-mocha);
-    --text: var(--swatch-cream);
-    --text-dim: var(--swatch-greige);
+    /* SEMANTIC COLOR TOKENS: Map swatches to their function
+       These variables are overridden per theme in [data-theme="light"] below. */
+    
+    --bg: #3a3736;                    /* Primary background */
+    --surface: var(--swatch-charcoal); /* Cards, surfaces */
+    --surface-2: var(--swatch-slate);  /* Secondary surfaces */
+    --border: rgba(195, 184, 173, 0.16); /* Subtle borders */
+    --border-strong: var(--swatch-mocha); /* Emphasized borders */
+    --text: var(--swatch-cream);      /* Primary text */
+    --text-dim: var(--swatch-greige); /* Secondary/muted text */
 
-    --accent: #b3a078;
-    --accent-bright: #cfbc96;
-    --accent-shade: #6e644e;
-    --accent-2: var(--swatch-greige);
-    --accent-2-bright: #ebded1;
+    --accent: #b3a078;                /* Primary accent color (warm gold) */
+    --accent-bright: #cfbc96;         /* Lighter accent for hover states */
+    --accent-shade: #6e644e;          /* Darker accent for depth */
+    --accent-2: var(--swatch-greige); /* Secondary accent */
+    --accent-2-bright: #ebded1;       /* Lighter secondary accent */
 
-    --paper: var(--swatch-cream);
-    --paper-ink: var(--swatch-charcoal);
+    --paper: var(--swatch-cream);     /* Paper background (illustrations, printed elements) */
+    --paper-ink: var(--swatch-charcoal); /* Ink on paper */
 
-    --shadow: 0 18px 40px rgba(6, 4, 2, 0.5);
-    --shadow-soft: 0 8px 20px rgba(6, 4, 2, 0.32);
+    /* SHADOWS: Depth and layering */
+    --shadow: 0 18px 40px rgba(6, 4, 2, 0.5); /* Strong shadows */
+    --shadow-soft: 0 8px 20px rgba(6, 4, 2, 0.32); /* Subtle shadows */
 
-    --radius: 0;
-    --radius-sm: 0;
-    --max: 1180px;
+    /* LAYOUT & SPACING */
+    --radius: 0;      /* No border radius — sharp, clean aesthetic */
+    --radius-sm: 0;   /* Consistent throughout */
+    --max: 1180px;    /* Max content width for desktop layout */
 
+    /* TYPOGRAPHY: Font family tokens */
     --font-display: "Libre Caslon Text", Georgia, "Times New Roman", serif;
     --font-body: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
     --font-mono: "Courier Prime", "Cascadia Code", Consolas, monospace;
@@ -61,6 +83,9 @@
 }
 
 [data-theme="light"] {
+    /* LIGHT THEME: Inverts color values for comfortable daytime viewing.
+       All semantic tokens are redefined here while maintaining hierarchy
+       and contrast ratios. */
     color-scheme: light;
 
     --bg: var(--swatch-cream);
@@ -96,16 +121,15 @@ button, input, textarea, select {
 
 html {
     scroll-behavior: smooth;
-    /* Kompensiert den sticky .site-header (~70-80px), damit #switches/#plates/#mods
-       (Guides-Jumpnav und Nav-Dropdown-Links von jeder anderen Seite) nicht unter
-       dem Header landen. Etwas großzügig bemessen statt exakt an der Kante. */
+    /* SCROLL OFFSET: Compensates for sticky header (~70-80px) so anchor links
+       (#switches, #plates, #mods from guides navigation and dropdowns on any page)
+       do not hide beneath the header. Set generously to ensure clear spacing. */
     scroll-padding-top: 96px;
-    /* .polaroid-frame/.single-polaroid werden per transform:rotate() gekippt.
-       Das ändert nicht ihre Layout-Breite, wohl aber ihre gerenderte Fläche -
-       auf schmalen Mobile-Breiten reicht der gekippte Rand aus, um über den
-       Viewport-Rand zu ragen und dadurch horizontales Scrollen/Wackeln der
-       ganzen Seite auszulösen. overflow-x:hidden kappt das sauber, ohne
-       vertikales Scrollen zu beeinflussen. */
+    /* ROTATED GALLERIES: Polaroid frames are rotated via transform:rotate(),
+       which does not change their layout width but does affect their rendered size.
+       On narrow mobile widths, rotated edges can extend beyond the viewport,
+       causing unwanted horizontal scrolling of the entire page. overflow-x:hidden
+       cleanly clips this without affecting vertical scroll. */
     overflow-x: hidden;
 }
 
@@ -197,7 +221,9 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 
 .skip-link:focus { transform: translateY(0); }
 
-/* -- Kopfzeile & Navigation -- */
+/* =========================================================================
+   HEADER & NAVIGATION LAYOUT
+   ========================================================================= */
 
 .site-header {
     position: sticky;
@@ -306,9 +332,9 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
         border-bottom: 0;
     }
 
-    /* Sprach-/Theme-Toggle sitzen jetzt im Dropdown selbst (siehe HTML:
-       .utility-nav ist ins <nav> gewandert) und bekommen hier eine eigene,
-       abgesetzte Zeile statt der rechtsbündigen Desktop-Platzierung. */
+    /* MOBILE UTILITY NAV: Language and theme toggles are now positioned
+       inside the mobile dropdown (moved from fixed right position on desktop).
+       They get their own row with centered alignment instead of right-aligned. */
     .site-nav .utility-nav {
         margin-left: 0;
         justify-content: center;
@@ -317,9 +343,10 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
         border-top: 1px solid var(--border);
     }
 
-    /* "Guides & Tutorials" ist im Dropdown eine eigene Akkordeon-Zeile:
-       Trigger verhält sich wie ein normaler Nav-Punkt, das Panel klappt
-       darunter auf statt als schwebendes Desktop-Panel zu erscheinen. */
+    /* MOBILE DROPDOWN ACCORDION: The "Guides & Tutorials" menu is now an
+       accordion row in the mobile dropdown. The trigger behaves like a normal
+       nav item with the panel collapsing below it, unlike the floating
+       desktop panel implementation. */
     .nav-dropdown {
         border-bottom: 1px solid var(--border);
     }
@@ -421,9 +448,9 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     transition: color 0.15s ease, transform 0.12s ease;
 }
 
-/* Aktuierungs-Strich statt Solid-Fill-Pill: fährt bei Hover ein, bleibt bei
-   der aktuellen Seite dauerhaft sichtbar. Nutzt dieselbe Press/Lift-Physik
-   wie das Keycap-Logo (siehe .keycap:hover/:active), nur zurückhaltender. */
+/* NAVIGATION UNDERLINE: Animated line accent that appears on hover and remains
+   visible on the current page. Uses the same press/lift physics as the keycap logo
+   (.keycap:hover/:active) but with subtle restraint. */
 .site-nav > a::after,
 .nav-dropdown__trigger::after {
     content: "";
@@ -468,17 +495,14 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     transform: scaleX(1);
 }
 
-/* Mobil wird derselbe Pseudo-Element-Akzent zu einem linken Balken statt
-   einem Unterstrich (siehe .site-nav > a::after oben - dort der Kommentar
-   zur Herkunft dieser Wiederverwendung). WICHTIG: dieser Block muss NACH
-   der Basisregel oben stehen. Beide Selektoren haben identische Spezifität;
-   bei gleicher Spezifität gewinnt bei Kaskaden-Konflikten die Regel, die
-   im Quelltext zuletzt steht - unabhängig davon, ob ihr Media Query gerade
-   aktiv ist. Stand dieser Block vor der Basisregel (wie es hier ursprünglich
-   der Fall war), gewann auf Mobile für bottom/height weiterhin die
-   Desktop-Regel, während nur width/left korrekt vom Media Query kamen -
-   das Ergebnis war ein 3×2px-Punkt oben links im Menüpunkt statt eines
-   durchgehenden Balkens. */
+/* MOBILE ACCENT BAR: On mobile, the pseudo-element accent transforms from an
+   underline to a vertical left bar (opposite of desktop). IMPORTANT: This block
+   must come AFTER the base rule above. Both selectors have identical specificity,
+   and in cascade conflicts, the last rule in source order wins regardless of
+   media query state. If this block were placed before the base rule, desktop
+   properties (bottom/height) would incorrectly override mobile styles from the
+   media query—resulting in a 3×2px dot instead of a full-height bar. Placing
+   this after ensures correct mobile styling. */
 @media (max-width: 1280px) {
     .site-nav > a::after,
     .nav-dropdown__trigger::after {
@@ -500,7 +524,9 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     }
 }
 
-/* -- "Guides & Tutorials"-Dropdown -- */
+/* =========================================================================
+   GUIDES & TUTORIALS DROPDOWN MENU
+   ========================================================================= */
 
 .nav-dropdown {
     position: relative;
@@ -542,18 +568,16 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 }
 
 @media (min-width: 1281px) {
-    /* position:fixed statt absolute: .nav-dropdown liegt innerhalb von
-       .site-nav, das wegen overflow-x:auto (Sicherheitsnetz gegen zu viele
-       Nav-Punkte auf schmalen Desktop-Breiten) laut CSS-Spec automatisch
-       auch overflow-y auf "auto" setzt (eine Achse kann nicht "auto" sein,
-       waehrend die andere "visible" bleibt). Dadurch wurde das Panel, das
-       per top:100% unterhalb der Nav-Zeile rausragt, unsichtbar weg-
-       geschnitten - obwohl opacity/visibility korrekt auf "sichtbar"
-       standen (deshalb drehte sich der Pfeil auch bereits korrekt). Mit
-       position:fixed entkommt das Panel diesem Clipping; die Position wird
-       per JS relativ zum Viewport berechnet (main.js, initNavDropdowns ->
-       positionPanel), da top/left bei fixed nicht mehr relativ zu
-       .nav-dropdown gelten. */
+    /* FIXED POSITIONING FOR DROPDOWN: We use position:fixed instead of absolute
+       because .nav-dropdown is nested within .site-nav which has overflow-x:auto
+       (safety net for too many nav items on narrow desktops). Per CSS spec,
+       when one axis is 'auto', the other cannot be 'visible', so overflow-y
+       becomes 'auto'. This clips the panel that extends below (top:100%),
+       making it invisible despite correct opacity/visibility (the arrow rotates
+       correctly, but the panel doesn't show). Using position:fixed lets the panel
+       escape this clipping. Position is calculated relative to the viewport via
+       JavaScript (main.js, initNavDropdowns -> positionPanel) since top/left
+       with fixed positioning don't respect .nav-dropdown's coordinates. */
     .nav-dropdown__panel {
         position: fixed;
         top: 0;
@@ -578,13 +602,12 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     }
 }
 
-/* Bewusst KEIN :hover-Auto-Open hier: Vorher öffnete .nav-dropdown:hover
-   das Panel unabhängig vom Klick-Zustand. Da man mit der Maus fast immer
-   erst über den Trigger hovert, bevor man klickt, war das Panel beim Klick
-   schon offen (und blieb es auch nach erneutem Klick, solange die Maus
-   darüber stand) - der Klick wirkte dadurch funktionslos. Öffnen/Schließen
-   läuft jetzt ausschließlich über Klick (.is-open, siehe main.js
-   initNavDropdowns) und Tastatur-Fokus (:focus-within, siehe oben). */
+/* NO HOVER AUTO-OPEN: Intentionally omitted. Previously, .nav-dropdown:hover
+   opened the panel regardless of click state. Since users almost always hover
+   before clicking, the panel would already be open when clicked (and remain
+   open on re-click while hovering)—making the click appear non-functional.
+   Now open/close is exclusively controlled by click interaction (.is-open via
+   main.js initNavDropdowns) and keyboard focus (:focus-within above). */
 
 .utility-nav {
     display: flex;
@@ -594,7 +617,9 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     margin-left: auto;
 }
 
-/* -- Sprach- & Farbschema-Umschalter -- */
+/* =========================================================================
+   LANGUAGE & THEME TOGGLE BUTTONS
+   ========================================================================= */
 
 .lang-toggle,
 .theme-toggle {
@@ -645,7 +670,9 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 
 .theme-toggle button svg { width: 13px; height: 13px; fill: currentColor; stroke: currentColor; }
 
-/* -- Hero (illustrativ statt Foto: verstreute Keycaps) -- */
+/* =========================================================================
+   HERO SECTION (Illustrative with scattered keycaps, not photo)
+   ========================================================================= */
 
 .hero {
     border-bottom: 1px solid var(--border-strong);
@@ -969,9 +996,10 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     letter-spacing: 0.02em;
 }
 
-/* Partner-Karte: Logo als volle Kopfleiste statt kleinem Sticker, auf
-   --paper montiert – dieselbe "Foto auf Papier"-Sprache wie die Polaroid-
-   Fotos anderswo, nur hier für ein Logo unbekannter Farbgebung genutzt. */
+/* PARTNER LOGO BAND: Uses the full-width header approach instead of a small
+   sticker logo, mounted on --paper background. This maintains the "photo on
+   paper" visual language used for Polaroid frames elsewhere, adapted here
+   for partner logos with unknown color schemes. */
 .partner-card__logo-band {
     display: flex;
     align-items: center;
@@ -989,15 +1017,17 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     object-fit: contain;
 }
 
-/* Semantisch h2 (kein umschließendes h2 vor der Karte auf dieser Seite,
-   siehe initGuideJumpnav-Kommentar zur Heading-Reihenfolge), optisch aber
-   weiterhin auf Kartentitel-Größe wie bei Guide-/Blog-Karten (die dort
-   korrekt h3 nutzen, weil sie unter einem h2-Abschnitt sitzen). */
+/* HEADING SEMANTICS: Semantically this should be h2 (no wrapper h2 before the card
+   on this page per initGuideJumpnav comment on heading hierarchy), but visually
+   it maintains the same size as card titles on guide/blog pages (which correctly
+   use h3 because they sit under an h2 section). */
 .partner-card h2 {
     font-size: clamp(1.15rem, 1.7vw, 1.4rem);
 }
 
-/* -- Werkbank-Zeitleiste -- */
+/* =========================================================================
+   WORKBENCH TIMELINE
+   ========================================================================= */
 
 .timeline { 
     position: relative; 
@@ -1049,7 +1079,9 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     line-height: 1.6;
 }
 
-/* -- Portfolio-Galerie: Foto-Karussell mit Spickzettel, der unter dem Foto hervorfährt -- */
+/* =========================================================================
+   PORTFOLIO GALLERY: Photo carousel with cheat sheet that slides out below
+   ========================================================================= */
 
 .gallery-row {
     display: grid;
@@ -1072,10 +1104,10 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     width: 100%;
 }
 
-/* Der Stack ist die sichtbare "Papier"-Box (Aufklapp-Animation + Schatten).
-   Jedes Foto im Karussell bekommt darin sein eigenes .cheat-sheet-Kärtchen;
-   main.js schaltet per .is-active immer nur das zum aktiven Foto passende
-   Kärtchen sichtbar (siehe initGallery -> cheatSlides). */
+/* CHEAT SHEET STACK: The visible "paper" box with expand animation and shadow.
+   Each gallery photo gets its own .cheat-sheet card inside; main.js switches
+   via .is-active to show only the card matching the active photo
+   (see initGallery -> cheatSlides). */
 .cheat-sheet-stack {
     order: 2;
     margin-top: 0;
@@ -1152,7 +1184,8 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 }
 
 .cheat-toggle::before {
-    /* Vergrößert die Tippfläche unsichtbar auf ~44px, ohne das Badge optisch zu vergrößern. */
+    /* TOUCH TARGET ENLARGEMENT: Invisible expansion to ~44px without visually
+       enlarging the badge. Improves mobile usability. */
     content: "";
     position: absolute;
     inset: -7px;
@@ -1335,7 +1368,9 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     text-align: center;
 }
 
-/* -- Zubehör: Tag-Liste -- */
+/* =========================================================================
+   ACCESSORIES: TAG LIST
+   ========================================================================= */
 
 .tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; padding: 0; list-style: none; font-family: var(--font-mono); }
 
@@ -1370,11 +1405,11 @@ a.pill:focus-visible {
     outline-offset: 2px;
 }
 
-/* Partner-Grid: startet mit 1 Karte (PCBWay) - .grid--3 wuerde eine einzelne Karte
-   oben links isoliert stehen lassen, mit viel totem Raum rechts daneben. auto-fit
-   mit fester Kartenbreite + justify-content:center zentriert das jetzige Einzelkarten-
-   Layout und wächst später von selbst zu einer zentrierten Mehrspalten-Reihe, sobald
-   weitere Partner dazukommen - ohne dass diese Regel dann erneut angepasst werden muss. */
+/* PARTNER GRID: Starts with 1 card (PCBWay) — using .grid--3 would isolate it
+   at top left with dead space to the right. auto-fit with fixed card width +
+   justify-content:center centers the current single-card layout and naturally
+   grows to a centered multi-column grid as more partners are added, without
+   requiring rule updates. */
 .partner-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 360px));
@@ -1399,7 +1434,9 @@ a.pill:focus-visible {
     color: var(--bg);
 }
 
-/* -- Guides & Tutorials: Karten für einzelne Guides -- */
+/* =========================================================================
+   GUIDES & TUTORIALS: Individual guide card styling
+   ========================================================================= */
 
 .guide-card__link {
     display: block;
@@ -1507,7 +1544,9 @@ a.pill:focus-visible {
 
 .social-links svg { width: 1.1rem; height: 1.1rem; fill: currentColor; }
 
-/* -- Fusszeile -- */
+/* =========================================================================
+   FOOTER
+   ========================================================================= */
 
 .site-footer { background: var(--surface); color: var(--text-dim); padding: clamp(2.2rem, 6vw, 3.4rem) calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-right)) calc(1.3rem + env(safe-area-inset-bottom)) calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-left)); border-top: 1px solid var(--border-strong); }
 .site-footer a { color: var(--text-dim); }
@@ -1583,7 +1622,9 @@ a.pill:focus-visible {
     }
 }
 
-/* -- Breadcrumb (Rückweg von Guide-Unterseiten zur zugehörigen Übersichtsseite) -- */
+/* =========================================================================
+   BREADCRUMB NAVIGATION (Return path from guide subpages to overview)
+   ========================================================================= */
 
 .breadcrumb {
     width: min(var(--max), 100%);
@@ -1614,11 +1655,10 @@ a.pill:focus-visible {
     outline-offset: 3px;
 }
 
-/* -- "Split"-Layout: Text + Foto nebeneinander (z. B. "Aktuelles Projekt" auf
-   der Startseite) -- vorher als Inline-Style auf dem Element selbst gesetzt,
-   dadurch konnte keine Media Query es je responsiv kollabieren (Inline-Styles
-   schlagen jede Stylesheet-Regel unabhängig von Spezifität). Jetzt als
-   echte Klasse mit Kollaps in der bestehenden 980px-Regel weiter unten. */
+/* SPLIT LAYOUT: Text and image side-by-side (e.g., "Current Project" on homepage).
+   Previously implemented as inline styles (which cannot be overridden by media
+   queries regardless of specificity). Now implemented as a proper class with
+   responsive collapse in the existing 980px rule below. */
 .split {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(300px, 0.85fr);
@@ -1626,7 +1666,9 @@ a.pill:focus-visible {
     align-items: center;
 }
 
-/* -- Seiten-Hero (für Unterseiten ohne grosses Hero-Bild) -- */
+/* =========================================================================
+   PAGE HERO SECTION (for subpages without large hero images)
+   ========================================================================= */
 
 .page-hero {
     display: grid;
@@ -1886,10 +1928,11 @@ textarea { min-height: 8.5rem; resize: vertical; }
 
 .section--paper .form-status--success { color: var(--accent-shade); }
 
-/* -- Rechtliches -- */
+/* =========================================================================
+   LEGAL PAGES
+   ========================================================================= */
 
 .legal { max-width: 900px; }
-.legal section + section { margin-top: 1rem; }
 
 .legal-card {
     border: 1px solid var(--border-strong);
@@ -1899,11 +1942,10 @@ textarea { min-height: 8.5rem; resize: vertical; }
     box-shadow: var(--shadow-soft);
 }
 
-/* Kleiner Hinweis-Kasten für vorläufige/noch zu ergänzende Inhalte.
-   Ursprünglich nur für Rechtsseiten gedacht, jetzt generell nutzbar
-   (z. B. Partner-Karten, solange echte Infos noch fehlen). */
+/* CONTENT NOTE: Small informational box for preliminary or incomplete content.
+   Originally intended for legal pages only, now reusable across the site
+   (e.g., partner cards while details are still being added). */
 .note {
-    margin-top: 0.6rem;
     padding: 0.55rem 0.75rem;
     border-left: 3px solid var(--accent-2);
     color: var(--text-dim);
@@ -1927,17 +1969,16 @@ textarea { min-height: 8.5rem; resize: vertical; }
     background: color-mix(in srgb, var(--accent) 18%, transparent);
     color: var(--accent-bright);
     font-family: var(--font-mono);
-    font-weight: 700;
+    font-weight: 1000;
 }
 
-/* -- Rechtliches: Sprungnav, nummerierte Abschnitte, Stand-Datum, Kontaktzeilen --
-   Erweitert das bestehende .legal/.legal-card-System auf Impressum, Datenschutz,
-   AGB und Cookies um echte Navigationshilfen für längere Seiten. Die Nummerierung
-   ist bewusst am jeweiligen Dokumenttyp ausgerichtet: Impressum/Datenschutz/Cookies
-   nutzen einfache Ordnungszahlen (wie in deutschen Datenschutzerklärungen üblich),
-   die AGB nutzt "§"-Nummerierung, weil ihre Abschnitte tatsächlich Vertragsklauseln
-   sind. .legal-jumpnav teilt sich die Scrollspy-Logik aus initGuideJumpnav in
-   main.js (dort auf ".guide-jumpnav, .legal-jumpnav" erweitert). */
+/* LEGAL NAVIGATION SYSTEM: Jump navigation, numbered sections, last-updated date,
+   and contact lines enhance the legal section with proper navigation aids for
+   longer documents. Numbering is intentionally document-specific: Impressum,
+   Datenschutz, and Cookies use ordinal numbers (standard in German privacy docs),
+   while Terms (AGB) use "§" numbering since sections represent contract clauses.
+   .legal-jumpnav shares scroll-spy logic from initGuideJumpnav in main.js
+   (extended there to target both .guide-jumpnav and .legal-jumpnav). */
 
 .legal-jumpnav {
     display: flex;
@@ -1975,6 +2016,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
     align-items: baseline;
     gap: 0.85rem;
     margin-bottom: 1rem;
+    margin-top: 3rem;
 }
 
 .legal-section__index {
@@ -1984,13 +2026,13 @@ textarea { min-height: 8.5rem; resize: vertical; }
     padding: 0.1rem 0.4rem;
     color: var(--accent);
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     font-weight: 700;
     line-height: 1.5;
 }
 
 .legal h2 {
-    font-size: clamp(1.25rem, 2.1vw, 1.6rem);
+    font-size: clamp(1.25rem, 2.1vw, 21.6rem);
 }
 
 /* Kontaktzeilen mit Icon (Anschrift/Telefon/E-Mail) innerhalb einer .legal-card */
@@ -2023,11 +2065,11 @@ textarea { min-height: 8.5rem; resize: vertical; }
     }
 }
 
-/* -- FAQ: eigener Aufklapp-Pfeil statt Browser-Standard-Dreieck --
-   Nutzt dieselbe Caret-SVG wie .nav-dropdown__caret fuer visuelle Konsistenz;
-   data-i18n sitzt bewusst auf einem inneren <span>, nie auf <summary> selbst,
-   sonst würde der Sprachwechsel die SVG als Kind-Element mit entfernen (siehe
-   main.js applyLang -> textContent-Zuweisung). */
+/* FAQ CUSTOM ARROW: Custom expanding arrow replaces browser default triangle.
+   Uses the same caret SVG as .nav-dropdown__caret for visual consistency.
+   data-i18n intentionally sits on an inner <span>, never on <summary> itself,
+   because language switching uses textContent assignment which would remove
+   SVG child elements (see main.js applyLang). */
 
 .faq-list summary {
     display: flex;
@@ -2072,7 +2114,9 @@ textarea { min-height: 8.5rem; resize: vertical; }
     transform: rotate(180deg);
 }
 
-/* -- Paper-Section: Nachfahren an das helle Papier anpassen -- */
+/* =========================================================================
+   PAPER SECTION: Adjust appearance to match light paper background
+   ========================================================================= */
 
 .section--paper .card,
 .section--paper .callout,
@@ -2355,13 +2399,14 @@ textarea { min-height: 8.5rem; resize: vertical; }
     overflow: hidden;
 }
 
-/* -- Blog article page: hero photo + prev/next nav at the bottom --
-   Width/centering intentionally left to the existing .single-polaroid
-   rules (incl. their responsive breakpoints) — only spacing is added here,
-   so there's no same-specificity/source-order fight over which width wins. */
+/* BLOG ARTICLE LAYOUT: Hero photo + previous/next navigation at bottom.
+   Width and centering are intentionally delegated to the existing .single-polaroid
+   rules (including their responsive breakpoints) to avoid specificity conflicts.
+   This component only adds spacing. */
 
-/* Ersetzt das vorher 7x identisch wiederholte style="max-width:800px;" auf jeder
-   Blogartikel-Seite (blog-*.html) - eine Regel statt sieben Kopien im Markup. */
+/* CONSOLIDATION: Replaces the inline style="max-width:800px;" that was
+   previously repeated 7 times on each blog article page (blog-*.html).
+   Now a single CSS rule instead of markup duplication. */
 .article-body {
     max-width: 800px;
 }
@@ -2632,12 +2677,11 @@ textarea { min-height: 8.5rem; resize: vertical; }
 }
 
 /* ==========================================================================
-   Druckansicht - v.a. für Impressum, Datenschutz, AGB und Cookies gedacht:
-   dunkler Header/Footer, Film-Grain-Textur und Farbverläufe verschwenden nur
-   Tinte und verschlechtern die Lesbarkeit auf Papier. Reduziert auf schwarzen
-   Text auf weißem Grund, blendet reine UI-Elemente (Nav, Theme-/Sprachtoggle,
-   Buttons, Sprungnav) aus und druckt Link-Ziele mit aus, da sie auf Papier
-   nicht klickbar sind.
+   PRINT STYLES — Optimized for legal pages (Impressum, Datenschutz, AGB, Cookies):
+   Dark headers/footers, film grain textures, and gradients waste ink and reduce
+   readability on paper. Reduces to black text on white background, hides pure UI
+   elements (nav, theme/language toggles, buttons, jump nav) and prints link
+   targets since they are not clickable on paper.
    ========================================================================== */
 @media print {
     body {

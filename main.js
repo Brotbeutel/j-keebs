@@ -1,3 +1,32 @@
+/**
+ * J-Keebs Main Application JavaScript
+ * 
+ * This module handles all core application functionality:
+ * - Internationalization (i18n) system with language switching
+ * - Theme toggling (light/dark mode)
+ * - Image gallery carousels with keyboard/touch support
+ * - Fullscreen image viewer
+ * - Mobile navigation management
+ * - Dropdown menu handling
+ * - Form submissions with progressive enhancement
+ * - Accessibility features (focus management, keyboard navigation)
+ * 
+ * All user preferences (language, theme) are persisted to localStorage.
+ * The module uses a custom attribute-based i18n system with data-i18n,
+ * data-i18n-html, and data-i18n-attr attributes for translation.
+ * 
+ * @version 2.0.0
+ * @author J-Keebs
+ */
+
+/**
+ * Global i18n dictionary containing translations for all UI text.
+ * Organized by language (de, en) with dot-notation keys for hierarchical organization.
+ * Page-specific translations can be provided in window.J_KEEBS_I18N and will be
+ * merged with these common translations.
+ * 
+ * @type {Object.<string, Object.<string, string>>}
+ */
 window.J_KEEBS_I18N_COMMON = {
     de: {
         "nav.home": "Home", "nav.blog": "Blog", "nav.keyboards": "Keyboards",
@@ -81,102 +110,197 @@ window.J_KEEBS_I18N_COMMON = {
     }
 };
 
+/**
+ * Core Application Module
+ * Self-executing function to avoid polluting the global namespace.
+ * All functionality is encapsulated within this module.
+ */
 (function () {
     "use strict";
 
-    var root = document.documentElement;
-    var THEME_KEY = "jkeebs-theme";
-    var LANG_KEY = "jkeebs-lang";
+    // ============================================================================
+    // CONFIGURATION & CONSTANTS
+    // ============================================================================
 
+    const root = document.documentElement;
+    const THEME_KEY = "jkeebs-theme";
+    const LANG_KEY = "jkeebs-lang";
+    const DEFAULT_THEME = "light";
+    const DEFAULT_LANG = "en";  // Changed from "de" to "en"
+
+    // ============================================================================
+    // THEME MANAGEMENT
+    // ============================================================================
+
+    /**
+     * Apply a theme to the document and persist to localStorage.
+     * Updates the data-theme attribute on the root element and sets aria-pressed
+     * states on all theme toggle buttons.
+     * 
+     * @param {string} theme - Theme to apply ("light" or "dark")
+     */
     function applyTheme(theme) {
         root.setAttribute("data-theme", theme);
-        try { localStorage.setItem(THEME_KEY, theme); } catch (e) { console.warn("J-Keebs: localStorage unavailable.", e); }
+        try {
+            localStorage.setItem(THEME_KEY, theme);
+        } catch (e) {
+            console.warn("J-Keebs: localStorage unavailable for theme persistence.", e);
+        }
+        
+        // Update toggle button states to reflect active theme
         document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
-            btn.setAttribute("aria-pressed", btn.getAttribute("data-theme-toggle") === theme ? "true" : "false");
+            const isActive = btn.getAttribute("data-theme-toggle") === theme;
+            btn.setAttribute("aria-pressed", isActive ? "true" : "false");
         });
     }
 
+    // ============================================================================
+    // INTERNATIONALIZATION (i18n) SYSTEM
+    // ============================================================================
+
+    /**
+     * Apply a language to the document and persist to localStorage.
+     * Updates the lang attribute on the root element, applies all translations
+     * from the i18n dictionaries, and updates language toggle button states.
+     * 
+     * Translations are applied using three mechanisms:
+     * - data-i18n: Sets textContent from dictionary
+     * - data-i18n-html: Sets innerHTML from dictionary (for HTML content)
+     * - data-i18n-attr: Sets HTML attributes (comma-separated pairs like "attr:key")
+     * 
+     * @param {string} lang - Language code to apply ("en" or "de")
+     */
     function applyLang(lang) {
         root.setAttribute("lang", lang);
-        try { localStorage.setItem(LANG_KEY, lang); } catch (e) { console.warn("J-Keebs: localStorage unavailable.", e); }
-        var common = (window.J_KEEBS_I18N_COMMON && window.J_KEEBS_I18N_COMMON[lang]) || {};
-        var page = (window.J_KEEBS_I18N && window.J_KEEBS_I18N[lang]) || {};
-        var dict = Object.assign({}, common, page);
+        try {
+            localStorage.setItem(LANG_KEY, lang);
+        } catch (e) {
+            console.warn("J-Keebs: localStorage unavailable for language persistence.", e);
+        }
+
+        // Merge common and page-specific translations
+        const common = (window.J_KEEBS_I18N_COMMON && window.J_KEEBS_I18N_COMMON[lang]) || {};
+        const page = (window.J_KEEBS_I18N && window.J_KEEBS_I18N[lang]) || {};
+        const dict = Object.assign({}, common, page);
+
         if (Object.keys(dict).length) {
+            // Apply text content translations
             document.querySelectorAll("[data-i18n]").forEach(function (el) {
-                var key = el.getAttribute("data-i18n");
-                if (dict[key] !== undefined) el.textContent = dict[key];
+                const key = el.getAttribute("data-i18n");
+                if (dict[key] !== undefined) {
+                    el.textContent = dict[key];
+                }
             });
+
+            // Apply HTML content translations (for markup with links, etc.)
             document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
-                var key = el.getAttribute("data-i18n-html");
-                if (dict[key] !== undefined) el.innerHTML = dict[key];
+                const key = el.getAttribute("data-i18n-html");
+                if (dict[key] !== undefined) {
+                    el.innerHTML = dict[key];
+                }
             });
+
+            // Apply attribute translations (e.g., "aria-label:key1,title:key2")
             document.querySelectorAll("[data-i18n-attr]").forEach(function (el) {
                 el.getAttribute("data-i18n-attr").split(",").forEach(function (pair) {
-                    var parts = pair.split(":");
-                    var attr = parts[0], key = parts[1];
-                    if (dict[key] !== undefined) el.setAttribute(attr, dict[key]);
+                    const [attr, key] = pair.trim().split(":");
+                    if (dict[key] !== undefined) {
+                        el.setAttribute(attr, dict[key]);
+                    }
                 });
             });
         }
+
+        // Update language toggle button states
         document.querySelectorAll("[data-lang-toggle]").forEach(function (btn) {
-            btn.setAttribute("aria-pressed", btn.getAttribute("data-lang-toggle") === lang ? "true" : "false");
+            const isActive = btn.getAttribute("data-lang-toggle") === lang;
+            btn.setAttribute("aria-pressed", isActive ? "true" : "false");
         });
+
+        // Update component translations that depend on language
         relabelCarousels(dict);
         updateGuideCategoryStatus(dict);
     }
 
-    // Karussell-Dots und Vor/Zurück-Buttons sind positionsbasiert ("Foto 2 von 4") statt
-    // Inhalt-basiert, deshalb werden sie hier dynamisch aus dem aktuellen Wörterbuch befüllt,
-    // statt für jedes Foto in jeder Galerie einen eigenen data-i18n-Key zu brauchen.
+    /**
+     * Dynamically update carousel button labels based on current language.
+     * Carousel dots show position labels (e.g., "Photo 2 of 4") which must
+     * be regenerated when language changes.
+     * 
+     * @param {Object.<string, string>} dict - Translation dictionary for current language
+     */
     function relabelCarousels(dict) {
-        var dotTemplate = dict["utility.carousel.dot"] || "Foto {n} von {total}";
-        var prevLabel = dict["utility.carousel.prev"] || "Vorheriges Foto";
-        var nextLabel = dict["utility.carousel.next"] || "Nächstes Foto";
+        const dotTemplate = dict["utility.carousel.dot"] || "Photo {n} of {total}";
+        const prevLabel = dict["utility.carousel.prev"] || "Previous photo";
+        const nextLabel = dict["utility.carousel.next"] || "Next photo";
+
         document.querySelectorAll(".polaroid-frame").forEach(function (frame) {
-            var dots = frame.querySelectorAll(".carousel-dots button");
-            var total = dots.length;
+            const dots = frame.querySelectorAll(".carousel-dots button");
+            const total = dots.length;
+            
             dots.forEach(function (dot, idx) {
-                dot.setAttribute("aria-label", dotTemplate.replace("{n}", idx + 1).replace("{total}", total));
+                const label = dotTemplate
+                    .replace("{n}", idx + 1)
+                    .replace("{total}", total);
+                dot.setAttribute("aria-label", label);
             });
-            var prev = frame.querySelector(".carousel-btn--prev");
-            var next = frame.querySelector(".carousel-btn--next");
+
+            const prev = frame.querySelector(".carousel-btn--prev");
+            const next = frame.querySelector(".carousel-btn--next");
             if (prev) prev.setAttribute("aria-label", prevLabel);
             if (next) next.setAttribute("aria-label", nextLabel);
         });
     }
 
-    // guides.html: zählt pro Kategorie automatisch, wie viele .guide-card
-    // schon verfügbar sind (echter Link) vs. noch als .guide-card--pending
-    // ("Folgt") markiert sind. So muss die Zusammenfassung nicht von Hand
-    // gepflegt werden, sobald neue Guides live gehen - no-op auf allen
-    // anderen Seiten ohne [data-guide-status].
+    /**
+     * Update guide category status text on guides.html.
+     * Counts available guides vs. pending guides in each category and
+     * updates summary text like "2/5" to show current progress.
+     * 
+     * @param {Object.<string, string>} dict - Translation dictionary for current language
+     */
     function updateGuideCategoryStatus(dict) {
-        var statusEls = document.querySelectorAll("[data-guide-status]");
+        const statusEls = document.querySelectorAll("[data-guide-status]");
         if (!statusEls.length) return;
-        var template = dict["status.summary"] || "{available}/{total}";
+
+        const template = dict["status.summary"] || "{available}/{total}";
         statusEls.forEach(function (el) {
-            var section = document.getElementById(el.getAttribute("data-guide-status"));
+            const section = document.getElementById(el.getAttribute("data-guide-status"));
             if (!section) return;
-            var total = section.querySelectorAll(".guide-card").length;
-            var pending = section.querySelectorAll(".guide-card--pending").length;
-            el.textContent = template.replace("{available}", total - pending).replace("{total}", total);
+
+            const total = section.querySelectorAll(".guide-card").length;
+            const pending = section.querySelectorAll(".guide-card--pending").length;
+            const available = total - pending;
+
+            el.textContent = template
+                .replace("{available}", available)
+                .replace("{total}", total);
         });
     }
 
+    // ============================================================================
+    // IMAGE GALLERY & CAROUSEL FUNCTIONALITY
+    // ============================================================================
+
+    /**
+     * Initialize a carousel gallery within a polaroid frame.
+     * Manages keyboard/click navigation between images and synchronized caption display.
+     * Also handles associated cheat sheet slides (additional info cards paired with images).
+     * 
+     * @param {HTMLElement} frame - The .polaroid-frame element containing the carousel
+     */
     function initGallery(frame) {
-        var imgs = frame.querySelectorAll(".polaroid-frame__viewport [data-slide]");
-        var dots = frame.querySelectorAll(".carousel-dots button");
-        var index = 0;
-        var foot = frame.querySelector(".polaroid-frame__foot");
-        var caption = frame.querySelector(".polaroid-frame__caption");
+        const imgs = frame.querySelectorAll(".polaroid-frame__viewport [data-slide]");
+        const dots = frame.querySelectorAll(".carousel-dots button");
+        let index = 0;
+        const foot = frame.querySelector(".polaroid-frame__foot");
+        let caption = frame.querySelector(".polaroid-frame__caption");
 
-        // Jedes Foto im Karussell hat sein eigenes Spickzettel-Kärtchen (siehe
-        // .cheat-sheet-stack im HTML, ein Sibling von .polaroid-frame). Die
-        // Kärtchen werden hier synchron zum aktiven Foto umgeschaltet.
-        var stage = frame.closest(".gallery-item__stage");
-        var cheatSlides = stage ? stage.querySelectorAll(".cheat-sheet-stack > .cheat-sheet") : [];
+        // Associated cheat sheets (info cards) that appear alongside images
+        const stage = frame.closest(".gallery-item__stage");
+        const cheatSlides = stage ? stage.querySelectorAll(".cheat-sheet-stack > .cheat-sheet") : [];
 
+        // Create caption element if not already present
         if (!caption && foot) {
             caption = document.createElement("span");
             caption.className = "polaroid-frame__caption";
@@ -187,55 +311,114 @@ window.J_KEEBS_I18N_COMMON = {
             }
         }
 
+        /**
+         * Show a specific slide in the carousel.
+         * Handles wrapping (circular navigation) and updates active states.
+         * Only visible images are included in tab order for accessibility.
+         * 
+         * @param {number} i - Index of slide to show (wraps around)
+         */
         function show(i) {
+            // Wrap index around carousel length
             index = (i + imgs.length) % imgs.length;
+
+            // Update image visibility and tab order
             imgs.forEach(function (el, idx) {
-                var active = idx === index;
+                const active = idx === index;
                 el.classList.toggle("is-active", active);
-                // Nur das sichtbare Foto bleibt per Tab erreichbar - sonst würde
-                // Tab durch unsichtbare (opacity:0) Karussell-Fotos "hindurch"-
-                // springen, ohne dass optisch etwas passiert.
+                // Only the active image is in tab order; others are -1 to skip them
                 el.setAttribute("tabindex", active ? "0" : "-1");
             });
-            dots.forEach(function (dot, idx) { dot.setAttribute("aria-current", idx === index ? "true" : "false"); });
-            cheatSlides.forEach(function (el, idx) { el.classList.toggle("is-active", idx === index); });
+
+            // Update dot indicators
+            dots.forEach(function (dot, idx) {
+                dot.setAttribute("aria-current", idx === index ? "true" : "false");
+            });
+
+            // Sync associated cheat sheet cards
+            cheatSlides.forEach(function (el, idx) {
+                el.classList.toggle("is-active", idx === index);
+            });
+
+            // Update caption from image alt/title
             if (caption) {
-                var active = imgs[index];
-                var text = active && (active.getAttribute("title") || active.getAttribute("alt") || "");
+                const activeImg = imgs[index];
+                const text = activeImg && (activeImg.getAttribute("title") || activeImg.getAttribute("alt") || "");
                 caption.textContent = text;
             }
         }
 
-        var prev = frame.querySelector(".carousel-btn--prev");
-        var next = frame.querySelector(".carousel-btn--next");
-        if (prev) prev.addEventListener("click", function (e) { e.preventDefault(); e.stopPropagation(); show(index - 1); });
-        if (next) next.addEventListener("click", function (e) { e.preventDefault(); e.stopPropagation(); show(index + 1); });
+        // Attach navigation controls
+        const prev = frame.querySelector(".carousel-btn--prev");
+        const next = frame.querySelector(".carousel-btn--next");
+        if (prev) {
+            prev.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                show(index - 1);
+            });
+        }
+        if (next) {
+            next.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                show(index + 1);
+            });
+        }
+
+        // Attach dot navigation
         dots.forEach(function (dot, idx) {
-            dot.addEventListener("click", function (e) { e.preventDefault(); e.stopPropagation(); show(idx); });
+            dot.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                show(idx);
+            });
         });
+
+        // Display first slide
         show(0);
     }
 
-    // Spickzettel: per Hover (Maus) ODER per Tap/Enter (Touch, Tastatur) ausfahren.
+    /**
+     * Initialize cheat sheet toggle for a gallery stage.
+     * Allows users to expand/collapse additional info cards via click or keyboard.
+     * 
+     * @param {HTMLElement} stage - The .gallery-item__stage element
+     */
     function initCheatSheetToggle(stage) {
-        var frame = stage.querySelector(".polaroid-frame");
+        const frame = stage.querySelector(".polaroid-frame");
         if (!frame) return;
-        var toggleBtn = stage.querySelector(".cheat-toggle");
 
+        const toggleBtn = stage.querySelector(".cheat-toggle");
+
+        /**
+         * Toggle the open/closed state of the cheat sheet.
+         */
         function toggle() {
-            var open = stage.classList.toggle("is-open");
+            const open = stage.classList.toggle("is-open");
             frame.setAttribute("aria-expanded", open ? "true" : "false");
-            if (toggleBtn) toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
+            if (toggleBtn) {
+                toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
+            }
         }
 
+        // Initialize closed state
         frame.setAttribute("aria-expanded", "false");
-        if (toggleBtn) toggleBtn.setAttribute("aria-expanded", "false");
+        if (toggleBtn) {
+            toggleBtn.setAttribute("aria-expanded", "false");
+        }
+
+        // Toggle on frame click (but not on carousel controls)
         frame.addEventListener("click", function (e) {
-            if (e.target.closest(".carousel-btn") || e.target.closest(".carousel-dots")) return;
+            if (e.target.closest(".carousel-btn") || e.target.closest(".carousel-dots")) {
+                return;
+            }
             toggle();
         });
+
+        // Toggle on Enter/Space key
         frame.addEventListener("keydown", function (e) {
-            if (e.target !== frame) return; // Buttons im Inneren regeln ihre eigene Enter/Space-Bedienung.
+            if (e.target !== frame) return; // Let internal buttons handle their own input
             if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
                 toggle();
@@ -243,80 +426,52 @@ window.J_KEEBS_I18N_COMMON = {
         });
     }
 
-    var savedTheme = "light";
-    try { savedTheme = localStorage.getItem(THEME_KEY) || "light"; } catch (e) {}
-    applyTheme(savedTheme);
+    // ============================================================================
+    // FULLSCREEN IMAGE VIEWER
+    // ============================================================================
 
-    document.addEventListener("DOMContentLoaded", function () {
-        var savedLang = "de";
-        try { savedLang = localStorage.getItem(LANG_KEY) || "de"; } catch (e) {}
-        applyLang(savedLang);
-
-        var currentTheme = root.getAttribute("data-theme") || "light";
-        document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
-            btn.setAttribute("aria-pressed", btn.getAttribute("data-theme-toggle") === currentTheme ? "true" : "false");
-            btn.addEventListener("click", function () {
-                applyTheme(btn.getAttribute("data-theme-toggle"));
-            });
-        });
-
-
-        document.querySelectorAll("[data-lang-toggle]").forEach(function (btn) {
-            btn.addEventListener("click", function () {
-                applyLang(btn.getAttribute("data-lang-toggle"));
-            });
-        });
-
-        document.querySelectorAll(".polaroid-frame").forEach(initGallery);
-        document.querySelectorAll(".gallery-item__stage").forEach(initCheatSheetToggle);
-        
-        // Initialize fullscreen image viewer
-        initFullscreenViewer();
-
-        // Initialize contact form (kontakt.html only, no-op elsewhere)
-        initContactForm();
-
-        // Initialize mobile hamburger navigation
-        initMobileNav();
-
-        // Initialize "Guides & Tutorials" nav dropdown (desktop hover panel / mobile accordion)
-        initNavDropdowns();
-
-        // guides.html: markiert in der Jumpnav, welche Kategorie gerade im Viewport ist
-        initGuideJumpnav();
-    });
-    
+    /**
+     * Initialize the fullscreen image viewer modal.
+     * Provides expanded view of gallery images with keyboard navigation,
+     * focus trapping, and seamless integration with carousels.
+     */
     function initFullscreenViewer() {
-        var overlay = document.getElementById("fullscreenOverlay");
-        var closeBtn = document.getElementById("fullscreenClose");
-        var prevBtn = document.getElementById("fullscreenPrev");
-        var nextBtn = document.getElementById("fullscreenNext");
-        var fullscreenImg = document.getElementById("fullscreenImage");
-        var infoText = document.getElementById("fullscreenInfo");
+        const overlay = document.getElementById("fullscreenOverlay");
+        const closeBtn = document.getElementById("fullscreenClose");
+        const prevBtn = document.getElementById("fullscreenPrev");
+        const nextBtn = document.getElementById("fullscreenNext");
+        const fullscreenImg = document.getElementById("fullscreenImage");
+        const infoText = document.getElementById("fullscreenInfo");
 
         if (!overlay || !closeBtn || !fullscreenImg) return;
 
-        var currentGallery = [];
-        var currentIndex = 0;
-        // Merkt sich, welches Element den Vollbild-Viewer geöffnet hat, damit der
-        // Fokus beim Schließen dorthin zurückspringt statt irgendwo auf der Seite
-        // zu landen (wichtig für Tastatur-Bedienung - passend zum Thema der Seite).
-        var lastTrigger = null;
+        let currentGallery = [];
+        let currentIndex = 0;
+        let lastTrigger = null;  // Track which image opened the viewer for focus return
 
+        /**
+         * Get all focusable elements in the overlay.
+         * @returns {Array<HTMLElement>}
+         */
         function getFocusableInOverlay() {
             return Array.from(overlay.querySelectorAll("button"))
-                .filter(function (el) { return !el.hasAttribute("hidden"); });
+                .filter(el => !el.hasAttribute("hidden"));
         }
 
-        // Hält Tab/Shift+Tab innerhalb des Overlays gefangen, solange es offen ist,
-        // damit Tastatur-Fokus nicht unsichtbar hinter dem abgedunkelten Hintergrund
-        // landet.
+        /**
+         * Trap Tab/Shift+Tab focus within the overlay.
+         * Prevents focus from escaping to elements behind the modal.
+         * @param {KeyboardEvent} e
+         */
         function trapFocus(e) {
             if (e.key !== "Tab") return;
-            var focusable = getFocusableInOverlay();
+
+            const focusable = getFocusableInOverlay();
             if (!focusable.length) return;
-            var first = focusable[0];
-            var last = focusable[focusable.length - 1];
+
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+
             if (e.shiftKey && document.activeElement === first) {
                 e.preventDefault();
                 last.focus();
@@ -326,71 +481,78 @@ window.J_KEEBS_I18N_COMMON = {
             }
         }
 
+        /**
+         * Get the full gallery of images for a given image.
+         * Either returns all images from the parent carousel or the single image.
+         * @param {HTMLImageElement} img
+         * @returns {Array<HTMLImageElement>}
+         */
         function getGalleryFor(img) {
-            var frame = img.closest(".polaroid-frame");
+            const frame = img.closest(".polaroid-frame");
             if (frame) {
-                var frames = Array.from(frame.querySelectorAll("[data-slide]"));
+                const frames = Array.from(frame.querySelectorAll("[data-slide]"));
                 if (frames.length) return frames;
             }
 
-            var single = img.closest(".single-polaroid");
+            const single = img.closest(".single-polaroid");
             return single ? [img] : [img];
         }
 
+        /**
+         * Update the fullscreen image display and sync carousel carousel state.
+         */
         function updateFullscreenImage() {
             if (!currentGallery.length) return;
 
-            var active = currentGallery[currentIndex] || currentGallery[0];
+            const active = currentGallery[currentIndex] || currentGallery[0];
             if (!active) return;
 
+            // Sync carousel state if this image is from a carousel
             if (active.closest(".polaroid-frame")) {
-                currentGallery.forEach(function (img, idx) {
+                currentGallery.forEach((img, idx) => {
                     img.classList.toggle("is-active", idx === currentIndex);
                 });
-                var frame = active.closest(".polaroid-frame");
-                var dots = frame.querySelectorAll(".carousel-dots button");
-                dots.forEach(function (dot, idx) {
+
+                const frame = active.closest(".polaroid-frame");
+                const dots = frame.querySelectorAll(".carousel-dots button");
+                dots.forEach((dot, idx) => {
                     dot.setAttribute("aria-current", idx === currentIndex ? "true" : "false");
                 });
             }
 
+            // Update fullscreen image
             fullscreenImg.src = active.src;
             fullscreenImg.alt = active.alt || "";
 
-            var parent = active.closest(".polaroid-frame") || active.closest(".single-polaroid");
-            var figcaption = parent ? parent.querySelector("figcaption") : null;
+            // Update caption from parent polaroid
+            const parent = active.closest(".polaroid-frame") || active.closest(".single-polaroid");
+            const figcaption = parent ? parent.querySelector("figcaption") : null;
             infoText.textContent = figcaption ? figcaption.textContent : (active.alt || "Image");
 
-            var hasMultipleImages = currentGallery.length > 1;
+            // Show/hide navigation buttons based on gallery size
+            const hasMultipleImages = currentGallery.length > 1;
             if (prevBtn) {
-                if (hasMultipleImages) {
-                    prevBtn.removeAttribute("hidden");
-                    prevBtn.style.display = "";
-                } else {
-                    prevBtn.setAttribute("hidden", "hidden");
-                    prevBtn.style.display = "";
-                }
+                prevBtn.toggleAttribute("hidden", !hasMultipleImages);
             }
             if (nextBtn) {
-                if (hasMultipleImages) {
-                    nextBtn.removeAttribute("hidden");
-                    nextBtn.style.display = "";
-                } else {
-                    nextBtn.setAttribute("hidden", "hidden");
-                    nextBtn.style.display = "";
-                }
+                nextBtn.toggleAttribute("hidden", !hasMultipleImages);
             }
         }
 
+        /**
+         * Open the fullscreen viewer with a given image.
+         * @param {HTMLImageElement} img
+         */
         function openFullscreen(img) {
             if (!img || !img.src) return;
 
             lastTrigger = img;
-            var frame = img.closest(".polaroid-frame");
             currentGallery = getGalleryFor(img);
 
+            // Determine starting index
+            const frame = img.closest(".polaroid-frame");
             if (frame) {
-                var activeSlide = frame.querySelector(".polaroid-frame__viewport img.is-active") || currentGallery[0];
+                const activeSlide = frame.querySelector(".polaroid-frame__viewport img.is-active") || currentGallery[0];
                 currentIndex = currentGallery.indexOf(activeSlide);
                 if (currentIndex < 0) currentIndex = currentGallery.indexOf(img);
             } else {
@@ -403,27 +565,29 @@ window.J_KEEBS_I18N_COMMON = {
             overlay.classList.add("is-active");
             overlay.setAttribute("aria-hidden", "false");
             document.body.style.overflow = "hidden";
-            // Fokus erst nach zwei rAF-Ticks setzen: nach nur einem Tick kann der
-            // Browser die durch classList.add() ausgelöste Sichtbarkeits-Neuberechnung
-            // (opacity/visibility) noch nicht abgeschlossen haben, wodurch .focus()
-            // auf dem gerade erst sichtbar gewordenen Button sonst stillschweigend
-            // ins Leere läuft (empirisch geprüft: ein einzelner rAF-Tick reicht nicht,
-            // setTimeout(0) auch nicht - zwei rAF-Ticks sind zuverlässig).
-            requestAnimationFrame(function () {
-                requestAnimationFrame(function () { closeBtn.focus(); });
+
+            // Defer focus to ensure element is visible
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    closeBtn.focus();
+                });
             });
         }
 
+        /**
+         * Close the fullscreen viewer and restore focus.
+         */
         function closeFullscreen() {
+            // Sync carousel state when closing
             if (currentGallery.length && currentGallery[currentIndex]) {
-                currentGallery.forEach(function (img, idx) {
+                currentGallery.forEach((img, idx) => {
                     img.classList.toggle("is-active", idx === currentIndex);
                 });
 
-                var frame = currentGallery[currentIndex].closest(".polaroid-frame");
+                const frame = currentGallery[currentIndex].closest(".polaroid-frame");
                 if (frame) {
-                    var dots = frame.querySelectorAll(".carousel-dots button");
-                    dots.forEach(function (dot, idx) {
+                    const dots = frame.querySelectorAll(".carousel-dots button");
+                    dots.forEach((dot, idx) => {
                         dot.setAttribute("aria-current", idx === currentIndex ? "true" : "false");
                     });
                 }
@@ -432,27 +596,33 @@ window.J_KEEBS_I18N_COMMON = {
             overlay.classList.remove("is-active");
             overlay.setAttribute("aria-hidden", "true");
             document.body.style.overflow = "";
+
+            // Return focus to trigger image
             if (lastTrigger) {
                 lastTrigger.focus();
                 lastTrigger = null;
             }
         }
 
+        // Make all images clickable to open fullscreen
         document.querySelectorAll(".single-polaroid img, .polaroid-frame__viewport img").forEach(function (img) {
             img.style.cursor = "pointer";
             img.setAttribute("role", "button");
-            // Bilder in .single-polaroid sind immer sichtbar -> immer per Tab erreichbar.
-            // Karussell-Fotos (data-slide) starten nur tabbar, wenn sie das aktive Bild
-            // sind; initGallery()'s show() haelt das beim Durchschalten aktuell.
+
+            // Set initial tab order: only active carousel images are tabbable
             if (!img.hasAttribute("data-slide") || img.classList.contains("is-active")) {
                 img.setAttribute("tabindex", "0");
             } else {
                 img.setAttribute("tabindex", "-1");
             }
+
+            // Open on click
             img.addEventListener("click", function (e) {
                 e.stopPropagation();
                 openFullscreen(this);
             });
+
+            // Open on Enter/Space
             img.addEventListener("keydown", function (e) {
                 if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
@@ -462,6 +632,7 @@ window.J_KEEBS_I18N_COMMON = {
             });
         });
 
+        // Navigation buttons
         if (prevBtn) {
             prevBtn.addEventListener("click", function (e) {
                 e.stopPropagation();
@@ -485,59 +656,72 @@ window.J_KEEBS_I18N_COMMON = {
             closeFullscreen();
         });
 
+        // Close on background click
         overlay.addEventListener("click", function (e) {
             if (e.target === overlay) {
                 closeFullscreen();
             }
         });
 
+        // Prevent closing when clicking the image itself
         fullscreenImg.addEventListener("click", function (e) {
             e.stopPropagation();
         });
 
+        // Keyboard navigation
         document.addEventListener("keydown", function (e) {
             if (!overlay.classList.contains("is-active")) return;
 
+            // Escape to close
             if (e.key === "Escape") {
                 closeFullscreen();
                 return;
             }
 
+            // Tab focus trapping
             if (e.key === "Tab") {
                 trapFocus(e);
                 return;
             }
 
-            if (e.key === "ArrowRight") {
-                if (nextBtn) nextBtn.click();
-            }
-
-            if (e.key === "ArrowLeft") {
-                if (prevBtn) prevBtn.click();
-            }
+            // Arrow keys for navigation
+            if (e.key === "ArrowRight" && nextBtn) nextBtn.click();
+            if (e.key === "ArrowLeft" && prevBtn) prevBtn.click();
         });
     }
 
-    // Kontaktformular: läuft ganz normal auch ohne JavaScript (echtes POST an FormSubmit,
-    // Redirect zurück auf ?sent=1). Mit JavaScript läuft die Übertragung per fetch im
-    // Hintergrund, ohne dass die Seite verlassen wird.
-    function initContactForm() {
-        var form = document.getElementById("contactForm");
-        var status = document.getElementById("contactFormStatus");
+    // ============================================================================
+    // CONTACT FORM HANDLING
+    // ============================================================================
 
+    /**
+     * Initialize contact form with progressive enhancement.
+     * Form works without JavaScript (standard POST), but with JS, submission
+     * happens via fetch in the background with user-friendly feedback.
+     * Includes honeypot spam protection.
+     */
+    function initContactForm() {
+        const form = document.getElementById("contactForm");
+        const status = document.getElementById("contactFormStatus");
+
+        /**
+         * Get current language's translation dictionary.
+         * @returns {Object.<string, string>}
+         */
         function currentDict() {
-            var lang = root.getAttribute("lang") || "de";
-            var common = (window.J_KEEBS_I18N_COMMON && window.J_KEEBS_I18N_COMMON[lang]) || {};
-            var page = (window.J_KEEBS_I18N && window.J_KEEBS_I18N[lang]) || {};
+            const lang = root.getAttribute("lang") || DEFAULT_LANG;
+            const common = (window.J_KEEBS_I18N_COMMON && window.J_KEEBS_I18N_COMMON[lang]) || {};
+            const page = (window.J_KEEBS_I18N && window.J_KEEBS_I18N[lang]) || {};
             return Object.assign({}, common, page);
         }
 
+        // Show success message if returning from form submission
         if (status && window.location.search.indexOf("sent=1") !== -1) {
-            var dictOnLoad = currentDict();
-            status.textContent = dictOnLoad["c.form.success"] || "Danke! Deine Nachricht ist unterwegs.";
+            const dict = currentDict();
+            status.textContent = dict["c.form.success"] || "Thank you! Your message is on its way.";
             status.className = "form-status form-status--success";
             try {
-                var cleanUrl = window.location.pathname + window.location.hash;
+                const cleanUrl = window.location.pathname + window.location.hash;
                 window.history.replaceState({}, "", cleanUrl);
             } catch (e) {}
         }
@@ -545,66 +729,88 @@ window.J_KEEBS_I18N_COMMON = {
         if (!form) return;
 
         form.addEventListener("submit", function (e) {
-            var honey = form.querySelector('[name="_honey"]');
-            if (honey && honey.value) { e.preventDefault(); return; }
+            // Honeypot spam protection
+            const honey = form.querySelector('[name="_honey"]');
+            if (honey && honey.value) {
+                e.preventDefault();
+                return;
+            }
 
             e.preventDefault();
-            var dict = currentDict();
-            var submitBtn = form.querySelector('button[type="submit"]');
+            const dict = currentDict();
+            const submitBtn = form.querySelector('button[type="submit"]');
 
+            // Disable button and show sending message
             if (submitBtn) submitBtn.disabled = true;
             if (status) {
-                status.textContent = dict["c.form.sending"] || "Wird gesendet …";
+                status.textContent = dict["c.form.sending"] || "Sending…";
                 status.className = "form-status";
             }
 
+            // Submit via fetch
             fetch(form.getAttribute("action"), {
                 method: "POST",
                 headers: { "Accept": "application/json" },
                 body: new FormData(form)
-            }).then(function (res) {
-                if (!res.ok) throw new Error("bad response");
-                form.reset();
-                if (status) {
-                    status.textContent = dict["c.form.success"] || "Danke! Deine Nachricht ist unterwegs.";
-                    status.className = "form-status form-status--success";
-                }
-            }).catch(function () {
-                if (status) {
-                    status.textContent = dict["c.form.error"] || "Ups, das hat nicht geklappt. Schreib mir gerne direkt per E-Mail.";
-                    status.className = "form-status form-status--error";
-                }
-            }).finally(function () {
-                if (submitBtn) submitBtn.disabled = false;
-            });
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error("bad response");
+                    form.reset();
+                    if (status) {
+                        status.textContent = dict["c.form.success"] || "Thank you! Your message is on its way.";
+                        status.className = "form-status form-status--success";
+                    }
+                })
+                .catch(() => {
+                    if (status) {
+                        status.textContent = dict["c.form.error"] || "Oops, that didn't work. Please email me directly.";
+                        status.className = "form-status form-status--error";
+                    }
+                })
+                .finally(() => {
+                    if (submitBtn) submitBtn.disabled = false;
+                });
         });
     }
 
-    // Mobile-Hauptnavigation: Hamburger-Button öffnet/schließt das Dropdown-Panel.
-    // Auf Desktop-Breiten (>1180px) bleibt die Navigation ohnehin sichtbar (siehe CSS),
-    // hier wird nur der mobile Ein-/Ausklapp-Zustand verwaltet.
+    // ============================================================================
+    // MOBILE NAVIGATION
+    // ============================================================================
+
+    /**
+     * Initialize mobile hamburger navigation menu.
+     * Manages open/close state of the navigation panel on smaller screens.
+     * On desktop (>1280px), navigation is always visible per CSS.
+     */
     function initMobileNav() {
-        var toggle = document.getElementById("navToggle");
-        var nav = document.getElementById("siteNav");
+        const toggle = document.getElementById("navToggle");
+        const nav = document.getElementById("siteNav");
         if (!toggle || !nav) return;
 
+        /**
+         * Close the mobile navigation menu.
+         */
         function closeNav() {
             nav.classList.remove("is-open");
             toggle.setAttribute("aria-expanded", "false");
-            // Offene "Guides & Tutorials"-Akkordeons nicht hängen lassen,
-            // falls das Menü geschlossen wird, während sie aufgeklappt sind.
-            nav.querySelectorAll(".nav-dropdown.is-open").forEach(function (dropdown) {
+
+            // Close any open dropdowns too
+            nav.querySelectorAll(".nav-dropdown.is-open").forEach(dropdown => {
                 dropdown.classList.remove("is-open");
-                var trigger = dropdown.querySelector(".nav-dropdown__trigger");
+                const trigger = dropdown.querySelector(".nav-dropdown__trigger");
                 if (trigger) trigger.setAttribute("aria-expanded", "false");
             });
         }
 
+        /**
+         * Open the mobile navigation menu.
+         */
         function openNav() {
             nav.classList.add("is-open");
             toggle.setAttribute("aria-expanded", "true");
         }
 
+        // Toggle menu on button click
         toggle.addEventListener("click", function (e) {
             e.stopPropagation();
             if (nav.classList.contains("is-open")) {
@@ -614,16 +820,19 @@ window.J_KEEBS_I18N_COMMON = {
             }
         });
 
-        nav.querySelectorAll("a").forEach(function (link) {
+        // Close menu when clicking a link
+        nav.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", closeNav);
         });
 
+        // Close menu when clicking outside
         document.addEventListener("click", function (e) {
             if (!nav.classList.contains("is-open")) return;
             if (e.target.closest("#siteNav") || e.target.closest("#navToggle")) return;
             closeNav();
         });
 
+        // Close menu on Escape
         document.addEventListener("keydown", function (e) {
             if (e.key === "Escape" && nav.classList.contains("is-open")) {
                 closeNav();
@@ -631,9 +840,8 @@ window.J_KEEBS_I18N_COMMON = {
             }
         });
 
-        // Falls das Fenster über den Mobile-Breakpoint hinweg vergrößert wird (Desktop-Browser),
-        // hängengebliebenen "offen"-Zustand zurücksetzen.
-        var desktopQuery = window.matchMedia("(min-width: 1281px)");
+        // Close menu when viewport expands to desktop
+        const desktopQuery = window.matchMedia("(min-width: 1281px)");
         function handleBreakpointChange(e) {
             if (e.matches) closeNav();
         }
@@ -644,44 +852,56 @@ window.J_KEEBS_I18N_COMMON = {
         }
     }
 
-    // "Guides & Tutorials"-Dropdown: Klick zum Öffnen/Schließen (funktioniert
-    // auf allen Geräten inkl. Touch), auf Desktop-Breiten ergänzt reines CSS
-    // (:hover/:focus-within) die Klick-Bedienung als Komfort-Layer.
-    function initNavDropdowns() {
-        var desktopQuery = window.matchMedia("(min-width: 1281px)");
+    // ============================================================================
+    // DROPDOWN MENU HANDLING
+    // ============================================================================
 
-        document.querySelectorAll(".nav-dropdown").forEach(function (dropdown) {
-            var trigger = dropdown.querySelector(".nav-dropdown__trigger");
-            var panel = dropdown.querySelector(".nav-dropdown__panel");
+    /**
+     * Initialize dropdown menus (e.g., "Guides & Tutorials").
+     * Handles click-to-open on all devices, with CSS hover enhancements on desktop.
+     * On desktop, panel positioning accounts for fixed positioning viewport coordinates.
+     */
+    function initNavDropdowns() {
+        const desktopQuery = window.matchMedia("(min-width: 1281px)");
+
+        document.querySelectorAll(".nav-dropdown").forEach(dropdown => {
+            const trigger = dropdown.querySelector(".nav-dropdown__trigger");
+            const panel = dropdown.querySelector(".nav-dropdown__panel");
             if (!trigger || !panel) return;
 
-            // Auf Desktop-Breiten ist .nav-dropdown__panel position:fixed (siehe
-            // style.css), damit es dem overflow-Clipping von .site-nav entkommt.
-            // top/left gelten dann relativ zum Viewport statt relativ zu
-            // .nav-dropdown, deshalb hier per getBoundingClientRect berechnet.
-            // Auf Mobil-Breiten (Akkordeon, position:static) wird nichts gesetzt.
+            /**
+             * Position the dropdown panel on desktop (viewport coordinates).
+             */
             function positionPanel() {
                 if (!desktopQuery.matches) {
                     panel.style.top = "";
                     panel.style.left = "";
                     return;
                 }
-                var rect = trigger.getBoundingClientRect();
+
+                const rect = trigger.getBoundingClientRect();
                 panel.style.top = Math.round(rect.bottom + 8) + "px";
                 panel.style.left = Math.round(rect.left) + "px";
             }
 
+            /**
+             * Close the dropdown.
+             */
             function closeDropdown() {
                 dropdown.classList.remove("is-open");
                 trigger.setAttribute("aria-expanded", "false");
             }
 
+            /**
+             * Open the dropdown.
+             */
             function openDropdown() {
                 dropdown.classList.add("is-open");
                 trigger.setAttribute("aria-expanded", "true");
                 positionPanel();
             }
 
+            // Click to toggle
             trigger.addEventListener("click", function (e) {
                 e.stopPropagation();
                 if (dropdown.classList.contains("is-open")) {
@@ -691,21 +911,22 @@ window.J_KEEBS_I18N_COMMON = {
                 }
             });
 
-            // :focus-within (Tab-Taste) oeffnet das Panel rein per CSS, ohne
-            // openDropdown() zu durchlaufen - Position trotzdem berechnen,
-            // sonst haengt das Panel beim ersten Tab-Fokus noch bei top/left:0.
+            // Reposition on focus (Tab key)
             trigger.addEventListener("focus", positionPanel);
 
-            panel.querySelectorAll("a").forEach(function (link) {
+            // Close when clicking a link in the panel
+            panel.querySelectorAll("a").forEach(link => {
                 link.addEventListener("click", closeDropdown);
             });
 
+            // Close when clicking outside
             document.addEventListener("click", function (e) {
                 if (!dropdown.classList.contains("is-open")) return;
                 if (e.target.closest(".nav-dropdown")) return;
                 closeDropdown();
             });
 
+            // Close on Escape
             document.addEventListener("keydown", function (e) {
                 if (e.key === "Escape" && dropdown.classList.contains("is-open")) {
                     closeDropdown();
@@ -713,42 +934,112 @@ window.J_KEEBS_I18N_COMMON = {
                 }
             });
 
-            window.addEventListener("resize", function () {
+            // Reposition on window resize
+            window.addEventListener("resize", () => {
                 if (dropdown.classList.contains("is-open")) positionPanel();
             });
         });
     }
 
-    // guides.html + Rechtliches (impressum/datenschutz/agb/cookies.html): markiert
-    // per IntersectionObserver, welcher Abschnitt gerade im Viewport ist - reine
-    // Komfortfunktion, no-op auf allen anderen Seiten ohne .guide-jumpnav/.legal-jumpnav.
-    // Ein Observer pro Nav, damit mehrere Sprungnavs auf derselben Seite theoretisch
-    // unabhängig voneinander funktionieren würden (aktuell hat jede Seite nur eine).
+    // ============================================================================
+    // SCROLL SPY FOR JUMP NAVIGATION
+    // ============================================================================
+
+    /**
+     * Initialize scroll spy for guides and legal pages.
+     * Uses IntersectionObserver to track which section is currently in viewport
+     * and update the corresponding navigation link's active state.
+     * Used on guides.html and legal pages (privacy, terms, etc.).
+     */
     function initGuideJumpnav() {
-        var navs = document.querySelectorAll(".guide-jumpnav, .legal-jumpnav");
+        const navs = document.querySelectorAll(".guide-jumpnav, .legal-jumpnav");
         if (!navs.length || !("IntersectionObserver" in window)) return;
 
-        navs.forEach(function (nav) {
-            var links = Array.from(nav.querySelectorAll("a[href^='#']"));
-            var sections = links
-                .map(function (link) { return document.getElementById(link.getAttribute("href").slice(1)); })
+        navs.forEach(nav => {
+            const links = Array.from(nav.querySelectorAll("a[href^='#']"));
+            const sections = links
+                .map(link => document.getElementById(link.getAttribute("href").slice(1)))
                 .filter(Boolean);
+
             if (!sections.length) return;
 
+            /**
+             * Mark a section as active in the navigation.
+             * @param {string} id - Section ID to mark as active
+             */
             function setActive(id) {
-                links.forEach(function (link) {
-                    var isActive = link.getAttribute("href") === "#" + id;
+                links.forEach(link => {
+                    const isActive = link.getAttribute("href") === "#" + id;
                     link.setAttribute("aria-current", isActive ? "true" : "false");
                 });
             }
 
-            var observer = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) setActive(entry.target.id);
-                });
-            }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+            // Observe sections and mark active when in viewport
+            const observer = new IntersectionObserver(
+                entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            setActive(entry.target.id);
+                        }
+                    });
+                },
+                {
+                    rootMargin: "-45% 0px -50% 0px",
+                    threshold: 0
+                }
+            );
 
-            sections.forEach(function (section) { observer.observe(section); });
+            sections.forEach(section => {
+                observer.observe(section);
+            });
         });
     }
+
+    // ============================================================================
+    // INITIALIZATION
+    // ============================================================================
+
+    // Load saved theme before DOM renders to prevent flash
+    let savedTheme = DEFAULT_THEME;
+    try {
+        savedTheme = localStorage.getItem(THEME_KEY) || DEFAULT_THEME;
+    } catch (e) {}
+    applyTheme(savedTheme);
+
+    // Wait for DOM to be ready before initializing all features
+    document.addEventListener("DOMContentLoaded", function () {
+        // Load saved language (default to "en")
+        let savedLang = DEFAULT_LANG;
+        try {
+            savedLang = localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+        } catch (e) {}
+        applyLang(savedLang);
+
+        // Set up theme toggle buttons
+        const currentTheme = root.getAttribute("data-theme") || DEFAULT_THEME;
+        document.querySelectorAll("[data-theme-toggle]").forEach(btn => {
+            const isActive = btn.getAttribute("data-theme-toggle") === currentTheme;
+            btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+            btn.addEventListener("click", function () {
+                applyTheme(btn.getAttribute("data-theme-toggle"));
+            });
+        });
+
+        // Set up language toggle buttons
+        document.querySelectorAll("[data-lang-toggle]").forEach(btn => {
+            btn.addEventListener("click", function () {
+                applyLang(btn.getAttribute("data-lang-toggle"));
+            });
+        });
+
+        // Initialize all interactive components
+        document.querySelectorAll(".polaroid-frame").forEach(initGallery);
+        document.querySelectorAll(".gallery-item__stage").forEach(initCheatSheetToggle);
+        initFullscreenViewer();
+        initContactForm();
+        initMobileNav();
+        initNavDropdowns();
+        initGuideJumpnav();
+    });
+
 })();
