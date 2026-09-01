@@ -1,0 +1,14 @@
+---
+description: Read the ai/ handoff folder; implementers follow PLAN.md only
+alwaysApply: true
+---
+
+# AI handoff
+
+Read `ai/README.md`, then `ai/STATUS.md` and `ai/PLAN.md`.
+
+If this chat is implementing: do only the **current work package** in `PLAN.md`. Do not add an SSG, re-plan, or pull extra backlog items.
+
+If this chat is planning: update `PLAN.md`; do not implement unless the owner asks.
+
+After work, update `ai/STATUS.md` and `ai/BACKLOG.md`. Do not restore `main-original.js`.
