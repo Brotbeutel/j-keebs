@@ -23,7 +23,7 @@ Visit the live site: https://brotbeutel.github.io/
 
 ```
 /
-├── index.html              # Homepage
+├── index.html             # Homepage
 ├── blog.html              # Blog listing
 ├── keyboards.html         # Portfolio gallery
 ├── guides.html            # Guides & tutorials
