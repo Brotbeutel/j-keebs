@@ -1,14 +1,7 @@
-I changed the repository name to: j-keebs
+# User notes
 
+Scratchpad for quick notes between sessions — not the source of truth. The planner folds anything here into `STATUS.md` / `BACKLOG.md` and clears this file (see `AGENTS.md`).
 
+Last folded in: 2026-09-03 (repo rename to `j-keebs`, live URL, fullscreen-viewer centering bug — all moved into `STATUS.md` and `BACKLOG.md`).
 
-The Website now is live on: https://brotbeutel.github.io/j-keebs/
-
-
-
-Issues:
-
-
-
-* in image fullscreen view:  arrows and X aren't centered
-
+_(empty — add new notes below as they come up)_

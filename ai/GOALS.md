@@ -2,25 +2,26 @@
 
 ## Product
 
-J-Keebs is a German-first portfolio for custom mechanical keyboards, mods, and upcycling (ISO-DE, QMK, restoration). It should feel like a workshop, not a storefront, until there is something to sell.
+J-Keebs is a portfolio for custom mechanical keyboards, mods, and upcycling (ISO-DE, QMK, restoration). English is the confirmed default language for the site (JS default + `<html lang>`); the actual written content is still German today and stays that way until a separate, explicit decision says otherwise (see `CONVENTIONS.md`). It should feel like a workshop, not a storefront, until there is something to sell.
 
 1. **Honest content.** Own writing, accurate specs, no placeholder blog copy left as if it were finished.
-2. **Stable URLs.** One page, one address. Old German filenames may redirect; they must not compete as duplicates.
+2. **Stable URLs.** One page, one address, at the correct base path (`https://brotbeutel.github.io/j-keebs/…`). Old filenames — German legal-page names, old blog slugs — redirect; they must not compete as duplicates.
 3. **Maintainable chrome.** Header, footer, fonts, and theme boot should live in one place before the page count grows.
-4. **Accessible enough to claim later.** Skip links, keyboard gallery, focus in modals stay. Do not put “WCAG 2.1 AA” in README until it is checked.
+4. **Accessible enough to claim later.** Skip links, keyboard gallery, focus in modals stay. Do not put "WCAG 2.1 AA" in README until it is checked.
 5. **Fast enough for photo-heavy pages.** Fewer webfonts, sized images, no extra frameworks.
 
 ## Non-goals (for now)
 
 - React / SPA rewrite
 - Extra languages beyond DE + EN
+- A full English rewrite of existing page copy (English is the site default; translating existing German write-ups is a separate future decision, not assumed)
 - Analytics, cookie banners for tracking, or a shop
 - More pending guide cards
 - Expanding i18n until URL identity and layouts are fixed
 
 ## Launch bar
 
-The homepage “not launched yet” banner stays until:
+The homepage "not launched yet" banner stays until:
 
 - Featured project links work
 - Duplicate legal/about/contact URLs are collapsed
