@@ -747,11 +747,32 @@ window.J_KEEBS_I18N_COMMON = {
                 status.className = "form-status";
             }
 
-            // Submit via fetch
-            fetch(form.getAttribute("action"), {
+            // Submit via fetch.
+            // IMPORTANT: FormSubmit's plain form-action endpoint (used below by the
+            // native no-JS fallback) is not documented to return CORS headers or JSON
+            // for cross-origin fetch/XHR calls. Their docs specify a dedicated
+            // /ajax/{email} endpoint for that (JSON body, Content-Type + Accept
+            // headers) — see https://formsubmit.co/documentation. Reusing the plain
+            // action URL here was the likely cause of unreliable/CORS-blocked
+            // submissions; this derives the ajax endpoint from the same action URL
+            // so the two stay in sync if the destination email ever changes.
+            const ajaxAction = form.getAttribute("action").replace(
+                "https://formsubmit.co/",
+                "https://formsubmit.co/ajax/"
+            );
+            const payload = {};
+            new FormData(form).forEach(function (value, key) {
+                if (key === "_honey") return; // already checked above, no need to send
+                payload[key] = value;
+            });
+
+            fetch(ajaxAction, {
                 method: "POST",
-                headers: { "Accept": "application/json" },
-                body: new FormData(form)
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(payload)
             })
                 .then(res => {
                     if (!res.ok) throw new Error("bad response");
