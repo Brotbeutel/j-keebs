@@ -12,41 +12,40 @@ If an implementer finds a new issue: add it to `BACKLOG.md` under the right prio
 
 ## Sequence
 
-1. ~~**P0 / P0-B / P0-C**~~ ✅ done (base-URL fixed, English slugs, deployed).
-2. **P1 — structure** — layout/SSG (Eleventy preferred) & contact form (CORS/captcha). (current, see package below)
-3. **P2 — performance / a11y** — includes the fullscreen-viewer centering bug.
-4. **P3 — content / README honesty**
+1. ~~P0 — URLs work~~ ✅ done
+2. ~~P0-B — Base-URL after repo rename~~ ✅ done, pushed, verified live
+3. ~~P0-C — Blog files → English slugs~~ ✅ done, pushed, verified live
+4. **P1 — structure** — contact form is ✅ done (tested live, no fix needed). Remaining: layout/SSG decision — still a **planner discussion**, not yet a work package. Language story is resolved (English default, German copy stays; see `DECISIONS.md`).
+5. **P2 — performance / a11y** (see `BACKLOG.md`) — the sun-icon fix is done; nothing else is scoped into a concrete package yet. Next planner session should pick one slice (the fullscreen-viewer centering bug is small and standalone — obvious first pick) rather than handing over the whole list at once.
+6. **P3 — content / README honesty**
 
 Do not skip ahead.
 
-## Current work package: P1
+## Current work package
 
-**Goal:** Extract shared page structure (head, header, footer, theme script) into a centralized layout to prevent drift, and fix the contact form submission.
+**None queued.** Everything through P0-C and the P1 contact-form check is done and live. Before starting an implementer session again, come back to the planner chat to scope the next slice — likely a small P2 package (fullscreen-viewer centering is the obvious first pick) or the deferred layout/SSG conversation.
 
-**In scope**
+## Redirect stub pattern
 
-1. Setup a basic SSG (Eleventy is recommended as it keeps things close to vanilla HTML).
-2. Create a base layout template that contains the shared `<head>`, `<header>` (nav), and `<footer>`, as well as the theme-boot logic.
-3. Migrate all `.html` pages to use this layout. Ensure the nav drift (e.g. `blog.html` sun-icon SVG vs `index.html`) is resolved by using one single source of truth for the nav.
-4. Contact form (`contact.html`): Fix the FormSubmit setup. Since JS `fetch` might fail CORS, implement a working no-JS `POST` fallback or fix the form configuration. Handle captcha (`_captcha` is currently `false`).
+GitHub Pages has no real 301, so a rename leaves a stub at the old filename:
 
-**Out of scope**
+```html
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0; url=NEW-TARGET.html">
+  <link rel="canonical" href="https://brotbeutel.github.io/j-keebs/NEW-TARGET.html">
+  <title>Weiterleitung…</title>
+</head>
+<body>
+  <p><a href="NEW-TARGET.html">Weiter zur Seite</a></p>
+</body>
+</html>
+```
 
-- Rewriting visible copy into English.
-- Fullscreen viewer centering (P2).
-- Adding complex image processing pipelines or bundlers (keep it simple HTML/CSS/JS).
-- Committing, unless the owner asks.
+Canonical must include the `/j-keebs/` base path.
 
-**Recommendation:** Make sure the output folder of Eleventy matches what GitHub pages expects (or configure the action accordingly). Since this is currently a static repo without an SSG, introduce Eleventy minimalistically (e.g., just `_includes/layout.njk` or `.liquid`). The output needs to preserve the `/j-keebs/` base paths that were established in P0.
+## After the current backlog clears
 
-**Done when**
-
-- Building the site via Eleventy outputs the same visual result and links for all pages.
-- There is only one copy of the nav/header/footer code.
-- Contact form submits successfully without CORS errors.
-- `ai/STATUS.md` and `ai/BACKLOG.md` updated.
-- This section replaced with P2 as current.
-
-## After P1
-
-Come back to the planner chat. Next package is P2 (Performance and a11y), which will address the fullscreen viewer centering bug and clean up unused assets.
+Come back to the planner chat. The deferred proposal-only Eleventy/layout discussion is still there whenever it's worth having — none of P0-B/P0-C/P1 needed it, but chrome duplication across ~24 pages (like the sun-icon drift that just got fixed) is still the standing maintenance cost of not having one.

@@ -2,18 +2,18 @@
 
 Paste these at the start of a **new** chat. The agent must still read `ai/STATUS.md` and `ai/PLAN.md`.
 
-## Implementer: P0-B + P0-C (use this next)
+## Implementer
 
 ```
 You are the implementer, not the planner.
 
-Read ai/README.md, ai/STATUS.md, ai/PLAN.md (current work package: P0-B, then queued P0-C), and ai/CONVENTIONS.md.
+Read ai/README.md, ai/STATUS.md, ai/PLAN.md (current work package), and ai/CONVENTIONS.md.
 
-Execute P0-B first: fix canonical/og:url/og:image/twitter:image/JSON-LD url/FormSubmit _next/sitemap.xml/robots.txt/404.html so every absolute URL uses the /j-keebs/ base path. Then execute P0-C: rename the 5 blog files per the table in PLAN.md, fix the prev/next chain across all 7 posts, update blog.html/index.html, rebuild sitemap.xml, add redirect stubs.
+Execute only what PLAN.md's "Current work package" section specifies. If it says nothing is queued, stop and tell me — do not invent scope.
 
-Out of scope: SSG, translating visible page copy to English, CSS/JS refactors beyond what's needed, README, new features, committing unless I ask.
+Out of scope: anything not explicitly listed in the current package, SSG, translating visible page copy to English, README, new features, committing unless I ask.
 
-When done: grep for leftover old base URLs and old blog filenames, update ai/STATUS.md and ai/BACKLOG.md, list files you changed.
+When done: verify against the package's "Done when" criteria, update ai/STATUS.md and ai/BACKLOG.md, list files you changed.
 ```
 
 ## Planner: after current package
