@@ -1,3 +1,4 @@
 *.bak
 content/*
 .DS_Store
+.cursor
