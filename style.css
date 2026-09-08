@@ -1017,6 +1017,24 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     object-fit: contain;
 }
 
+/* TEXT WORDMARK: Stand-in for partners without a supplied logo file yet
+   (e.g. OWA LABS). Sits in the same .partner-card__logo-band slot as
+   .partner-card__logo, so the two card types line up visually; swap this
+   for a real <img class="partner-card__logo"> once artwork exists. Uses
+   --accent-shade (identical value in both themes) rather than --accent-2
+   (which shifts toward the paper's own tone in dark mode) so contrast on
+   the light --paper background stays reliable regardless of site theme. */
+.partner-card__wordmark {
+    margin: 0;
+    padding: 1.6rem 0;
+    color: var(--accent-shade);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: 0.03em;
+    text-align: center;
+}
+
 /* HEADING SEMANTICS: Semantically this should be h2 (no wrapper h2 before the card
    on this page per initGuideJumpnav comment on heading hierarchy), but visually
    it maintains the same size as card titles on guide/blog pages (which correctly
