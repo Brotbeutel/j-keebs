@@ -30,8 +30,8 @@
 window.J_KEEBS_I18N_COMMON = {
     de: {
         "nav.home": "Home", "nav.blog": "Blog", "nav.keyboards": "Keyboards",
-        "nav.guides": "Guides & Tutorials", "nav.switches": "Switches",
-        "nav.guides.switches": "Switches", "nav.guides.plates": "Plates", "nav.guides.mods": "Mods",
+        "nav.guides": "Guides", "nav.switches": "Switches",
+        "nav.guides.switches": "Switches", "nav.guides.plates": "Plates", "nav.guides.mods": "Mods", "nav.guides.keycaps": "Keycaps",
         "nav.about": "Über mich", "nav.faq": "FAQ", "nav.partner": "Partner", "nav.kontakt": "Kontakt",
         "utility.lang.aria": "Sprache wählen",
         "utility.theme.aria": "Farbschema wählen",
@@ -70,8 +70,8 @@ window.J_KEEBS_I18N_COMMON = {
     },
     en: {
         "nav.home": "Home", "nav.blog": "Blog", "nav.keyboards": "Keyboards",
-        "nav.guides": "Guides & Tutorials", "nav.switches": "Switches",
-        "nav.guides.switches": "Switches", "nav.guides.plates": "Plates", "nav.guides.mods": "Mods",
+        "nav.guides": "Guides", "nav.switches": "Switches",
+        "nav.guides.switches": "Switches", "nav.guides.plates": "Plates", "nav.guides.mods": "Mods", "nav.guides.keycaps": "Keycaps",
         "nav.about": "About", "nav.faq": "FAQ", "nav.partner": "Partners", "nav.kontakt": "Contact",
         "utility.lang.aria": "Choose language",
         "utility.theme.aria": "Choose color scheme",
@@ -818,8 +818,6 @@ window.J_KEEBS_I18N_COMMON = {
             // Close any open dropdowns too
             nav.querySelectorAll(".nav-dropdown.is-open").forEach(dropdown => {
                 dropdown.classList.remove("is-open");
-                const trigger = dropdown.querySelector(".nav-dropdown__trigger");
-                if (trigger) trigger.setAttribute("aria-expanded", "false");
             });
         }
 
@@ -879,11 +877,30 @@ window.J_KEEBS_I18N_COMMON = {
 
     /**
      * Initialize dropdown menus (e.g., "Guides & Tutorials").
-     * Handles click-to-open on all devices, with CSS hover enhancements on desktop.
-     * On desktop, panel positioning accounts for fixed positioning viewport coordinates.
+    * Reveals categories on desktop hover/focus and restores the expanded state
+    * after the primary Guides link navigates to guides.html.
+    * On desktop, panel positioning accounts for fixed positioning viewport coordinates.
      */
     function initNavDropdowns() {
         const desktopQuery = window.matchMedia("(min-width: 1281px)");
+        const guidesNavStateKey = "jkeebs-guides-nav-open";
+        let shouldRestoreGuidesNav = false;
+
+        try {
+            shouldRestoreGuidesNav = window.location.pathname.endsWith("/guides.html")
+                && sessionStorage.getItem(guidesNavStateKey) === "1";
+            if (shouldRestoreGuidesNav) sessionStorage.removeItem(guidesNavStateKey);
+        } catch (e) {}
+
+        // Carry the expanded navigation state across the full page navigation
+        // caused by the primary Guides & Tutorials link.
+        document.querySelectorAll('.nav-dropdown__trigger[href$="guides.html"]').forEach(link => {
+            link.addEventListener("click", function () {
+                try {
+                    sessionStorage.setItem(guidesNavStateKey, "1");
+                } catch (e) {}
+            });
+        });
 
         document.querySelectorAll(".nav-dropdown").forEach(dropdown => {
             const trigger = dropdown.querySelector(".nav-dropdown__trigger");
@@ -900,7 +917,7 @@ window.J_KEEBS_I18N_COMMON = {
                     return;
                 }
 
-                const rect = trigger.getBoundingClientRect();
+                const rect = dropdown.getBoundingClientRect();
                 panel.style.top = Math.round(rect.bottom + 8) + "px";
                 panel.style.left = Math.round(rect.left) + "px";
             }
@@ -910,7 +927,6 @@ window.J_KEEBS_I18N_COMMON = {
              */
             function closeDropdown() {
                 dropdown.classList.remove("is-open");
-                trigger.setAttribute("aria-expanded", "false");
             }
 
             /**
@@ -918,22 +934,12 @@ window.J_KEEBS_I18N_COMMON = {
              */
             function openDropdown() {
                 dropdown.classList.add("is-open");
-                trigger.setAttribute("aria-expanded", "true");
                 positionPanel();
             }
 
-            // Click to toggle
-            trigger.addEventListener("click", function (e) {
-                e.stopPropagation();
-                if (dropdown.classList.contains("is-open")) {
-                    closeDropdown();
-                } else {
-                    openDropdown();
-                }
-            });
-
             // Reposition on focus (Tab key)
             trigger.addEventListener("focus", positionPanel);
+            dropdown.addEventListener("mouseenter", positionPanel);
 
             // Close when clicking a link in the panel
             panel.querySelectorAll("a").forEach(link => {
@@ -959,6 +965,16 @@ window.J_KEEBS_I18N_COMMON = {
             window.addEventListener("resize", () => {
                 if (dropdown.classList.contains("is-open")) positionPanel();
             });
+
+            if (shouldRestoreGuidesNav) {
+                openDropdown();
+                const nav = document.getElementById("siteNav");
+                const navToggle = document.getElementById("navToggle");
+                if (nav && navToggle && !desktopQuery.matches) {
+                    nav.classList.add("is-open");
+                    navToggle.setAttribute("aria-expanded", "true");
+                }
+            }
         });
     }
 

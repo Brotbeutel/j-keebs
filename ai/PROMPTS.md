@@ -11,13 +11,20 @@ Read ai/README.md, ai/STATUS.md, ai/PLAN.md (current work package), and ai/CONVE
 
 Execute only what PLAN.md's "Current work package" section specifies. If it says nothing is queued, stop and tell me — do not invent scope.
 
-For the current P1-A package, the intended scope is the supplied owner input only: roll out the J-Keebs logo and icon, correct OWA LABS logo metadata, use the supplied G80-Plate image in the intended article, and rewrite about.html from content/Über J-Keebs.md. Preserve the existing vanilla HTML/CSS/JS architecture and page structure.
+For the current P1-B package, implement only the guide information architecture described in PLAN.md:
 
-Out of scope unless PLAN.md explicitly changes: homepage redesign, guide taxonomy/navigation, map behavior, fullscreen viewer, SSG/layout migration, translating visible page copy to English, README changes, unrelated refactors, and committing.
+- Add a Keycaps category to guides.html, including its jump-navigation entry, section anchor, category copy, status count, and a truthful initial card state. Do not imply a finished guide unless a real guide exists.
+- Make the primary “Guides & Tutorials” navigation control navigate to guides.html while retaining the existing dropdown behavior for category links.
+- Preserve keyboard access, mobile accordion behavior, current-page indication, outside-click closing, and the existing DE/EN i18n pattern across every page containing the shared navigation.
+- Update footer or secondary navigation where it presents the category structure so it remains consistent with the new Keycaps category.
+
+Preserve the existing vanilla HTML/CSS/JS architecture and page structure.
+
+Out of scope unless PLAN.md explicitly changes: homepage redesign, map behavior, fullscreen viewer, branding/assets, About-page content, SSG/layout migration, translating visible page copy to English, README changes, unrelated refactors, and committing.
 
 If you discover a new issue, record it in ai/BACKLOG.md under the appropriate priority and continue the current package. Do not pull the new issue into the current implementation.
 
-When done: verify against the package's "Done when" criteria, update ai/STATUS.md and ai/BACKLOG.md, list files you changed.
+When done: verify against PLAN.md's "Done when" criteria. Confirm that guides.html exposes Switches, Plates, Mods, and Keycaps consistently; the parent nav label reaches guides.html; the dropdown still opens and exposes category links; mobile and keyboard interaction remain usable; both language dictionaries contain the required keys; and internal-link, anchor, and markup checks pass. Update ai/STATUS.md and ai/BACKLOG.md, and list files you changed.
 ```
 
 ## Planner: after current package

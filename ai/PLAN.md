@@ -15,8 +15,8 @@ If an implementer finds a new issue: add it to `BACKLOG.md` under the right prio
 1. ~~P0 — URLs work~~ ✅ done
 2. ~~P0-B — Base-URL after repo rename~~ ✅ done, pushed, verified live
 3. ~~P0-C — Blog files → English slugs~~ ✅ done, pushed, verified live
-4. **P1 — owner-input reconciliation** — next package below. Apply the new brand/content assets and correct known metadata before visual expansion.
-5. **P1 — guide information architecture** — add the requested Keycaps category and make the Guides & Tutorials parent a real destination while preserving the dropdown.
+4. ~~**P1-A — owner-input reconciliation**~~ ✅ done 2026-09-09
+5. ~~**P1-B — guide information architecture**~~ ✅ done 2026-09-09
 6. **P2 — interaction / visual polish** — map touch/active behavior, homepage CTA spacing and hero direction, then fullscreen viewer centering.
 7. **P2 — structure** — layout/SSG remains a planner discussion after the user-facing fixes; do not start an Eleventy migration opportunistically.
 8. **P3 — content / README honesty**
@@ -25,19 +25,18 @@ Do not skip ahead.
 
 ## Current work package
 
-**P1-A — owner-input reconciliation**
+**P2-A — interaction polish**
 
 Implement only this package in the next implementer chat:
 
-- Roll out `images/J-Keebs-Logo.png` as the visible site brand in the shared header/footer treatment, preserving readable responsive dimensions.
-- Use `images/J-Keebs-Icon.ico` as the favicon and remove the placeholder data-URI favicon/apple-touch icon where appropriate.
-- Replace the stale OWA LABS logo metadata in `partner.html` (`alt="PCBWay Logo"`) with accurate accessible text and verify the new asset renders.
-- Use `images/J80-3000_open_with_printed_plate.jpg` in the G80-Plate article surface after identifying the correct article/page target; do not change unrelated blog imagery.
-- Rewrite `about.html` from the owner-supplied `content/Über J-Keebs.md`, keeping the existing page structure and i18n conventions; do not invent missing content.
+- Make the contact-page map become colored on touch/mobile activation as well as hover/focus, with the whole map card acting as the interaction surface where practical. Keep the automatic iframe loading and privacy disclosures unchanged.
+- Fix the homepage spacing between the portfolio CTA and the polaroid gallery.
+- Improve the homepage hero's visual interest while preserving the existing workshop/portfolio purpose and responsive behavior. Do not turn it into a marketing landing page.
+- Fix the fullscreen viewer's prev/next and close control centering.
 
-Done when: all pages have the correct favicon, the visible brand is legible at desktop and mobile widths, OWA LABS has correct alt text, the G80 image is linked from the intended article, the about page reflects the supplied draft, and targeted HTML/link/image checks pass. Do not redesign the homepage, change guide taxonomy, or refactor the layout in this package.
+Done when: the map has a clear colored active state on touch, mouse, and keyboard; the homepage CTA/gallery spacing is intentional at desktop and mobile widths; the hero has a stronger first-viewport composition without losing clarity; fullscreen controls are geometrically centered and keyboard-usable; and focused CSS/markup diagnostics pass. Do not change guide taxonomy, legal/privacy behavior, language defaults, or refactor the shared layout in this package.
 
-The next package after P1-A is P1-B (guide taxonomy/navigation), then P2 interaction polish. The owner still needs to push/deploy the working-copy changes before live status can be trusted.
+The owner still needs to push/deploy the working-copy changes before live status can be trusted.
 
 ## Redirect stub pattern
 

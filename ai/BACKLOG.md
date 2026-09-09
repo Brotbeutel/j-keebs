@@ -10,7 +10,7 @@ Both work packages are complete (2026-09-03). Full detail in the Done section at
 
 - [ ] Extract header/footer/font/theme-boot into a layout (Eleventy or a small include script). Nav already drifted (`blog.html` sun-icon SVG vs `index.html`).
 - [x] **P1-A owner-input reconciliation:** completed 2026-09-09. Supplied brand logo/icon rolled out site-wide; OWA LABS alt text corrected; G80-Plate image attached to the J80-3000 article; `about.html` rewritten from `content/Über J-Keebs.md`.
-- [ ] **P1-B guide information architecture:** add a Keycaps category under Guides & Tutorials; make the parent nav label navigate to `guides.html` while retaining the existing dropdown behavior and keyboard/mobile access.
+- [x] **P1-B guide information architecture:** completed 2026-09-09. Added the pending Keycaps category, made the parent label navigate to `guides.html`, preserved the caret dropdown and keyboard/mobile behavior with a split accessible control, and aligned footer category links across all 21 pages.
 - [x] Contact form CORS/captcha fix — done at the code level 2026-09-05, see Done log. Not yet live-verified (no browser tool available to an implementer session — see `STATUS.md`).
 - [x] Language default: English confirmed as the site's default (2026-09-03) — see `DECISIONS.md`. Visible copy stays German; that remainder is an accepted trade-off, not open work unless the owner later asks for a full English rewrite.
 - [ ] Owner to confirm GitHub Pages settings (branch/folder) still publish correctly post-rename — this needs the actual repo settings UI, not just file review, so it couldn't be verified from a file-only implementer session during P0-B.
@@ -50,6 +50,8 @@ Both work packages are complete (2026-09-03). Full detail in the Done section at
 - [ ] Content hierarchy: Guides advertises three categories but has mostly pending cards; the requested Keycaps category should be added only with a clear status/content plan rather than another empty promise.
 
 ## Done
+
+- 2026-09-09 — **P1-B guide information architecture:** `guides.html` now exposes Switches, Plates, Mods, and Keycaps consistently with jump navigation, section anchors, a `0/1` pending status, truthful copy, and matching DE/EN keys. All 21 pages received the navigable Guides parent, four-category dropdown, and Keycaps footer link. `git diff --check`, workspace diagnostics for changed code, and static coverage checks passed; `xmllint` was available for the next markup pass, while Node.js was unavailable for JavaScript syntax validation.
 
 - 2026-09-09 — **P1-A owner-input reconciliation:** supplied brand logo and icon rolled out to all 21 root pages; OWA LABS image metadata corrected; `J80-3000_open_with_printed_plate.jpg` attached to the intended J80-3000 article and its social metadata; `about.html` rewritten from `content/Über J-Keebs.md`. File checks passed for favicon/logo coverage, supplied asset presence, stale OWA metadata, article image usage, and balanced CSS braces. Node syntax validation was unavailable because Node.js is not installed in the session shell.
 - 2026-09-09 — **About page refinement:** reorganized `about.html` into a concise introduction, readable personal story, and three content pillars derived from `content/Über J-Keebs.md`; removed obsolete duplicate i18n keys and added responsive about-page layout rules in `style.css`.

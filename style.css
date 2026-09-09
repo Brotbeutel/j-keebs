@@ -325,7 +325,7 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     .site-nav > a {
         padding: 0.95rem calc(1.2rem + env(safe-area-inset-right)) 0.95rem calc(1.2rem + env(safe-area-inset-left));
         border-bottom: 1px solid var(--border);
-        text-align: left;
+        text-align: center;
         transform: none;
     }
 
@@ -349,17 +349,21 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
        nav item with the panel collapsing below it, unlike the floating
        desktop panel implementation. */
     .nav-dropdown {
+        display: block;
+        width: 100%;
         border-bottom: 1px solid var(--border);
     }
 
     .nav-dropdown__trigger {
+        display: flex;
         width: 100%;
-        justify-content: space-between;
+        justify-content: center;
         padding: 0.95rem calc(1.2rem + env(safe-area-inset-right)) 0.95rem calc(1.2rem + env(safe-area-inset-left));
-        text-align: left;
+        text-align: center;
     }
 
     .nav-dropdown__panel {
+        width: 100%;
         max-height: 0;
         overflow: hidden;
         background: color-mix(in srgb, var(--surface-2) 55%, var(--bg));
@@ -371,7 +375,8 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     }
 
     .nav-dropdown__panel a {
-        padding: 0.8rem calc(1.2rem + env(safe-area-inset-right)) 0.8rem calc(2.3rem + env(safe-area-inset-left));
+        padding: 0.8rem calc(1.2rem + env(safe-area-inset-right)) 0.8rem calc(1.2rem + env(safe-area-inset-left));
+        text-align: center;
     }
 }
 
@@ -526,23 +531,25 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
 
 .nav-dropdown {
     position: relative;
+    display: inline-flex;
+    align-items: stretch;
 }
 
-.nav-dropdown__caret {
-    width: 8px;
-    height: 8px;
-    flex-shrink: 0;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.6;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    transition: transform 0.15s ease;
-}
+@media (max-width: 1280px) {
+    .nav-dropdown {
+        display: block;
+    }
 
-.nav-dropdown.is-open .nav-dropdown__caret,
-.nav-dropdown:focus-within .nav-dropdown__caret {
-    transform: rotate(180deg);
+    .nav-dropdown__trigger {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .nav-dropdown__panel {
+        width: 100%;
+    }
 }
 
 .nav-dropdown__panel a {
@@ -591,6 +598,7 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     }
 
     .nav-dropdown:focus-within .nav-dropdown__panel,
+    .nav-dropdown:hover .nav-dropdown__panel,
     .nav-dropdown.is-open .nav-dropdown__panel {
         opacity: 1;
         visibility: visible;
@@ -598,12 +606,9 @@ code { font-family: var(--font-mono); color: var(--accent-bright); }
     }
 }
 
-/* NO HOVER AUTO-OPEN: Intentionally omitted. Previously, .nav-dropdown:hover
-   opened the panel regardless of click state. Since users almost always hover
-   before clicking, the panel would already be open when clicked (and remain
-   open on re-click while hovering)—making the click appear non-functional.
-   Now open/close is exclusively controlled by click interaction (.is-open via
-   main.js initNavDropdowns) and keyboard focus (:focus-within above). */
+/* On desktop, hover and keyboard focus reveal the categories. The parent label
+    still navigates to guides.html; that destination restores the open state when
+    it was reached through the label. */
 
 .utility-nav {
     display: flex;
@@ -2095,7 +2100,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
 }
 
 /* FAQ CUSTOM ARROW: Custom expanding arrow replaces browser default triangle.
-   Uses the same caret SVG as .nav-dropdown__caret for visual consistency.
+    It uses the site's compact navigation affordance language for visual consistency.
    data-i18n intentionally sits on an inner <span>, never on <summary> itself,
    because language switching uses textContent assignment which would remove
    SVG child elements (see main.js applyLang). */
