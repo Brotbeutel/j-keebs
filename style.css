@@ -1777,6 +1777,7 @@ a.pill:focus-visible {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
     cursor: pointer;
     color: white;
     border-radius: 50%;
@@ -1784,6 +1785,25 @@ a.pill:focus-visible {
     border: 1px solid rgba(255, 255, 255, 0.35);
     transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
+
+.fullscreen-overlay__nav,
+.fullscreen-overlay__close {
+    font-size: 0;
+}
+
+.fullscreen-overlay__nav::before,
+.fullscreen-overlay__close::before {
+    display: block;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1;
+    transform: translateY(-0.04em);
+}
+
+.fullscreen-overlay__nav--prev::before { content: "‹"; font-size: 2rem; }
+.fullscreen-overlay__nav--next::before { content: "›"; font-size: 2rem; }
+.fullscreen-overlay__close::before { content: "×"; font-size: 1.5rem; }
 
 .fullscreen-overlay__nav[hidden],
 .fullscreen-overlay__close[hidden] {
@@ -1795,7 +1815,6 @@ a.pill:focus-visible {
     transform: translateY(-50%);
     width: 3rem;
     height: 3rem;
-    font-size: 2rem;
     line-height: 1;
     z-index: 2;
 }
@@ -1808,7 +1827,7 @@ a.pill:focus-visible {
     right: calc(1rem + env(safe-area-inset-right));
     width: 2.75rem;
     height: 2.75rem;
-    font-size: 1.5rem;
+    line-height: 1;
     z-index: 3;
 }
 
@@ -2795,6 +2814,8 @@ textarea { min-height: 8.5rem; resize: vertical; }
 
 .map-embed {
     margin-top: 0.9rem;
+    border-radius: var(--radius);
+    outline: none;
 }
 
 .map-embed__frame {
@@ -2815,13 +2836,22 @@ textarea { min-height: 8.5rem; resize: vertical; }
 }
 
 @media (hover: hover) {
-    .map-embed__frame:hover iframe {
+    .map-embed__frame:hover iframe,
+    .card__body.contact-method:hover .map-embed__frame iframe {
         filter: grayscale(0);
     }
 }
 
+.card__body.contact-method:active .map-embed__frame iframe,
+.map-embed:active .map-embed__frame iframe,
+.map-embed:focus .map-embed__frame iframe,
 .map-embed__frame:focus-within iframe {
     filter: grayscale(0);
+}
+
+.map-embed:focus-visible .map-embed__frame {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 3px;
 }
 
 @media (max-width: 480px) {

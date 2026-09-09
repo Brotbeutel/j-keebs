@@ -1,0 +1,24 @@
+{
+  "name": "j-keebs",
+  "version": "1.0.0",
+  "description": "A professional, modern portfolio website showcasing custom mechanical keyboards, modding projects, and restoration work with a focus on German ISO layouts.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brotbeutel/j-keebs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Brotbeutel/j-keebs/issues"
+  },
+  "homepage": "https://github.com/Brotbeutel/j-keebs#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6"
+  }
+}

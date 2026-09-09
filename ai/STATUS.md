@@ -17,6 +17,10 @@
 
 **P1-B behavior correction:** clicking the primary Guides label now carries a one-use navigation state through the page load. `main.js` restores the open dropdown, and on mobile restores the expanded site navigation as well; ordinary visits and category-link clicks are unaffected.
 
+**P2-A complete locally:** the contact map has a focusable card surface plus active/focus/hover color states, fullscreen controls reset button padding and line-height for centered glyphs and stable hit targets, and `index.html` now has homepage-only portfolio spacing plus a responsive decorative workbench placeholder in the hero. Desktop/mobile viewport checks measured a 64px/38px gap above `Alle Builds ansehen`; hero buttons and `keyboards.html` are unchanged. `get_errors` found no new homepage HTML diagnostics; the only CSS warning is the pre-existing standard `line-clamp` compatibility warning, and Node.js is unavailable for JS syntax validation. Deployment remains unverified.
+
+**Architecture decision:** Eleventy is approved as the next architecture for the static site. The immediate goal is migration preparation, not a cutover: inventory the existing pages and URLs, establish a reversible generated-output boundary, and migrate one representative page before touching deployment. Astro remains a later option for richer component or image-pipeline needs.
+
 **Update (same day, owner instruction): the contact-page map now loads automatically, not click-to-load.** The owner explicitly asked for auto-load plus a desaturated-until-hover look, and supplied the precise coordinate (49°23'20.0"N 8°34'33.4"E → 49.388889, 8.575944), replacing the earlier street-level approximation. contact.html now embeds a static `<iframe>` directly in the HTML (no JS involved at all — `initMapEmbed()` was removed from `main.js` since there's nothing left for it to do). The iframe is grayscale by default (`filter: grayscale(1)`) and returns to full color on hover/focus (`.map-embed__frame:hover`, `:focus-within`).
 
 **This changes the privacy story, and I flagged that to the owner:** every visit to contact.html now sends the visitor's IP to OpenStreetMap automatically, with no user action gating it. `cookies.html` was updated to stop implying "nothing embeds automatically" — the map now has its own ✓ card there. `privacy.html#kartendienst` was updated to describe automatic loading and its legal basis was changed from Art. 6 Abs. 1 lit. a (consent-via-click, no longer applicable) to Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse). **This legal-basis judgment call has not been reviewed by a lawyer** — flagged to the owner in chat, and recorded in `DECISIONS.md` (2026-09-05 entry) so a later agent doesn't "fix" the auto-load back to click-to-load thinking it's a regression.
@@ -55,6 +59,8 @@ Separately: English is still the **confirmed default language** for the site (20
 - [x] **P1-A — owner-input reconciliation** (brand, favicon, OWA metadata, G80 image, about draft; completed 2026-09-09)
 - [x] Planner: after P1-A, scope P1-B guide taxonomy/navigation, then P2 interaction and homepage visual polish
 - [x] **P1-B — implementer** (Keycaps category and navigable Guides parent; completed 2026-09-09)
+- [x] **P2-A — interaction polish** (map, fullscreen, and homepage portions completed locally 2026-09-09; deployment remains unverified)
+- [ ] **P2-B — Eleventy migration preparation** (active package; Node.js/npm unavailable in the shell, so bootstrap/build is currently blocked)
 
 ## Do not assume
 
@@ -82,3 +88,12 @@ Separately: English is still the **confirmed default language** for the site (20
 | Map | OpenStreetMap, static auto-loading iframe, desaturated until hover/focus (`#mapEmbed` in contact.html, `.map-embed*` in style.css) |
 | Fonts | Google Fonts in every `<head>` |
 | Images | `images/` |
+
+## Target architecture
+
+| Piece | Direction |
+| --- | --- |
+| Generator | Eleventy, incremental and URL-preserving |
+| Templates | Shared layouts/includes plus page data/content |
+| Output | Static files compatible with GitHub Pages project path `/j-keebs/` |
+| Later option | Astro only if the finished site needs richer component islands or image tooling |

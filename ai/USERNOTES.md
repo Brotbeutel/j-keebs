@@ -6,14 +6,4 @@ Last folded in: 2026-09-09 (owner assets and requests reconciled into `PLAN.md`,
 
 *(empty — all owner notes folded into `PLAN.md`, `STATUS.md`, and `BACKLOG.md` on 2026-09-09)*
 
-
-
-
-
-
-
-
-
-
-
-
+I want to add two seperate brand logos and icons - one for the light mode and one for the dark mode

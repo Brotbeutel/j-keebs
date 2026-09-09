@@ -17,26 +17,31 @@ If an implementer finds a new issue: add it to `BACKLOG.md` under the right prio
 3. ~~P0-C — Blog files → English slugs~~ ✅ done, pushed, verified live
 4. ~~**P1-A — owner-input reconciliation**~~ ✅ done 2026-09-09
 5. ~~**P1-B — guide information architecture**~~ ✅ done 2026-09-09
-6. **P2 — interaction / visual polish** — map touch/active behavior, homepage CTA spacing and hero direction, then fullscreen viewer centering.
-7. **P2 — structure** — layout/SSG remains a planner discussion after the user-facing fixes; do not start an Eleventy migration opportunistically.
+6. ~~**P2-A — interaction / visual polish**~~ ✅ done locally 2026-09-09; deployment remains unverified
+7. **P2-B — Eleventy migration preparation** — current package below. Establish the toolchain, reversible source/output boundary, migration inventory, and one representative generated page. Do not cut over deployment.
 8. **P3 — content / README honesty**
 
 Do not skip ahead.
 
 ## Current work package
 
-**P2-A — interaction polish**
+**P2-B — Eleventy migration preparation**
 
 Implement only this package in the next implementer chat:
 
-- Make the contact-page map become colored on touch/mobile activation as well as hover/focus, with the whole map card acting as the interaction surface where practical. Keep the automatic iframe loading and privacy disclosures unchanged.
-- Fix the homepage spacing between the portfolio CTA and the polaroid gallery.
-- Improve the homepage hero's visual interest while preserving the existing workshop/portfolio purpose and responsive behavior. Do not turn it into a marketing landing page.
-- Fix the fullscreen viewer's prev/next and close control centering.
+- Read `ai/ELEVENTY-MIGRATION.md` before editing.
+- Verify the Node.js/npm toolchain. If unavailable, do not fake a build; record the blocker in `ai/STATUS.md` and stop after updating the migration notes.
+- Add the minimal Eleventy project bootstrap and reproducible local build command only when the toolchain is available.
+- Establish a reversible source/output boundary beside the legacy root HTML. Do not replace, delete, or move published root pages.
+- Configure asset/static passthrough for `images/`, `style.css`, `main.js`, and required root metadata files without changing their public URLs.
+- Create a complete migration inventory for canonical pages, redirect stubs, blog posts, shared chrome, page dictionaries, assets, and absolute `/j-keebs/` URLs.
+- Migrate exactly one representative non-legal page beside its legacy source and compare its generated URL, metadata, navigation, assets, and responsive behavior.
 
-Done when: the map has a clear colored active state on touch, mouse, and keyboard; the homepage CTA/gallery spacing is intentional at desktop and mobile widths; the hero has a stronger first-viewport composition without losing clarity; fullscreen controls are geometrically centered and keyboard-usable; and focused CSS/markup diagnostics pass. Do not change guide taxonomy, legal/privacy behavior, language defaults, or refactor the shared layout in this package.
+Done when: `ai/ELEVENTY-MIGRATION.md` is current; the build command is reproducible or the missing-toolchain blocker is explicitly recorded; the legacy root remains untouched as the fallback; the inventory covers every URL/content/asset contract; one representative page has a side-by-side generated output; and focused URL, asset, metadata, and markup checks pass. Do not cut over GitHub Pages, delete legacy files, migrate legal pages, translate visible copy, start Astro/React, or redesign the site in this package.
 
-The owner still needs to push/deploy the working-copy changes before live status can be trusted.
+The owner still needs to push/deploy the existing working-copy changes before live status can be trusted.
+
+After P2-B, return to the planner to evaluate the generated representative page before expanding the migration. Astro remains deferred until Eleventy has been evaluated against the finished site.
 
 ## Redirect stub pattern
 
@@ -61,4 +66,4 @@ Canonical must include the `/j-keebs/` base path.
 
 ## After the current backlog clears
 
-Come back to the planner chat. The deferred proposal-only Eleventy/layout discussion is still there whenever it's worth having — none of P0-B/P0-C/P1 needed it, but chrome duplication across ~24 pages (like the sun-icon drift that just got fixed) is still the standing maintenance cost of not having one.
+Come back to the planner chat after P2-A to scope the approved Eleventy preparation package. The migration is intentionally incremental because chrome duplication across ~24 pages is the standing maintenance cost of the current vanilla structure; do not cut over deployment until the side-by-side proof and URL checks pass.

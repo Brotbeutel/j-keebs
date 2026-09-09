@@ -11,20 +11,18 @@ Read ai/README.md, ai/STATUS.md, ai/PLAN.md (current work package), and ai/CONVE
 
 Execute only what PLAN.md's "Current work package" section specifies. If it says nothing is queued, stop and tell me — do not invent scope.
 
-For the current P1-B package, implement only the guide information architecture described in PLAN.md:
+For the current **P2-A — interaction polish** package, implement only these items:
 
-- Add a Keycaps category to guides.html, including its jump-navigation entry, section anchor, category copy, status count, and a truthful initial card state. Do not imply a finished guide unless a real guide exists.
-- Make the primary “Guides & Tutorials” navigation control navigate to guides.html while retaining the existing dropdown behavior for category links.
-- Preserve keyboard access, mobile accordion behavior, current-page indication, outside-click closing, and the existing DE/EN i18n pattern across every page containing the shared navigation.
-- Update footer or secondary navigation where it presents the category structure so it remains consistent with the new Keycaps category.
+- In `index.html` only, fix the vertical spacing between the homepage portfolio polaroids and the `Alle Builds ansehen` button directly below them at desktop and mobile widths. Do not alter the separate `keyboards.html` gallery page or the hero buttons `Portfolio ansehen` and `Kontakt aufnehmen`.
+- Improve the homepage hero's visual interest while preserving its workshop/portfolio purpose, clear hierarchy, and responsive behavior. Do not turn it into a marketing landing page. If you want to use images you can work with placeholders. The users will implement them later.
 
-Preserve the existing vanilla HTML/CSS/JS architecture and page structure.
+Preserve the existing vanilla HTML/CSS/JS architecture and current URLs.
 
-Out of scope unless PLAN.md explicitly changes: homepage redesign, map behavior, fullscreen viewer, branding/assets, About-page content, SSG/layout migration, translating visible page copy to English, README changes, unrelated refactors, and committing.
+Out of scope: Astro, React, guide taxonomy/navigation, legal or privacy wording, language defaults, branding/assets, translation of visible copy, deployment cutover, unrelated refactors, and committing unless PLAN.md explicitly changes them. Eleventy is in scope only when executing the P2-B package defined by PLAN.md and `ai/ELEVENTY-MIGRATION.md`.
 
 If you discover a new issue, record it in ai/BACKLOG.md under the appropriate priority and continue the current package. Do not pull the new issue into the current implementation.
 
-When done: verify against PLAN.md's "Done when" criteria. Confirm that guides.html exposes Switches, Plates, Mods, and Keycaps consistently; the parent nav label reaches guides.html; the dropdown still opens and exposes category links; mobile and keyboard interaction remain usable; both language dictionaries contain the required keys; and internal-link, anchor, and markup checks pass. Update ai/STATUS.md and ai/BACKLOG.md, and list files you changed.
+When done: verify against PLAN.md's "Done when" criteria across desktop and mobile browser viewports. Check map color behavior with hover, touch/click, and keyboard focus; spacing above `Alle Builds ansehen` in `index.html`; unchanged `keyboards.html`; hero composition; fullscreen button-box and glyph centering; and focused CSS/markup diagnostics. Update ai/STATUS.md and ai/BACKLOG.md, record any new issue without expanding scope, and list files changed. Do not claim live deployment without a deployed-site check.
 ```
 
 ## Planner: after current package

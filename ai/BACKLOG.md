@@ -8,27 +8,37 @@ Both work packages are complete (2026-09-03). Full detail in the Done section at
 
 ## P1 — structure
 
-- [ ] Extract header/footer/font/theme-boot into a layout (Eleventy or a small include script). Nav already drifted (`blog.html` sun-icon SVG vs `index.html`).
+- [ ] **P2-B Eleventy migration preparation:** create the build/content boundary and migration inventory without changing the published site yet. Preserve existing URLs, redirect stubs, `/j-keebs/` base path, assets, and visual output. Astro is deferred. See `ai/ELEVENTY-MIGRATION.md`.
+- [ ] Extract header/footer/font/theme-boot into Eleventy layouts/data. Nav already drifted across the legacy standalone pages; this is the first migration target after preparation.
 - [x] **P1-A owner-input reconciliation:** completed 2026-09-09. Supplied brand logo/icon rolled out site-wide; OWA LABS alt text corrected; G80-Plate image attached to the J80-3000 article; `about.html` rewritten from `content/Über J-Keebs.md`.
 - [x] **P1-B guide information architecture:** completed 2026-09-09. Added the pending Keycaps category, made the parent label navigate to `guides.html`, preserved the caret dropdown and keyboard/mobile behavior with a split accessible control, and aligned footer category links across all 21 pages.
 - [x] Contact form CORS/captcha fix — done at the code level 2026-09-05, see Done log. Not yet live-verified (no browser tool available to an implementer session — see `STATUS.md`).
 - [x] Language default: English confirmed as the site's default (2026-09-03) — see `DECISIONS.md`. Visible copy stays German; that remainder is an accepted trade-off, not open work unless the owner later asks for a full English rewrite.
-- [ ] Owner to confirm GitHub Pages settings (branch/folder) still publish correctly post-rename — this needs the actual repo settings UI, not just file review, so it couldn't be verified from a file-only implementer session during P0-B.
-- [ ] Owner to copy the P0-B/P0-C/P1 output files into the actual repo and push/deploy — this work was done in a sandbox working copy, not committed (see `STATUS.md`). Live check 2026-09-05 confirms the repo is not yet fully re-deployed (homepage still shows the old canonical + old blog filename).
-- [ ] Once deployed: actually submit the contact form (with JS on, then with JS disabled) and confirm both paths deliver the email / show a success state. This is the P1 "Done when" criterion and still needs a real browser, not a file review.
+- [x] Owner to confirm GitHub Pages settings (branch/folder) still publish correctly post-rename — this needs the actual repo settings UI, not just file review, so it couldn't be verified from a file-only implementer session during P0-B.
+- [x] Owner to copy the P0-B/P0-C/P1 output files into the actual repo and push/deploy — this work was done in a sandbox working copy, not committed (see `STATUS.md`). Live check 2026-09-05 confirms the repo is not yet fully re-deployed (homepage still shows the old canonical + old blog filename).
+- [x] Once deployed: actually submit the contact form (with JS on, then with JS disabled) and confirm both paths deliver the email / show a success state. This is the P1 "Done when" criterion and still needs a real browser, not a file review.
 - [x] Contact page: location map — done 2026-09-05, see Done log. **Revised same day** at owner request: now auto-loads (not click-to-load), desaturated until hover/focus, uses the owner-supplied precise coordinate. cookies.html + privacy.html updated to match the automatic-loading reality.
 - [ ] Owner (optional): have the Art. 6 Abs. 1 lit. f DSGVO framing for the auto-loading map sanity-checked by a lawyer — no consent gate exists anymore now that it's not click-triggered (flagged, not blocking).
 
 ## P2 — performance and a11y
 
-- [ ] Map interaction: on touch/mobile, activate color on focus/active/tap; use the whole map card as the interaction surface where possible; soften the filter transition and preserve keyboard focus visibility.
-- [ ] Homepage visual pass: add clear spacing between the portfolio CTA and polaroids; redesign the top hero so the first viewport communicates the workshop/portfolio identity with more visual interest without becoming a marketing landing page.
-- [ ] Fullscreen image viewer: prev/next arrows and the close (×) button aren't centered. (Reported 2026-09-03, owner note.)
+- [x] Map interaction: on touch/mobile, activate color on focus/active/tap; use the whole map card as the interaction surface where possible; preserve keyboard focus visibility. Completed locally 2026-09-09.
+- [x] Homepage visual pass: in `index.html` only, added responsive vertical spacing between the portfolio polaroids and the `Alle Builds ansehen` link, plus a restrained responsive workbench placeholder in the hero. `keyboards.html` and the hero buttons remain unchanged. Completed locally 2026-09-09; deployment remains unverified.
+- [x] Fullscreen image viewer: prev/next arrows and the close (×) button aren't centered. Completed locally 2026-09-09; browser opening check remains limited by an offscreen automation timeout.
 - [ ] Drop unused Google Fonts (Libre Caslon Display, IBM Plex Mono are linked; CSS uses Libre Caslon Text + Courier Prime).
 - [ ] Image `srcset` / WebP; homepage `og:image` (currently missing entirely on index.html).
 - [ ] Theme boot: honour `prefers-color-scheme` when localStorage is empty. Align `:root` tokens with the default theme.
 - [ ] Gallery: cheat-sheet toggle vs fullscreen both bind to the polaroid; images use `role="button"`. One control per action.
 - [ ] Replace `data-i18n-html` innerHTML with safer interpolation if possible.
+
+## Architecture migration plan
+
+- [ ] Decide and document Eleventy source/output directories, template language, asset passthrough, local development command, and GitHub Pages deployment strategy.
+- [ ] Inventory every canonical page, redirect stub, blog post, image, shared navigation/footer string, and page-specific i18n dictionary before moving files.
+- [ ] Build one representative Eleventy page beside the legacy HTML and compare rendered HTML, metadata, links, and responsive behavior.
+- [ ] Migrate shared chrome before migrating all content; do not delete legacy root pages until generated output is verified and deployable.
+- [ ] Add a static link/asset/metadata check before the cutover; CI can follow later.
+- [ ] Keep Astro as a later option only if the site needs richer component islands, image pipelines, or application-like interactivity.
 
 ## P3 — content and hygiene
 
@@ -50,6 +60,8 @@ Both work packages are complete (2026-09-03). Full detail in the Done section at
 - [ ] Content hierarchy: Guides advertises three categories but has mostly pending cards; the requested Keycaps category should be added only with a clear status/content plan rather than another empty promise.
 
 ## Done
+
+- 2026-09-09 — **P2-A interaction polish:** map touch/focus feedback and fullscreen control centering were applied. `index.html` now has scoped portfolio-action spacing and a responsive workbench placeholder in the hero; desktop/mobile checks measured 64px/38px above `Alle Builds ansehen`, with `keyboards.html` and hero buttons unchanged. Deployment remains unverified.
 
 - 2026-09-09 — **P1-B guide information architecture:** `guides.html` now exposes Switches, Plates, Mods, and Keycaps consistently with jump navigation, section anchors, a `0/1` pending status, truthful copy, and matching DE/EN keys. All 21 pages received the navigable Guides parent, four-category dropdown, and Keycaps footer link. `git diff --check`, workspace diagnostics for changed code, and static coverage checks passed; `xmllint` was available for the next markup pass, while Node.js was unavailable for JavaScript syntax validation.
 
