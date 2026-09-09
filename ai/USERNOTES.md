@@ -2,6 +2,18 @@
 
 Scratchpad for quick notes between sessions — not the source of truth. The planner folds anything here into `STATUS.md` / `BACKLOG.md` and clears this file (see `AGENTS.md`).
 
-Last folded in: 2026-09-05 (OWA LABS partner naming correction — used in the new partner.html card; about.html rewrite note — moved into `BACKLOG.md` P3, still blocked on the owner's draft text not being attached to any session yet).
+Last folded in: 2026-09-09 (owner assets and requests reconciled into `PLAN.md`, `STATUS.md`, and `BACKLOG.md`; scratchpad is clear).
 
-*(empty — add new notes below as they come up)*
+*(empty — all owner notes folded into `PLAN.md`, `STATUS.md`, and `BACKLOG.md` on 2026-09-09)*
+
+
+
+
+
+
+
+
+
+
+
+

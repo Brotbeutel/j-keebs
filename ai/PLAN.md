@@ -15,15 +15,29 @@ If an implementer finds a new issue: add it to `BACKLOG.md` under the right prio
 1. ~~P0 — URLs work~~ ✅ done
 2. ~~P0-B — Base-URL after repo rename~~ ✅ done, pushed, verified live
 3. ~~P0-C — Blog files → English slugs~~ ✅ done, pushed, verified live
-4. **P1 — structure** — contact form is ✅ done (tested live, no fix needed). Remaining: layout/SSG decision — still a **planner discussion**, not yet a work package. Language story is resolved (English default, German copy stays; see `DECISIONS.md`).
-5. **P2 — performance / a11y** (see `BACKLOG.md`) — the sun-icon fix is done; nothing else is scoped into a concrete package yet. Next planner session should pick one slice (the fullscreen-viewer centering bug is small and standalone — obvious first pick) rather than handing over the whole list at once.
-6. **P3 — content / README honesty**
+4. **P1 — owner-input reconciliation** — next package below. Apply the new brand/content assets and correct known metadata before visual expansion.
+5. **P1 — guide information architecture** — add the requested Keycaps category and make the Guides & Tutorials parent a real destination while preserving the dropdown.
+6. **P2 — interaction / visual polish** — map touch/active behavior, homepage CTA spacing and hero direction, then fullscreen viewer centering.
+7. **P2 — structure** — layout/SSG remains a planner discussion after the user-facing fixes; do not start an Eleventy migration opportunistically.
+8. **P3 — content / README honesty**
 
 Do not skip ahead.
 
 ## Current work package
 
-**None queued.** Everything through P0-C and the P1 contact-form check is done and live. Before starting an implementer session again, come back to the planner chat to scope the next slice — likely a small P2 package (fullscreen-viewer centering is the obvious first pick) or the deferred layout/SSG conversation.
+**P1-A — owner-input reconciliation**
+
+Implement only this package in the next implementer chat:
+
+- Roll out `images/J-Keebs-Logo.png` as the visible site brand in the shared header/footer treatment, preserving readable responsive dimensions.
+- Use `images/J-Keebs-Icon.ico` as the favicon and remove the placeholder data-URI favicon/apple-touch icon where appropriate.
+- Replace the stale OWA LABS logo metadata in `partner.html` (`alt="PCBWay Logo"`) with accurate accessible text and verify the new asset renders.
+- Use `images/J80-3000_open_with_printed_plate.jpg` in the G80-Plate article surface after identifying the correct article/page target; do not change unrelated blog imagery.
+- Rewrite `about.html` from the owner-supplied `content/Über J-Keebs.md`, keeping the existing page structure and i18n conventions; do not invent missing content.
+
+Done when: all pages have the correct favicon, the visible brand is legible at desktop and mobile widths, OWA LABS has correct alt text, the G80 image is linked from the intended article, the about page reflects the supplied draft, and targeted HTML/link/image checks pass. Do not redesign the homepage, change guide taxonomy, or refactor the layout in this package.
+
+The next package after P1-A is P1-B (guide taxonomy/navigation), then P2 interaction polish. The owner still needs to push/deploy the working-copy changes before live status can be trusted.
 
 ## Redirect stub pattern
 

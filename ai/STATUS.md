@@ -5,11 +5,13 @@
 - **Repo:** https://github.com/Brotbeutel/j-keebs (renamed from `Brotbeutel.github.io` — this moved Pages from a user-page root site to a **project-page site under `/j-keebs/`**, see "Do not assume" below)
 - **Owner:** Jannik Schlüter
 - **Planner:** dedicated planning chat; implementers use a **new** chat per work package
-- **Updated:** 2026-09-05
+- **Updated:** 2026-09-09
 
 ## Snapshot
 
-**New this package: partner.html has a second partner card, OWA LABS (3D printing, Hirschhorn).** Note: the work-package brief and `BACKLOG.md`'s prior wording called this "Lighthouse" — that was a stale codename. `USERNOTES.md` had an un-folded owner correction ("heißt jetzt 'OWA LABS' statt Lighthouse") that superseded it; used the corrected name. Same card structure as PCBWay (logo-band, `card__body`, outbound button) but **no disclosure badge and no `rel="sponsored"`** — confirmed no compensation, so §5a UWG labeling doesn't apply here, unlike PCBWay. No logo file exists yet, so the logo-band shows a styled text wordmark (new `.partner-card__wordmark` CSS) instead of an `<img>`; swap it in once artwork exists. `USERNOTES.md` has been folded into `BACKLOG.md` and cleared — it also had an owner note about rewriting about.html from a file ("Über J-Keebs.md") that was **not actually attached to this session**; that's now an open `BACKLOG.md` P3 item blocked on the owner re-supplying the text.
+**P1-A complete:** owner-supplied assets and draft text were reconciled locally: `images/J-Keebs-Logo.png`, `images/J-Keebs-Icon.ico`, `images/OWA_Labs_Logo.png`, `images/J80-3000_open_with_printed_plate.jpg`, and `content/Über J-Keebs.md`. The supplied brand is now in the shared chrome, OWA metadata is accurate, the G80-Plate image is attached to the intended article, and `about.html` reflects the supplied draft. The about page was refined on 2026-09-09 into a concise intro, personal story, and three content pillars, with both i18n dictionaries aligned to that structure.
+
+**Header refinement:** on 2026-09-09 the supplied wide logo was enlarged in the shared header and the desktop brand-to-navigation spacing was tightened; mobile menu alignment remains unchanged.
 
 **Update (same day, owner instruction): the contact-page map now loads automatically, not click-to-load.** The owner explicitly asked for auto-load plus a desaturated-until-hover look, and supplied the precise coordinate (49°23'20.0"N 8°34'33.4"E → 49.388889, 8.575944), replacing the earlier street-level approximation. contact.html now embeds a static `<iframe>` directly in the HTML (no JS involved at all — `initMapEmbed()` was removed from `main.js` since there's nothing left for it to do). The iframe is grayscale by default (`filter: grayscale(1)`) and returns to full color on hover/focus (`.map-embed__frame:hover`, `:focus-within`).
 
@@ -44,10 +46,10 @@ Separately: English is still the **confirmed default language** for the site (20
 - [x] **Contact-page location map — implementer** (auto-loading OpenStreetMap embed, desaturated until hover/focus, precise owner-supplied coordinate; cookies.html + privacy.html updated to describe automatic loading; see Snapshot)
 - [ ] Owner (optional): have a lawyer sanity-check the Art. 6 Abs. 1 lit. f DSGVO framing for the auto-loading map now that there's no click-based consent gate (see Snapshot)
 - [x] **partner.html: OWA LABS card — implementer** (second partner card, no disclosure badge, text wordmark placeholder; see Snapshot)
-- [x] `USERNOTES.md` folded into `BACKLOG.md` and cleared (OWA LABS naming used; about.html rewrite logged as blocked/open)
-- [ ] Owner: re-attach or paste the "Über J-Keebs.md" about-page draft text in a future session — it was referenced in `USERNOTES.md` but never actually reached this implementer session
-- [ ] Owner (optional): supply a real OWA LABS logo file to replace the text wordmark on partner.html
-- [ ] Planner: review P0-B/P0-C/P1/map/partner-card output, decide next package (P1 structure vs. the proposal-only Eleventy discussion vs. G80-Plate vs. about.html rewrite once text is supplied)
+- [x] `USERNOTES.md` folded into `BACKLOG.md` and cleared; later owner notes were reconciled again on 2026-09-09
+- [x] Owner supplied the about-page draft and OWA LABS/G80-Plate/brand assets locally; planner review verified them 2026-09-09
+- [x] **P1-A — owner-input reconciliation** (brand, favicon, OWA metadata, G80 image, about draft; completed 2026-09-09)
+- [ ] Planner: after P1-A, scope P1-B guide taxonomy/navigation, then P2 interaction and homepage visual polish
 
 ## Do not assume
 
@@ -59,7 +61,7 @@ Separately: English is still the **confirmed default language** for the site (20
 - These P0-B/P0-C changes were made in a working copy, not committed to the repo. The owner still needs to review, copy the changed files in, and push/deploy. **Live check this session found the repo is not yet fully re-deployed** (see Snapshot) — don't assume `/j-keebs/` fixes are live everywhere just because they're done in the working copy.
 - Contact form: the JS-fetch path now POSTs to `https://formsubmit.co/ajax/{email}` (JSON body, `Content-Type`+`Accept` headers), not the plain `action` URL. This is per FormSubmit's own docs, not an empirical live test — an implementer session has no browser tool to click-test the deployed form. Don't mark the P1 "Done when" (form provably works with/without JS) as satisfied until someone actually tries it live.
 - The contact-page map **auto-loads on page visit by explicit owner instruction** (2026-09-05, see `DECISIONS.md`) — it is *not* click-to-load anymore, despite what an earlier version of this file said. Do not "fix" it back to click-to-load without checking with the owner first. There is no `#mapEmbedLoad` button and no `initMapEmbed()` function anymore — both were removed. The coordinate (49.388889, 8.575944) came directly from the owner (DMS: 49°23'20.0"N 8°34'33.4"E), not from geocoding — treat it as authoritative.
-- The second partner on partner.html is called **OWA LABS**, not "Lighthouse" — "Lighthouse" was a stale internal codename from an earlier planning round; the owner corrected it via `USERNOTES.md` before this package. It deliberately has **no** "Werbung" badge and **no** `rel="sponsored"` (confirmed no compensation) — don't add either without the owner first confirming a paid/reciprocal arrangement exists. The logo-band is a text wordmark (`.partner-card__wordmark`), not an image — that's intentional until a real logo file shows up, not a missing-asset bug.
+- The second partner on partner.html is called **OWA LABS**, not "Lighthouse" — "Lighthouse" was a stale internal codename from an earlier planning round. It deliberately has **no** "Werbung" badge and **no** `rel="sponsored"` (confirmed no compensation) — don't add either without the owner first confirming a paid/reciprocal arrangement exists. The real OWA logo asset now exists locally; P1-A must correct the stale `alt="PCBWay Logo"` metadata.
 
 ## Stack (actual)
 

@@ -9,6 +9,8 @@ Both work packages are complete (2026-09-03). Full detail in the Done section at
 ## P1 — structure
 
 - [ ] Extract header/footer/font/theme-boot into a layout (Eleventy or a small include script). Nav already drifted (`blog.html` sun-icon SVG vs `index.html`).
+- [x] **P1-A owner-input reconciliation:** completed 2026-09-09. Supplied brand logo/icon rolled out site-wide; OWA LABS alt text corrected; G80-Plate image attached to the J80-3000 article; `about.html` rewritten from `content/Über J-Keebs.md`.
+- [ ] **P1-B guide information architecture:** add a Keycaps category under Guides & Tutorials; make the parent nav label navigate to `guides.html` while retaining the existing dropdown behavior and keyboard/mobile access.
 - [x] Contact form CORS/captcha fix — done at the code level 2026-09-05, see Done log. Not yet live-verified (no browser tool available to an implementer session — see `STATUS.md`).
 - [x] Language default: English confirmed as the site's default (2026-09-03) — see `DECISIONS.md`. Visible copy stays German; that remainder is an accepted trade-off, not open work unless the owner later asks for a full English rewrite.
 - [ ] Owner to confirm GitHub Pages settings (branch/folder) still publish correctly post-rename — this needs the actual repo settings UI, not just file review, so it couldn't be verified from a file-only implementer session during P0-B.
@@ -19,6 +21,8 @@ Both work packages are complete (2026-09-03). Full detail in the Done section at
 
 ## P2 — performance and a11y
 
+- [ ] Map interaction: on touch/mobile, activate color on focus/active/tap; use the whole map card as the interaction surface where possible; soften the filter transition and preserve keyboard focus visibility.
+- [ ] Homepage visual pass: add clear spacing between the portfolio CTA and polaroids; redesign the top hero so the first viewport communicates the workshop/portfolio identity with more visual interest without becoming a marketing landing page.
 - [ ] Fullscreen image viewer: prev/next arrows and the close (×) button aren't centered. (Reported 2026-09-03, owner note.)
 - [ ] Drop unused Google Fonts (Libre Caslon Display, IBM Plex Mono are linked; CSS uses Libre Caslon Text + Courier Prime).
 - [ ] Image `srcset` / WebP; homepage `og:image` (currently missing entirely on index.html).
@@ -34,10 +38,22 @@ Both work packages are complete (2026-09-03). Full detail in the Done section at
 - [ ] Tone down README claims that the code does not meet.
 - [ ] Consider dropping AGB if nothing is sold; keep Impressum. Phone on the marketing contact page is optional; address belongs on Impressum.
 - [ ] Add a link checker in CI later. Do not restore `main-original.js`.
-- [ ] Rewrite about.html using the owner's new draft text ("Über J-Keebs.md", per owner note 2026-09-05, folded in from `USERNOTES.md`) — **the referenced file was not present in this implementer session**; the owner mentioned uploading it, but no such file was attached to this chat. Needs the owner to re-attach it (or paste the text) in the session that does this rewrite. Content decision, not a code fix — respects the existing rule that Claude doesn't rewrite visible page copy without the owner's own text.
+- [x] Rewrite about.html using the owner's supplied draft text in `content/Über J-Keebs.md`; completed in P1-A on 2026-09-09.
+
+## Critical review findings (2026-09-09)
+
+- [ ] Launch readiness: the live homepage still announces that the site is not launched; the launch bar remains blocked by non-original blog copy, incomplete guide categories, and inconsistent deployment state.
+- [ ] Shared chrome drift: header/footer/theme/i18n markup is duplicated across roughly two dozen pages, making every navigation or branding change high-risk until a layout strategy is chosen.
+- [ ] Language/SEO mismatch: the document language and JS default are English while the source copy is predominantly German; this is an accepted product decision for now, but it weakens search/accessibility semantics and should be revisited as a deliberate content migration.
+- [ ] Asset/performance debt: all pages load an oversized Google Fonts set; image sizing and responsive sources remain unresolved, and the homepage has no `og:image`.
+- [ ] Interaction correctness: gallery images are exposed as `role="button"` while the surrounding polaroid also owns interaction, and the fullscreen controls have known centering defects. Map color feedback currently depends on hover, which fails on touch.
+- [ ] Content hierarchy: Guides advertises three categories but has mostly pending cards; the requested Keycaps category should be added only with a clear status/content plan rather than another empty promise.
 
 ## Done
 
+- 2026-09-09 — **P1-A owner-input reconciliation:** supplied brand logo and icon rolled out to all 21 root pages; OWA LABS image metadata corrected; `J80-3000_open_with_printed_plate.jpg` attached to the intended J80-3000 article and its social metadata; `about.html` rewritten from `content/Über J-Keebs.md`. File checks passed for favicon/logo coverage, supplied asset presence, stale OWA metadata, article image usage, and balanced CSS braces. Node syntax validation was unavailable because Node.js is not installed in the session shell.
+- 2026-09-09 — **About page refinement:** reorganized `about.html` into a concise introduction, readable personal story, and three content pillars derived from `content/Über J-Keebs.md`; removed obsolete duplicate i18n keys and added responsive about-page layout rules in `style.css`.
+- 2026-09-09 — **Header refinement:** enlarged the supplied wide logo and removed the desktop flex gap between the brand and navigation while preserving the mobile menu layout.
 - 2026-09-01 — Critical review captured in Cursor canvas `j-keebs-critical-review.canvas.tsx` (local IDE artifact, not in this repo).
 - 2026-09-01 — `ai/` handoff folder added.
 - 2026-09-01 — P0 URLs: J80 hrefs → `blog-j80-3000-zweites-leben.html` + stub; German filenames intended as redirect stubs (existence unconfirmed, see P0-B); canonical/`og:url`/`_next` use English names; `sitemap.xml` lists canonical pages only (stubs omitted).
