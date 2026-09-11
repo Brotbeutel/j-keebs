@@ -2,8 +2,6 @@
 
 Scratchpad for quick notes between sessions — not the source of truth. The planner folds anything here into `STATUS.md` / `BACKLOG.md` and clears this file (see `AGENTS.md`).
 
-Last folded in: 2026-09-09 (owner assets and requests reconciled into `PLAN.md`, `STATUS.md`, and `BACKLOG.md`; scratchpad is clear).
+Last folded in: 2026-09-11 (dual-theme brand logo request moved to `BACKLOG.md` under "Pending owner requests").
 
-*(empty — all owner notes folded into `PLAN.md`, `STATUS.md`, and `BACKLOG.md` on 2026-09-09)*
-
-I want to add two seperate brand logos and icons - one for the light mode and one for the dark mode
+_(empty — add new notes below as they come up)_

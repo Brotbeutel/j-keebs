@@ -5,47 +5,78 @@
 | Role | Who | Does | Does not |
 | --- | --- | --- | --- |
 | **Planner** | This project's planning chat | Priority, scope, architecture calls, updating this file | Implement site changes in the same session unless the owner asks |
-| **Implementer** | A **new** chat | Execute the current work package only | Re-plan, add SSG, "while I'm here" refactors |
+| **Implementer** | A **new** chat | Execute the current work package only | Re-plan, add frameworks, "while I'm here" refactors |
 | **Owner** | Jannik | Approves scope changes, commits, deploy | — |
 
 If an implementer finds a new issue: add it to `BACKLOG.md` under the right priority and keep going on the current package. Do not start a later package in an earlier session.
 
 ## Sequence
 
-1. ~~P0 — URLs work~~ ✅ done
-2. ~~P0-B — Base-URL after repo rename~~ ✅ done, pushed, verified live
-3. ~~P0-C — Blog files → English slugs~~ ✅ done, pushed, verified live
-4. ~~**P1-A — owner-input reconciliation**~~ ✅ done 2026-09-09
-5. ~~**P1-B — guide information architecture**~~ ✅ done 2026-09-09
-6. ~~**P2-A — interaction / visual polish**~~ ✅ done locally 2026-09-09; deployment remains unverified
-7. **P2-B — Eleventy migration preparation** — current package below. Establish the toolchain, reversible source/output boundary, migration inventory, and one representative generated page. Do not cut over deployment.
-8. **P3 — content / README honesty**
+1. ~~P0 / P0-B / P0-C~~ ✅ done and deployed
+2. ~~P1 contact-form + P1-A brand + P1-B guides~~ ✅ done and deployed
+3. ~~P2-A — interaction/visual polish~~ ✅ done and deployed
+4. **P2-B — Eleventy migration preparation** ← current package (see below)
+5. P2-C — Eleventy full migration (after P2-B is reviewed)
+6. P2-remaining — performance/a11y items (fonts, images, theme boot, gallery a11y)
+7. P3 — content / README honesty
 
 Do not skip ahead.
 
-## Current work package
+## Current work package: P2-B — Eleventy migration preparation
 
-**P2-B — Eleventy migration preparation**
+**Goal:** Bootstrap the Eleventy toolchain, establish the source/output boundary, build the shared layout, and migrate one representative page — without changing the live site deployment.
 
-Implement only this package in the next implementer chat:
+**Prerequisites (now met):**
+- ✅ Node.js v24.19.0 available
+- ✅ Eleventy 3.1.6 installed as devDependency
 
-- Read `ai/ELEVENTY-MIGRATION.md` before editing.
-- Verify the Node.js/npm toolchain. If unavailable, do not fake a build; record the blocker in `ai/STATUS.md` and stop after updating the migration notes.
-- Add the minimal Eleventy project bootstrap and reproducible local build command only when the toolchain is available.
-- Establish a reversible source/output boundary beside the legacy root HTML. Do not replace, delete, or move published root pages.
-- Configure asset/static passthrough for `images/`, `style.css`, `main.js`, and required root metadata files without changing their public URLs.
-- Create a complete migration inventory for canonical pages, redirect stubs, blog posts, shared chrome, page dictionaries, assets, and absolute `/j-keebs/` URLs.
-- Migrate exactly one representative non-legal page beside its legacy source and compare its generated URL, metadata, navigation, assets, and responsive behavior.
+**In scope**
 
-Done when: `ai/ELEVENTY-MIGRATION.md` is current; the build command is reproducible or the missing-toolchain blocker is explicitly recorded; the legacy root remains untouched as the fallback; the inventory covers every URL/content/asset contract; one representative page has a side-by-side generated output; and focused URL, asset, metadata, and markup checks pass. Do not cut over GitHub Pages, delete legacy files, migrate legal pages, translate visible copy, start Astro/React, or redesign the site in this package.
+1. Read `ai/ELEVENTY-MIGRATION.md` before editing — it documents the migration guardrails, inventory, and proposed directory structure.
+2. Create an Eleventy config file (`.eleventy.js` or `eleventy.config.js`) with:
+   - Source directory: `src/`
+   - Output directory: `_site/`
+   - Passthrough copy for `images/`, `style.css`, `main.js`, `robots.txt`, `sitemap.xml`
+3. Add `node_modules/` and `_site/` to `.gitignore`.
+4. Add `"build": "npx @11ty/eleventy"` and `"dev": "npx @11ty/eleventy --serve"` to `package.json` scripts.
+5. Create the `src/` directory structure:
+   - `src/_includes/` — shared layout(s)
+   - `src/_data/` — site-level data (base URL, site name, nav items)
+   - `src/pages/` — page content files
+6. Build a base layout template (`src/_includes/layout.njk` or `.liquid`) containing the shared `<head>`, `<header>` (nav with guides dropdown), `<footer>`, theme boot script, and Google Fonts links. Extract this from the **current `about.html`** as the canonical source, resolving any drift from other pages.
+7. Migrate `about.html` as the representative page:
+   - Create `src/pages/about.njk` (or `.html`) using the base layout
+   - Move page-specific content and i18n dictionary into the template
+   - Preserve the output URL as `about.html` at the root
+8. Compare generated `_site/about.html` against the legacy root `about.html`:
+   - URL and canonical/og:url metadata match
+   - Navigation links and dropdown work
+   - Assets (CSS, JS, images, fonts) load correctly
+   - Responsive layout matches at desktop and mobile widths
+9. Create a migration inventory document listing all 21 canonical pages with their shared chrome elements, page-specific i18n keys, and any page-specific `<style>` or `<script>` blocks.
+10. Do **not** delete or replace the legacy root `about.html`. The Eleventy output is a parallel proof, not a deployment replacement.
 
-The owner still needs to push/deploy the existing working-copy changes before live status can be trusted.
+**Out of scope**
 
-After P2-B, return to the planner to evaluate the generated representative page before expanding the migration. Astro remains deferred until Eleventy has been evaluated against the finished site.
+- Migrating more than one page
+- Deleting or replacing any legacy root HTML files
+- Changing the GitHub Pages deployment source
+- Adding Astro, React, or any other framework
+- Content translation or rewriting
+- The dual-theme brand logo request (separate backlog item)
+
+**Done when**
+
+- `npx @11ty/eleventy` runs without errors and produces `_site/` with the about page and all passthrough assets
+- `_site/about.html` matches the legacy page in URL, metadata, nav, footer, and visual output
+- `.gitignore` includes `node_modules/` and `_site/`
+- A migration inventory exists (in `ai/ELEVENTY-MIGRATION.md` or a new doc)
+- `ai/STATUS.md` and `ai/BACKLOG.md` are updated
+- Legacy root files remain untouched
 
 ## Redirect stub pattern
 
-GitHub Pages has no real 301, so a rename leaves a stub at the old filename:
+GitHub Pages has no real 301, so a rename leaves a stub at the old filename. **Note:** the owner has deleted all existing redirect stubs from the repo as of 2026-09-11. Old URLs for German page names and old blog slugs will 404.
 
 ```html
 <!DOCTYPE html>
@@ -64,6 +95,6 @@ GitHub Pages has no real 301, so a rename leaves a stub at the old filename:
 
 Canonical must include the `/j-keebs/` base path.
 
-## After the current backlog clears
+## After P2-B
 
-Come back to the planner chat after P2-A to scope the approved Eleventy preparation package. The migration is intentionally incremental because chrome duplication across ~24 pages is the standing maintenance cost of the current vanilla structure; do not cut over deployment until the side-by-side proof and URL checks pass.
+Return to the planner chat. The planner will review the generated representative page, then scope P2-C (full migration of remaining pages) if the proof passes.

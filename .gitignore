@@ -2,3 +2,5 @@
 content/*
 .DS_Store
 .cursor
+node_modules/
+_site/

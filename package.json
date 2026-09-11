@@ -4,6 +4,8 @@
   "description": "A professional, modern portfolio website showcasing custom mechanical keyboards, modding projects, and restoration work with a focus on German ISO layouts.",
   "main": "main.js",
   "scripts": {
+    "build": "npx @11ty/eleventy",
+    "dev": "npx @11ty/eleventy --serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

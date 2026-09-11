@@ -2,43 +2,28 @@
 
 Check items when done. Move completed items into a short "Done" note at the bottom with the date. Do not delete context that a later agent still needs.
 
-## P0-B and P0-C — done, see "Done" log below
+## P2-B — Eleventy migration preparation (completed 2026-09-11)
 
-Both work packages are complete (2026-09-03). Full detail in the Done section at the bottom of this file and in `STATUS.md`. One follow-up remains, moved to P1 below: GitHub Pages branch/folder settings still need the owner to confirm manually (not something an implementer session can check from file contents alone).
+- [x] Create `.eleventy.js` (or `eleventy.config.js`) with source/output directories, passthrough for `images/`, `style.css`, `main.js`, `robots.txt`, `sitemap.xml`.
+- [x] Create the `src/` directory structure per `ai/ELEVENTY-MIGRATION.md` (layouts, includes, data, pages).
+- [x] Build a shared layout template (header, nav, footer, `<head>`, theme boot, font links) from the current duplicated chrome.
+- [x] Migrate one representative non-legal page (e.g. `about.html`) to Eleventy beside its legacy source.
+- [x] Compare generated output vs legacy: URL, metadata, navigation, assets, responsive behavior.
+- [x] Create a complete migration inventory: all 21 canonical pages, shared chrome elements, page-specific i18n dictionaries, assets, `/j-keebs/` URLs.
+- [x] Add `"build"` and `"dev"` scripts to `package.json`.
+- [x] Add `node_modules/` and `_site/` to `.gitignore`.
 
-## P1 — structure
+## Pending owner requests (not yet scoped into a package)
 
-- [ ] **P2-B Eleventy migration preparation:** create the build/content boundary and migration inventory without changing the published site yet. Preserve existing URLs, redirect stubs, `/j-keebs/` base path, assets, and visual output. Astro is deferred. See `ai/ELEVENTY-MIGRATION.md`.
-- [ ] Extract header/footer/font/theme-boot into Eleventy layouts/data. Nav already drifted across the legacy standalone pages; this is the first migration target after preparation.
-- [x] **P1-A owner-input reconciliation:** completed 2026-09-09. Supplied brand logo/icon rolled out site-wide; OWA LABS alt text corrected; G80-Plate image attached to the J80-3000 article; `about.html` rewritten from `content/Über J-Keebs.md`.
-- [x] **P1-B guide information architecture:** completed 2026-09-09. Added the pending Keycaps category, made the parent label navigate to `guides.html`, preserved the caret dropdown and keyboard/mobile behavior with a split accessible control, and aligned footer category links across all 21 pages.
-- [x] Contact form CORS/captcha fix — done at the code level 2026-09-05, see Done log. Not yet live-verified (no browser tool available to an implementer session — see `STATUS.md`).
-- [x] Language default: English confirmed as the site's default (2026-09-03) — see `DECISIONS.md`. Visible copy stays German; that remainder is an accepted trade-off, not open work unless the owner later asks for a full English rewrite.
-- [x] Owner to confirm GitHub Pages settings (branch/folder) still publish correctly post-rename — this needs the actual repo settings UI, not just file review, so it couldn't be verified from a file-only implementer session during P0-B.
-- [x] Owner to copy the P0-B/P0-C/P1 output files into the actual repo and push/deploy — this work was done in a sandbox working copy, not committed (see `STATUS.md`). Live check 2026-09-05 confirms the repo is not yet fully re-deployed (homepage still shows the old canonical + old blog filename).
-- [x] Once deployed: actually submit the contact form (with JS on, then with JS disabled) and confirm both paths deliver the email / show a success state. This is the P1 "Done when" criterion and still needs a real browser, not a file review.
-- [x] Contact page: location map — done 2026-09-05, see Done log. **Revised same day** at owner request: now auto-loads (not click-to-load), desaturated until hover/focus, uses the owner-supplied precise coordinate. cookies.html + privacy.html updated to match the automatic-loading reality.
-- [ ] Owner (optional): have the Art. 6 Abs. 1 lit. f DSGVO framing for the auto-loading map sanity-checked by a lawyer — no consent gate exists anymore now that it's not click-triggered (flagged, not blocking).
+- [ ] **Dual-theme brand logos:** Owner wants separate logo/icon assets for light mode and dark mode (from `USERNOTES.md`, 2026-09-11). Needs scoping — asset swap in header via `[data-theme]` selectors or JS, plus favicon handling.
 
-## P2 — performance and a11y
+## P2 — performance and a11y (remaining items)
 
-- [x] Map interaction: on touch/mobile, activate color on focus/active/tap; use the whole map card as the interaction surface where possible; preserve keyboard focus visibility. Completed locally 2026-09-09.
-- [x] Homepage visual pass: in `index.html` only, added responsive vertical spacing between the portfolio polaroids and the `Alle Builds ansehen` link, plus a restrained responsive workbench placeholder in the hero. `keyboards.html` and the hero buttons remain unchanged. Completed locally 2026-09-09; deployment remains unverified.
-- [x] Fullscreen image viewer: prev/next arrows and the close (×) button aren't centered. Completed locally 2026-09-09; browser opening check remains limited by an offscreen automation timeout.
 - [ ] Drop unused Google Fonts (Libre Caslon Display, IBM Plex Mono are linked; CSS uses Libre Caslon Text + Courier Prime).
 - [ ] Image `srcset` / WebP; homepage `og:image` (currently missing entirely on index.html).
 - [ ] Theme boot: honour `prefers-color-scheme` when localStorage is empty. Align `:root` tokens with the default theme.
 - [ ] Gallery: cheat-sheet toggle vs fullscreen both bind to the polaroid; images use `role="button"`. One control per action.
 - [ ] Replace `data-i18n-html` innerHTML with safer interpolation if possible.
-
-## Architecture migration plan
-
-- [ ] Decide and document Eleventy source/output directories, template language, asset passthrough, local development command, and GitHub Pages deployment strategy.
-- [ ] Inventory every canonical page, redirect stub, blog post, image, shared navigation/footer string, and page-specific i18n dictionary before moving files.
-- [ ] Build one representative Eleventy page beside the legacy HTML and compare rendered HTML, metadata, links, and responsive behavior.
-- [ ] Migrate shared chrome before migrating all content; do not delete legacy root pages until generated output is verified and deployable.
-- [ ] Add a static link/asset/metadata check before the cutover; CI can follow later.
-- [ ] Keep Astro as a later option only if the site needs richer component islands, image pipelines, or application-like interactivity.
 
 ## P3 — content and hygiene
 
@@ -46,38 +31,31 @@ Both work packages are complete (2026-09-03). Full detail in the Done section at
 - [ ] Guides: most cards are `guide-card--pending`. Finish a few or hide the rest.
 - [ ] Rewrite or unpublish blog text that is not original (homepage already warns).
 - [ ] Tone down README claims that the code does not meet.
-- [ ] Consider dropping AGB if nothing is sold; keep Impressum. Phone on the marketing contact page is optional; address belongs on Impressum.
-- [ ] Add a link checker in CI later. Do not restore `main-original.js`.
-- [x] Rewrite about.html using the owner's supplied draft text in `content/Über J-Keebs.md`; completed in P1-A on 2026-09-09.
+- [ ] Consider dropping AGB if nothing is sold; keep Impressum.
+- [ ] Add a link checker in CI later.
 
-## Critical review findings (2026-09-09)
+## Launch bar blockers
 
-- [ ] Launch readiness: the live homepage still announces that the site is not launched; the launch bar remains blocked by non-original blog copy, incomplete guide categories, and inconsistent deployment state.
-- [ ] Shared chrome drift: header/footer/theme/i18n markup is duplicated across roughly two dozen pages, making every navigation or branding change high-risk until a layout strategy is chosen.
-- [ ] Language/SEO mismatch: the document language and JS default are English while the source copy is predominantly German; this is an accepted product decision for now, but it weakens search/accessibility semantics and should be revisited as a deliberate content migration.
-- [ ] Asset/performance debt: all pages load an oversized Google Fonts set; image sizing and responsive sources remain unresolved, and the homepage has no `og:image`.
-- [ ] Interaction correctness: gallery images are exposed as `role="button"` while the surrounding polaroid also owns interaction, and the fullscreen controls have known centering defects. Map color feedback currently depends on hover, which fails on touch.
-- [ ] Content hierarchy: Guides advertises three categories but has mostly pending cards; the requested Keycaps category should be added only with a clear status/content plan rather than another empty promise.
+- [ ] Featured project links work (done).
+- [ ] Blog posts that are not original are rewritten or unpublished.
+- [ ] Guides page has at least one finished guide per advertised category, or pending cards are removed from the main view.
 
 ## Done
 
-- 2026-09-09 — **P2-A interaction polish:** map touch/focus feedback and fullscreen control centering were applied. `index.html` now has scoped portfolio-action spacing and a responsive workbench placeholder in the hero; desktop/mobile checks measured 64px/38px above `Alle Builds ansehen`, with `keyboards.html` and hero buttons unchanged. Deployment remains unverified.
+- 2026-09-11 — P2-B Eleventy migration preparation: `eleventy.config.js`, `src/_includes/base.njk`, `src/_data/site.js`, and `src/pages/about.njk` establish the parallel `src/` → `_site/` proof. `about.html` is the only migrated page and legacy root `about.html` remains untouched. `npm run build` passes; generated `_site/about.html` matches legacy metadata, nav/dropdown, footer, assets, content, i18n object, and desktop/mobile browser metrics. Inventory added at `ai/ELEVENTY-INVENTORY.md`.
 
-- 2026-09-09 — **P1-B guide information architecture:** `guides.html` now exposes Switches, Plates, Mods, and Keycaps consistently with jump navigation, section anchors, a `0/1` pending status, truthful copy, and matching DE/EN keys. All 21 pages received the navigable Guides parent, four-category dropdown, and Keycaps footer link. `git diff --check`, workspace diagnostics for changed code, and static coverage checks passed; `xmllint` was available for the next markup pass, while Node.js was unavailable for JavaScript syntax validation.
-
-- 2026-09-09 — **P1-A owner-input reconciliation:** supplied brand logo and icon rolled out to all 21 root pages; OWA LABS image metadata corrected; `J80-3000_open_with_printed_plate.jpg` attached to the intended J80-3000 article and its social metadata; `about.html` rewritten from `content/Über J-Keebs.md`. File checks passed for favicon/logo coverage, supplied asset presence, stale OWA metadata, article image usage, and balanced CSS braces. Node syntax validation was unavailable because Node.js is not installed in the session shell.
-- 2026-09-09 — **About page refinement:** reorganized `about.html` into a concise introduction, readable personal story, and three content pillars derived from `content/Über J-Keebs.md`; removed obsolete duplicate i18n keys and added responsive about-page layout rules in `style.css`.
-- 2026-09-09 — **Header refinement:** enlarged the supplied wide logo and removed the desktop flex gap between the brand and navigation while preserving the mobile menu layout.
-- 2026-09-01 — Critical review captured in Cursor canvas `j-keebs-critical-review.canvas.tsx` (local IDE artifact, not in this repo).
-- 2026-09-01 — `ai/` handoff folder added.
-- 2026-09-01 — P0 URLs: J80 hrefs → `blog-j80-3000-zweites-leben.html` + stub; German filenames intended as redirect stubs (existence unconfirmed, see P0-B); canonical/`og:url`/`_next` use English names; `sitemap.xml` lists canonical pages only (stubs omitted).
-- 2026-09-03 — Repo renamed `Brotbeutel.github.io` → `j-keebs`; live site moved from domain root to `/j-keebs/` project-page path. Confirmed live via fetch that nav/CSS/JS/images still work (relative paths); absolute URLs (canonical/og:*/sitemap/robots/_next) do not yet reflect the new base path — tracked as P0-B.
-- 2026-09-03 — Language-default decision made: English is the confirmed default; visible copy stays German for now (see `DECISIONS.md`).
-- 2026-09-03 — Blog rename to English slugs approved by owner (see P0-C, `PLAN.md`).
-- 2026-09-03 — **P0-B done:** every absolute URL site-wide (`canonical`, `og:url`, `og:image`, `twitter:image`, JSON-LD `url` in index.html, FormSubmit `_next` in contact.html, `sitemap.xml`, `robots.txt` `Sitemap:` line, and all of `404.html`'s root-absolute paths) now uses the `/j-keebs/` base path. Repo-wide grep confirms zero remaining unprefixed `brotbeutel.github.io/` URLs. The four legacy-stub filenames (`kontakt.html`, `ueber-uns.html`, `datenschutz.html`, `agb.html`) were confirmed **not present** in the repo and have been added as redirect stubs to `contact.html`/`about.html`/`privacy.html`/`terms.html` respectively (not listed in `sitemap.xml`, matching the existing stub-omission convention).
-- 2026-09-03 — **P0-C done:** the 5 blog files renamed to English slugs per the `PLAN.md` table (`blog-getting-started.html`, `blog-old-keyboards.html`, `blog-keyboards-for-others.html`, `blog-j80-3000-second-life.html`, `blog-10-euro-ps2-connector.html`); redirect stubs left at all 5 old filenames; prev/next chain fixed and verified end-to-end across all 7 `blog-*.html` posts (including the two unchanged filenames, `blog-tofu65-v2.html` and `blog-corsair-k70.html`, whose neighboring `href`s needed updating); `blog.html` and `index.html` updated to the new filenames; `sitemap.xml` rebuilt with the renamed slugs; `article-j80-3000-second-life.html` stub's meta-refresh and canonical repointed at `blog-j80-3000-second-life.html`. Verified: no internal `href` anywhere still targets an old blog filename, and no internal `.html` link is broken.
-- 2026-09-05 — Live check via fetch (no browser tool available): `https://brotbeutel.github.io/j-keebs/` still shows the pre-P0-B canonical/og:url (missing `/j-keebs/`) and still links to the old `blog-j80-3000-zweites-leben.html` — the P0-B/P0-C output has not been deployed yet. `contact.html`'s live canonical/og:url oddly already show `/j-keebs/`, suggesting a partial/manual patch happened separately. Owner should push the full P0-B/P0-C output before relying on any of it being live.
-- 2026-09-05 — **P1 contact-form CORS fix done (code level):** read FormSubmit's own docs (`formsubmit.co/documentation`, `formsubmit.co/ajax-documentation`) and found the root cause — cross-origin `fetch()` must target `https://formsubmit.co/ajax/{email}` with a JSON body and `Content-Type`+`Accept: application/json` headers; the site's JS was instead sending `FormData` to the plain `action` URL shared with the no-JS fallback, which FormSubmit doesn't document as CORS-enabled. Matches a documented public failure mode (`SyntaxError: Unexpected token '<'`) for this exact pattern elsewhere. Fixed in `main.js` only: the JS path now derives and POSTs JSON to the `/ajax/{email}` endpoint; the native `<form action="...">` used by the no-JS fallback is untouched. Syntax-checked with `node -c`. **Not live-verified** — this implementer session has no browser/DevTools tool, so nobody has actually clicked "Send" on the deployed page yet. That real-world check is still open (see P1 list above).
-- 2026-09-05 — **Contact-page location map done:** click-to-load OpenStreetMap `<iframe>` added to contact.html, placed inside the existing address card right below the postal address. No request fires on page load — a placeholder (dashed-border box, matching the visual language already used for `.guide-card__status`) shows a "Karte laden"/"Load map" button; `initMapEmbed()` in `main.js` builds the `<iframe>` (with `title`, `loading="lazy"`, `referrerpolicy="no-referrer-when-downgrade"`) and swaps it in only after a click, once per page load (`{ once: true }`). `<noscript>` fallback links straight to the OpenStreetMap page for the same coordinates, so the location is still reachable with JS off. New CSS component `.map-embed*` appended to the end of `style.css`. New i18n keys (`c.map.note`, `c.map.load`, `c.map.noscript`, `c.map.iframeTitle`) added to contact.html's DE/EN dictionaries. `cookies.html`'s "Drittanbieter-Einbettungen" card rewritten to describe the click-to-load map instead of implying zero embeds, and now cross-links to a new `privacy.html#kartendienst` section (renumbered privacy.html §05 "Kartendienst (OpenStreetMap)", pushing Cookies to §06 and SSL/TLS to §07; jumpnav pill added). Both legal pages' "Stand" bumped to September 2026. Map coordinates (bbox + marker) are a street-level OSM-derived point for Maximilianstraße, Schwetzingen, sourced via web search (no geocoding-API tool was available) — not verified to house-number #16 precision; flagged for the owner to eyeball once live (see `STATUS.md`). Verified: `node --check main.js` passes; HTML tag counts (div/section/p) balanced in contact.html/cookies.html/privacy.html; CSS brace count balanced; no static `<iframe>` present in contact.html's markup (confirms nothing can load before the click); full site-wide URL/link grep re-run afterward shows no regressions from the P0-B/P0-C work.
-- 2026-09-05 — **Contact-page map revised to auto-load, same day, at explicit owner request** (supersedes the click-to-load entry immediately above — see `DECISIONS.md` for why this is intentional, not a regression). Owner supplied the precise coordinate as DMS (49°23'20.0"N 8°34'33.4"E → 49.388889, 8.575944 decimal), replacing the earlier street-level web-search approximation; bbox recalculated around it. contact.html's placeholder/button/`<noscript>` markup replaced with a plain static `<iframe>` (works with or without JS now — arguably better no-JS support than before); `title` attribute is set via the existing `data-i18n-attr` mechanism instead of JS, so DE/EN switching still works with zero JavaScript involved in the map at all. `initMapEmbed()` and its call removed from `main.js` entirely (dead code — nothing left for it to do). CSS: dropped the now-unused `.map-embed__placeholder`/`.map-embed__note` rules; iframe now ships `filter: grayscale(1) contrast(1.05)` by default, returning to full color on `:hover` (guarded by `@media (hover: hover)`, matching the project's existing hover-effect convention) and on `:focus-within` for keyboard users. Unused i18n keys `c.map.note`/`c.map.load`/`c.map.noscript` removed from both DE/EN dictionaries in contact.html; `c.map.iframeTitle` kept. **Privacy-relevant change, flagged to the owner in chat:** the map now transmits the visitor's IP to OpenStreetMap automatically on every visit to contact.html, with no user-action gate. Updated `cookies.html` to stop implying zero automatic third-party embeds — the map now has its own ✓ card there, separate from the (still accurate, still ✕) YouTube-links card. Updated `privacy.html#kartendienst` to describe automatic loading and changed the cited legal basis from Art. 6 Abs. 1 lit. a (consent-via-click, no longer applicable) to Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse) — **this specific legal-basis judgment call has not been reviewed by a lawyer.** Recorded as a `DECISIONS.md` entry so a later agent doesn't revert the auto-load behavior thinking it's a bug. Verified: `node --check main.js` passes; no leftover references to `mapEmbedLoad`/`map-embed__placeholder`/`initMapEmbed`/the old approximate coordinate anywhere in the actual site files (only in this changelog and `STATUS.md`, describing history); HTML tag balance and CSS brace balance re-checked clean across contact.html/cookies.html/privacy.html/style.css.
-- 2026-09-05 — **partner.html: second partner card added (OWA LABS, 3D printing, Hirschhorn).** Owner corrected the name from the placeholder codename "Lighthouse" used in `BACKLOG.md`/the work-package brief to **"OWA LABS"** via a `USERNOTES.md` note ("Der neue Partner ... heißt jetzt 'OWA LABS' statt Lighthouse") that hadn't been folded in yet — used the corrected name, per the more recent instruction. New `<article class="card partner-card">` added as the second entry in `.partner-grid`, same structure as the PCBWay card (logo-band + `card__body` + `section__actions` button), with `p2.*` i18n keys mirroring the existing `p1.*` pattern (`p2.meta`, `p2.wordmark`, `p2.title`, `p2.body`, `p2.link`; DE/EN key sets verified identical, 14 keys each). No `.card__badges`/disclosure badge and no `rel="sponsored"` on the outbound link (`rel="noopener noreferrer"` only) — confirmed no compensation, so no §5a UWG "Werbung" labeling is required, unlike PCBWay. No `p2.deal` paragraph either, since claiming a reciprocal arrangement without one would misrepresent the relationship. Since there's no logo file yet, the logo-band shows a styled text wordmark (new `.partner-card__wordmark` CSS, appended near the existing `.partner-card__logo` rules) instead of an `<img>` — swap it for a real `<img class="partner-card__logo">` once artwork exists. Verified: HTML tag balance (div/section/article/p) OK, CSS braces balanced, no "Werbung"/"sponsored"/disclosure markup anywhere inside the new `<article>`, DE/EN i18n key sets match exactly. `USERNOTES.md` folded into this entry and the P3 backlog item above, then cleared (see `AGENTS.md` workflow).
+- 2026-09-01 — Critical review, `ai/` handoff folder added.
+- 2026-09-01 — P0 URLs: fixed J80 hrefs, set canonical/og:url/_next to English names, sitemap lists canonical pages only.
+- 2026-09-03 — P0-B: all absolute URLs site-wide now use `/j-keebs/` base path. Added redirect stubs for `kontakt.html`, `ueber-uns.html`, `datenschutz.html`, `agb.html`.
+- 2026-09-03 — P0-C: 5 blog files renamed to English slugs with redirect stubs and prev/next chain fixed.
+- 2026-09-03 — Language decision: English confirmed as default.
+- 2026-09-05 — P1 contact-form CORS fix: JS now POSTs JSON to `/ajax/{email}` endpoint per FormSubmit docs.
+- 2026-09-05 — Contact-page map: auto-loading OpenStreetMap embed with desaturated-until-hover styling. Privacy/cookies pages updated.
+- 2026-09-05 — partner.html: OWA LABS card added.
+- 2026-09-09 — P1-A: brand logo/icon rolled out, OWA metadata corrected, G80-Plate image attached, about.html rewritten.
+- 2026-09-09 — P1-B: guide info architecture — Keycaps category, navigable Guides parent, footer links, all 21 pages.
+- 2026-09-09 — P2-A: map touch feedback, fullscreen control centering, homepage portfolio spacing and workbench placeholder.
+- 2026-09-09 — About page and header refinement (logo size, brand-to-nav spacing).
+- 2026-09-11 — Owner deleted all redirect stubs from repo (German pages, old blog slugs, article stub). Old URLs now 404.
+- 2026-09-11 — All work pushed and deployed to live site. Node.js + Eleventy now available locally.
+- 2026-09-11 — Planner review: STATUS.md, PLAN.md, BACKLOG.md corrected and updated. USERNOTES dual-theme brand request folded in.
