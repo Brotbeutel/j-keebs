@@ -2,16 +2,18 @@
 
 Check items when done. Move completed items into a short "Done" note at the bottom with the date. Do not delete context that a later agent still needs.
 
-## P2-B — Eleventy migration preparation (completed 2026-09-11)
+## P2-C — Eleventy full migration (current package)
 
-- [x] Create `.eleventy.js` (or `eleventy.config.js`) with source/output directories, passthrough for `images/`, `style.css`, `main.js`, `robots.txt`, `sitemap.xml`.
-- [x] Create the `src/` directory structure per `ai/ELEVENTY-MIGRATION.md` (layouts, includes, data, pages).
-- [x] Build a shared layout template (header, nav, footer, `<head>`, theme boot, font links) from the current duplicated chrome.
-- [x] Migrate one representative non-legal page (e.g. `about.html`) to Eleventy beside its legacy source.
-- [x] Compare generated output vs legacy: URL, metadata, navigation, assets, responsive behavior.
-- [x] Create a complete migration inventory: all 21 canonical pages, shared chrome elements, page-specific i18n dictionaries, assets, `/j-keebs/` URLs.
-- [x] Add `"build"` and `"dev"` scripts to `package.json`.
-- [x] Add `node_modules/` and `_site/` to `.gitignore`.
+- [ ] Migrate legal/static pages: `cookies.html`, `impressum.html`, `privacy.html`, `terms.html`
+- [ ] Migrate simple content pages: `faq.html`, `switches.html`, `partner.html`
+- [ ] Migrate `contact.html` (FormSubmit + map iframe)
+- [ ] Migrate listing pages: `blog.html`, `guides.html`, `keyboards.html`
+- [ ] Migrate 7 blog articles
+- [ ] Migrate `index.html` (JSON-LD + inline style)
+- [ ] Migrate `404.html` (root-absolute paths)
+- [ ] Verify all 21 pages build and match legacy output
+- [ ] Delete legacy root `.html` files
+- [ ] Document deployment path (GitHub Pages → `_site/`)
 
 ## Pending owner requests (not yet scoped into a package)
 

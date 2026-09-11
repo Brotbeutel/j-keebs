@@ -15,68 +15,78 @@ If an implementer finds a new issue: add it to `BACKLOG.md` under the right prio
 1. ~~P0 / P0-B / P0-C~~ ✅ done and deployed
 2. ~~P1 contact-form + P1-A brand + P1-B guides~~ ✅ done and deployed
 3. ~~P2-A — interaction/visual polish~~ ✅ done and deployed
-4. **P2-B — Eleventy migration preparation** ← current package (see below)
-5. P2-C — Eleventy full migration (after P2-B is reviewed)
+4. ~~P2-B — Eleventy migration preparation~~ ✅ done (parallel proof verified)
+5. **P2-C — Eleventy full migration** ← current package (see below)
 6. P2-remaining — performance/a11y items (fonts, images, theme boot, gallery a11y)
 7. P3 — content / README honesty
 
 Do not skip ahead.
 
-## Current work package: P2-B — Eleventy migration preparation
+## Current work package: P2-C — Eleventy full migration
 
-**Goal:** Bootstrap the Eleventy toolchain, establish the source/output boundary, build the shared layout, and migrate one representative page — without changing the live site deployment.
+**Goal:** Migrate all 21 canonical pages from legacy root HTML to Eleventy templates, then switch the deployment source from the legacy root to `_site/`. After this package, `npm run build` produces the complete deployable site.
 
-**Prerequisites (now met):**
-- ✅ Node.js v24.19.0 available
-- ✅ Eleventy 3.1.6 installed as devDependency
+**Prerequisites (all met):**
+- ✅ Eleventy config, base layout, site data, and passthrough copies established in P2-B
+- ✅ `about.html` migrated and verified as the representative proof page
+- ✅ Migration inventory at `ai/ELEVENTY-INVENTORY.md` documents all 21 pages
+- ✅ `npm run build` runs cleanly
 
 **In scope**
 
-1. Read `ai/ELEVENTY-MIGRATION.md` before editing — it documents the migration guardrails, inventory, and proposed directory structure.
-2. Create an Eleventy config file (`.eleventy.js` or `eleventy.config.js`) with:
-   - Source directory: `src/`
-   - Output directory: `_site/`
-   - Passthrough copy for `images/`, `style.css`, `main.js`, `robots.txt`, `sitemap.xml`
-3. Add `node_modules/` and `_site/` to `.gitignore`.
-4. Add `"build": "npx @11ty/eleventy"` and `"dev": "npx @11ty/eleventy --serve"` to `package.json` scripts.
-5. Create the `src/` directory structure:
-   - `src/_includes/` — shared layout(s)
-   - `src/_data/` — site-level data (base URL, site name, nav items)
-   - `src/pages/` — page content files
-6. Build a base layout template (`src/_includes/layout.njk` or `.liquid`) containing the shared `<head>`, `<header>` (nav with guides dropdown), `<footer>`, theme boot script, and Google Fonts links. Extract this from the **current `about.html`** as the canonical source, resolving any drift from other pages.
-7. Migrate `about.html` as the representative page:
-   - Create `src/pages/about.njk` (or `.html`) using the base layout
-   - Move page-specific content and i18n dictionary into the template
-   - Preserve the output URL as `about.html` at the root
-8. Compare generated `_site/about.html` against the legacy root `about.html`:
-   - URL and canonical/og:url metadata match
-   - Navigation links and dropdown work
-   - Assets (CSS, JS, images, fonts) load correctly
-   - Responsive layout matches at desktop and mobile widths
-9. Create a migration inventory document listing all 21 canonical pages with their shared chrome elements, page-specific i18n keys, and any page-specific `<style>` or `<script>` blocks.
-10. Do **not** delete or replace the legacy root `about.html`. The Eleventy output is a parallel proof, not a deployment replacement.
+Migrate pages in family order per the inventory. For each page, create `src/pages/<name>.njk` with the base layout. Move page-specific content (the `<main>` body) into the template. Preserve the page's i18n dictionary, metadata, and any page-specific `<style>` or `<script>` blocks via front-matter variables (`extra_head`, `page_script`).
+
+**Migration order:**
+
+1. **Legal/static pages (no i18n dict, simplest):** `cookies.html`, `impressum.html`, `privacy.html`, `terms.html`
+2. **Simple content pages:** `faq.html`, `switches.html`, `partner.html`
+3. **Contact page (has FormSubmit + map iframe):** `contact.html`
+4. **Listing pages:** `blog.html`, `guides.html`, `keyboards.html`
+5. **Blog articles (7 posts, shared pattern):** `blog-getting-started.html`, `blog-old-keyboards.html`, `blog-keyboards-for-others.html`, `blog-j80-3000-second-life.html`, `blog-10-euro-ps2-connector.html`, `blog-tofu65-v2.html`, `blog-corsair-k70.html`
+6. **Homepage (most complex, has JSON-LD + inline style):** `index.html`
+7. **404 page (uses root-absolute paths):** `404.html`
+
+**For each migrated page:**
+- Output filename must match the legacy filename exactly (set `permalink:` in front-matter)
+- Canonical URL, `og:url`, `og:image`, `twitter:*` must match the legacy page
+- Active nav state (`active_nav`) must be correct per the inventory
+- Page-specific i18n dictionary goes in `page_script` front-matter
+- Any page-specific `<style>` blocks go in `extra_head` front-matter
+- The fullscreen overlay is in the base layout — pages that don't use it still get it (harmless); confirm this doesn't break anything
+
+**Special cases to handle:**
+- `index.html`: has an inline `<style>` block AND a JSON-LD `<script>`. Use `extra_head` for the style, and include the JSON-LD in the content or `page_script`.
+- `404.html`: currently uses `/j-keebs/...` root-absolute paths for assets. The Eleventy `pathPrefix` should handle this, but verify the output carefully.
+- `contact.html`: contains the FormSubmit `<form>` and the auto-loading OpenStreetMap `<iframe>`. Preserve both exactly.
+- Blog articles: the prev/next navigation links are page-specific content — keep them in each template's body, not in the layout.
+
+**After all pages are migrated:**
+- Run `npm run build` — all 21 pages should appear in `_site/`
+- Spot-check at least 5 pages: verify title, canonical, og:url, nav active state, footer, i18n dictionary
+- Run `npm run dev` and visually confirm the homepage and at least one blog post in the browser
+- Delete the 21 legacy root `.html` files (they are now generated into `_site/`)
+- Update `.gitignore` if needed
+- Confirm GitHub Pages can be pointed at `_site/` output (or document the deployment change needed)
 
 **Out of scope**
 
-- Migrating more than one page
-- Deleting or replacing any legacy root HTML files
-- Changing the GitHub Pages deployment source
-- Adding Astro, React, or any other framework
-- Content translation or rewriting
+- Translating or rewriting any content
+- Adding new pages or features
 - The dual-theme brand logo request (separate backlog item)
+- Performance/a11y fixes (P2-remaining)
+- Introducing Astro or React
 
 **Done when**
 
-- `npx @11ty/eleventy` runs without errors and produces `_site/` with the about page and all passthrough assets
-- `_site/about.html` matches the legacy page in URL, metadata, nav, footer, and visual output
-- `.gitignore` includes `node_modules/` and `_site/`
-- A migration inventory exists (in `ai/ELEVENTY-MIGRATION.md` or a new doc)
-- `ai/STATUS.md` and `ai/BACKLOG.md` are updated
-- Legacy root files remain untouched
+- `npm run build` produces all 21 pages in `_site/` without errors
+- Every generated page matches its legacy counterpart in URL, metadata, nav, footer, and visual output
+- Legacy root `.html` files are deleted (the Eleventy source in `src/` is now the single source of truth)
+- Deployment path is documented (GitHub Pages → `_site/` or GitHub Actions build step)
+- `ai/STATUS.md` and `ai/BACKLOG.md` updated
 
 ## Redirect stub pattern
 
-GitHub Pages has no real 301, so a rename leaves a stub at the old filename. **Note:** the owner has deleted all existing redirect stubs from the repo as of 2026-09-11. Old URLs for German page names and old blog slugs will 404.
+GitHub Pages has no real 301, so a rename leaves a stub at the old filename. **Note:** the owner deleted all existing redirect stubs as of 2026-09-11. If redirects are needed in the future, use:
 
 ```html
 <!DOCTYPE html>
@@ -93,8 +103,6 @@ GitHub Pages has no real 301, so a rename leaves a stub at the old filename. **N
 </html>
 ```
 
-Canonical must include the `/j-keebs/` base path.
+## After P2-C
 
-## After P2-B
-
-Return to the planner chat. The planner will review the generated representative page, then scope P2-C (full migration of remaining pages) if the proof passes.
+Return to the planner chat. Next is P2-remaining (performance/a11y: unused fonts, image optimization, theme boot, gallery a11y) and then P3 (content/hygiene).

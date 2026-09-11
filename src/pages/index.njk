@@ -1,0 +1,429 @@
+---
+layout: base.njk
+permalink: index.html
+title: "J-Keebs | Custom Mechanical Keyboards"
+description: "J-Keebs baut, moddet und dokumentiert mechanische Tastaturen mit Fokus auf deutsches ISO-Layout, Sound, Haptik und nachhaltige Upcycling-Projekte."
+og_title: "J-Keebs | Custom Mechanical Keyboards"
+og_description: "Mechanische Tastaturen mit Charakter: sauber gebaut, ehrlich dokumentiert und auf Sound, Haptik und deutsches ISO-Layout abgestimmt."
+og_url: "https://brotbeutel.github.io/j-keebs/"
+canonical: "https://brotbeutel.github.io/j-keebs/"
+twitter_card: "summary_large_image"
+active_nav: "index.html"
+extra_head: |
+    <meta name="author" content="Jannik Schlüter">
+    <meta name="theme-color" content="#36383a">
+    <meta name="color-scheme" content="dark light">
+    <style>
+            .homepage-hero__inner {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) minmax(13rem, 0.72fr);
+                align-items: center;
+                gap: clamp(2rem, 6vw, 5rem);
+                max-width: 1080px;
+            }
+
+            .homepage-hero__copy {
+                min-width: 0;
+            }
+
+            .homepage-hero__workbench {
+                aspect-ratio: 3 / 4;
+                min-height: 18rem;
+                padding: 0.65rem 0.65rem 0.85rem;
+                border: 1px solid var(--border-strong);
+                background: var(--paper);
+                box-shadow: var(--shadow);
+                transform: rotate(2deg);
+            }
+
+            .homepage-hero__workbench img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+
+            .homepage-portfolio__actions {
+                margin-top: clamp(2.4rem, 5vw, 4rem);
+            }
+
+            @media (max-width: 768px) {
+                .homepage-hero__inner {
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                }
+
+                .homepage-hero__workbench {
+                    min-height: 0;
+                    max-width: 28rem;
+                    width: 100%;
+                    margin: 0 auto;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .homepage-hero__workbench {
+                    max-width: 17rem;
+                }
+            }
+        </style>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "J-Keebs",
+            "url": "https://brotbeutel.github.io/j-keebs/",
+            "description": "Mechanische Tastaturen mit Charakter: sauber gebaut, ehrlich dokumentiert und auf Sound, Haptik und deutsches ISO-Layout abgestimmt.",
+            "sameAs": [
+                "https://github.com/Brotbeutel",
+                "https://www.linkedin.com/in/jannik-schl%C3%BCter-103270423/"
+            ],
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "Customer Service",
+                "email": "jannik_schlueter@hotmail.de"
+            }
+        }
+        </script>
+page_script: |
+    <script>
+            window.J_KEEBS_I18N = {
+                de: {
+                "meta.title": "J-Keebs | Custom Mechanical Keyboards",
+                "meta.desc": "J-Keebs baut, moddet und dokumentiert mechanische Tastaturen mit Fokus auf deutsches ISO-Layout, Sound, Haptik und nachhaltige Upcycling-Projekte.",
+                "meta.ogdesc": "Mechanische Tastaturen mit Charakter: sauber gebaut, ehrlich dokumentiert und auf Sound, Haptik und deutsches ISO-Layout abgestimmt.",
+                "status.eyebrow": "Noch im Aufbau",
+                "status.heading": "J-Keebs ist noch nicht offiziell gelauncht.",
+                "status.body": "Die Website wächst gerade Stück für Stück. Einige Texte – besonders im Blog – stammen noch nicht aus meiner eigenen Feder und Inhalte sind deshalb möglicherweise noch nicht zu 100 % korrekt. Ich überarbeite den Blog aktuell und werde die Inhalte nach und nach durch eigene, geprüfte Texte ersetzen.",
+                "status.gallery": "Bis dahin: Schau dich gerne schon einmal in der <a href=\"keyboards.html\">Tastatur-Galerie</a> um. Dort gibt es bereits einiges zu entdecken.",
+                "status.launch": "Der offizielle Launch wird angekündigt.",
+                "status.button": "Zur Tastatur-Galerie →",
+                    "hero.section.aria": "J-Keebs Startseite Hero",
+                    "hero.stats.aria": "Schwerpunkte",
+                    "hero.eyebrow": "Custom Keyboards aus Deutschland",
+                    "hero.lead": "Mechanische Tastaturen mit Charakter: sauber gebaut, ehrlich dokumentiert und auf Sound, Haptik und deutsches ISO-Layout abgestimmt.",
+                    "hero.button.portfolio": "Portfolio ansehen",
+                    "hero.button.contact": "Kontakt aufnehmen",
+                    "hero.stat1.label": "Layouts, die im Alltag funktionieren",
+                    "hero.stat2.label": "Firmware, Layer und Makros nach Bedarf",
+                    "hero.stat3.value": "Mods",
+                    "hero.stat3.label": "Sound, Stabilizer, Foam und Switch-Tuning",
+                    "section1.eyebrow": "Werkstatt",
+                    "section1.heading": "Vom Fundstück bis zum Daily Driver.",
+                    "section1.intro": "J-Keebs verbindet Basteltrieb, technische Neugier und ein Auge für Details. Das Ergebnis sind Tastaturen, die nicht nur gut aussehen, sondern sich jeden Tag richtig anfühlen.",
+                    "card1.meta": "Builds", "card1.title": "Custom-Aufbau",
+                    "card1.body": "Gehäuse, PCB, Plate, Switches, Stabilizer und Keycaps werden passend kombiniert, getestet und sauber montiert.",
+                    "card2.meta": "Mods", "card2.title": "Sound & Feel",
+                    "card2.body": "Stabilizer-Tuning, Switch-Lube, Tape-Mod, Foam und gezielte Dämmung bringen Kontrolle in Klang und Tippgefühl.",
+                    "card3.meta": "Repair", "card3.title": "Upcycling",
+                    "card3.body": "Alte Klassiker wie die Cherry G80-3000 bekommen neue Elektronik, neue Ideen und eine zweite Runde am Schreibtisch.",
+                    "section2.eyebrow": "Aktuelles Projekt",
+                    "section2.heading": "J80-3000: ein Klassiker lernt neue Tricks.",
+                    "section2.body": "Aus einer alten Cherry G80-3000 entsteht ein programmierbares Fullsize-Board mit moderner Firmware. Der Umbau kombiniert Controller-Swap, Matrix-Analyse und QMK-Entwicklung – dokumentiert mit allen Umwegen.",
+                    "timeline1.title": "Demontage", "timeline1.body": "Original-Controller (Motorola-Chip) ausgebaut.",
+                    "timeline2.title": "Neue Elektronik", "timeline2.body": "WeAct Blackpill STM32-F411 verbaut und über einen MCP23017 I/O-Expander mit genug GPIO-Pins für die Fullsize-Matrix verlötet.",
+                    "timeline3.title": "Firmware", "timeline3.body": "QMK-Firmware geschrieben und geflasht – der I2C-Expander braucht dafür eine eigene Scan-Routine in C.",
+                    "timeline4.title": "Aktueller Stand", "timeline4.body": "Voll Funktionsfähig. Programmierbar mit Via.",
+                    "timeline5.title": "To-Do", "timeline5.body": "Mehr programmierbare Ebenen mehr LED-Animationen wie in Version 2 - J80-3000 SPI.",
+                    "section2.button": "Ganzen Projektbericht lesen",
+                    "section2.photo.alt": "J80-3000 Controller-Swap mit Blackpill und I2C-Expander auf der Werkbank",
+                    "section2.photo.title": "J80-3000 I2C Setup",
+                    "section2.photo.caption": "J80-3000 I2C",
+                    "section3.eyebrow": "Portfolio",
+                    "section3.heading": "Ein Blick auf die Werkbank.",
+                    "section3.intro": "Fahr mit der Maus über ein Foto oder tippe es an, um den Spickzettel zum Build zu sehen. Mehrere Fotos je Build lassen sich durchschalten.",
+                    "gallery1.title": "Cherry G80-3000",
+                    "gallery1.li1label": "Herkunft:", "gallery1.li1value": "Zufallsfund",
+                    "gallery1.li2label": "Zustand bei Fund:", "gallery1.li2value": "verstaubt, ungetestet",
+                    "gallery1.li3label": "Status:", "gallery1.li3value": "Cleanup & Check",
+                    "gallery1.region": "Galerie - Der Garagenfund mit mehreren Fotos",
+                    "gallery1.photo1.alt": "Cherry KC 200 Fundstueck auf der Werkbank", "gallery1.photo1.title": "Fundfoto 1",
+                    "gallery1.photo2.alt": "Cherry G80-3000 mit farbigen Tastenkappen als Retro-Fund", "gallery1.photo2.title": "Fundfoto 2",
+                    "gallery2.title": "Holz-Gehäuse",
+                    "gallery2.li1label": "Gehäuse:", "gallery2.li1value": "Holz",
+                    "gallery2.li2label": "Look:", "gallery2.li2value": "warm, ruhig, handwerklich",
+                    "gallery2.li3label": "Switches:", "gallery2.li3value": "– ergänzen",
+                    "gallery2.region": "Galerie - Holz-Case mit mehreren Fotos",
+                    "gallery2.photo1.alt": "YMDK68 Holz-Tastatur mit Handballenauflage", "gallery2.photo1.title": "Holz-Case Foto 1",
+                    "gallery2.photo2.alt": "YMDK68 Holz-Tastatur ohne Handballenauflage", "gallery2.photo2.title": "Holz-Case Foto 2",
+                    "gallery2.photo3.alt": "YMDK68 Holz-Tastatur auf der Werkbank", "gallery2.photo3.title": "Holz-Case Foto 3",
+                    "section3.button": "Alle Builds ansehen",
+                    "footer.tagline": "Custom Mechanical Keyboards, Modding und Upcycling mit Fokus auf deutsches ISO-Layout.",
+                    "footer.col1.heading": "Entdecken", "footer.col2.heading": "Community", "footer.col3.heading": "Kontakt",
+                    "footer.mail": "E-Mail schreiben", "footer.contactpage": "Kontaktseite",
+                    "footer.copyright": "© 2026 J-Keebs. Alle Rechte vorbehalten.",
+                    "legal.impressum": "Impressum", "legal.datenschutz": "Datenschutz", "legal.cookies": "Cookies", "legal.agb": "AGB"
+                },
+                en: {
+                "meta.title": "J-Keebs | Custom Mechanical Keyboards",
+                "meta.desc": "J-Keebs builds, mods and documents mechanical keyboards focusing on the German ISO layout, sound, feel, and sustainable upcycling projects.",
+                "meta.ogdesc": "Mechanical keyboards with character: cleanly built, honestly documented, and tuned for sound, feel and the German ISO layout.",
+                "status.eyebrow": "Still under construction",
+                "status.heading": "J-Keebs has not officially launched yet.",
+                "status.body": "The website is still growing piece by piece. Some texts – especially on the blog – are not yet written by me, so some content may not be 100% accurate. I am currently revising the blog and will gradually replace these texts with my own, checked content.",
+                "status.gallery": "In the meantime: feel free to explore the <a href=\"keyboards.html\">keyboard gallery</a>. There is already plenty to discover.",
+                "status.launch": "The official launch will be announced.",
+                "status.button": "Explore the keyboard gallery →",
+                    "hero.section.aria": "J-Keebs homepage hero",
+                    "hero.stats.aria": "Highlights",
+                    "hero.eyebrow": "Custom Keyboards, Made in Germany",
+                    "hero.lead": "Mechanical keyboards with character: cleanly built, honestly documented, and tuned for sound, feel and the German ISO layout.",
+                    "hero.button.portfolio": "View portfolio",
+                    "hero.button.contact": "Get in touch",
+                    "hero.stat1.label": "Layouts that hold up in daily use",
+                    "hero.stat2.label": "Firmware, layers and macros as needed",
+                    "hero.stat3.value": "Mods",
+                    "hero.stat3.label": "Sound, stabilizers, foam and switch tuning",
+                    "section1.eyebrow": "Workshop",
+                    "section1.heading": "From flea-market find to daily driver.",
+                    "section1.intro": "J-Keebs combines a love of tinkering, technical curiosity and an eye for detail. The result: keyboards that don't just look good, but feel right every single day.",
+                    "card1.meta": "Builds", "card1.title": "Custom builds",
+                    "card1.body": "Case, PCB, plate, switches, stabilizers and keycaps are matched, tested and assembled with care.",
+                    "card2.meta": "Mods", "card2.title": "Sound & feel",
+                    "card2.body": "Stabilizer tuning, switch lube, tape mod, foam and targeted dampening bring control to sound and typing feel.",
+                    "card3.meta": "Repair", "card3.title": "Upcycling",
+                    "card3.body": "Old classics like the Cherry G80-3000 get new electronics, new ideas and a second life on the desk.",
+                    "section2.eyebrow": "Current project",
+                    "section2.heading": "J80-3000: an old classic learns new tricks.",
+                    "section2.body": "An old Cherry G80-3000 is becoming a programmable full-size board with modern firmware. The rebuild combines a controller swap, matrix analysis and QMK development – documented, detours included.",
+                    "timeline1.title": "Teardown", "timeline1.body": "Removed the original controller (Motorola chip).",
+                    "timeline2.title": "New electronics", "timeline2.body": "Installed a WeAct Blackpill STM32-F411, wired to an MCP23017 I/O expander for enough GPIO pins to cover the full-size matrix.",
+                    "timeline3.title": "Firmware", "timeline3.body": "Wrote and flashed QMK firmware – the I2C expander needs its own scan routine in C.",
+                    "timeline4.title": "Current status", "timeline4.body": "Fully functional. Programmable with VIA.",
+                    "timeline5.title": "To-do", "timeline5.body": "More programmable layers, more LED animations like in version 2 – J80-3000 SPI.",
+                    "section2.button": "Read the full build log",
+                    "section2.photo.alt": "J80-3000 controller swap with Blackpill and I2C expander on the workbench",
+                    "section2.photo.title": "J80-3000 I2C setup",
+                    "section2.photo.caption": "J80-3000 I2C",
+                    "section3.eyebrow": "Portfolio",
+                    "section3.heading": "A look at the workbench.",
+                    "section3.intro": "Hover or tap a photo to reveal its cheat sheet. Builds with more than one photo can be cycled through.",
+                    "gallery1.title": "The garage find",
+                    "gallery1.li1label": "Origin:", "gallery1.li1value": "Chance find",
+                    "gallery1.li2label": "Condition found:", "gallery1.li2value": "dusty, untested",
+                    "gallery1.li3label": "Status:", "gallery1.li3value": "Cleanup & check",
+                    "gallery1.region": "Gallery - The garage find, multiple photos",
+                    "gallery1.photo1.alt": "Cherry KC 200 find on the workbench", "gallery1.photo1.title": "G80-3000",
+                    "gallery1.photo2.alt": "Cherry G80-3000 with colorful retro-look keycaps", "gallery1.photo2.title": "J80-3000",
+                    "gallery2.title": "Wood case build",
+                    "gallery2.li1label": "Case:", "gallery2.li1value": "Wood",
+                    "gallery2.li2label": "Look:", "gallery2.li2value": "warm, calm, handcrafted",
+                    "gallery2.li3label": "Switches:", "gallery2.li3value": "– to add",
+                    "gallery2.region": "Gallery - Wood case build, multiple photos",
+                    "gallery2.photo1.alt": "YMDK68 wood keyboard with wrist rest", "gallery2.photo1.title": "YMDK68 Walnut",
+                    "gallery2.photo2.alt": "YMDK68 wood keyboard without wrist rest", "gallery2.photo2.title": "YMDK75 Walnut",
+                    "gallery2.photo3.alt": "YMDK68 wood keyboard on the workbench", "gallery2.photo3.title": "YMDK68 Walnut",
+                    "section3.button": "See all builds",
+                    "footer.tagline": "Custom mechanical keyboards, modding and upcycling focused on the German ISO layout.",
+                    "footer.col1.heading": "Explore", "footer.col2.heading": "Community", "footer.col3.heading": "Contact",
+                    "footer.mail": "Send an email", "footer.contactpage": "Contact page",
+                    "footer.copyright": "© 2026 J-Keebs. All rights reserved.",
+                    "legal.impressum": "Legal notice", "legal.datenschutz": "Privacy", "legal.cookies": "Cookies", "legal.agb": "Terms"
+                }
+            };
+        </script>
+---
+
+        <section class="hero" aria-label="J-Keebs Startseite Hero" data-i18n-attr="aria-label:hero.section.aria">
+            <div class="hero__inner homepage-hero__inner">
+                <div class="homepage-hero__copy">
+                    <p class="eyebrow" data-i18n="hero.eyebrow">Custom Keyboards aus Deutschland</p>
+                    <h1>J-Keebs</h1>
+                    <p class="hero__lead" data-i18n="hero.lead">Mechanische Tastaturen mit Charakter: sauber gebaut, ehrlich dokumentiert und auf Sound, Haptik und deutsches ISO-Layout abgestimmt.</p>
+                    <div class="hero__actions">
+                        <a class="button" href="keyboards.html" data-i18n="hero.button.portfolio">Portfolio ansehen</a>
+                        <a class="button button--secondary" href="contact.html" data-i18n="hero.button.contact">Kontakt aufnehmen</a>
+                    </div>
+                    <div class="hero__stats" aria-label="Schwerpunkte" data-i18n-attr="aria-label:hero.stats.aria">
+                        <div class="stat">
+                            <strong>ISO-DE</strong>
+                            <span data-i18n="hero.stat1.label">Layouts, die im Alltag funktionieren</span>
+                        </div>
+                        <div class="stat">
+                            <strong>QMK</strong>
+                            <span data-i18n="hero.stat2.label">Firmware, Layer und Makros nach Bedarf</span>
+                        </div>
+                        <div class="stat">
+                            <strong data-i18n="hero.stat3.value">Mods</strong>
+                            <span data-i18n="hero.stat3.label">Sound, Stabilizer, Foam und Switch-Tuning</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="homepage-hero__workbench" aria-hidden="true">
+                    <img src="images/Werkbank_Hero.jpg" width="526" height="1052" loading="eager" decoding="async" alt="Werkbank mit Platine und Werkzeugen">
+                </div>
+            </div>
+        </section>
+
+        <section class="site-status-banner" aria-labelledby="siteStatusHeading">
+            <div class="site-status-banner__inner">
+                <div class="site-status-banner__mark" aria-hidden="true">!</div>
+                <div class="site-status-banner__content">
+                    <p class="eyebrow" data-i18n="status.eyebrow">Noch im Aufbau</p>
+                    <h2 id="siteStatusHeading" data-i18n="status.heading">J-Keebs ist noch nicht offiziell gelauncht.</h2>
+                    <p data-i18n="status.body">Die Website wächst gerade Stück für Stück. Einige Texte – besonders im Blog – stammen noch nicht aus meiner eigenen Feder und Inhalte sind deshalb möglicherweise noch nicht zu 100&nbsp;% korrekt. Ich überarbeite den Blog aktuell und werde die Inhalte nach und nach durch eigene, geprüfte Texte ersetzen.</p>
+                    <p data-i18n-html="status.gallery">Bis dahin: Schau dich gerne schon einmal in der <a href="keyboards.html">Tastatur-Galerie</a> um. Dort gibt es bereits einiges zu entdecken.</p>
+                    <div class="site-status-banner__footer">
+                        <span class="site-status-banner__launch" data-i18n="status.launch">Der offizielle Launch wird angekündigt.</span>
+                        <a class="button button--secondary" href="keyboards.html" data-i18n="status.button">Zur Tastatur-Galerie →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section__head">
+                <div>
+                    <p class="eyebrow" data-i18n="section1.eyebrow">Werkstatt</p>
+                    <h2 data-i18n="section1.heading">Vom Fundstück bis zum Daily Driver.</h2>
+                </div>
+                <p data-i18n="section1.intro">J-Keebs verbindet Basteltrieb, technische Neugier und ein Auge für Details. Das Ergebnis sind Tastaturen, die nicht nur gut aussehen, sondern sich jeden Tag richtig anfühlen.</p>
+            </div>
+
+            <div class="section__inner grid grid--3">
+                <article class="card">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="card1.meta">Builds</p>
+                        <h3 data-i18n="card1.title">Custom-Aufbau</h3>
+                        <p data-i18n="card1.body">Gehäuse, PCB, Plate, Switches, Stabilizer und Keycaps werden passend kombiniert, getestet und sauber montiert.</p>
+                    </div>
+                </article>
+                <article class="card">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="card2.meta">Mods</p>
+                        <h3 data-i18n="card2.title">Sound &amp; Feel</h3>
+                        <p data-i18n="card2.body">Stabilizer-Tuning, Switch-Lube, Tape-Mod, Foam und gezielte Dämmung bringen Kontrolle in Klang und Tippgefühl.</p>
+                    </div>
+                </article>
+                <article class="card">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="card3.meta">Repair</p>
+                        <h3 data-i18n="card3.title">Upcycling</h3>
+                        <p data-i18n="card3.body">Alte Klassiker wie die Cherry G80-3000 bekommen neue Elektronik, neue Ideen und eine zweite Runde am Schreibtisch.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section--muted">
+            <div class="section__inner split">
+                <div>
+                    <p class="eyebrow" data-i18n="section2.eyebrow">Aktuelles Projekt</p>
+                    <h2 data-i18n="section2.heading">J80-3000: ein Klassiker lernt neue Tricks.</h2>
+                    <p data-i18n="section2.body">Aus einer alten Cherry G80-3000 entsteht ein programmierbares Fullsize-Board mit moderner Firmware. Der Umbau kombiniert Controller-Swap, Matrix-Analyse und QMK-Entwicklung – dokumentiert mit allen Umwegen.</p>
+                    <div class="timeline">
+                        <div class="timeline-entry">
+                            <span class="timeline-entry__label" data-i18n="timeline1.title">Demontage</span>
+                            <p data-i18n="timeline1.body">Original-Controller (Motorola-Chip) ausgebaut.</p>
+                        </div>
+                        <div class="timeline-entry">
+                            <span class="timeline-entry__label" data-i18n="timeline2.title">Neue Elektronik</span>
+                            <p data-i18n="timeline2.body">WeAct Blackpill STM32-F411 verbaut und über einen MCP23017 I/O-Expander mit genug GPIO-Pins für die Fullsize-Matrix verlötet.</p>
+                        </div>
+                        <div class="timeline-entry">
+                            <span class="timeline-entry__label" data-i18n="timeline3.title">Firmware</span>
+                            <p data-i18n="timeline3.body">QMK-Firmware geschrieben und geflasht – der I2C-Expander braucht dafür eine eigene Scan-Routine in C.</p>
+                        </div>
+                        <div class="timeline-entry">
+                            <span class="timeline-entry__label" data-i18n="timeline4.title">Aktueller Stand</span>
+                            <p data-i18n="timeline4.body">Voll Funktionsfähig. Programmierbar mit Via.</p>
+                        </div>
+                        <div class="timeline-entry">
+                            <span class="timeline-entry__label" data-i18n="timeline5.title">To-Do</span>
+                            <p data-i18n="timeline5.body">Mehr programmierbare Ebenen mehr LED-Animationen wie in Version 2 - J80-3000 SPI.</p>
+                        </div>
+                    </div>
+                    <div class="section__actions">
+                        <a class="button" href="blog-j80-3000-second-life.html" data-i18n="section2.button">Ganzen Projektbericht lesen</a>
+                    </div>
+                </div>
+                <figure class="single-polaroid" style="--tilt:1.4deg;">
+                    <img 
+                        src="images/Cherry_J80-3000_I2C.jpg" 
+                        width="1920" 
+                        height="1080"
+                        loading="lazy" 
+                        decoding="async" 
+                        alt="J80-3000 Controller-Swap mit Blackpill und I2C-Expander auf der Werkbank"
+                        title="J80-3000 I2C Setup"
+                        data-i18n-attr="alt:section2.photo.alt,title:section2.photo.title">
+                    <figcaption data-i18n="section2.photo.caption">J80-3000 I2C</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section__head">
+                <div>
+                    <p class="eyebrow" data-i18n="section3.eyebrow">Portfolio</p>
+                    <h2 data-i18n="section3.heading">Ein Blick auf die Werkbank.</h2>
+                </div>
+                <p data-i18n="section3.intro">Fahr mit der Maus über ein Foto oder tippe es an, um den Spickzettel zum Build zu sehen. Mehrere Fotos je Build lassen sich durchschalten.</p>
+            </div>
+
+            <div class="section__inner gallery-row">
+                <div class="gallery-item">
+                    <div class="gallery-item__stage">
+                        <div class="cheat-sheet">
+                            <h3 data-i18n="gallery1.title">Der Garagenfund</h3>
+                            <ul>
+                                <li><strong data-i18n="gallery1.li1label">Herkunft:</strong> <span data-i18n="gallery1.li1value">Zufallsfund</span></li>
+                                <li><strong data-i18n="gallery1.li2label">Zustand bei Fund:</strong> <span data-i18n="gallery1.li2value">verstaubt, ungetestet</span></li>
+                                <li><strong data-i18n="gallery1.li3label">Status:</strong> <span data-i18n="gallery1.li3value">Cleanup &amp; Check</span></li>
+                            </ul>
+                        </div>
+                        <figure class="polaroid-frame" style="--tilt:-2deg;" tabindex="0" role="region" aria-label="Galerie - Der Garagenfund mit mehreren Fotos" data-i18n-attr="aria-label:gallery1.region">
+                            <button type="button" class="cheat-toggle" aria-expanded="false" aria-label="Spickzettel anzeigen" title="Spickzettel anzeigen" data-i18n-attr="aria-label:utility.cheatToggle.aria,title:utility.cheatToggle.aria">i</button>
+                            <div class="polaroid-frame__viewport">
+                                <img class="is-active" data-slide src="images/Cherry_KC_200.jpg" width="1920" height="1080" loading="eager" decoding="async" alt="Cherry KC 200 Fundstueck auf der Werkbank" title="Fundfoto 1" data-i18n-attr="alt:gallery1.photo1.alt,title:gallery1.photo1.title">
+                                <img data-slide src="images/G80-3000.jpg" width="2000" height="1126" loading="lazy" decoding="async" alt="Cherry G80-3000 mit farbigen Tastenkappen als Retro-Fund" title="Fundfoto 2" data-i18n-attr="alt:gallery1.photo2.alt,title:gallery1.photo2.title">
+                            </div>
+                            <div class="polaroid-frame__foot">
+                                <button type="button" class="carousel-btn carousel-btn--prev" aria-label="Vorheriges Foto">‹</button>
+                                <div class="carousel-dots">
+                                    <button type="button" aria-current="true" aria-label="Foto 1 von 2"></button>
+                                    <button type="button" aria-current="false" aria-label="Foto 2 von 2"></button>
+                                </div>
+                                <button type="button" class="carousel-btn carousel-btn--next" aria-label="Nächstes Foto">›</button>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-item__stage">
+                        <div class="cheat-sheet">
+                            <h3 data-i18n="gallery2.title">Holz-Case</h3>
+                            <ul>
+                                <li><strong data-i18n="gallery2.li1label">Gehäuse:</strong> <span data-i18n="gallery2.li1value">Holz</span></li>
+                                <li><strong data-i18n="gallery2.li2label">Look:</strong> <span data-i18n="gallery2.li2value">warm, ruhig, handwerklich</span></li>
+                                <li><strong data-i18n="gallery2.li3label">Switches:</strong> <span data-i18n="gallery2.li3value">– ergänzen</span></li>
+                            </ul>
+                        </div>
+                        <figure class="polaroid-frame" style="--tilt:1.6deg;" tabindex="0" role="region" aria-label="Galerie - Holz-Case mit mehreren Fotos" data-i18n-attr="aria-label:gallery2.region">
+                            <button type="button" class="cheat-toggle" aria-expanded="false" aria-label="Spickzettel anzeigen" title="Spickzettel anzeigen" data-i18n-attr="aria-label:utility.cheatToggle.aria,title:utility.cheatToggle.aria">i</button>
+                            <div class="polaroid-frame__viewport">
+                                <img class="is-active" data-slide src="images/YMDK68_Wood_with_wristrest.jpg" width="1920" height="1080" loading="eager" decoding="async" alt="YMDK68 Holz-Tastatur mit Handballenauflage" title="Holz-Case Foto 1" data-i18n-attr="alt:gallery2.photo1.alt,title:gallery2.photo1.title">
+                                <img data-slide src="images/YMDK68_Wood_without_wristrest.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="YMDK68 Holz-Tastatur ohne Handballenauflage" title="Holz-Case Foto 2" data-i18n-attr="alt:gallery2.photo2.alt,title:gallery2.photo2.title">
+                                <img data-slide src="images/YMDK68_Wood_workbench.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="YMDK68 Holz-Tastatur auf der Werkbank" title="Holz-Case Foto 3" data-i18n-attr="alt:gallery2.photo3.alt,title:gallery2.photo3.title">
+                            </div>
+                            <div class="polaroid-frame__foot">
+                                <button type="button" class="carousel-btn carousel-btn--prev" aria-label="Vorheriges Foto">‹</button>
+                                <div class="carousel-dots">
+                                    <button type="button" aria-current="true" aria-label="Foto 1 von 3"></button>
+                                    <button type="button" aria-current="false" aria-label="Foto 2 von 3"></button>
+                                    <button type="button" aria-current="false" aria-label="Foto 3 von 3"></button>
+                                </div>
+                                <button type="button" class="carousel-btn carousel-btn--next" aria-label="Nächstes Foto">›</button>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section__inner section__actions homepage-portfolio__actions">
+                <a class="button button--ghost" href="keyboards.html" data-i18n="section3.button">Alle Builds ansehen</a>
+            </div>
+        </section>
+    

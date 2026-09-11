@@ -40,12 +40,13 @@ This means old inbound links to these URLs will now 404. This is an accepted own
 - [x] P1-B guide information architecture
 - [x] P2-A interaction/visual polish
 - [ ] Owner (optional): lawyer review of Art. 6 Abs. 1 lit. f DSGVO for auto-loading map
-- [x] **P2-B — Eleventy migration preparation** — done locally; return to planner for P2-C scope/review
+- [x] **P2-B — Eleventy migration preparation** — done locally; planner verified build passes (2026-09-11)
+- [ ] **P2-C — Eleventy full migration** ← current package
 
 ## Do not assume
 
 - **Node.js and Eleventy are now available.** Node v24.19.0, Eleventy 3.1.6 installed as devDep. The earlier "Node unavailable" blocker is resolved.
-- **P2-B is a parallel proof only.** Do not delete or replace legacy root HTML, change GitHub Pages deployment source, or migrate additional pages until the planner scopes P2-C.
+- **P2-B is complete. P2-C (full migration) is the active package.** The base layout, site data, and `about.njk` proof exist in `src/`. The implementer should migrate remaining pages in family order per `ai/PLAN.md`.
 - **Redirect stubs have been deleted.** Do not reference them as if they still exist. The 21 root `.html` files are the canonical pages only.
 - **The site is hosted as a GitHub Pages *project* page under `/j-keebs/`.** Every absolute URL must include the `/j-keebs/` segment.
 - English is the confirmed default (`lang="en"`, `DEFAULT_LANG = "en"`). Visible copy stays German. This is intentional.

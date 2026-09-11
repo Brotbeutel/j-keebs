@@ -1,0 +1,270 @@
+---
+layout: base.njk
+permalink: guides.html
+title: "J-Keebs | Guides & Tutorials"
+description: "Guides & Tutorials von J-Keebs: Switches, Plates, Mods und Keycaps – Anleitungen und Vergleiche rund um den Tastatur-Build."
+og_url: "https://brotbeutel.github.io/j-keebs/guides.html"
+canonical: "https://brotbeutel.github.io/j-keebs/guides.html"
+active_nav: "guides.html"
+page_script: |
+    <script>
+        window.J_KEEBS_I18N = {
+            de: {
+                "hero.eyebrow": "Guides & Tutorials",
+                "hero.heading": "Vom Switch bis zum fertigen Mod.",
+                "hero.intro": "Anleitungen, Vergleiche und Notizen zu allem, was zwischen einzelnem Bauteil und fertiger Tastatur passiert – sortiert nach Switches, Plates, Mods und Keycaps.",
+                "jumpnav.aria": "Kategorien",
+                "cta.toGuide": "Zum Guide →",
+                "status.pending": "Folgt",
+                "status.contentFollows": "– Inhalt folgt",
+                "status.summary": "{available}/{total} verfügbar",
+                "cat.switches.eyebrow": "Kategorie", "cat.switches.heading": "Switches",
+                "cat.switches.intro": "Grundlagen, Vergleiche und meine eigene Sammlung.",
+                "cat.plates.eyebrow": "Kategorie", "cat.plates.heading": "Plates",
+                "cat.plates.intro": "Plate-Materialien und ihre Eigenschaften im Vergleich.",
+                "cat.mods.eyebrow": "Kategorie", "cat.mods.heading": "Mods",
+                "cat.mods.intro": "Modifikationen für Sound, Gefühl und Funktion.",
+                "cat.keycaps.eyebrow": "Kategorie", "cat.keycaps.heading": "Keycaps",
+                "cat.keycaps.intro": "Profile, Materialien und Layout-Fragen rund um Keycaps.",
+                "gs1.meta": "Guide", "gs1.title": "Switch Guide",
+                "gs1.body": "Linear, Tactile, Clicky oder Silent – die vier Grundtypen im Überblick, inklusive Sound-Vergleichen.",
+                "gs2.meta": "Guide", "gs2.title": "Meine Switches",
+                "gp1.meta": "Guide", "gp1.title": "3D-Gedruckte Plate",
+                "gp2.meta": "Guide", "gp2.title": "Fat-Plate",
+                "gp3.meta": "Guide", "gp3.title": "Messing-Plate",
+                "gm1.meta": "Guide", "gm1.title": "Tape-Mod",
+                "gm2.meta": "Guide", "gm2.title": "O-Ring-Mod",
+                "gm3.meta": "Mod-Kategorie", "gm3.title": "Switches",
+                "gm3sub1.title": "Lubing",
+                "gm4.meta": "Mod-Kategorie", "gm4.title": "Stabilizer",
+                "gm4sub1.title": "Band-Aid-Mod", "gm4sub2.title": "Lubing",
+                "gm5.meta": "Guide", "gm5.title": "Hot-Swap-Mod",
+                "gm6.meta": "Guide", "gm6.title": "PE-Foam-Mod",
+                "gk1.meta": "Guide", "gk1.title": "Keycap Guide"
+            },
+            en: {
+                "hero.eyebrow": "Guides & Tutorials",
+                "hero.heading": "From switch to finished mod.",
+                "hero.intro": "Guides, comparisons and notes on everything that happens between a single part and a finished keyboard – sorted by Switches, Plates, Mods and Keycaps.",
+                "jumpnav.aria": "Categories",
+                "cta.toGuide": "Go to guide →",
+                "status.pending": "Coming soon",
+                "status.contentFollows": "– content coming soon",
+                "status.summary": "{available}/{total} available",
+                "cat.switches.eyebrow": "Category", "cat.switches.heading": "Switches",
+                "cat.switches.intro": "Basics, comparisons and my own collection.",
+                "cat.plates.eyebrow": "Category", "cat.plates.heading": "Plates",
+                "cat.plates.intro": "Plate materials and how they compare.",
+                "cat.mods.eyebrow": "Category", "cat.mods.heading": "Mods",
+                "cat.mods.intro": "Modifications for sound, feel and function.",
+                "cat.keycaps.eyebrow": "Category", "cat.keycaps.heading": "Keycaps",
+                "cat.keycaps.intro": "Profiles, materials and layout questions around keycaps.",
+                "gs1.meta": "Guide", "gs1.title": "Switch Guide",
+                "gs1.body": "Linear, tactile, clicky or silent – the four base types at a glance, including sound comparisons.",
+                "gs2.meta": "Guide", "gs2.title": "My Switches",
+                "gp1.meta": "Guide", "gp1.title": "3D-Printed Plate",
+                "gp2.meta": "Guide", "gp2.title": "Fat Plate",
+                "gp3.meta": "Guide", "gp3.title": "Brass Plate",
+                "gm1.meta": "Guide", "gm1.title": "Tape Mod",
+                "gm2.meta": "Guide", "gm2.title": "O-Ring Mod",
+                "gm3.meta": "Mod category", "gm3.title": "Switches",
+                "gm3sub1.title": "Lubing",
+                "gm4.meta": "Mod category", "gm4.title": "Stabilizer",
+                "gm4sub1.title": "Band-Aid Mod", "gm4sub2.title": "Lubing",
+                "gm5.meta": "Guide", "gm5.title": "Hot-Swap Mod",
+                "gm6.meta": "Guide", "gm6.title": "PE Foam Mod",
+                "gk1.meta": "Guide", "gk1.title": "Keycap Guide"
+            }
+        };
+    </script>
+---
+        <section class="page-hero page-hero--single">
+            <p class="eyebrow" data-i18n="hero.eyebrow">Guides &amp; Tutorials</p>
+            <h1 data-i18n="hero.heading">Vom Switch bis zum fertigen Mod.</h1>
+            <p data-i18n="hero.intro">Anleitungen, Vergleiche und Notizen zu allem, was zwischen einzelnem Bauteil und fertiger Tastatur passiert – sortiert nach Switches, Plates, Mods und Keycaps.</p>
+            <nav class="guide-jumpnav" aria-label="Kategorien" data-i18n-attr="aria-label:jumpnav.aria">
+                <a class="pill" href="#switches" data-i18n="nav.guides.switches">Switches</a>
+                <a class="pill" href="#plates" data-i18n="nav.guides.plates">Plates</a>
+                <a class="pill" href="#mods" data-i18n="nav.guides.mods">Mods</a>
+                <a class="pill" href="#keycaps" data-i18n="nav.guides.keycaps">Keycaps</a>
+            </nav>
+        </section>
+
+        <section class="section" id="switches">
+            <div class="section__head">
+                <div>
+                    <p class="eyebrow" data-i18n="cat.switches.eyebrow">Kategorie</p>
+                    <h2 data-i18n="cat.switches.heading">Switches</h2>
+                </div>
+                <div class="section__head-meta">
+                    <p data-i18n="cat.switches.intro">Grundlagen, Vergleiche und meine eigene Sammlung.</p>
+                    <span class="pill" data-guide-status="switches"></span>
+                </div>
+            </div>
+            <div class="section__inner grid grid--3">
+
+                <article class="card guide-card">
+                    <a class="guide-card__link" href="switches.html">
+                        <div class="card__body">
+                            <p class="meta" data-i18n="gs1.meta">Guide</p>
+                            <h3 data-i18n="gs1.title">Switch Guide</h3>
+                            <p data-i18n="gs1.body">Linear, Tactile, Clicky oder Silent – die vier Grundtypen im Überblick, inklusive Sound-Vergleichen.</p>
+                            <span class="guide-card__cta" data-i18n="cta.toGuide">Zum Guide →</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gs2.meta">Guide</p>
+                        <h3 data-i18n="gs2.title">Meine Switches</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="section section--muted" id="plates">
+            <div class="section__head">
+                <div>
+                    <p class="eyebrow" data-i18n="cat.plates.eyebrow">Kategorie</p>
+                    <h2 data-i18n="cat.plates.heading">Plates</h2>
+                </div>
+                <div class="section__head-meta">
+                    <p data-i18n="cat.plates.intro">Plate-Materialien und ihre Eigenschaften im Vergleich.</p>
+                    <span class="pill" data-guide-status="plates"></span>
+                </div>
+            </div>
+            <div class="section__inner grid grid--3">
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gp1.meta">Guide</p>
+                        <h3 data-i18n="gp1.title">3D-Gedruckte Plate</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gp2.meta">Guide</p>
+                        <h3 data-i18n="gp2.title">Fat-Plate</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gp3.meta">Guide</p>
+                        <h3 data-i18n="gp3.title">Messing-Plate</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="section" id="mods">
+            <div class="section__head">
+                <div>
+                    <p class="eyebrow" data-i18n="cat.mods.eyebrow">Kategorie</p>
+                    <h2 data-i18n="cat.mods.heading">Mods</h2>
+                </div>
+                <div class="section__head-meta">
+                    <p data-i18n="cat.mods.intro">Modifikationen für Sound, Gefühl und Funktion.</p>
+                    <span class="pill" data-guide-status="mods"></span>
+                </div>
+            </div>
+            <div class="section__inner grid grid--3">
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gm1.meta">Guide</p>
+                        <h3 data-i18n="gm1.title">Tape-Mod</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gm2.meta">Guide</p>
+                        <h3 data-i18n="gm2.title">O-Ring-Mod</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gm3.meta">Mod-Kategorie</p>
+                        <h3 data-i18n="gm3.title">Switches</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                        <ul class="guide-card__subitems">
+                            <li data-i18n="gm3sub1.title">Lubing</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gm4.meta">Mod-Kategorie</p>
+                        <h3 data-i18n="gm4.title">Stabilizer</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                        <ul class="guide-card__subitems">
+                            <li data-i18n="gm4sub1.title">Band-Aid-Mod</li>
+                            <li data-i18n="gm4sub2.title">Lubing</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gm5.meta">Guide</p>
+                        <h3 data-i18n="gm5.title">Hot-Swap-Mod</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gm6.meta">Guide</p>
+                        <h3 data-i18n="gm6.title">PE-Foam-Mod</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="section section--muted" id="keycaps">
+            <div class="section__head">
+                <div>
+                    <p class="eyebrow" data-i18n="cat.keycaps.eyebrow">Kategorie</p>
+                    <h2 data-i18n="cat.keycaps.heading">Keycaps</h2>
+                </div>
+                <div class="section__head-meta">
+                    <p data-i18n="cat.keycaps.intro">Profile, Materialien und Layout-Fragen rund um Keycaps.</p>
+                    <span class="pill" data-guide-status="keycaps"></span>
+                </div>
+            </div>
+            <div class="section__inner grid grid--3">
+                <article class="card guide-card guide-card--pending">
+                    <div class="card__body">
+                        <p class="meta" data-i18n="gk1.meta">Guide</p>
+                        <h3 data-i18n="gk1.title">Keycap Guide</h3>
+                        <p class="note" data-i18n="status.contentFollows">– Inhalt folgt</p>
+                        <span class="guide-card__status" data-i18n="status.pending">Folgt</span>
+                    </div>
+                </article>
+            </div>
+        </section>

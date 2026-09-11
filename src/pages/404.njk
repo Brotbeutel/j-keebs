@@ -1,0 +1,39 @@
+---
+layout: base.njk
+permalink: 404.html
+title: "J-Keebs | Seite nicht gefunden"
+description: "Diese Seite gibt es nicht (mehr). Zurück zur Startseite oder zur Tastatur-Galerie von J-Keebs."
+og_url: "https://brotbeutel.github.io/j-keebs/404.html"
+canonical: "https://brotbeutel.github.io/j-keebs/404.html"
+active_nav: "none"
+extra_head: |
+    <base href="/j-keebs/">
+page_script: |
+    <script>
+        window.J_KEEBS_I18N = {
+            de: {
+                "nf.eyebrow": "404",
+                "nf.heading": "Diese Taste gibt\u2019s nicht.",
+                "nf.body": "Die Seite, die du suchst, wurde verschoben, umbenannt oder existiert schlicht nicht \u2013 ein bisschen wie ein Layout, das nur auf dem Papier funktioniert. Zur\u00fcck geht\u2019s hier entlang.",
+                "nf.button.home": "Zur Startseite",
+                "nf.button.gallery": "Zur Tastatur-Galerie"
+            },
+            en: {
+                "nf.eyebrow": "404",
+                "nf.heading": "This key doesn\u2019t exist.",
+                "nf.body": "The page you\u2019re looking for was moved, renamed, or never existed \u2013 a bit like a layout that only works on paper. Here\u2019s the way back.",
+                "nf.button.home": "Back to homepage",
+                "nf.button.gallery": "Go to the keyboard gallery"
+            }
+        };
+    </script>
+---
+        <section class="page-hero page-hero--single not-found-hero">
+            <p class="eyebrow" data-i18n="nf.eyebrow">404</p>
+            <h1 data-i18n="nf.heading">Diese Taste gibt&#8217;s nicht.</h1>
+            <p data-i18n="nf.body">Die Seite, die du suchst, wurde verschoben, umbenannt oder existiert schlicht nicht &#8211; ein bisschen wie ein Layout, das nur auf dem Papier funktioniert. Zurück geht&#8217;s hier entlang.</p>
+            <div class="hero__actions">
+                <a class="button" href="/j-keebs/index.html" data-i18n="nf.button.home">Zur Startseite</a>
+                <a class="button button--secondary" href="/j-keebs/keyboards.html" data-i18n="nf.button.gallery">Zur Tastatur-Galerie</a>
+            </div>
+        </section>
