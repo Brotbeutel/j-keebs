@@ -9,7 +9,7 @@
 
 ## Snapshot
 
-The site is **live and deployed** at https://brotbeutel.github.io/j-keebs/. All P0 through P2-A work has been pushed and is live. P2-C (Eleventy full migration) is complete locally: all 21 canonical pages have been migrated to Eleventy templates in `src/pages/`, legacy root `.html` files have been deleted, and `npm run build` produces the full 21-page site in `_site/`. The repository source of truth is now `src/pages/` with `src/_includes/base.njk`.
+The site is **live and deployed** at https://brotbeutel.github.io/j-keebs/. All P0 through P2-C work is live. GitHub Pages is built and deployed automatically from `src/` via GitHub Actions (`.github/workflows/deploy.yml`). The repository source of truth is `src/pages/` with `src/_includes/base.njk`.
 
 **What's done:**
 - P0/P0-B/P0-C (URL fixes, English blog slugs) — all done and deployed.
