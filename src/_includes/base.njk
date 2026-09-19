@@ -27,8 +27,9 @@
     <script>
         (function () {
             try {
-                var t = localStorage.getItem("jkeebs-theme") || "light";
-                document.documentElement.setAttribute("data-theme", t);
+                var saved = localStorage.getItem("jkeebs-theme");
+                var theme = saved || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+                document.documentElement.setAttribute("data-theme", theme);
             } catch (e) {}
         })();
     </script>
@@ -50,7 +51,7 @@
     <link rel="canonical" href="{{ canonical or og_url }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display:wght@400&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Playwrite+DE+Grund:wght@100..400&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=Courier+Prime:wght@400;700&family=Playwrite+DE+Grund:wght@100..400&display=swap">
     <link rel="stylesheet" href="./style.css">
     {% if extra_head %}{{ extra_head | safe }}{% endif %}
     <title>{{ title }}</title>

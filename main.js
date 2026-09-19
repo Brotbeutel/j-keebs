@@ -40,6 +40,7 @@ window.J_KEEBS_I18N_COMMON = {
         "utility.carousel.prev": "Vorheriges Foto",
         "utility.carousel.next": "Nächstes Foto",
         "utility.carousel.dot": "Foto {n} von {total}",
+        "utility.image.fullscreen": "Foto in Vollbildansicht öffnen",
         "utility.fullscreen.prev": "Vorheriges Bild",
         "utility.fullscreen.next": "Nächstes Bild",
         "utility.fullscreen.close": "Fullscreen schließen",
@@ -80,6 +81,7 @@ window.J_KEEBS_I18N_COMMON = {
         "utility.carousel.prev": "Previous photo",
         "utility.carousel.next": "Next photo",
         "utility.carousel.dot": "Photo {n} of {total}",
+        "utility.image.fullscreen": "Open photo in full screen",
         "utility.fullscreen.prev": "Previous image",
         "utility.fullscreen.next": "Next image",
         "utility.fullscreen.close": "Close fullscreen",
@@ -133,18 +135,36 @@ window.J_KEEBS_I18N_COMMON = {
     // ============================================================================
 
     /**
-     * Apply a theme to the document and persist to localStorage.
+     * Get preferred theme: stored preference if available, else system preference, else DEFAULT_THEME.
+     * @returns {string} "dark" or "light"
+     */
+    function getPreferredTheme() {
+        try {
+            const saved = localStorage.getItem(THEME_KEY);
+            if (saved === "light" || saved === "dark") return saved;
+        } catch (e) {}
+        if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            return "dark";
+        }
+        return DEFAULT_THEME;
+    }
+
+    /**
+     * Apply a theme to the document and optionally persist to localStorage.
      * Updates the data-theme attribute on the root element and sets aria-pressed
      * states on all theme toggle buttons.
      * 
      * @param {string} theme - Theme to apply ("light" or "dark")
+     * @param {boolean} [persist=false] - Whether to persist to localStorage
      */
-    function applyTheme(theme) {
+    function applyTheme(theme, persist) {
         root.setAttribute("data-theme", theme);
-        try {
-            localStorage.setItem(THEME_KEY, theme);
-        } catch (e) {
-            console.warn("J-Keebs: localStorage unavailable for theme persistence.", e);
+        if (persist) {
+            try {
+                localStorage.setItem(THEME_KEY, theme);
+            } catch (e) {
+                console.warn("J-Keebs: localStorage unavailable for theme persistence.", e);
+            }
         }
         
         // Update toggle button states to reflect active theme
@@ -163,9 +183,8 @@ window.J_KEEBS_I18N_COMMON = {
      * Updates the lang attribute on the root element, applies all translations
      * from the i18n dictionaries, and updates language toggle button states.
      * 
-     * Translations are applied using three mechanisms:
+     * Translations are applied using two mechanisms:
      * - data-i18n: Sets textContent from dictionary
-     * - data-i18n-html: Sets innerHTML from dictionary (for HTML content)
      * - data-i18n-attr: Sets HTML attributes (comma-separated pairs like "attr:key")
      * 
      * @param {string} lang - Language code to apply ("en" or "de")
@@ -189,14 +208,6 @@ window.J_KEEBS_I18N_COMMON = {
                 const key = el.getAttribute("data-i18n");
                 if (dict[key] !== undefined) {
                     el.textContent = dict[key];
-                }
-            });
-
-            // Apply HTML content translations (for markup with links, etc.)
-            document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
-                const key = el.getAttribute("data-i18n-html");
-                if (dict[key] !== undefined) {
-                    el.innerHTML = dict[key];
                 }
             });
 
@@ -249,6 +260,12 @@ window.J_KEEBS_I18N_COMMON = {
             const next = frame.querySelector(".carousel-btn--next");
             if (prev) prev.setAttribute("aria-label", prevLabel);
             if (next) next.setAttribute("aria-label", nextLabel);
+        });
+
+        const fullscreenLabel = dict["utility.image.fullscreen"] || "Open photo in full screen";
+        document.querySelectorAll(".single-polaroid img, .polaroid-frame__viewport img").forEach(function (img) {
+            const baseTitle = img.getAttribute("title") || img.getAttribute("alt") || "";
+            img.setAttribute("aria-label", baseTitle ? `${baseTitle} – ${fullscreenLabel}` : fullscreenLabel);
         });
     }
 
@@ -402,27 +419,25 @@ window.J_KEEBS_I18N_COMMON = {
             }
         }
 
+        // Remove redundant focus stop on container — controls inside are individually keyboard-navigable
+        frame.removeAttribute("tabindex");
+
         // Initialize closed state
         frame.setAttribute("aria-expanded", "false");
         if (toggleBtn) {
             toggleBtn.setAttribute("aria-expanded", "false");
+            toggleBtn.addEventListener("click", function (e) {
+                e.stopPropagation();
+                toggle();
+            });
         }
 
-        // Toggle on frame click (but not on carousel controls)
+        // Toggle on caption / frame click (excluding viewport, carousel controls, and toggle button)
         frame.addEventListener("click", function (e) {
-            if (e.target.closest(".carousel-btn") || e.target.closest(".carousel-dots")) {
+            if (e.target.closest(".polaroid-frame__viewport") || e.target.closest(".carousel-btn") || e.target.closest(".carousel-dots") || e.target.closest(".cheat-toggle")) {
                 return;
             }
             toggle();
-        });
-
-        // Toggle on Enter/Space key
-        frame.addEventListener("keydown", function (e) {
-            if (e.target !== frame) return; // Let internal buttons handle their own input
-            if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                toggle();
-            }
         });
     }
 
@@ -1036,12 +1051,19 @@ window.J_KEEBS_I18N_COMMON = {
     // INITIALIZATION
     // ============================================================================
 
-    // Load saved theme before DOM renders to prevent flash
-    let savedTheme = DEFAULT_THEME;
-    try {
-        savedTheme = localStorage.getItem(THEME_KEY) || DEFAULT_THEME;
-    } catch (e) {}
-    applyTheme(savedTheme);
+    // Determine initial theme without forcefully writing to localStorage
+    const initialTheme = root.getAttribute("data-theme") || getPreferredTheme();
+    applyTheme(initialTheme, false);
+
+    // Dynamic OS theme change listener (active when user hasn't explicitly set a preference)
+    if (window.matchMedia) {
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+            try {
+                if (localStorage.getItem(THEME_KEY)) return; // User has explicit preference
+            } catch (err) {}
+            applyTheme(e.matches ? "dark" : "light", false);
+        });
+    }
 
     // Wait for DOM to be ready before initializing all features
     document.addEventListener("DOMContentLoaded", function () {
@@ -1053,12 +1075,12 @@ window.J_KEEBS_I18N_COMMON = {
         applyLang(savedLang);
 
         // Set up theme toggle buttons
-        const currentTheme = root.getAttribute("data-theme") || DEFAULT_THEME;
+        const currentTheme = root.getAttribute("data-theme") || getPreferredTheme();
         document.querySelectorAll("[data-theme-toggle]").forEach(btn => {
             const isActive = btn.getAttribute("data-theme-toggle") === currentTheme;
             btn.setAttribute("aria-pressed", isActive ? "true" : "false");
             btn.addEventListener("click", function () {
-                applyTheme(btn.getAttribute("data-theme-toggle"));
+                applyTheme(btn.getAttribute("data-theme-toggle"), true);
             });
         });
 

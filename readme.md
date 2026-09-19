@@ -2,7 +2,7 @@
 
 A professional, modern portfolio website showcasing custom mechanical keyboards, modding projects, and restoration work with a focus on German ISO layouts.
 
-## 🎯 Project Overview
+## Project Overview
 
 J-Keebs is a fully responsive, hand-crafted website built with semantic HTML5, modern CSS3, and vanilla JavaScript. The site features:
 
@@ -15,11 +15,11 @@ J-Keebs is a fully responsive, hand-crafted website built with semantic HTML5, m
 - **Internationalization** - Full i18n system supporting English (default) and German
 - **Modern Performance** - Lazy loading, minimal dependencies, optimized for Core Web Vitals
 
-## 🌐 Website
+## Website
 
-Visit the live site: https://brotbeutel.github.io/
+Visit the live site: https://brotbeutel.github.io/j-keebs/
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 /
@@ -45,7 +45,7 @@ Visit the live site: https://brotbeutel.github.io/
 └── README.md              # This file
 ```
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **HTML5** - Semantic markup with ARIA labels for accessibility
 - **CSS3** - Custom properties (variables), modern layout techniques, responsive design
@@ -54,7 +54,7 @@ Visit the live site: https://brotbeutel.github.io/
 - **localStorage** - Persists user preferences (theme, language)
 - **No External Dependencies** - Everything is self-contained for maximum performance and reliability
 
-## ✨ Key Features
+## Key Features
 
 ### Image Gallery & Carousel System
 - Click/keyboard navigation between multiple images per gallery
@@ -90,7 +90,7 @@ Visit the live site: https://brotbeutel.github.io/
 - Color contrast ratios meet accessibility standards
 - Screen reader optimized
 
-## 📝 Translation Keys
+## Translation Keys
 
 The i18n system uses dot-notation keys organized hierarchically:
 - `nav.home`, `nav.blog` - Navigation items
@@ -99,7 +99,7 @@ The i18n system uses dot-notation keys organized hierarchically:
 - `legal.*` - Legal page links
 - Page-specific keys provided via `window.J_KEEBS_I18N`
 
-## 🚀 Performance Optimizations
+## Performance Optimizations
 
 - **Inline critical CSS** - Theme script prevents FOUC (Flash of Unstyled Content)
 - **Lazy loading** - Images load on-demand with `loading="lazy"`
@@ -109,7 +109,7 @@ The i18n system uses dot-notation keys organized hierarchically:
 - **Preconnect hints** - Google Fonts connections are preconnected
 - **No unused CSS** - All styles actively used in the design
 
-## 🔧 Development
+## Development
 
 ### Making Changes
 
@@ -133,11 +133,11 @@ The i18n system uses dot-notation keys organized hierarchically:
 - CSS custom properties (CSS variables) required
 - localStorage recommended (graceful fallback if unavailable)
 
-## 📄 License
+## License
 
 This project is proprietary. All content and code are the intellectual property of J-Keebs.
 
-## 👤 Author
+## Author
 
 **Jannik Schlüter**
 - GitHub: https://github.com/Brotbeutel

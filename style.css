@@ -27,8 +27,9 @@
    directly, @import would duplicate fetches and slow page load. By using
    <link> elements instead, fonts load in parallel with CSS. */
 
-:root {
-    color-scheme: light dark;
+:root,
+[data-theme="dark"] {
+    color-scheme: dark;
 
     /* COLOR PALETTE: Neutral swatches define the foundation
        All colors are named for their intended use, not their hex value,
