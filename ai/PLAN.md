@@ -13,80 +13,52 @@ If an implementer finds a new issue: add it to `BACKLOG.md` under the right prio
 ## Sequence
 
 1. ~~P0 / P0-B / P0-C~~ ✅ done and deployed
-2. ~~P1 contact-form + P1-A brand + P1-B guides~~ ✅ done and deployed
-3. ~~P2-A — interaction/visual polish~~ ✅ done and deployed
-4. ~~P2-B — Eleventy migration preparation~~ ✅ done (parallel proof verified)
-5. **P2-C — Eleventy full migration** ← current package (see below)
-6. P2-remaining — performance/a11y items (fonts, images, theme boot, gallery a11y)
-7. P3 — content / README honesty
+2. ~~P1 contact form + P1-A brand + P1-B guides~~ ✅ done and deployed
+3. ~~P2-A interaction/visual polish~~ ✅ done and deployed
+4. ~~P2-B / P2-C Eleventy migration~~ ✅ done and deployed (2026-09-18/19)
+5. **P2-D — repo hygiene, self-hosted fonts, base-layout fixes** ← current package (below)
+6. P2-E — image pipeline (resize/WebP/srcset, lazy policy, social preview images)
+7. P2-F — Eleventy data model (computed canonical/og URLs, i18n as data files, blog collection, generated sitemap/robots)
+8. P2-remaining — a11y items from `BACKLOG.md`
+9. P3 — content / README honesty
 
-Do not skip ahead.
+Do not skip ahead. Findings behind each package: `BACKLOG.md` → "Review 2026-09-20".
 
-## Current work package: P2-C — Eleventy full migration
+## Current work package: P2-D — repo hygiene, self-hosted fonts, base-layout fixes
 
-**Goal:** Migrate all 21 canonical pages from legacy root HTML to Eleventy templates, then switch the deployment source from the legacy root to `_site/`. After this package, `npm run build` produces the complete deployable site.
-
-**Prerequisites (all met):**
-- ✅ Eleventy config, base layout, site data, and passthrough copies established in P2-B
-- ✅ `about.html` migrated and verified as the representative proof page
-- ✅ Migration inventory at `ai/ELEVENTY-INVENTORY.md` documents all 21 pages
-- ✅ `npm run build` runs cleanly
+**Goal:** Remove the third-party font request, fix the shared-layout defects found in the 2026-09-20 review, and give the owner an exact, safe clean-up for the repo. No visual redesign, no content changes.
 
 **In scope**
 
-Migrate pages in family order per the inventory. For each page, create `src/pages/<name>.njk` with the base layout. Move page-specific content (the `<main>` body) into the template. Preserve the page's i18n dictionary, metadata, and any page-specific `<style>` or `<script>` blocks via front-matter variables (`extra_head`, `page_script`).
-
-**Migration order:**
-
-1. **Legal/static pages (no i18n dict, simplest):** `cookies.html`, `impressum.html`, `privacy.html`, `terms.html`
-2. **Simple content pages:** `faq.html`, `switches.html`, `partner.html`
-3. **Contact page (has FormSubmit + map iframe):** `contact.html`
-4. **Listing pages:** `blog.html`, `guides.html`, `keyboards.html`
-5. **Blog articles (7 posts, shared pattern):** `blog-getting-started.html`, `blog-old-keyboards.html`, `blog-keyboards-for-others.html`, `blog-j80-3000-second-life.html`, `blog-10-euro-ps2-connector.html`, `blog-tofu65-v2.html`, `blog-corsair-k70.html`
-6. **Homepage (most complex, has JSON-LD + inline style):** `index.html`
-7. **404 page (uses root-absolute paths):** `404.html`
-
-**For each migrated page:**
-- Output filename must match the legacy filename exactly (set `permalink:` in front-matter)
-- Canonical URL, `og:url`, `og:image`, `twitter:*` must match the legacy page
-- Active nav state (`active_nav`) must be correct per the inventory
-- Page-specific i18n dictionary goes in `page_script` front-matter
-- Any page-specific `<style>` blocks go in `extra_head` front-matter
-- The fullscreen overlay is in the base layout — pages that don't use it still get it (harmless); confirm this doesn't break anything
-
-**Special cases to handle:**
-- `index.html`: has an inline `<style>` block AND a JSON-LD `<script>`. Use `extra_head` for the style, and include the JSON-LD in the content or `page_script`.
-- `404.html`: currently uses `/j-keebs/...` root-absolute paths for assets. The Eleventy `pathPrefix` should handle this, but verify the output carefully.
-- `contact.html`: contains the FormSubmit `<form>` and the auto-loading OpenStreetMap `<iframe>`. Preserve both exactly.
-- Blog articles: the prev/next navigation links are page-specific content — keep them in each template's body, not in the layout.
-
-**After all pages are migrated:**
-- Run `npm run build` — all 21 pages should appear in `_site/`
-- Spot-check at least 5 pages: verify title, canonical, og:url, nav active state, footer, i18n dictionary
-- Run `npm run dev` and visually confirm the homepage and at least one blog post in the browser
-- Delete the 21 legacy root `.html` files (they are now generated into `_site/`)
-- Update `.gitignore` if needed
-- Confirm GitHub Pages can be pointed at `_site/` output (or document the deployment change needed)
+1. **Self-host fonts (BACKLOG R1).** Serve Libre Caslon Text (400, 700, italic 400), IBM Plex Sans (400, 500, 600, 700), Courier Prime (400, 700) and Playwrite DE Grund (as used by `--font-hand`) as local `woff2` files (Latin subset is enough; e.g. `@fontsource/*` devDependencies or downloaded files with their OFL licence text). Copy them into `_site/` via passthrough, declare `@font-face` with `font-display: swap` in `style.css`, and remove the three Google `<link>` tags (two `preconnect`, one stylesheet) from `src/_includes/base.njk`. Keep the existing `--font-*` token stacks and fallbacks.
+2. **Logo dimensions (R4).** In `base.njk`, header and footer logo: `width="1742" height="733"` (real file size). Verify the header does not shift when the logo loads.
+3. **404 page (R5).** `404.html` must render fully styled when served at any depth (e.g. `/j-keebs/foo/bar`), and its skip link must stay an in-page jump. Do not leave a `<base>` element after other URL-bearing elements. Any approach is fine (root-absolute paths for this page only, or a `base_href` variable rendered first in `<head>`); do not change URLs on the other 20 pages.
+4. **PCBWay logo link (R8).** `src/pages/partner.njk`: the logo link to `pcbway.com` gets `target="_blank" rel="noopener noreferrer sponsored"` like the text link. Do not touch the OWA LABS card.
+5. **Owner steps (not for the implementer to run; list them in the handoff):**
+   - `git rm -r --cached node_modules .cursor` and commit (working files stay on disk; `.gitignore` already lists both).
+   - Optional: after fonts are self-hosted, re-check `privacy.njk` / `cookies.njk`. No wording change is required by this package; wording is the owner's / lawyer's call.
 
 **Out of scope**
 
-- Translating or rewriting any content
-- Adding new pages or features
-- The dual-theme brand logo request (separate backlog item)
-- Performance/a11y fixes (P2-remaining)
-- Introducing Astro or React
+- Image resizing, WebP, `srcset`, lazy-loading policy, `og:image` changes (P2-E)
+- Eleventy data-model refactors (P2-F), i18n restructuring, blog collection
+- Any visible copy, DE/EN text alignment, blog rewrites (owner decisions, see BACKLOG R6/R7)
+- Astro, React, new pages, redirect stubs, GitHub Pages settings
+- Committing
 
 **Done when**
 
-- `npm run build` produces all 21 pages in `_site/` without errors
-- Every generated page matches its legacy counterpart in URL, metadata, nav, footer, and visual output
-- Legacy root `.html` files are deleted (the Eleventy source in `src/` is now the single source of truth)
-- Deployment path is documented (GitHub Pages → `_site/` or GitHub Actions build step)
-- `ai/STATUS.md` and `ai/BACKLOG.md` updated
+- `npm run build` succeeds, 21 pages.
+- `grep -l "fonts.googleapis\|fonts.gstatic" _site/*.html` prints nothing; DevTools Network on `index.html`, `keyboards.html` and `guides.html` shows no request to Google; the fonts still render (display, body, mono, handwritten cheat-sheet text) with no visible metric jump beyond normal `swap`.
+- `grep -c 'height="733"' _site/index.html` → 2; no `height="980"` left.
+- `_site/404.html` viewed at `/j-keebs/foo/bar` (via `npm run dev`) is styled and its skip link does not navigate away.
+- `grep -n "pcbway.com" _site/partner.html` shows `sponsored` on both links.
+- No other page's generated URLs changed (spot-check `diff` of `_site/*.html` before/after apart from fonts/logo lines).
+- `STATUS.md` and `BACKLOG.md` updated; owner steps listed.
 
 ## Redirect stub pattern
 
-GitHub Pages has no real 301, so a rename leaves a stub at the old filename. **Note:** the owner deleted all existing redirect stubs as of 2026-09-11. If redirects are needed in the future, use:
+GitHub Pages has no real 301. **The owner deleted all redirect stubs (2026-09-11).** If redirects are needed in future:
 
 ```html
 <!DOCTYPE html>
@@ -103,6 +75,8 @@ GitHub Pages has no real 301, so a rename leaves a stub at the old filename. **N
 </html>
 ```
 
-## After P2-C
+In Eleventy this is a template with `permalink: old-name.html`, not a file in the repo root.
 
-Return to the planner chat. Next is P2-remaining (performance/a11y: unused fonts, image optimization, theme boot, gallery a11y) and then P3 (content/hygiene).
+## After P2-D
+
+Return to the planner chat. Next: P2-E (images), then P2-F (data model).

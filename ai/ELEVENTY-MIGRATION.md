@@ -1,3 +1,5 @@
+> **Historical (P2-B / P2-C, completed 2026-09-18).** The migration is done and deployed. Guardrails below such as "keep legacy root HTML" or "no deployment cutover" no longer apply. Current rules: `CONVENTIONS.md`. Current status: `STATUS.md`.
+
 # Eleventy migration
 
 ## Decision

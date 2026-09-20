@@ -5,10 +5,10 @@
 J-Keebs is a portfolio for custom mechanical keyboards, mods, and upcycling (ISO-DE, QMK, restoration). English is the confirmed default language for the site (JS default + `<html lang>`); the actual written content is still German today and stays that way until a separate, explicit decision says otherwise (see `CONVENTIONS.md`). It should feel like a workshop, not a storefront, until there is something to sell.
 
 1. **Honest content.** Own writing, accurate specs, no placeholder blog copy left as if it were finished.
-2. **Stable URLs.** One page, one address, at the correct base path (`https://brotbeutel.github.io/j-keebs/…`). Old filenames — German legal-page names, old blog slugs — redirect; they must not compete as duplicates.
-3. **Maintainable chrome.** Header, footer, fonts, and theme boot should live in one place before the page count grows.
+2. **Stable URLs.** One page, one address, at the correct base path (`https://brotbeutel.github.io/j-keebs/…`). Old German filenames and blog slugs have no redirects (owner deleted the stubs on 2026-09-11; old links 404 — accepted); they must not reappear as duplicate pages.
+3. **Maintainable chrome and data.** Header, footer, fonts and theme boot live in one place (`src/_includes/base.njk` — done in P2-C). Repeated data (URLs, i18n strings, blog metadata) should follow (P2-F).
 4. **Accessible enough to claim later.** Skip links, keyboard gallery, focus in modals stay. Do not put "WCAG 2.1 AA" in README until it is checked.
-5. **Fast enough for photo-heavy pages.** Fewer webfonts, sized images, no extra frameworks.
+5. **Fast enough for photo-heavy pages.** Self-hosted fonts, resized images (WebP/srcset), no extra frameworks.
 
 ## Non-goals (for now)
 

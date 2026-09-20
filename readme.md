@@ -1,137 +1,64 @@
-# J-Keebs - Custom Mechanical Keyboards Portfolio
+# J-Keebs – Custom Mechanical Keyboards Portfolio
 
-A professional, modern portfolio website showcasing custom mechanical keyboards, modding projects, and restoration work with a focus on German ISO layouts.
+Portfolio site for custom mechanical keyboards, modding and upcycling, with a focus on German ISO layouts. Hand-written HTML templates (Eleventy / Nunjucks), vanilla CSS and vanilla JavaScript. Hosted on GitHub Pages.
 
-## Project Overview
+**Live:** https://brotbeutel.github.io/j-keebs/
+**Status:** work in progress — the homepage banner says the site is not officially launched yet.
 
-J-Keebs is a fully responsive, hand-crafted website built with semantic HTML5, modern CSS3, and vanilla JavaScript. The site features:
+## What is on the site
 
-- **Comprehensive Portfolio Gallery** - Interactive image galleries with carousels, fullscreen viewer, and detailed project descriptions
-- **Blog System** - Personal projects and technical write-ups
-- **Guides & Tutorials** - In-depth documentation on keyboard building, switch selection, and modifications
-- **Responsive Design** - Works flawlessly on desktop, tablet, and mobile devices
-- **Accessibility First** - WCAG 2.1 AA compliance with keyboard navigation and screen reader support
-- **Dark/Light Theme** - User-selectable theme with localStorage persistence
-- **Internationalization** - Full i18n system supporting English (default) and German
-- **Modern Performance** - Lazy loading, minimal dependencies, optimized for Core Web Vitals
+- **Portfolio gallery** – photo carousels with "cheat sheet" spec panels and a fullscreen viewer
+- **Blog** – project write-ups (some texts are still being rewritten)
+- **Guides and switch overview** – several guide cards are still placeholders
+- **Partners, FAQ, contact** – contact form via FormSubmit, OpenStreetMap embed, legal pages (Impressum, privacy, cookies, terms; German only)
+- **Dark/light theme** and **DE/EN toggle** (client-side; visible page copy is German, see `ai/CONVENTIONS.md`)
 
-## Website
-
-Visit the live site: https://brotbeutel.github.io/j-keebs/
-
-## Project Structure
+## Project structure
 
 ```
 /
-├── index.html             # Homepage
-├── blog.html              # Blog listing
-├── keyboards.html         # Portfolio gallery
-├── guides.html            # Guides & tutorials
-├── switches.html          # Switches guide
-├── faq.html               # Frequently asked questions
-├── partner.html           # Partners page
-├── about.html             # About me (formerly ueber-uns.html)
-├── contact.html           # Contact form (formerly kontakt.html)
-├── privacy.html           # Privacy policy (formerly datenschutz.html)
-├── terms.html             # Terms of service (formerly agb.html)
-├── impressum.html         # Legal notice
-├── cookies.html           # Cookie policy
-├── 404.html               # Error page
-├── blog-*.html            # Individual blog posts
-├── main.js                # Core application logic (fully documented)
-├── style.css              # All styles (variables, responsive, accessible)
-├── images/                # Product photography and assets
-├── content/               # Auxiliary content files
-└── README.md              # This file
+├── src/
+│   ├── pages/            # one .njk template per page (21 pages, blog posts included)
+│   ├── _includes/base.njk# shared layout: head, header, nav, footer, fullscreen overlay
+│   └── _data/site.js     # site data and navigation
+├── images/               # photography and logos (copied as is)
+├── style.css             # all styles (tokens in :root and [data-theme="light"])
+├── main.js               # theme, i18n, gallery, nav, contact form
+├── robots.txt, sitemap.xml
+├── eleventy.config.js    # input src/, output _site/, passthrough copy of the root assets
+├── .github/workflows/deploy.yml   # build with Eleventy and deploy _site/ to GitHub Pages
+├── ai/                   # handoff notes for humans and agents (start with ai/README.md)
+└── AGENTS.md             # entry point for agents
 ```
 
-## Technology Stack
-
-- **HTML5** - Semantic markup with ARIA labels for accessibility
-- **CSS3** - Custom properties (variables), modern layout techniques, responsive design
-- **Vanilla JavaScript** - No frameworks; all interactions built from scratch
-- **Internationalization** - Custom attribute-based i18n system (data-i18n, data-i18n-html, data-i18n-attr)
-- **localStorage** - Persists user preferences (theme, language)
-- **No External Dependencies** - Everything is self-contained for maximum performance and reliability
-
-## Key Features
-
-### Image Gallery & Carousel System
-- Click/keyboard navigation between multiple images per gallery
-- Synchronized cheat sheets with project details
-- Fullscreen viewer with keyboard and touch support
-- Focus management for accessibility
-- Lazy loading for performance
-
-### Responsive Navigation
-- Mobile hamburger menu with smooth animations
-- Desktop dropdown panels for guides
-- Keyboard accessible (Tab, Enter, Escape, Arrow keys)
-- Automatically adapts to viewport changes
-
-### Theme System
-- Light and dark modes with smooth transitions
-- User preference saved to localStorage
-- Respects system color scheme preference (prefers-color-scheme)
-- All colors defined as CSS custom properties
-
-### Internationalization (i18n)
-- English (default) and German language support
-- Dynamic language switching without page reload
-- Carousel labels and guide status update on language change
-- All UI text externalized as translation keys
-
-### Accessibility
-- WCAG 2.1 AA compliance target
-- Semantic HTML with proper heading hierarchy
-- ARIA labels and roles throughout
-- Keyboard navigation for all interactive elements
-- Focus management and keyboard traps in modals
-- Color contrast ratios meet accessibility standards
-- Screen reader optimized
-
-## Translation Keys
-
-The i18n system uses dot-notation keys organized hierarchically:
-- `nav.home`, `nav.blog` - Navigation items
-- `utility.*` - Utility text (skiplink, aria labels, etc.)
-- `footer.*` - Footer content
-- `legal.*` - Legal page links
-- Page-specific keys provided via `window.J_KEEBS_I18N`
-
-## Performance Optimizations
-
-- **Inline critical CSS** - Theme script prevents FOUC (Flash of Unstyled Content)
-- **Lazy loading** - Images load on-demand with `loading="lazy"`
-- **Minimal JavaScript** - Vanilla JS with efficient DOM queries
-- **CSS variables** - Enables theme switching without full redraws
-- **Responsive images** - Proper aspect ratios and picture elements
-- **Preconnect hints** - Google Fonts connections are preconnected
-- **No unused CSS** - All styles actively used in the design
+`_site/` (generated), `node_modules/` and `content/` (private drafts) are not part of the published source.
 
 ## Development
 
-### Making Changes
+Requires Node.js 18 or newer (CI uses 22).
 
-1. **HTML Files** - Update semantic structure; use data-i18n attributes for translatable text
-2. **CSS** - Modify style.css; CSS custom properties enable theme switching
-3. **JavaScript** - Edit main.js; well-commented functions with JSDoc
-4. **Translations** - Update i18n dictionaries in main.js for UI text
+```
+npm ci            # install
+npm run dev       # local server with live reload, served under /j-keebs/
+npm run build     # build to _site/
+```
 
-### Testing
+Pushing to `main` builds and deploys automatically via GitHub Actions.
 
-- Test in modern browsers (Chrome, Firefox, Safari, Edge)
-- Verify responsive design at breakpoints: 480px, 640px, 768px, 1024px, 1280px
-- Check keyboard navigation (Tab, Enter, Escape, Arrow keys)
-- Validate accessibility with axe or WAVE
-- Test with screen readers (NVDA, JAWS, VoiceOver)
+- Page content and page-specific translations: `src/pages/<page>.njk` (front matter holds metadata and the `window.J_KEEBS_I18N` dictionary)
+- Header, footer, navigation markup: `src/_includes/base.njk`, navigation items in `src/_data/site.js`
+- Shared UI strings: `J_KEEBS_I18N_COMMON` in `main.js`
+- All absolute URLs must contain the `/j-keebs/` base path
 
-### Browser Support
+## Internationalization
 
-- Modern browsers with ES5+ JavaScript support
-- CSS Grid and Flexbox support required
-- CSS custom properties (CSS variables) required
-- localStorage recommended (graceful fallback if unavailable)
+Text elements carry `data-i18n` keys (attributes: `data-i18n-attr`); dictionaries are merged per page from `J_KEEBS_I18N_COMMON` (`main.js`) and `window.J_KEEBS_I18N` (page). Language and theme choices are stored in `localStorage` (`jkeebs-lang`, `jkeebs-theme`).
+
+## External services
+
+- Google Fonts (until the fonts are self-hosted — see `ai/BACKLOG.md`, R1)
+- FormSubmit (contact form)
+- OpenStreetMap (contact page map)
 
 ## License
 
@@ -139,11 +66,4 @@ This project is proprietary. All content and code are the intellectual property 
 
 ## Author
 
-**Jannik Schlüter**
-- GitHub: https://github.com/Brotbeutel
-- LinkedIn: https://www.linkedin.com/in/jannik-schlüter-103270423/
-- Email: jannik_schlueter@hotmail.de
-
----
-
-**Status**: This website is actively maintained and enhanced. New guides, projects, and features are added regularly.
+**Jannik Schlüter** · [GitHub](https://github.com/Brotbeutel) · [LinkedIn](https://www.linkedin.com/in/jannik-schl%C3%BCter-103270423/) · jannik_schlueter@hotmail.de

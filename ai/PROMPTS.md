@@ -7,22 +7,15 @@ Paste these at the start of a **new** chat. The agent must still read `ai/STATUS
 ```
 You are the implementer, not the planner.
 
-Read ai/README.md, ai/STATUS.md, ai/PLAN.md (current work package), and ai/CONVENTIONS.md.
+Read AGENTS.md, ai/README.md, ai/STATUS.md, ai/PLAN.md (current work package) and ai/CONVENTIONS.md.
 
-Execute only what PLAN.md's "Current work package" section specifies. If it says nothing is queued, stop and tell me — do not invent scope.
+Execute only what PLAN.md's "Current work package" section specifies. If it says nothing is queued, stop and tell me — do not invent scope. Respect its "Out of scope" list.
 
-For the current **P2-A — interaction polish** package, implement only these items:
+The site is built with Eleventy: edit src/ (and style.css / main.js / images/ at the repo root), never _site/. Do not add Astro, React or another framework. German is the source of truth if DE and EN differ. Do not translate visible German copy. Do not commit.
 
-- In `index.html` only, fix the vertical spacing between the homepage portfolio polaroids and the `Alle Builds ansehen` button directly below them at desktop and mobile widths. Do not alter the separate `keyboards.html` gallery page or the hero buttons `Portfolio ansehen` and `Kontakt aufnehmen`.
-- Improve the homepage hero's visual interest while preserving its workshop/portfolio purpose, clear hierarchy, and responsive behavior. Do not turn it into a marketing landing page. If you want to use images you can work with placeholders. The users will implement them later.
+If you discover a new issue, record it in ai/BACKLOG.md under the appropriate priority and continue the current package. Do not pull it into the current implementation.
 
-Preserve the existing vanilla HTML/CSS/JS architecture and current URLs.
-
-Out of scope: Astro, React, guide taxonomy/navigation, legal or privacy wording, language defaults, branding/assets, translation of visible copy, deployment cutover, unrelated refactors, and committing unless PLAN.md explicitly changes them. Eleventy is in scope only when executing the P2-B package defined by PLAN.md and `ai/ELEVENTY-MIGRATION.md`.
-
-If you discover a new issue, record it in ai/BACKLOG.md under the appropriate priority and continue the current package. Do not pull the new issue into the current implementation.
-
-When done: verify against PLAN.md's "Done when" criteria across desktop and mobile browser viewports. Check map color behavior with hover, touch/click, and keyboard focus; spacing above `Alle Builds ansehen` in `index.html`; unchanged `keyboards.html`; hero composition; fullscreen button-box and glyph centering; and focused CSS/markup diagnostics. Update ai/STATUS.md and ai/BACKLOG.md, record any new issue without expanding scope, and list files changed. Do not claim live deployment without a deployed-site check.
+When done: run npm run build (21 pages, no errors); run the checks from ai/CONVENTIONS.md "Verification" plus every "Done when" item of the package, with the exact commands and results in your report; update ai/STATUS.md and ai/BACKLOG.md; list changed files and any owner steps (e.g. git commands). Do not claim live deployment without a deployed-site check.
 ```
 
 ## Planner: after current package
