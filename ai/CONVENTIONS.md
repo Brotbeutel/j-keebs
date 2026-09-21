@@ -49,7 +49,7 @@
 ## What not to do
 
 - No Astro, React or other framework. Eleventy is the approved and installed generator.
-- Never commit `node_modules/`, `_site/`, `.cursor/`, `content/` or secrets. (`node_modules/` and `.cursor/` are still tracked from earlier — see `BACKLOG.md` R2.)
+- Never commit `node_modules/`, `_site/`, `.cursor/`, `content/` or secrets (all listed in `.gitignore`; `node_modules/` and `.cursor/` were untracked in P2-D).
 - No new third-party requests (fonts, CDNs, embeds, analytics) without a privacy check and an update of the privacy/cookie pages by the owner. Fonts in particular are served from this site only.
 - Do not claim accessibility or performance wins in the README without a check.
 - Do not expand the guides listing with more empty cards.

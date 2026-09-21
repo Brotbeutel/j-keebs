@@ -5,11 +5,11 @@
 - **Repo:** https://github.com/Brotbeutel/j-keebs
 - **Owner:** Jannik Schlüter
 - **Planner:** dedicated planning chat; implementers use a **new** chat per work package
-- **Updated:** 2026-09-21 (implementer: P2-D done in the working copy — not committed, not deployed; baseline is still the planner review of commit `6f478fa`)
+- **Updated:** 2026-09-21 (P2-D done: committed as `38efe4f`, owner reports all checks positive; planner to queue P2-E)
 
 ## Snapshot
 
-The site is **live** and deployed automatically: `.github/workflows/deploy.yml` runs `npm ci` → `npm run build` → uploads `_site/` → GitHub Pages. P0 through P2-C are done and deployed. The source of truth is `src/pages/*.njk` (21 pages), `src/_includes/base.njk` (all shared chrome) and `src/_data/site.js` (nav). The root files `main.js`, `style.css`, `robots.txt`, `sitemap.xml`, `images/` and `fonts/` are passthrough-copied into `_site/`.
+The site is **live** and deployed automatically: `.github/workflows/deploy.yml` runs `npm ci` → `npm run build` → uploads `_site/` → GitHub Pages. P0 through P2-D are done and deployed. The source of truth is `src/pages/*.njk` (21 pages), `src/_includes/base.njk` (all shared chrome) and `src/_data/site.js` (nav). The root files `main.js`, `style.css`, `robots.txt`, `sitemap.xml`, `images/` and `fonts/` are passthrough-copied into `_site/`.
 
 **Review 2026-09-20 (file-level, from a fresh clone + local build):**
 - `npm run build` writes 21 pages + 35 assets in ~0.3 s, no errors.
@@ -18,12 +18,11 @@ The site is **live** and deployed automatically: `.github/workflows/deploy.yml` 
 - DE/EN dictionaries have full key parity (1146 entries, 0 missing keys). Two content drifts found (see BACKLOG R6, R7).
 
 **Known problems (details, severity and verify commands: `BACKLOG.md` → "Review 2026-09-20"):**
-- `node_modules/` (1,681 files) and `.cursor/` are **tracked in git** despite `.gitignore` (R2).
 - Image weight: 47 MB in `images/`, `keyboards.html` loads ~20 MB eagerly, logo PNG is 557 KB on every page (R3).
 - `Werkbank_Hero.jpg` has `width="526" height="1052"` in `index.njk`, the file is 526×1113 (rest of R4; the logo part is fixed in P2-D).
 - Homepage gallery DE dictionary contradicts the German HTML default; a placeholder "– ergänzen" is visible live (R6).
 
-**P2-D (implemented 2026-09-21 in the working copy, awaiting owner commit + deploy):** R1 (fonts self-hosted in `fonts/`, all Google `<link>` tags removed), R4 logo part (`height="733"` in `base.njk`, header + footer), R5 (404 without `<base>`: `root_paths: true` → root-absolute chrome URLs), R8 (PCBWay logo link `target="_blank" rel="noopener noreferrer sponsored"`). Checked at file level (build, `_site` diff, link/anchor check incl. `404.html` at `/j-keebs/foo/bar`, dev server responses, font embedding via a WeasyPrint render). **Not checked here (no browser in the sandbox):** DevTools Network for Google requests and a visual font/layout check in a real browser; **the deployed site is unchanged until the owner pushes** — re-check after the deploy (see `PLAN.md` "Done when").
+**P2-D (done 2026-09-21, commit `38efe4f`):** R1 fonts self-hosted in `fonts/` (no Google request from any page), R2 `node_modules/` and `.cursor/` untracked (0 files tracked on `origin/main`), R4 logo part (`height="733"` in `base.njk`, header + footer), R5 404 without `<base>` (`root_paths: true` → root-absolute chrome URLs; works at `/j-keebs/foo/bar`), R8 PCBWay logo link `target="_blank" rel="noopener noreferrer sponsored"`. Implementer checks were file-level (build, `_site` diff, link/anchor check, dev-server 404 at a deep path, font embedding via a WeasyPrint render); the owner then ran the browser and live checks from `PLAN.md` "Done when" and reported all positive. The implementer did not independently re-check the live site (GitHub API rate-limited, `web_fetch` does not show `<head>`); `origin/main` was compared byte for byte with the delivered files.
 
 **Redirect stubs:** deleted by the owner (2026-09-11): `kontakt.html`, `ueber-uns.html`, `datenschutz.html`, `agb.html`, the five old German blog slugs and `article-j80-3000-second-life.html`. Old inbound links 404. This is an accepted owner decision unless explicitly reversed.
 
@@ -33,7 +32,7 @@ The site is **live** and deployed automatically: `.github/workflows/deploy.yml` 
 - [x] P1 / P1-A / P1-B — done and deployed (live browser test of contact form, JS on + JS off, still outstanding)
 - [x] P2-A — polish, done and deployed
 - [x] P2-B / P2-C — Eleventy migration, done and deployed (2026-09-18/19)
-- [ ] **P2-D — repo hygiene, self-hosted fonts, base-layout fixes** ← implemented in the working copy 2026-09-21; stays open until the owner has committed, run `git rm -r --cached node_modules .cursor`, deployed and re-checked the live site (see `PLAN.md`); planner confirms and queues P2-E
+- [x] P2-D — repo hygiene, self-hosted fonts, base-layout fixes — done and deployed (`38efe4f`, owner-checked 2026-09-21)
 - [ ] P2-E — image pipeline
 - [ ] P2-F — Eleventy data model (computed URLs, i18n data, blog collection, generated sitemap)
 - [ ] P2-remaining — a11y items
@@ -44,7 +43,7 @@ The site is **live** and deployed automatically: `.github/workflows/deploy.yml` 
 - **Build is required.** Edit `src/`, never `_site/` (generated, gitignored). CI uses Node 22.
 - **Fonts are self-hosted** (`fonts/` → `_site/fonts/`, `@font-face` in `style.css`, provenance in `fonts/README.md`). Never add Google Fonts or another font CDN back; a new weight = new woff2 + `@font-face`.
 - **The 404 page uses `root_paths: true`** (root-absolute chrome URLs from `site.basePath`), not `<base>`. Do not reintroduce `<base>` (it turns the skip link `#main` into a link to the homepage).
-- **`node_modules/` is currently tracked in git** (it is listed in `.gitignore`, but was committed before/despite it). It is dead weight: CI runs `npm ci`. Owner step in P2-D: `git rm -r --cached node_modules .cursor`.
+- **`node_modules/` and `.cursor/` are no longer tracked** (removed in `38efe4f`; `.gitignore` covers both). CI runs `npm ci`. Locally run `npm ci` after a fresh clone before `npm run build`.
 - **German is the source of truth.** If DE and EN differ, DE is right (owner, 2026-09-20).
 - **Photos are 16:9**, 21 of 31 files in `images/` are exactly 1920×1080. Exceptions: `Werkbank_Hero.jpg` (526×1113 portrait), `J-Keebs-Logo.png` (1742×733), `Retro-PC_pixelart_generated.png` (64×64), `J-Keebs-Icon.ico`, `mechanicon_logo.png` (unused). Larger 16:9: `J80-3000_open_with_printed_plate.jpg` (3746×2107, 7.8 MB); smaller: `TOFU65_Mixed_Keycaps.jpg` (1600×900), `Stars75.jpg` (1753×986).
 - The site is a GitHub Pages *project* page under `/j-keebs/`. Every absolute URL must include it. `pathPrefix` is set in `eleventy.config.js` but the templates do not use the `url` filter; URLs are hard-coded (54 absolute URLs in front matter).
@@ -76,5 +75,5 @@ The site is **live** and deployed automatically: `.github/workflows/deploy.yml` 
 | --- | --- |
 | Generator | Eleventy; next: use it for data (computed canonical/og URLs, i18n data files, blog collection, sitemap) |
 | Images | Build-time resize/WebP/srcset (`@11ty/eleventy-img`) — P2-E |
-| Fonts | Self-hosted woff2, no third-party font requests — done in P2-D (pending deploy) |
+| Fonts | Self-hosted woff2, no third-party font requests — done in P2-D |
 | Later option | Static DE/EN output instead of client-side-only i18n (decision needed, see `DECISIONS.md` 2026-09-01 "revisit with SSG"); Astro only if richer islands are needed |
