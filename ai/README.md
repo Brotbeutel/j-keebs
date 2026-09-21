@@ -22,6 +22,7 @@ Portfolio site for custom mechanical keyboards, modding and upcycling, with a fo
 │   ├── _includes/base.njk# shared layout: head, header, nav, footer, fullscreen overlay
 │   └── _data/site.js     # site data and navigation
 ├── images/               # photography and logos (copied as is)
+├── fonts/                # self-hosted woff2 fonts + OFL licences (copied as is)
 ├── style.css             # all styles (tokens in :root and [data-theme="light"])
 ├── main.js               # theme, i18n, gallery, nav, contact form
 ├── robots.txt, sitemap.xml
@@ -56,7 +57,6 @@ Text elements carry `data-i18n` keys (attributes: `data-i18n-attr`); dictionarie
 
 ## External services
 
-- Google Fonts (until the fonts are self-hosted — see `ai/BACKLOG.md`, R1)
 - FormSubmit (contact form)
 - OpenStreetMap (contact page map)
 

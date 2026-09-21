@@ -26,6 +26,8 @@ Do not skip ahead. Findings behind each package: `BACKLOG.md` → "Review 2026-0
 
 ## Current work package: P2-D — repo hygiene, self-hosted fonts, base-layout fixes
 
+**Implementation status (implementer, 2026-09-21):** all four in-scope items are implemented in the working copy (not committed, not deployed). Results, the checks that were run and the checks that still need a real browser / the deployed site are in `STATUS.md` and the implementer report. Planner: confirm against "Done when" after the owner has pushed, then queue P2-E.
+
 **Goal:** Remove the third-party font request, fix the shared-layout defects found in the 2026-09-20 review, and give the owner an exact, safe clean-up for the repo. No visual redesign, no content changes.
 
 **In scope**

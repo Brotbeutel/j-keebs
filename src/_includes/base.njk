@@ -17,7 +17,14 @@
     og_image        – Open Graph image URL
     extra_head      – additional <head> content (injected raw)
     page_class      – additional class on <body>
+    root_paths      – set to true ONLY for pages that are served at arbitrary depth
+                      (404.html, which GitHub Pages returns for /j-keebs/foo/bar).
+                      Every relative URL of the shared chrome then gets the base
+                      path from site.basePath as a prefix (root-absolute URLs).
+                      Do not use a <base> element for this: it breaks in-page
+                      anchors such as the skip link.
 -#}
+{%- set rp = site.basePath if root_paths else "" -%}
 <!DOCTYPE html>
 <html lang="{{ site.lang }}">
 <head>
@@ -33,8 +40,8 @@
             } catch (e) {}
         })();
     </script>
-    <link rel="icon" href="images/J-Keebs-Icon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/J-Keebs-Icon.ico">
+    <link rel="icon" href="{{ rp }}images/J-Keebs-Icon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ rp }}images/J-Keebs-Icon.ico">
 
     <!-- Open Graph & Social -->
     <meta property="og:title" content="{{ og_title or title }}">
@@ -49,10 +56,7 @@
     <meta name="twitter:image" content="{{ og_image }}">
     {%- endif %}
     <link rel="canonical" href="{{ canonical or og_url }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=Courier+Prime:wght@400;700&family=Playwrite+DE+Grund:wght@100..400&display=swap">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="{{ rp or './' }}style.css">
     {% if extra_head %}{{ extra_head | safe }}{% endif %}
     <title>{{ title }}</title>
 </head>
@@ -60,25 +64,25 @@
     <a class="skip-link" href="#main" data-i18n="utility.skiplink">Zum Inhalt springen</a>
 
     <header class="site-header">
-        <a class="brand" href="index.html" aria-label="J-Keebs Startseite" data-i18n-attr="aria-label:utility.brand.aria">
-            <img class="brand__logo" src="images/J-Keebs-Logo.png" alt="" width="1742" height="980" decoding="async">
+        <a class="brand" href="{{ rp }}index.html" aria-label="J-Keebs Startseite" data-i18n-attr="aria-label:utility.brand.aria">
+            <img class="brand__logo" src="{{ rp }}images/J-Keebs-Logo.png" alt="" width="1742" height="733" decoding="async">
             <span class="brand__name">J-Keebs</span>
         </a>
         <nav class="site-nav" id="siteNav" aria-label="Hauptnavigation" data-i18n-attr="aria-label:utility.nav.aria">
             {%- for item in site.nav %}
             {%- if item.dropdown %}
             <div class="nav-dropdown">
-                <a href="{{ item.href }}" class="nav-dropdown__trigger"{% if active_nav == item.href %} aria-current="page"{% endif %}>
+                <a href="{{ rp }}{{ item.href }}" class="nav-dropdown__trigger"{% if active_nav == item.href %} aria-current="page"{% endif %}>
                     <span data-i18n="{{ item.i18n }}">{{ item.label }}</span>
                 </a>
                 <div class="nav-dropdown__panel" id="guidesSubmenu">
                     {%- for sub in item.dropdown %}
-                    <a href="{{ sub.href }}" data-i18n="{{ sub.i18n }}">{{ sub.label }}</a>
+                    <a href="{{ rp }}{{ sub.href }}" data-i18n="{{ sub.i18n }}">{{ sub.label }}</a>
                     {%- endfor %}
                 </div>
             </div>
             {%- else %}
-            <a href="{{ item.href }}"{% if active_nav == item.href %} aria-current="page"{% endif %} data-i18n="{{ item.i18n }}">{{ item.label }}</a>
+            <a href="{{ rp }}{{ item.href }}"{% if active_nav == item.href %} aria-current="page"{% endif %} data-i18n="{{ item.i18n }}">{{ item.label }}</a>
             {%- endif %}
             {%- endfor %}
             <div class="utility-nav">
@@ -109,9 +113,9 @@
         <div class="site-footer__inner">
             <div class="footer-grid">
                 <div>
-                    <img class="footer-logo" src="images/J-Keebs-Logo.png" alt="J-Keebs" width="1742" height="980" loading="lazy" decoding="async">
+                    <img class="footer-logo" src="{{ rp }}images/J-Keebs-Logo.png" alt="J-Keebs" width="1742" height="733" loading="lazy" decoding="async">
                     <p data-i18n="footer.tagline">Custom Mechanical Keyboards, Modding und Upcycling mit Fokus auf deutsches ISO-Layout.</p>
-                    <p class="footer-credit"><a href="partner.html" data-i18n="footer.poweredBy">Powered by PCBWay</a></p>
+                    <p class="footer-credit"><a href="{{ rp }}partner.html" data-i18n="footer.poweredBy">Powered by PCBWay</a></p>
                     <div class="social-links" aria-label="Profile" data-i18n-attr="aria-label:utility.social.aria">
                         <a href="https://github.com/Brotbeutel" target="_blank" rel="noopener noreferrer" aria-label="GitHub-Profil von J-Keebs">
                             <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
@@ -124,36 +128,36 @@
                 <div>
                     <h3 data-i18n="footer.col1.heading">Entdecken</h3>
                     <ul>
-                        <li><a href="keyboards.html" data-i18n="nav.keyboards">Keyboards</a></li>
-                        <li><a href="switches.html" data-i18n="nav.switches">Switches</a></li>
-                        <li><a href="guides.html" data-i18n="nav.guides">Guides</a></li>
-                        <li><a href="guides.html#keycaps" data-i18n="nav.guides.keycaps">Keycaps</a></li>
-                        <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
-                        <li><a href="partner.html" data-i18n="nav.partner">Partner</a></li>
+                        <li><a href="{{ rp }}keyboards.html" data-i18n="nav.keyboards">Keyboards</a></li>
+                        <li><a href="{{ rp }}switches.html" data-i18n="nav.switches">Switches</a></li>
+                        <li><a href="{{ rp }}guides.html" data-i18n="nav.guides">Guides</a></li>
+                        <li><a href="{{ rp }}guides.html#keycaps" data-i18n="nav.guides.keycaps">Keycaps</a></li>
+                        <li><a href="{{ rp }}blog.html" data-i18n="nav.blog">Blog</a></li>
+                        <li><a href="{{ rp }}partner.html" data-i18n="nav.partner">Partner</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 data-i18n="footer.col2.heading">Community</h3>
                     <ul>
-                        <li><a href="faq.html" data-i18n="nav.faq">FAQ</a></li>
-                        <li><a href="about.html" data-i18n="nav.about">Über mich</a></li>
+                        <li><a href="{{ rp }}faq.html" data-i18n="nav.faq">FAQ</a></li>
+                        <li><a href="{{ rp }}about.html" data-i18n="nav.about">Über mich</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 data-i18n="footer.col3.heading">Kontakt</h3>
                     <ul>
                         <li><a href="mailto:jannik_schlueter@hotmail.de" data-i18n="footer.mail">E-Mail schreiben</a></li>
-                        <li><a href="contact.html" data-i18n="footer.contactpage">Kontaktseite</a></li>
+                        <li><a href="{{ rp }}contact.html" data-i18n="footer.contactpage">Kontaktseite</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p data-i18n="footer.copyright">&copy; 2026 J-Keebs. Alle Rechte vorbehalten.</p>
                 <nav aria-label="Rechtliches" data-i18n-attr="aria-label:utility.legalnav.aria">
-                    <a href="impressum.html" data-i18n="legal.impressum">Impressum</a>
-                    <a href="privacy.html" data-i18n="legal.datenschutz">Datenschutz</a>
-                    <a href="cookies.html" data-i18n="legal.cookies">Cookies</a>
-                    <a href="terms.html" data-i18n="legal.agb">AGB</a>
+                    <a href="{{ rp }}impressum.html" data-i18n="legal.impressum">Impressum</a>
+                    <a href="{{ rp }}privacy.html" data-i18n="legal.datenschutz">Datenschutz</a>
+                    <a href="{{ rp }}cookies.html" data-i18n="legal.cookies">Cookies</a>
+                    <a href="{{ rp }}terms.html" data-i18n="legal.agb">AGB</a>
                 </nav>
             </div>
         </div>
@@ -171,6 +175,6 @@
     </div>
 
     {% if page_script %}{{ page_script | safe }}{% endif %}
-    <script src="./main.js" defer></script>
+    <script src="{{ rp or './' }}main.js" defer></script>
 </body>
 </html>

@@ -4,7 +4,8 @@
 
 - **Source of truth:** `src/pages/*.njk`, `src/_includes/base.njk`, `src/_data/site.js`. `_site/` is generated and gitignored — never edit it. Build with `npm run build`, preview with `npm run dev` (served under `/j-keebs/`).
 - **Shared chrome** (head, theme boot script, header, language/theme toggles, footer, fullscreen overlay) lives in `base.njk`; nav items live in `site.js`. Change it there, once. If a change seems to require touching many page files, stop and check whether it belongs in the layout or in data.
-- **Front matter per page:** `layout`, `permalink` (must equal the public filename), `title`, `description`, `og_url`, `canonical`, `active_nav`; optional `og_image`, `extra_head`, `page_script`, `page_class`.
+- **Front matter per page:** `layout`, `permalink` (must equal the public filename), `title`, `description`, `og_url`, `canonical`, `active_nav`; optional `og_image`, `extra_head`, `page_script`, `page_class`, `root_paths`.
+- **Relative URLs and depth:** chrome and page URLs are relative (`index.html`, `images/…`, `./style.css`), which only works for pages served at their own filename. `404.html` is the one page GitHub Pages serves at any depth (`/j-keebs/foo/bar`): it sets `root_paths: true`, and `base.njk` then prefixes every chrome URL with `site.basePath`. **Do not use a `<base>` element** (it must precede URL-bearing elements and turns `#main` into a link to the homepage). Other pages must not set `root_paths`.
 - The page dictionary `window.J_KEEBS_I18N` goes into `page_script`. Shared UI strings live in `J_KEEBS_I18N_COMMON` (`main.js`); do not duplicate footer/nav keys in a page dictionary unless the page must override them.
 - Keep German visible text in the template as the no-JS source. Keep matching keys in the dictionary.
 - **German is the source of truth.** If DE and EN differ, DE is right (owner, 2026-09-20); fix EN, not DE. If the German HTML default and the German dictionary differ, ask the owner which wording is final.
@@ -26,6 +27,12 @@
 - Above-the-fold image: eager; everything else `loading="lazy"` and `decoding="async"`.
 - No large uncompressed photo dumps without asking. New photos: ≤ 1920 px wide.
 
+## Fonts
+
+- Fonts are **self-hosted**: woff2 files and their OFL licence texts in `fonts/` (provenance in `fonts/README.md`), `@font-face` blocks with `font-display: swap` at the top of `style.css`, copied to `_site/fonts/` by `eleventy.config.js`. Families: Libre Caslon Text (400, 400 italic, 700), IBM Plex Sans (400–700), Courier Prime (400, 700), Playwrite DE Grund (variable, 100–400).
+- Keep the `--font-*` tokens and their fallback stacks. To add a weight: add the woff2 (Latin subset) to `fonts/`, add an `@font-face`, keep the licence file next to it.
+- Never link Google Fonts or any other font CDN (see "What not to do").
+
 ## CSS / JS
 
 - Tokens live in `:root` (dark set) and `[data-theme="light"]` in `style.css`. Do not hardcode one-off hex in new components if a token exists.
@@ -43,7 +50,8 @@
 
 - No Astro, React or other framework. Eleventy is the approved and installed generator.
 - Never commit `node_modules/`, `_site/`, `.cursor/`, `content/` or secrets. (`node_modules/` and `.cursor/` are still tracked from earlier — see `BACKLOG.md` R2.)
-- No new third-party requests (fonts, CDNs, embeds, analytics) without a privacy check and an update of the privacy/cookie pages by the owner.
+- No new third-party requests (fonts, CDNs, embeds, analytics) without a privacy check and an update of the privacy/cookie pages by the owner. Fonts in particular are served from this site only.
 - Do not claim accessibility or performance wins in the README without a check.
 - Do not expand the guides listing with more empty cards.
 - Do not restore `main-original.js`.
+- Do not add a `<base>` element (see "Editing pages", relative URLs and depth).
