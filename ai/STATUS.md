@@ -5,7 +5,7 @@
 - **Repo:** https://github.com/Brotbeutel/j-keebs
 - **Owner:** Jannik Schlüter
 - **Planner:** dedicated planning chat; implementers use a **new** chat per work package
-- **Updated:** 2026-09-21 (P2-D done: committed as `38efe4f`, owner reports all checks positive; planner to queue P2-E)
+- **Updated:** 2026-09-21 (planner: P2-D re-verified on `2749621`, P2-E queued in `PLAN.md`)
 
 ## Snapshot
 
@@ -17,10 +17,14 @@ The site is **live** and deployed automatically: `.github/workflows/deploy.yml` 
 - `sitemap.xml` lists exactly the 20 canonical pages (all pages except `404.html`); canonicals match.
 - DE/EN dictionaries have full key parity (1146 entries, 0 missing keys). Two content drifts found (see BACKLOG R6, R7).
 
+**Planner re-check 2026-09-21 (fresh clone of `2749621`, `npm ci`, `npm run build`):** 21 pages, 50 assets copied, no error. `python scripts/check_links.py` → 21 pages, 969 references, 0 errors. P2-D confirmed at file level: no Google font reference in `_site` or `style.css`, 10 woff2 files in `_site/fonts`, logo attributes `1742×733` (header + footer), `404.html` uses root-absolute chrome URLs and no `<base>`, both PCBWay links carry `rel="noopener noreferrer sponsored"`, 0 files tracked under `node_modules/` and `.cursor/` (`.git` is still ~103 MB because history keeps the old blobs; not worth rewriting).
+
 **Known problems (details, severity and verify commands: `BACKLOG.md` → "Review 2026-09-20"):**
 - Image weight: 47 MB in `images/`, `keyboards.html` loads ~20 MB eagerly, logo PNG is 557 KB on every page (R3).
 - `Werkbank_Hero.jpg` has `width="526" height="1052"` in `index.njk`, the file is 526×1113 (rest of R4; the logo part is fixed in P2-D).
-- Homepage gallery DE dictionary contradicts the German HTML default; a placeholder "– ergänzen" is visible live (R6).
+- Remaining `width`/`height` attribute mismatches: `Werkbank_Hero.jpg` 526×1052 (file 526×1113), `G80-3000.jpg` 2000×1126 on the homepage (file 1920×1080), `Monsgeek M1.jpg` and `Monsgeek_M1_V5_EVA.jpg` on `keyboards.html`, `TOFU65_Mixed_Keycaps.jpg` 1920×1080 (file 1600×900), the J80 blog image 1920×1080 (file 3746×2107); solved by the pipeline in P2-E.
+- Homepage gallery DE dictionary contradicts the German HTML default; a placeholder "– ergänzen" is visible live (R6). **Still waiting for the owner's decision** which German title is final.
+- Repo hygiene: a stray curl cookie file `i` in the repo root and a byte-identical `ai/AGENTS.md` next to the root `AGENTS.md` (BACKLOG).
 
 **P2-D (done 2026-09-21, commit `38efe4f`):** R1 fonts self-hosted in `fonts/` (no Google request from any page), R2 `node_modules/` and `.cursor/` untracked (0 files tracked on `origin/main`), R4 logo part (`height="733"` in `base.njk`, header + footer), R5 404 without `<base>` (`root_paths: true` → root-absolute chrome URLs; works at `/j-keebs/foo/bar`), R8 PCBWay logo link `target="_blank" rel="noopener noreferrer sponsored"`. Implementer checks were file-level (build, `_site` diff, link/anchor check, dev-server 404 at a deep path, font embedding via a WeasyPrint render); the owner then ran the browser and live checks from `PLAN.md` "Done when" and reported all positive. The implementer did not independently re-check the live site (GitHub API rate-limited, `web_fetch` does not show `<head>`); `origin/main` was compared byte for byte with the delivered files.
 
@@ -33,7 +37,8 @@ The site is **live** and deployed automatically: `.github/workflows/deploy.yml` 
 - [x] P2-A — polish, done and deployed
 - [x] P2-B / P2-C — Eleventy migration, done and deployed (2026-09-18/19)
 - [x] P2-D — repo hygiene, self-hosted fonts, base-layout fixes — done and deployed (`38efe4f`, owner-checked 2026-09-21)
-- [ ] P2-E — image pipeline
+- [ ] **P2-E — image pipeline** ← current package (see `PLAN.md`)
+- [ ] P2-E2 — icons and social previews (BACKLOG R9)
 - [ ] P2-F — Eleventy data model (computed URLs, i18n data, blog collection, generated sitemap)
 - [ ] P2-remaining — a11y items
 - [ ] Owner (optional): lawyer review of Art. 6 Abs. 1 lit. f DSGVO for the auto-loading map
@@ -67,13 +72,14 @@ The site is **live** and deployed automatically: `.github/workflows/deploy.yml` 
 | Contact | FormSubmit (AJAX + no-JS fallback) |
 | Map | OpenStreetMap iframe, auto-loading, desaturated until hover/focus |
 | Fonts | Self-hosted woff2 in `fonts/` (passthrough), `@font-face` in `style.css`; no third-party font request |
-| Images | `images/` (root, passthrough) |
+| Images | `images/` (root, passthrough, originals). P2-E adds generated WebP in `_site/img/` |
+| Scripts | `scripts/check_links.py [dir]` (links, anchors, assets, srcset, 404 at depth), `scripts/tag_balance.py <dir>` (tag balance); Python 3 |
 
 ## Target architecture
 
 | Piece | Direction |
 | --- | --- |
 | Generator | Eleventy; next: use it for data (computed canonical/og URLs, i18n data files, blog collection, sitemap) |
-| Images | Build-time resize/WebP/srcset (`@11ty/eleventy-img`) — P2-E |
+| Images | Build-time resize/WebP/srcset (`@11ty/eleventy-img` 7.x, needs Node ≥ 22) — P2-E; icons and social images — P2-E2 |
 | Fonts | Self-hosted woff2, no third-party font requests — done in P2-D |
 | Later option | Static DE/EN output instead of client-side-only i18n (decision needed, see `DECISIONS.md` 2026-09-01 "revisit with SSG"); Astro only if richer islands are needed |

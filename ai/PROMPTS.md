@@ -15,7 +15,7 @@ The site is built with Eleventy: edit src/ (and style.css / main.js / images/ at
 
 If you discover a new issue, record it in ai/BACKLOG.md under the appropriate priority and continue the current package. Do not pull it into the current implementation.
 
-When done: run npm run build (21 pages, no errors); run the checks from ai/CONVENTIONS.md "Verification" plus every "Done when" item of the package, with the exact commands and results in your report; update ai/STATUS.md and ai/BACKLOG.md; list changed files and any owner steps (e.g. git commands). Do not claim live deployment without a deployed-site check.
+When done: run npm run build (21 pages, no errors); run the checks from ai/CONVENTIONS.md "Verification" plus every "Done when" item of the package, with the exact commands and results in your report; update ai/STATUS.md and ai/BACKLOG.md; list changed files and any owner steps (e.g. git commands). Owner steps and owner checks must be PowerShell commands (see ai/CONVENTIONS.md, "Commands for the owner"). Do not claim live deployment without a deployed-site check.
 ```
 
 ## Planner: after current package

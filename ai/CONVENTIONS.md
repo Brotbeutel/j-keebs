@@ -19,7 +19,23 @@
 - `npm run build` must finish without errors (21 pages).
 - Unprefixed absolute URLs: `grep -rn "brotbeutel.github.io/" _site --include="*.html" --include="*.xml" --include="*.txt" | grep -v "brotbeutel.github.io/j-keebs"` must be empty.
 - Broken internal links / assets: check every `href`/`src` in `_site/*.html` against `_site/` (URL-decode `%20`), and every `#anchor` against the target page's IDs.
+- Scripts (Python 3, standard library only): `python scripts/check_links.py _site` checks every `href`/`src`/`srcset`, URL-decoded, against `_site/`, every `#anchor` against the target page's IDs, CSS `url()` references, and re-resolves `404.html` at deep paths; `python scripts/tag_balance.py _site` reports unbalanced tags. Both must report no problems.
 - Do not claim a live result without checking the deployed site after the push.
+
+## Commands for the owner
+
+The owner works in **Windows PowerShell**. Every owner step and every check the owner is supposed to run must be given as a PowerShell command. No `curl` (in PowerShell it is an alias of `Invoke-WebRequest` and behaves differently; use `Invoke-WebRequest` or `Select-String`, or a browser). No `grep`, `wc`, `head`, `&&`. Typical equivalents:
+
+| Task | PowerShell |
+| --- | --- |
+| Search text in built pages | `Select-String -Path _site\*.html -Pattern 'text' -SimpleMatch` |
+| Count matches | `(Select-String -Path _site\*.html -Pattern 'text' -SimpleMatch).Count` |
+| Size of a folder | `"{0:N1} MB" -f ((Get-ChildItem _site\img -File -Recurse \| Measure-Object Length -Sum).Sum / 1MB)` |
+| Largest files | `Get-ChildItem _site\img -File \| Sort-Object Length -Descending \| Select-Object -First 5 Name, Length` |
+| Files tracked by git | `(git ls-files node_modules).Count` |
+| Chain commands | separate lines, or `;` (not `&&`) |
+
+Implementers may use their own (bash) tooling for their own checks, but the handoff must give the owner the PowerShell version.
 
 ## Images
 
