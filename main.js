@@ -535,8 +535,9 @@ window.J_KEEBS_I18N_COMMON = {
                 });
             }
 
-            // Update fullscreen image
-            fullscreenImg.src = active.src;
+            // Update fullscreen image (data-full = widest generated srcset
+            // candidate; active.src is only the mid-size file since P2-E)
+            fullscreenImg.src = active.dataset.full || active.src;
             fullscreenImg.alt = active.alt || "";
 
             // Update caption from parent polaroid

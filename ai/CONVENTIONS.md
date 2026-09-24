@@ -19,7 +19,7 @@
 - `npm run build` must finish without errors (21 pages).
 - Unprefixed absolute URLs: `grep -rn "brotbeutel.github.io/" _site --include="*.html" --include="*.xml" --include="*.txt" | grep -v "brotbeutel.github.io/j-keebs"` must be empty.
 - Broken internal links / assets: check every `href`/`src` in `_site/*.html` against `_site/` (URL-decode `%20`), and every `#anchor` against the target page's IDs.
-- Scripts (Python 3, standard library only): `python scripts/check_links.py _site` checks every `href`/`src`/`srcset`, URL-decoded, against `_site/`, every `#anchor` against the target page's IDs, CSS `url()` references, and re-resolves `404.html` at deep paths; `python scripts/tag_balance.py _site` reports unbalanced tags. Both must report no problems.
+- Scripts (Python 3, standard library only): `python scripts/check_links.py _site` checks every `href`/`src`/`srcset`, URL-decoded, against `_site/`, every `#anchor` against the target page's IDs, CSS `url()` references, and re-resolves `404.html` at deep paths; `python scripts/tag_balance.py _site` reports unbalanced tags. Both must report no problems. `python scripts/img_report.py` prints a before/after bytes-per-page table for the image pipeline (static file-size approximation, not a network trace — see its docstring).
 - Do not claim a live result without checking the deployed site after the push.
 
 ## Commands for the owner
@@ -39,9 +39,26 @@ Implementers may use their own (bash) tooling for their own checks, but the hand
 
 ## Images
 
-- Gallery and blog photos are 16:9, mostly 1920×1080 (owner, 2026-09-20). Set `width`/`height` from the **real file** anyway. Known non-16:9 files: `Werkbank_Hero.jpg` (526×1113), `J-Keebs-Logo.png` (1742×733), `Retro-PC_pixelart_generated.png` (64×64), `J-Keebs-Icon.ico`, `mechanicon_logo.png`.
-- Above-the-fold image: eager; everything else `loading="lazy"` and `decoding="async"`.
+- Gallery and blog photos are 16:9, mostly 1920×1080 (owner, 2026-09-20). Known non-16:9 files: `Werkbank_Hero.jpg` (526×1113), `J-Keebs-Logo.png` (1742×733), `Retro-PC_pixelart_generated.png` (64×64), `J-Keebs-Icon.ico`, `mechanicon_logo.png`.
 - No large uncompressed photo dumps without asking. New photos: ≤ 1920 px wide.
+- **Requires Node ≥ 22** (`@11ty/eleventy-img`'s requirement; `node -v` to check).
+
+### Build-time image pipeline (P2-E, since 2026-09-23)
+
+Every `<img src="images/….jpg|.jpeg|.png">` in `src/pages/*.njk` / `src/_includes/base.njk` is rewritten at build time by the `imagePipeline` transform in `eleventy.config.js` — **write plain HTML in templates, nothing else to do:**
+
+```html
+<img src="images/My-New-Photo.jpg" alt="…" title="…">
+```
+
+The transform (not the ready-made `eleventyImageTransformPlugin` — it can't resolve `images/…` at the repo root; not a Nunjucks shortcode either, to keep templates plain HTML) generates WebP with `@11ty/eleventy-img`, writes them to `_site/img/` (hashed filenames, never committed), and replaces the tag's `src`/`width`/`height` with a `srcset`, a `sizes`, and a `data-full` attribute (widest candidate, used by `main.js` for a sharp fullscreen image). Every other attribute (`class`, `alt`, `title`, `data-slide`, `data-i18n-attr`, …) is kept as-is.
+
+- **Widths:** photos 640/1280/1920px; the three logos (`J-Keebs-Logo.png`, `OWA_Labs_Logo.png`, `PCBWay_Logo.png`) 240/480px. Never enlarged — eleventy-img drops any requested width above the source's real width.
+- **Quality:** WebP q78 (logos q75 — `OWA_Labs_Logo.png`'s 480px file was ~1KB over the 25KB cap at q78; a few quality points cost nothing and are invisible on flat logo art. Do **not** reach for `effort: 6` for this kind of saving — it costs ~4.6s *per file*, not milliseconds).
+- **Excluded** (untouched, no `data-no-optimize` needed): `Retro-PC_pixelart_generated.png`, `mechanicon_logo.png`. To exclude any other single image, add `data-no-optimize` to its `<img>` tag (stripped from the output, tag left otherwise unchanged).
+- **`sizes`:** looked up by usage context in `eleventy.config.js`'s `SIZES_BY_CONTEXT` (gallery / single-polaroid / blog-featured / blog-teaser / partner-logo / header-logo / footer-logo / the one-off `Werkbank_Hero.jpg` hero). Context is detected from the `<img>`'s own attributes (`data-slide`, `class`) where possible, otherwise from the nearest preceding `<figure class="…">` in the rendered HTML. **A new reusable image component needs a new context**: add its class to `detectContext()` and a matching entry to `SIZES_BY_CONTEXT` — don't let it fall through to the `"100vw"` default. The current values were computed from `style.css` at 375/768/1280/1920px (no browser available in the sandbox that built P2-E); see `ai/STATUS.md` for the derivation and get a real DevTools measurement before trusting them for a very different layout.
+- **Loading policy:** the transform picks it automatically — the first non-logo processed `<img>` in a page's rendered document order gets `loading="eager" fetchpriority="high"`, every later one `loading="lazy" decoding="async"`. Logos are excluded from this and keep whatever the template already says (header logo: no attribute = implicit eager; footer/partner logos: `loading="lazy"`). So: **don't hand-set `loading`/`fetchpriority` on a processed `<img>`** — reordering content on the page changes which image "wins" automatically. If a page ever needs a *different* image to be the eager one than "the first one in the HTML", reorder the markup rather than fighting the transform.
+- `images/` itself stays a passthrough copy (`eleventy.config.js`) — old absolute URLs (`og:image`, external hotlinks) keep working unchanged.
 
 ## Fonts
 

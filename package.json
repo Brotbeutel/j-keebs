@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Brotbeutel/j-keebs#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.6"
+    "@11ty/eleventy": "^3.1.6",
+    "@11ty/eleventy-img": "^7.0.0"
   }
 }

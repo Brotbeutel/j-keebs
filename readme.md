@@ -21,7 +21,7 @@ Portfolio site for custom mechanical keyboards, modding and upcycling, with a fo
 │   ├── pages/            # one .njk template per page (21 pages, blog posts included)
 │   ├── _includes/base.njk# shared layout: head, header, nav, footer, fullscreen overlay
 │   └── _data/site.js     # site data and navigation
-├── images/               # photography and logos (copied as is)
+├── images/               # original photography and logos (copied as is; build also derives resized WebP into _site/img/, see ai/CONVENTIONS.md "Images")
 ├── fonts/                # self-hosted woff2 fonts + OFL licences (copied as is)
 ├── style.css             # all styles (tokens in :root and [data-theme="light"])
 ├── main.js               # theme, i18n, gallery, nav, contact form
@@ -36,7 +36,7 @@ Portfolio site for custom mechanical keyboards, modding and upcycling, with a fo
 
 ## Development
 
-Requires Node.js 18 or newer (CI uses 22).
+Requires Node.js 22 or newer (`@11ty/eleventy-img` needs it; CI uses 22 too — check with `node -v`).
 
 ```
 npm ci            # install
