@@ -10,11 +10,11 @@
     og_type         – Open Graph type (defaults to "website")
     og_url          – Full canonical URL
     canonical       – Canonical URL (defaults to og_url)
-    twitter_card    – twitter:card value (defaults to "summary")
+    twitter_card    – twitter:card value (defaults to "summary_large_image")
     active_nav      – filename of the current page for aria-current (e.g. "about.html")
 
   Optional front-matter:
-    og_image        – Open Graph image URL
+    og_image        – Open Graph image URL (defaults to site default 1200x630 card)
     extra_head      – additional <head> content (injected raw)
     page_class      – additional class on <body>
     root_paths      – set to true ONLY for pages that are served at arbitrary depth
@@ -41,20 +41,21 @@
         })();
     </script>
     <link rel="icon" href="{{ rp }}images/J-Keebs-Icon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="{{ rp }}images/J-Keebs-Icon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ rp }}images/apple-touch-icon.png">
 
     <!-- Open Graph & Social -->
+    <meta property="og:site_name" content="J-Keebs">
     <meta property="og:title" content="{{ og_title or title }}">
     <meta property="og:description" content="{{ og_description or description }}">
     <meta property="og:type" content="{{ og_type or 'website' }}">
     <meta property="og:url" content="{{ og_url }}">
     <meta property="og:locale" content="en_US">
-    <meta name="twitter:card" content="{{ twitter_card or 'summary' }}">
+    <meta name="twitter:card" content="{{ twitter_card or 'summary_large_image' }}">
     <meta name="twitter:title" content="{{ og_title or title }}">
-    {%- if og_image %}
-    <meta property="og:image" content="{{ og_image }}">
-    <meta name="twitter:image" content="{{ og_image }}">
-    {%- endif %}
+    <meta name="twitter:description" content="{{ og_description or description }}">
+    {%- set social_image = og_image or (site.url ~ "/images/og-preview.jpg") %}
+    <meta property="og:image" content="{{ social_image }}">
+    <meta name="twitter:image" content="{{ social_image }}">
     <link rel="canonical" href="{{ canonical or og_url }}">
     <link rel="stylesheet" href="{{ rp or './' }}style.css">
     {% if extra_head %}{{ extra_head | safe }}{% endif %}
