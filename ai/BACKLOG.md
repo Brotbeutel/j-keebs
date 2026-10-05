@@ -2,24 +2,13 @@
 
 Check items when done. Move completed items into a short "Done" note at the bottom with the date. Do not delete context that a later agent still needs.
 
-## P2-E2 — Icons and social previews (current package)
-
-- [ ] Create a 1200×630 default social preview image for `og:image`
-- [ ] Set default `og:image` in `base.njk`; let pages with specific images override
-- [ ] Fix homepage/keyboards `og:image` (currently portrait `Werkbank_Hero.jpg`)
-- [ ] Generate 180×180 PNG `apple-touch-icon` and update `base.njk`
-- [ ] Add `og:site_name` to `base.njk`
-- [ ] Add `twitter:description` to `base.njk`
-- [ ] Improve meta descriptions on legal/contact pages (aim for 50–160 chars)
-- [ ] Ensure `og:image` URLs are absolute and reference JPEG/PNG originals
-
 ## Review findings (from 2026-09-20) — still open
 
 | ID | Finding | Status |
 | --- | --- | --- |
 | R6 | Homepage gallery DE dict contradicts HTML default; placeholder "– ergänzen" visible | Owner decision needed → P3 |
 | R7 | Blog J80-3000 contradicts homepage timeline ("does not type" vs "voll funktionsfähig") | Owner (content) |
-| R9 | Meta/icon gaps: og:image, apple-touch-icon, twitter:description, og:site_name | **P2-E2** |
+| R9 | Meta/icon gaps: og:image, apple-touch-icon, twitter:description, og:site_name | **Done in git (`fe9c140`); live Pages not yet confirmed** |
 | R10 | `mechanicon_logo.png` unused; filenames with spaces/uppercase extensions | Owner decision |
 | R11 | Typos in German copy | Owner (content) |
 
@@ -68,8 +57,14 @@ Check items when done. Move completed items into a short "Done" note at the bott
 - [ ] Glyphs outside Latin subset (`← → ↗ ✓ ✕`) fall back to system fonts
 - [ ] `_site/fonts/README.md` is published (harmless)
 
+## Found during P2-E2 (low priority, not blocking)
+
+- [ ] Unused draft social cards `images/card_v1.jpg` and `images/card_v2.jpg` are passthrough-copied into `_site/` and not referenced by templates. Delete or keep as design archive — owner call.
+- [ ] `scripts/generate_social_assets.js` regenerates `og-preview.jpg` / `apple-touch-icon.png` but imports `sharp`, which is not in `package.json`. Do not add a dependency unless the owner wants a repeatable generator.
+
 ## Done
 
+- 2026-10-05 — P2-E2: default 1200×630 `og-preview.jpg`, 180×180 `apple-touch-icon.png`, `og:site_name` + `twitter:description` in `base.njk`, legal/contact meta descriptions 50–160 chars (`fe9c140`). Local build 21 pages / 0 link errors. Live Pages still old at verification time.
 - 2026-10-05 — Planner: verified P2-E committed and deployed (`1a9325f`). Build 21 pages, 0 errors, 78 WebP files / 7.0 MB. Stray files removed (`e11d90c`). AI files updated. P2-E2 scoped.
 - 2026-09-23 — P2-E image pipeline: `imagePipeline` transform in `eleventy.config.js`, WebP srcset/sizes/width/height/data-full on all processed images, 95% reduction in image bytes.
 - 2026-09-21 — P2-D: self-hosted fonts, logo fix 1742×733, 404 without `<base>`, PCBWay `rel=sponsored`.

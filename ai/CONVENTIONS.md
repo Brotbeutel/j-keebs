@@ -39,7 +39,7 @@ Implementers may use their own (bash) tooling for their own checks, but the hand
 
 ## Images
 
-- Gallery and blog photos are 16:9, mostly 1920×1080 (owner, 2026-09-20). Known non-16:9 files: `Werkbank_Hero.jpg` (526×1113), `J-Keebs-Logo.png` (1742×733), `Retro-PC_pixelart_generated.png` (64×64), `J-Keebs-Icon.ico`, `mechanicon_logo.png`.
+- Gallery and blog photos are 16:9, mostly 1920×1080 (owner, 2026-09-20). Known non-16:9 files: `Werkbank_Hero.jpg` (526×1113), `J-Keebs-Logo.png` (1742×733), `Retro-PC_pixelart_generated.png` (64×64), `J-Keebs-Icon.ico`, `mechanicon_logo.png`, `og-preview.jpg` (1200×630), `apple-touch-icon.png` (180×180).
 - No large uncompressed photo dumps without asking. New photos: ≤ 1920 px wide.
 - **Requires Node ≥ 22** (`@11ty/eleventy-img`'s requirement; `node -v` to check).
 
@@ -59,6 +59,7 @@ The transform (not the ready-made `eleventyImageTransformPlugin` — it can't re
 - **`sizes`:** looked up by usage context in `eleventy.config.js`'s `SIZES_BY_CONTEXT` (gallery / single-polaroid / blog-featured / blog-teaser / partner-logo / header-logo / footer-logo / the one-off `Werkbank_Hero.jpg` hero). Context is detected from the `<img>`'s own attributes (`data-slide`, `class`) where possible, otherwise from the nearest preceding `<figure class="…">` in the rendered HTML. **A new reusable image component needs a new context**: add its class to `detectContext()` and a matching entry to `SIZES_BY_CONTEXT` — don't let it fall through to the `"100vw"` default. The current values were computed from `style.css` at 375/768/1280/1920px (no browser available in the sandbox that built P2-E); see `ai/STATUS.md` for the derivation and get a real DevTools measurement before trusting them for a very different layout.
 - **Loading policy:** the transform picks it automatically — the first non-logo processed `<img>` in a page's rendered document order gets `loading="eager" fetchpriority="high"`, every later one `loading="lazy" decoding="async"`. Logos are excluded from this and keep whatever the template already says (header logo: no attribute = implicit eager; footer/partner logos: `loading="lazy"`). So: **don't hand-set `loading`/`fetchpriority` on a processed `<img>`** — reordering content on the page changes which image "wins" automatically. If a page ever needs a *different* image to be the eager one than "the first one in the HTML", reorder the markup rather than fighting the transform.
 - `images/` itself stays a passthrough copy (`eleventy.config.js`) — old absolute URLs (`og:image`, external hotlinks) keep working unchanged.
+- **Social preview tags** use the JPEG/PNG originals in `images/`, never the generated WebP in `img/`. Default card: `images/og-preview.jpg` (1200×630). `apple-touch-icon` is `images/apple-touch-icon.png` (180×180). Pages may set `og_image` in front matter; otherwise `base.njk` uses `site.url + "/images/og-preview.jpg"`.
 
 ## Fonts
 

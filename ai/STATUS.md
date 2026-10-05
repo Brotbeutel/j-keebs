@@ -9,29 +9,38 @@
 
 ## Snapshot
 
-The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → upload `_site/` → GitHub Pages). Working tree is clean and up-to-date with `origin/main`.
+The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → upload `_site/` → GitHub Pages). Working tree is clean and up-to-date with `origin/main` at `fe9c140`.
 
-**Everything through P2-E is done and deployed:**
+**Everything through P2-E2 is in git (`fe9c140` on `origin/main`). Live Pages was still the pre-P2-E2 HTML as of 2026-10-05 22:55 CEST** (homepage `og:image` still `Werkbank_Hero.jpg`; `images/og-preview.jpg` and `images/apple-touch-icon.png` 404 on the live host). Do not treat P2-E2 as live until those URLs return 200 with the new tags.
+
+**Done in source through P2-E2:**
 - P0/P0-B/P0-C — URL fixes, English slugs, base path
 - P1/P1-A/P1-B — contact form, brand assets, about page, OWA LABS, guide taxonomy
 - P2-A — interaction/visual polish (map, fullscreen controls, homepage)
 - P2-B/P2-C — Eleventy migration (21 pages on `base.njk`, GitHub Actions CI/CD)
 - P2-D — self-hosted fonts, logo fix, 404 layout, PCBWay `rel=sponsored`
 - P2-E — build-time image pipeline (WebP srcset/sizes, eager/lazy policy)
+- P2-E2 — default 1200×630 `images/og-preview.jpg`, 180×180 `images/apple-touch-icon.png`, `og:site_name`, `twitter:description`, longer legal/contact meta descriptions (`fe9c140`)
 
-**Verified 2026-10-05 (planner):**
-- `npm run build` → 21 pages, 50 assets, 5.78s (warm). No errors.
-- `python scripts/check_links.py _site` → 1195 references, 0 errors.
-- `_site/img/` → 78 WebP files, 7.0 MB total (95% reduction from 47 MB originals).
-- Stray files (`i`, `ai/AGENTS.md`) confirmed removed (commit `e11d90c`).
-- `git status` → clean, up-to-date with `origin/main`.
+**Verified 2026-10-05 (P2-E2 implementer, local `_site/`):**
+- `npm run build` → Copied 54, Wrote 21 files, 0.61s (warm). No errors. Node v24.19.0.
+- `python scripts/check_links.py _site` → pages 21, references 1195, errors 0.
+- `python scripts/tag_balance.py _site` → pages 21, problems 0.
+- Unprefixed `brotbeutel.github.io/` (missing `/j-keebs/`) in `_site` HTML/XML/TXT → empty.
+- Default social image `images/og-preview.jpg` is 1200×630 JPEG (59 KB).
+- `images/apple-touch-icon.png` is 180×180 PNG (18 KB).
+- All 21 built pages have `og:image` (absolute JPEG/PNG under `/j-keebs/images/…`, not `_site/img/` WebP), `og:site_name` (J-Keebs), and `twitter:description`.
+- Legal/contact `description` lengths: contact 152, cookies 146, impressum 156, privacy 151, terms 156 (all 50–160).
+- Blog/article `og:image` files are landscape (~16:9); homepage/keyboards no longer use portrait `Werkbank_Hero.jpg` for OG.
+- Live check: homepage 200 but still old chrome; `https://brotbeutel.github.io/j-keebs/images/og-preview.jpg` 404.
 
 **Still open:**
 - R6: Homepage gallery DE dictionary contradicts the German HTML default; placeholder "– ergänzen" visible live. **Owner decision needed** on which German title is final.
-- R9: `og:image` missing on 10 pages; apple-touch-icon is a 238 KB `.ico`; no `twitter:description` or `og:site_name`.
 - Contact form: live browser test (submit with JS on + JS off) still not done.
 - Dual-theme brand logos: owner request not yet scoped.
 - Gallery a11y: cheat-sheet toggle vs fullscreen both bind to the polaroid.
+- Unused draft cards `images/card_v1.jpg` / `images/card_v2.jpg` (see BACKLOG).
+- `scripts/generate_social_assets.js` needs `sharp`, which is not an npm dependency.
 
 ## In flight
 
@@ -41,8 +50,8 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - [x] P2-B / P2-C — Eleventy migration, done and deployed
 - [x] P2-D — fonts, logo, 404, PCBWay — done and deployed
 - [x] P2-E — image pipeline — done and deployed (`1a9325f`)
-- [ ] **P2-E2 — icons and social previews** ← next package
-- [ ] P2-F — Eleventy data model (computed URLs, i18n data, blog collection, generated sitemap)
+- [x] **P2-E2 — icons and social previews** — in git (`fe9c140`); **not confirmed live**
+- [ ] P2-F — Eleventy data model (computed URLs, i18n data, blog collection, generated sitemap) ← next (planner)
 - [ ] P2-remaining — a11y items
 - [ ] Owner (optional): lawyer review of Art. 6 Abs. 1 lit. f DSGVO for auto-loading map
 
@@ -52,6 +61,7 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - **Fonts are self-hosted** (`fonts/` → `_site/fonts/`). Never add Google Fonts back.
 - **The 404 page uses `root_paths: true`** (root-absolute chrome URLs). Do not reintroduce `<base>`.
 - **Images go through the build-time pipeline.** Templates write plain `<img src="images/…">`, the `imagePipeline` transform in `eleventy.config.js` rewrites them to WebP `srcset`/`sizes`/`width`/`height`/`data-full`. Do not add `<picture>` wrappers. See `ai/CONVENTIONS.md` "Images".
+- **`og:image` / `twitter:image` stay on JPEG/PNG originals in `images/`** (default `images/og-preview.jpg`). Do not point social tags at `_site/img/` WebP.
 - **German is the source of truth.** If DE and EN differ, DE is right.
 - The site is a GitHub Pages *project* page under `/j-keebs/`. Every absolute URL must include it.
 - English is the confirmed default (`lang="en"`, `DEFAULT_LANG = "en"`). Visible copy stays German. Intentional.
@@ -72,5 +82,5 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 | Contact | FormSubmit (AJAX + no-JS fallback) |
 | Map | OpenStreetMap iframe, auto-loading, desaturated until hover/focus |
 | Fonts | Self-hosted woff2 in `fonts/` |
-| Images | `images/` (originals, passthrough) + `_site/img/` (generated WebP, build-time) |
-| Scripts | `scripts/check_links.py`, `scripts/tag_balance.py`, `scripts/img_report.py` (Python 3) |
+| Images | `images/` (originals, passthrough) + `_site/img/` (generated WebP, build-time). Social default: `images/og-preview.jpg`. Touch icon: `images/apple-touch-icon.png`. |
+| Scripts | `scripts/check_links.py`, `scripts/tag_balance.py`, `scripts/img_report.py` (Python 3); `scripts/generate_social_assets.js` (needs `sharp`, not in `package.json`) |
