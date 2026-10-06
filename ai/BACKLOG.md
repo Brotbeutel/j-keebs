@@ -6,10 +6,10 @@ Check items when done. Move completed items into a short "Done" note at the bott
 
 | ID | Finding | Status |
 | --- | --- | --- |
-| R6 | Homepage gallery DE dict contradicts HTML default; placeholder "– ergänzen" visible | Owner decision needed → P3 |
-| R7 | Blog J80-3000 contradicts homepage timeline ("does not type" vs "voll funktionsfähig") | Owner (content) |
-| R9 | Meta/icon gaps: og:image, apple-touch-icon, twitter:description, og:site_name | **Done in git (`fe9c140`); live Pages re-checked 2026-10-05, still not live — see `STATUS.md`** |
-| R10 | `mechanicon_logo.png` unused; filenames with spaces/uppercase extensions | Confirmed 2026-10-05: `mechanicon_logo.png` has zero references anywhere in `src/`, `main.js`, `style.css`. `images/Monsgeek M1.jpg`, `images/Keychron Q3_1.JPG`, `images/Keychron Q3_2.JPG` have spaces/uppercase extensions and ARE used in `src/pages/keyboards.njk`. Owner decision → P3 |
+| R6 | Homepage gallery DE dict contradicts HTML default; placeholder "– ergänzen" visible | **Resolved by owner 2026-10-06; implement index correction package** |
+| R7 | Blog J80-3000 describes the earlier failure without clearly marking it as historical, while the current state is fully functional and programmable with VIA | **Owner resolved factual state 2026-10-06; content wording still needs a later historical-context edit** |
+| R9 | Meta/icon gaps: og:image, apple-touch-icon, twitter:description, og:site_name | **Done and confirmed live 2026-10-06; see `STATUS.md`** |
+| R10 | `mechanicon_logo.png` unused; filenames with spaces/uppercase extensions | **Mechanicon logo retained for a future blog article (owner decision 2026-10-06).** The three oddly named image files remain referenced by `src/pages/keyboards.njk`; rename only with a matching template update. |
 | R11 | Typos in German copy | Owner (content) |
 
 ## Eleventy structure debt (P2-F, split 2026-10-05 planner review)
@@ -31,12 +31,12 @@ Check items when done. Move completed items into a short "Done" note at the bott
 **Unscheduled (small, independent — pick up opportunistically):**
 - [ ] `robots.txt`: **planner decision 2026-10-05 — not worth generating.** It's 4 static lines with one URL in it; a template would cost more than it saves. Leave it a hand-maintained passthrough file (see `DECISIONS.md`).
 - [ ] Asset layout: pages in `src/`, assets in repo root — consider `src/assets/` (purely cosmetic reorg, no behavior change; do after F2/F3 so it doesn't collide with their file moves)
-- [ ] CI improvements: link/asset check step, `paths-ignore` for `ai/*.md` (every push — including doc-only `ai/*.md` edits — currently triggers a full build+deploy), optional cache-busting
+- [ ] CI improvements: add link/tag checks (owner approved); separately consider `paths-ignore` for `ai/*.md` and optional cache-busting
 
 ## Pending owner decisions/requests
 
-- [ ] **Dual-theme brand logos:** separate logo/icon assets for light and dark mode
-- [ ] **R6:** Which German gallery title is final ("Der Garagenfund" vs "Cherry G80-3000")? Proposed default in `STATUS.md` — confirm or correct.
+- [x] **Dual-theme brand logos:** owner withdrew this request 2026-10-06; do not scope separate light/dark assets
+- [x] **R6 decision:** index gallery features `Cherry G80-3000` and `YMDK68`; `YMDK68` switches are `Kailh Box Jade`; `Der Garagenfund` is reserved for a future blog article
 - [ ] **Client-side vs static DE/EN:** `DECISIONS.md` said "revisit when adding SSG". Option: static `/` (DE) and `/en/` output
 
 ## P2-remaining — a11y
@@ -46,9 +46,10 @@ Check items when done. Move completed items into a short "Done" note at the bott
 ## P3 — content and hygiene
 
 - [x] Documentation honesty: `readme.md` and `ai/README.md` now match the actual Eleventy data layout, i18n convention, blog navigation, Node requirement, image pipeline, and intentional client-side language behavior
-- [ ] Fill or remove gallery placeholders (R6, after owner decision)
-- [ ] Guides: finish or hide pending cards
+- [x] Update index gallery title/project data and replace the YMDK68 switch placeholder with `Kailh Box Jade` (local implementation complete; deployment pending)
+- [ ] Guides: keep pending cards visible as WIP until official launch; then finish or hide each remaining card
 - [ ] Rewrite or unpublish non-original blog text
+- [ ] R7 content pass: make the earlier J80-3000 failure clearly historical and preserve the current fully functional/VIA status
 - [ ] Consider dropping AGB if nothing is sold
 - [ ] Link checker in CI (see P2-F)
 
@@ -56,7 +57,7 @@ Check items when done. Move completed items into a short "Done" note at the bott
 
 - [x] Featured project links work
 - [ ] Blog posts that are not original are rewritten or unpublished
-- [ ] Guides has at least one finished guide per category, or pending cards removed
+- [ ] At official launch: Guides has at least one finished guide per category, or pending cards are removed
 - [ ] Visible placeholders removed (R6)
 - [x] No undisclosed third-party requests (R1 — fonts self-hosted)
 
@@ -70,7 +71,7 @@ Check items when done. Move completed items into a short "Done" note at the bott
 ## Found during P2-E2 (low priority, not blocking)
 
 - [ ] Unused draft social cards `images/card_v1.jpg` and `images/card_v2.jpg` are passthrough-copied into `_site/` and not referenced by templates. Delete or keep as design archive — owner call.
-- [ ] `scripts/generate_social_assets.js` regenerates `og-preview.jpg` / `apple-touch-icon.png` but imports `sharp`, which is not in `package.json`. Do not add a dependency unless the owner wants a repeatable generator.
+- [ ] Add direct `sharp` dependency for maintained `scripts/generate_social_assets.js` (owner approved; keep separate from website content work)
 
 ## Found during P2-F1 (low priority, not blocking)
 
@@ -85,11 +86,17 @@ Check items when done. Move completed items into a short "Done" note at the bott
 
 ## Found during P3 (low priority, not blocking)
 
-- [ ] Handoff Markdown files use CRLF line endings, so `git diff --check` reports trailing-whitespace markers on changed documentation lines and existing planner changes. Normalize line endings in a dedicated documentation-hygiene change; do not mix it into website packages.
+- [x] Handoff Markdown files normalized to LF in the documentation-hygiene change; `git diff --check` is now reliable.
+
+## Mobile interaction
+
+- [x] Contact map: persist saturation for the active touch card and clear it on outside touch (`main.js`, `style.css`); local checks pass, deployment/device verification pending.
 
 ## Done
 
-- 2026-10-06 — P3 documentation and handoff honesty: synchronized both README files with the current Eleventy/data architecture and recorded remaining launch blockers, owner decisions, and live-deployment uncertainty. No website source or runtime behavior changed; live deployment is not confirmed.
+- 2026-10-06 — Owner decisions: index gallery features the Cherry G80-3000 and YMDK68; YMDK68 switches are Kailh Box Jade; Der Garagenfund moves to a future blog article; separate light/dark logos are cancelled.
+
+- 2026-10-06 — P3 documentation and handoff honesty: synchronized `readme.md`, `README.md`, and `ai/README.md` with the current Eleventy/data architecture and recorded remaining launch blockers, owner decisions, and live-deployment uncertainty. Committed and pushed as `66ff9e0`; no website source or runtime behavior changed; live deployment is not confirmed.
 
 - 2026-10-06 — P2-remaining gallery control accessibility: removed the competing polaroid frame click handler so cheat-sheet and fullscreen actions have distinct targets. Committed and pushed as `e0a807f`; local build and all required checks pass; live deployment is not confirmed.
 

@@ -2922,6 +2922,12 @@ textarea { min-height: 8.5rem; resize: vertical; }
     }
 }
 
+@media (hover: none) {
+    .card.is-map-active .map-embed__frame iframe {
+        filter: grayscale(0);
+    }
+}
+
 .card__body.contact-method:active .map-embed__frame iframe,
 .map-embed:active .map-embed__frame iframe,
 .map-embed:focus .map-embed__frame iframe,

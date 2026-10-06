@@ -34,6 +34,12 @@ jobs:
       - name: Build with Eleventy
         run: npm run build
 
+      - name: Check built links
+        run: python scripts/check_links.py _site
+
+      - name: Check HTML tag balance
+        run: python scripts/tag_balance.py _site
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

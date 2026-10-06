@@ -5,11 +5,13 @@
 - **Repo:** https://github.com/Brotbeutel/j-keebs
 - **Owner:** Jannik Schlüter
 - **Planner:** dedicated planning chat; implementers use a **new** chat per work package
-- **Updated:** 2026-10-06 (P3 implementer)
+- **Updated:** 2026-10-06 (implementation batch reconciliation)
 
 ## Snapshot
 
-The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → upload `_site/` → GitHub Pages; no `paths-ignore`, so every push builds and deploys). The source commit is `e0a807f` (`Separate gallery accessibility controls`), which is also `origin/main`; the worktree has uncommitted P3 documentation updates.
+The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → upload `_site/` → GitHub Pages; no `paths-ignore`, so every push builds and deploys). The source commit is `66ff9e0` (`Reconcile README and project handoff`), which is also `origin/main`; the implementation batch is currently uncommitted.
+
+**Owner live check (2026-10-06):** `https://brotbeutel.github.io/j-keebs/sitemap.xml` returned HTTP 200. The deployed homepage contains the expected `og:site_name`, `twitter:description`, `og:image`, canonical project URL, `/j-keebs/` asset paths, and `nav.contact`; the corrected PowerShell `Select-String` check confirmed all three social metadata tags.
 
 **Everything through P2-E2 is in git. Live Pages was still pre-P2-E2 at this planner review (2026-10-05, fresh fetch of `index.html`, `faq.html` and `keyboards.html`): all three still have `og:image: Werkbank_Hero.jpg` and no `og:site_name` / `twitter:description` meta tags.** Since the workflow has no path filter, the push that landed `fe9c140` should already have deployed it — this review could not check the Actions run log (GitHub API rate-limited from the sandbox, no browser available). **Owner: open https://github.com/Brotbeutel/j-keebs/actions and confirm the latest run is green before re-checking** (`ai/CONVENTIONS.md` has the PowerShell commands). If it is green and the site is still old, it is a Pages cache delay — wait a few minutes and retry.
 
@@ -21,9 +23,11 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 
 **P2-remaining gallery control accessibility is committed and pushed in `e0a807f` (2026-10-06).** The cheat-sheet action is now activated only by its explicit `.cheat-toggle` button; the polaroid frame no longer has a competing click handler. Fullscreen remains bound to gallery images with click, Enter and Space activation, focus restoration, and carousel behavior unchanged. Verification: `node --check main.js`, `npm run build`, link/tag checks, image report, URL hygiene, README parity, and gallery-specific hook assertions pass. Live deployment remains unverified.
 
-**P3 documentation and handoff honesty is complete locally (2026-10-06; not committed).** `readme.md` and `ai/README.md` now describe the actual Eleventy data, i18n, blog-navigation, Node, image-pipeline, and language conventions. `STATUS.md` and `BACKLOG.md` continue to distinguish verified local facts from unfinished blog originality, guide placeholders, R6 owner decisions, and unverified live deployment. No website source or runtime behavior changed. The full `git diff --check` remains non-clean because existing CRLF handoff files, including planner-owned `ai/PLAN.md`, are reported; no line-ending normalization was made.
+**P3 documentation and handoff honesty is committed and pushed in `66ff9e0` (2026-10-06).** `readme.md`, `README.md`, and `ai/README.md` describe the actual Eleventy data, i18n, blog-navigation, Node, image-pipeline, and language conventions. The later implementation batch is uncommitted; all handoff Markdown files are now normalized to LF and `git diff --check` passes.
 
-**Done in source through P2-remaining (committed):**
+**Implementation batch is complete locally (2026-10-06; uncommitted).** The index gallery now identifies Cherry G80-3000 and YMDK68, uses Kailh Box Jade for the YMDK68, and keeps “Der Garagenfund” for future blog content. The mobile contact map persists saturation for the active touch card and clears it on outside touch. The J80 article now distinguishes its historical failure from the current fully functional VIA state. CI now runs link/tag checks, `sharp` is a direct dev dependency, and all `ai/*.md` files use LF line endings. Local build, link, tag, and JavaScript checks pass.
+
+**Done in source through P3 documentation (committed):**
 - P0/P0-B/P0-C — URL fixes, English slugs, base path
 - P1/P1-A/P1-B — contact form, brand assets, about page, OWA LABS, guide taxonomy
 - P2-A — interaction/visual polish (map, fullscreen controls, homepage)
@@ -35,6 +39,7 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - P2-F2 — i18n data files and navigation key normalization (`4cc9980`)
 - P2-F3 — blog data, index rendering, and computed article navigation (`5237912`)
 - P2-remaining — separate gallery cheat-sheet and fullscreen controls (`e0a807f`)
+- P3 — README and handoff honesty (`66ff9e0`)
 
 **Verified 2026-10-05 (P2-E2 implementer, local `_site/`):**
 - `npm run build` → Copied 54, Wrote 21 files, 0.61s (warm). No errors. Node v24.19.0.
@@ -85,20 +90,31 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - `.cheat-toggle` is the only cheat-sheet activation hook; the polaroid frame has no competing click handler. Gallery image fullscreen activation and focus restoration remain present.
 - `node --check main.js`, `npm run build`, link/tag checks, image report (94.2% reduction), README parity, and gallery assertions pass. Live deployment remains unverified.
 
+**Owner decisions (2026-10-06)**
+
+- Index gallery: feature the Cherry G80-3000 and YMDK68.
+- YMDK68 switches: `Kailh Box Jade`.
+- `Der Garagenfund`: reserve for a future blog article, not the index gallery title.
+- Separate light/dark logos: request cancelled; do not scope it.
+- J80-3000 current state: fully functional and programmable with VIA; earlier failure text is historical and needs clearer framing in the blog.
+
 **Planner reconciliation findings (2026-10-06)**
 
-- **P3 / next:** P3 documentation and handoff honesty is complete locally. Remaining content records are owner-scoped work, not implementation scope.
-- **P2 / verification pending:** `src/_includes/base.njk`, page metadata, and `images/og-preview.jpg` contain the committed P2-E2/P2-F1 social and URL work locally; GitHub Actions and the deployed `sitemap.xml` still need an owner/live check.
-- **P3 / owner decision:** `src/pages/index.njk` and its page dictionary still expose the R6 title contradiction and the `gallery2.li3value` placeholder; no wording was changed in this planner session.
+- **P3 / complete locally:** index gallery, mobile map, J80 historical wording, CI checks, direct `sharp`, and handoff line endings are updated; deployment and device verification remain pending.
+- **P2 / verified live:** `src/_includes/base.njk`, page metadata, and `images/og-preview.jpg` are now confirmed on Pages by the owner; the deployed sitemap returned HTTP 200.
+- **P3 / approved implementation:** `src/pages/index.njk` and `src/_data/i18n/index.js` still expose the old R6 title/region and `gallery2.li3value` placeholder; the next implementer may now correct them to the approved values.
+- **P3 / content follow-up:** R7 is factually resolved; the future blog content pass should distinguish the earlier failure from the current working state.
 - **P3 / owner decision:** `images/mechanicon_logo.png` is unused, while `images/Monsgeek M1.jpg`, `images/Keychron Q3_1.JPG`, and `images/Keychron Q3_2.JPG` are referenced by `src/pages/keyboards.njk`; no asset rename or deletion was attempted.
+- **Mobile map interaction:** `main.js` and `style.css` now persist the map's saturated state while the latest touch is inside the contact card and clear it on outside touch. Local syntax, build, link, and tag checks pass; not deployed.
 
 **Still open:**
-- R6: `src/pages/index.njk` — the German HTML default for the first gallery card is "Der Garagenfund" (line ~373), but the German dictionary's `gallery1.title` key says "Cherry G80-3000" (line ~138): a JS+DE visitor sees a different title than a no-JS visitor. Separately, `gallery2.li3value` is the literal placeholder "– ergänzen" (visible live on the "Holz-Case" card's "Switches" field). **Owner decision needed** — proposed default: set `gallery1.title` to match the HTML default ("Der Garagenfund") unless the keyboard should actually be labelled "Cherry G80-3000"; "– ergänzen" needs the real switch type.
+- Mobile map and index-gallery implementation are complete locally; deploy and verify them on a real mobile device.
 - Contact form: live browser test (submit with JS on + JS off) still not done.
-- Dual-theme brand logos: owner request not yet scoped.
+- Mobile contact map: touch activation is implemented locally; deployment and a real-device check remain pending.
+- Dual-theme brand logos: owner cancelled the request 2026-10-06; no separate assets are needed.
 - Gallery a11y: cheat-sheet toggle vs fullscreen both bind to the polaroid.
 - Unused draft cards `images/card_v1.jpg` / `images/card_v2.jpg` (see BACKLOG).
-- `scripts/generate_social_assets.js` needs `sharp`, which is not an npm dependency (it happens to resolve today because `@11ty/eleventy-img` pulls `sharp` in transitively — not a direct, guaranteed dependency).
+- `scripts/generate_social_assets.js` now has a direct `sharp` dev dependency; generator execution remains optional.
 - R10: `mechanicon_logo.png` confirmed unused (no reference anywhere in `src/`, `main.js`, `style.css`). Three files in `images/` have spaces/uppercase extensions and ARE referenced in `src/pages/keyboards.njk`: `Monsgeek M1.jpg`, `Keychron Q3_1.JPG`, `Keychron Q3_2.JPG` — renaming needs a matching template update, not just a file rename.
 
 ## In flight
@@ -114,7 +130,9 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - [x] **P2-F2 — i18n as data files, nav key naming** — committed and pushed as `4cc9980`; live not confirmed
 - [x] **P2-F3 — blog as a collection** — committed and pushed as `5237912`; live not confirmed
 - [x] **P2-remaining — gallery control accessibility** — committed and pushed as `e0a807f`; live not confirmed
-- [x] **P3 — content / README honesty** — complete locally; live not confirmed
+- [x] **P3 — content / README honesty** — committed and pushed as `66ff9e0`; live not confirmed
+- [x] **Owner gate — launch content and deployment decisions** — R6, switch type, future blog direction, and logo request resolved 2026-10-06
+- [ ] **P3 — index gallery corrections** ← next
 - [ ] Owner (optional): lawyer review of Art. 6 Abs. 1 lit. f DSGVO for auto-loading map
 
 ## Do not assume

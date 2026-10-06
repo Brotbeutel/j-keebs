@@ -23,30 +23,35 @@ If an implementer finds a new issue: add it to `BACKLOG.md` under the right prio
 9. ~~P2-F2 — i18n as data files, nav key naming~~ ✅ done and pushed (`4cc9980`); live still needs confirmation
 10. ~~P2-F3 — blog as a collection~~ ✅ done and pushed (`5237912`); live still needs confirmation
 11. ~~P2-remaining — gallery control accessibility~~ ✅ done and pushed (`e0a807f`); live still needs confirmation
-12. **P3 — content / README honesty** ← current package (below)
+12. ~~P3 — content / README honesty~~ ✅ done and pushed (`66ff9e0`); live still needs confirmation
+13. ~~Owner gate — launch content and deployment decisions~~ ✅ decisions recorded 2026-10-06
+14. ~~P3 — index gallery corrections~~ ✅ complete locally; deployment pending
+15. **P3 — future content and launch validation** ← current package (below)
 
 Do not skip ahead.
 
-## Current work package: P3 — content / README honesty
+## Current work package: P3 — future content and launch validation
 
-**Goal:** Keep the public README and launch-bar records honest about the current source architecture, verification status, and unfinished content. Resolve documentation drift without inventing completion claims.
+**Goal:** Finish the remaining owner-approved content and deployment validation without removing visible WIP guide cards before the official launch.
 
 **In scope**
 
-1. **Reconcile README structure.** Review `readme.md` and `ai/README.md` against the actual Eleventy/data layout, generated sitemap, image pipeline, scripts, supported Node version, and current language behavior. Keep both README files identical.
-2. **Audit launch-bar claims.** Make `ai/STATUS.md` and `ai/BACKLOG.md` distinguish verified facts from owner decisions and unfinished content, including the blog originality, guide placeholders, R6 gallery placeholder, and live-deployment uncertainty.
-3. **Preserve source behavior.** This package is documentation and handoff work; do not change visible website copy, templates, assets, URLs, or runtime behavior without an explicit follow-up package.
+1. **Future articles.** Create the separately scoped “Der Garagenfund” and Mechanicon blog articles when their source material is ready.
+2. **Launch validation.** Verify the deployed mobile map interaction and run the contact form with JavaScript enabled and disabled.
+3. **Content cleanup.** Apply approved German typo corrections and historical context to remaining blog content; keep guide cards visible as WIP until official launch.
 
 **Out of scope**
 
-- Visible copy changes or a full English rewrite
+- Full English rewrite or unrelated visible copy changes
 - Static `/en/` output, language-routing changes, or changing the confirmed English default
 - i18n restructuring or navigation-key changes (P2-F2 is complete)
 - Blog collection/data work (P2-F3 is complete)
 - Gallery interaction changes (P2-remaining is complete)
+- README or handoff documentation changes (P3 is complete)
 - `src/assets/` reorg (unscheduled, see `BACKLOG.md`)
 - CI changes (`paths-ignore`, a link-check step) — separate, unscheduled
-- R6/R7/R11 content fixes (owner decisions)
+- R7/R11 content fixes (owner decisions)
+- Removing or hiding WIP guide cards before official launch
 - Renaming `images/Monsgeek M1.jpg` / the two `Keychron Q3_*.JPG` files, or deleting `mechanicon_logo.png` (R10 — owner decision, unscheduled)
 - Astro, React, new pages
 - Committing
@@ -55,11 +60,12 @@ Do not skip ahead.
 
 - `npm run build` succeeds with 21 HTML pages and no errors.
 - `python scripts/check_links.py _site` and `python scripts/tag_balance.py _site` report no problems; the baseline remains 1195 references and 0 tag-balance problems unless a deliberate source-only change explains a difference.
-- `readme.md` and `ai/README.md` are byte-identical and accurately describe the current source layout and verification constraints.
-- No README claims WCAG compliance, a full English rewrite, finished guides, or completed launch-bar content that has not been verified.
-- `STATUS.md` and `BACKLOG.md` identify remaining launch blockers and owner decisions with concrete paths and priorities; live deployment is not claimed without a live check.
-- `git diff --check` passes, and no website source, generated output, or runtime behavior changes are introduced by this package.
+- The latest Actions result and live Pages checks are recorded in `STATUS.md`.
+- Future article scope and source material are recorded before article implementation.
+- Deployed mobile map and contact form JS/no-JS behavior are verified by the owner.
+- Approved German content corrections are applied without changing the intentional client-side language architecture.
+- `npm run build`, both Python checks, README parity, and focused content assertions pass.
 
-## After P3
+## After P3 — future content and launch validation
 
-Return to the planner chat. Next is owner-scoped content work or a new planner package based on the remaining launch blockers.
+Return to the planner chat. Next is the smallest owner-approved future article or launch-bar package.

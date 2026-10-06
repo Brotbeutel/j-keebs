@@ -1041,6 +1041,16 @@ window.J_KEEBS_I18N_COMMON = {
         });
     }
 
+    function initMapTouchActivation() {
+        const map = document.getElementById("mapEmbed");
+        const card = map && map.closest(".card");
+        if (!card) return;
+
+        document.addEventListener("pointerdown", function (event) {
+            card.classList.toggle("is-map-active", card.contains(event.target));
+        }, true);
+    }
+
     // ============================================================================
     // INITIALIZATION
     // ============================================================================
@@ -1090,6 +1100,7 @@ window.J_KEEBS_I18N_COMMON = {
         document.querySelectorAll(".gallery-item__stage").forEach(initCheatSheetToggle);
         initFullscreenViewer();
         initContactForm();
+        initMapTouchActivation();
         initMobileNav();
         initNavDropdowns();
         initGuideJumpnav();
