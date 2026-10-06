@@ -89,7 +89,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "style.css": "style.css" });
   eleventyConfig.addPassthroughCopy({ "main.js": "main.js" });
   eleventyConfig.addPassthroughCopy({ "robots.txt": "robots.txt" });
-  eleventyConfig.addPassthroughCopy({ "sitemap.xml": "sitemap.xml" });
 
   // --- Image pipeline (P2-E) ----------------------------------------------
   // Rewrites every <img src="images/…jpg|png"> (rendered output, so this also

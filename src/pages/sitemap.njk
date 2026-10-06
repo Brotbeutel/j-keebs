@@ -1,0 +1,16 @@
+---
+layout: false
+permalink: sitemap.xml
+eleventyExcludeFromCollections: true
+---
+{#- Generated sitemap (P2-F1): every page except 404.html, URLs from site.url + page.url. -#}
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for item in collections.all %}
+{%- if item.url != "/404.html" %}
+  <url>
+    <loc>{{ site.url }}{{ item.url }}</loc>
+  </url>
+{%- endif %}
+{%- endfor %}
+</urlset>

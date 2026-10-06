@@ -5,15 +5,17 @@
 - **Repo:** https://github.com/Brotbeutel/j-keebs
 - **Owner:** Jannik Schlüter
 - **Planner:** dedicated planning chat; implementers use a **new** chat per work package
-- **Updated:** 2026-10-05 (planner review)
+- **Updated:** 2026-10-06 (P2-F1 implementer)
 
 ## Snapshot
 
-The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → upload `_site/` → GitHub Pages; no `paths-ignore`, so every push builds and deploys). `origin/main` is now at `c1ae790` (code unchanged since `fe9c140`; `111dae2`/`e11d90c`/`2749621` moved the verification scripts to `scripts/` and tidied the repo; `c1ae790` re-saved the `ai/` handoff docs).
+The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → upload `_site/` → GitHub Pages; no `paths-ignore`, so every push builds and deploys). At the start of the P2-F1 session `origin/main` was at `18ed027` (planner `ai/` updates on top of `c1ae790`; code unchanged since `fe9c140`; `111dae2`/`e11d90c`/`2749621` moved the verification scripts to `scripts/` and tidied the repo; `c1ae790` re-saved the `ai/` handoff docs).
 
 **Everything through P2-E2 is in git. Live Pages was still pre-P2-E2 at this planner review (2026-10-05, fresh fetch of `index.html`, `faq.html` and `keyboards.html`): all three still have `og:image: Werkbank_Hero.jpg` and no `og:site_name` / `twitter:description` meta tags.** Since the workflow has no path filter, the push that landed `fe9c140` should already have deployed it — this review could not check the Actions run log (GitHub API rate-limited from the sandbox, no browser available). **Owner: open https://github.com/Brotbeutel/j-keebs/actions and confirm the latest run is green before re-checking** (`ai/CONVENTIONS.md` has the PowerShell commands). If it is green and the site is still old, it is a Pages cache delay — wait a few minutes and retry.
 
-**Done in source through P2-E2:**
+**P2-F1 is done in the working tree only (2026-10-06): uncommitted, not pushed, not live.** See "P2-F1 verification" below.
+
+**Done in source through P2-E2 (committed):**
 - P0/P0-B/P0-C — URL fixes, English slugs, base path
 - P1/P1-A/P1-B — contact form, brand assets, about page, OWA LABS, guide taxonomy
 - P2-A — interaction/visual polish (map, fullscreen controls, homepage)
@@ -40,7 +42,18 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - `python scripts/tag_balance.py _site` → pages 21, problems 0.
 - `python scripts/img_report.py` → 95.0% size reduction, unchanged from the P2-E verification.
 - Live re-check (see above): P2-E2 still not visible on `index.html`, `faq.html`, `keyboards.html`.
-- `diff readme.md ai/README.md` → **2 stale lines in `ai/README.md`**: the `images/` comment doesn't mention the WebP pipeline, and the Node version says 18 instead of 22. Low priority, bundled into the next package's "Done when" (see `PLAN.md`).
+- `diff readme.md ai/README.md` → 2 stale lines in `ai/README.md` (fixed in P2-F1, see below).
+
+**P2-F1 verification (implementer, 2026-10-06, local, uncommitted; Node v22.22.2):**
+- New `src/pages/pages.11tydata.js`: `layout: "base.njk"` + `eleventyComputed.og_url = site.url + page.url`. `layout`, `og_url`, `canonical` removed from all 21 pages (scripted, with asserts); the 8 `og_image` values are relative (`images/….jpg`), `base.njk` builds `site.url + "/" + (og_image or "images/og-preview.jpg")`.
+- `index.njk` JSON-LD `url` → token `@@OG_URL@@` (replaced in `base.njk`; front-matter strings are not rendered by Nunjucks). `contact.njk` FormSubmit `_next` → `{{ og_url }}?sent=1`. Deviation from the `PLAN.md` wording (`{{ canonical }}`) and why: `DECISIONS.md` 2026-10-06.
+- New `src/pages/sitemap.njk` (`layout: false`, `eleventyExcludeFromCollections: true`) generates `sitemap.xml` from `collections.all`, skipping `/404.html`. Root `sitemap.xml` deleted; its passthrough line removed from `eleventy.config.js`. `robots.txt` untouched.
+- `ai/README.md` := `readme.md`, then both got the same two additions (structure tree, data-file note). `diff readme.md ai/README.md` → empty.
+- `rm -rf _site && npm run build` → Copied 53, Wrote 22 files (21 HTML + `sitemap.xml`), no errors.
+- `cmp` of every `_site/*.html` against a snapshot of the build made before any change → all 21 identical; `sitemap.xml` and `robots.txt` identical too (so canonical/og:url/og:image/twitter:image on all pages, incl. the 8 blog `og:image`, are unchanged).
+- `python scripts/check_links.py _site` → pages 21, references 1195, errors 0 (baseline unchanged). `python scripts/tag_balance.py _site` → pages 21, problems 0.
+- `grep -rn "https://brotbeutel.github.io/j-keebs" src/` → only `src/_data/site.js:3`. Unprefixed-URL grep over `_site` HTML/XML/TXT → empty. No `@@OG_URL@@` or `{{` left in `_site`.
+- **Owner step:** `eleventy.config.js` was touched (one passthrough line removed) and `sitemap.xml` was deleted from the repo root: copy the changes, commit, push, then check the Actions run and the live `sitemap.xml`. Live deployment is **not** verified.
 
 **Still open:**
 - R6: `src/pages/index.njk` — the German HTML default for the first gallery card is "Der Garagenfund" (line ~373), but the German dictionary's `gallery1.title` key says "Cherry G80-3000" (line ~138): a JS+DE visitor sees a different title than a no-JS visitor. Separately, `gallery2.li3value` is the literal placeholder "– ergänzen" (visible live on the "Holz-Case" card's "Switches" field). **Owner decision needed** — proposed default: set `gallery1.title` to match the HTML default ("Der Garagenfund") unless the keyboard should actually be labelled "Cherry G80-3000"; "– ergänzen" needs the real switch type.
@@ -60,8 +73,8 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - [x] P2-D — fonts, logo, 404, PCBWay — done and deployed
 - [x] P2-E — image pipeline — done and deployed (`1a9325f`)
 - [x] **P2-E2 — icons and social previews** — in git (`fe9c140`); **not confirmed live**
-- [ ] **P2-F1 — computed URLs, directory data, generated sitemap** ← queued (see `PLAN.md`)
-- [ ] P2-F2 — i18n as data files, nav key naming
+- [x] **P2-F1 — computed URLs, directory data, generated sitemap** — done in the working tree 2026-10-06; **not committed, not live**
+- [ ] P2-F2 — i18n as data files, nav key naming ← next (planner)
 - [ ] P2-F3 — blog as a collection
 - [ ] P2-remaining — a11y items
 - [ ] Owner (optional): lawyer review of Art. 6 Abs. 1 lit. f DSGVO for auto-loading map
@@ -83,7 +96,7 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 
 | Piece | File / place |
 | --- | --- |
-| Templates | `src/pages/*.njk` (21), `src/_includes/base.njk`, `src/_data/site.js` |
+| Templates | `src/pages/*.njk` (21 pages + `sitemap.njk`), `src/pages/pages.11tydata.js` (layout, computed `og_url`), `src/_includes/base.njk`, `src/_data/site.js` |
 | Output | `_site/` (21 HTML + assets + `img/` WebP), gitignored |
 | Build / CI | Eleventy 3.1.6, `@11ty/eleventy-img` 7.x, `.github/workflows/deploy.yml` (Node 22) |
 | Hosting | GitHub Pages project site, base path `/j-keebs/` |

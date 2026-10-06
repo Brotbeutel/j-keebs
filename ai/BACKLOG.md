@@ -14,10 +14,10 @@ Check items when done. Move completed items into a short "Done" note at the bott
 
 ## Eleventy structure debt (P2-F, split 2026-10-05 planner review)
 
-**P2-F1 — queued, see `PLAN.md`:**
-- [ ] Computed URLs: derive `canonical`/`og_url` from `site.url` + `page.url` via `eleventyComputed` (52 hard-coded absolute-URL lines measured 2026-10-05: 21×`og_url` + 21×`canonical` + 8×`og_image` on blog pages + 1 JSON-LD `url` + 1 FormSubmit `_next`, across 20 template files)
-- [ ] Directory data: `layout: base.njk` repeated in 21 files; use `src/pages/pages.11tydata.js`
-- [ ] Generate `sitemap.xml` from the page collection (currently a static root file, 20 `<url>` entries, must be hand-updated on every rename)
+**P2-F1 — done 2026-10-06 (in working tree, not committed):**
+- [x] Computed URLs: derive `canonical`/`og_url` from `site.url` + `page.url` via `eleventyComputed` (52 hard-coded absolute-URL lines measured 2026-10-05: 21×`og_url` + 21×`canonical` + 8×`og_image` on blog pages + 1 JSON-LD `url` + 1 FormSubmit `_next`, across 20 template files)
+- [x] Directory data: `layout: base.njk` repeated in 21 files; use `src/pages/pages.11tydata.js`
+- [x] Generate `sitemap.xml` from the page collection (currently a static root file, 20 `<url>` entries, must be hand-updated on every rename)
 
 **P2-F2 — next after F1:**
 - [ ] i18n as data: ~35% of template bytes are raw `<script>` i18n blocks in YAML front matter; 82 key/value pairs duplicated across templates
@@ -70,12 +70,20 @@ Check items when done. Move completed items into a short "Done" note at the bott
 - [ ] Unused draft social cards `images/card_v1.jpg` and `images/card_v2.jpg` are passthrough-copied into `_site/` and not referenced by templates. Delete or keep as design archive — owner call.
 - [ ] `scripts/generate_social_assets.js` regenerates `og-preview.jpg` / `apple-touch-icon.png` but imports `sharp`, which is not in `package.json`. Do not add a dependency unless the owner wants a repeatable generator.
 
+## Found during P2-F1 (low priority, not blocking)
+
+- [ ] Front-matter `extra_head` is injected raw, so the JSON-LD block in `index.njk` needs the `@@OG_URL@@` token workaround (see `CONVENTIONS.md` "URLs"). Fold into P2-F2 (move JSON-LD / head extras into data) and drop the token then.
+- [ ] The `sitemap.xml` has no `<lastmod>`. Optional; would need a per-page date (blog posts have one in the content, not in front matter). Do with P2-F3 if wanted.
+- [ ] Comments in `eleventy.config.js` ("while the legacy site remains live") are stale since P2-C. Cosmetic; touch when the file is edited for another reason.
+- [ ] `npm run build` reports `Wrote 22 files` now: 21 HTML pages + the generated `sitemap.xml`. "21 pages" in checks still refers to HTML pages.
+
 ## Found during planner review (2026-10-05, low priority, not blocking)
 
-- [ ] `ai/README.md` has drifted from root `readme.md` by 2 lines (the `images/` project-structure comment doesn't mention the WebP pipeline; Node version says 18 instead of 22). Folded into P2-F1's "Done when" (see `PLAN.md`) since the implementer is already touching project-structure docs there.
+- [x] (done in P2-F1, 2026-10-06) `ai/README.md` has drifted from root `readme.md` by 2 lines (the `images/` project-structure comment doesn't mention the WebP pipeline; Node version says 18 instead of 22). Folded into P2-F1's "Done when" (see `PLAN.md`) since the implementer is already touching project-structure docs there.
 
 ## Done
 
+- 2026-10-06 — P2-F1: computed `og_url` / relative `og_image` / `pages.11tydata.js` (`layout`) / generated `sitemap.xml`; zero hardcoded base URLs left in templates; `ai/README.md` synced with `readme.md`. Built `_site` HTML (21 files) and `sitemap.xml` byte-identical to the pre-change build. Not committed; not confirmed live.
 - 2026-10-05 — Planner: re-confirmed P2-E2 in git but still not live (R9); confirmed R10 (`mechanicon_logo.png` unused, 3 odd filenames identified and in use); detailed R6 (exact conflicting values, proposed default); found `ai/README.md` drift (2 lines); split P2-F into F1/F2/F3 and queued F1 in `PLAN.md`; decided `robots.txt` is not worth generating. No code changed.
 - 2026-10-05 — P2-E2: default 1200×630 `og-preview.jpg`, 180×180 `apple-touch-icon.png`, `og:site_name` + `twitter:description` in `base.njk`, legal/contact meta descriptions 50–160 chars (`fe9c140`). Local build 21 pages / 0 link errors. Live Pages still old at verification time.
 - 2026-10-05 — Planner: verified P2-E committed and deployed (`1a9325f`). Build 21 pages, 0 errors, 78 WebP files / 7.0 MB. Stray files removed (`e11d90c`). AI files updated. P2-E2 scoped.

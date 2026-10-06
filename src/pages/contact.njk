@@ -1,10 +1,7 @@
 ---
-layout: base.njk
 permalink: contact.html
 title: "J-Keebs | Kontakt"
 description: "Kontakt zu J-Keebs in Schwetzingen: Schreib mir per Kontaktformular oder E-Mail bei Fragen zu Tastatur-Builds, Modding und Upcycling oder vernetze dich."
-og_url: "https://brotbeutel.github.io/j-keebs/contact.html"
-canonical: "https://brotbeutel.github.io/j-keebs/contact.html"
 active_nav: "contact.html"
 page_script: |
     <script>
@@ -122,7 +119,7 @@ page_script: |
                             <input type="hidden" name="_subject" value="Neue Nachricht über J-Keebs">
                             <input type="hidden" name="_captcha" value="false">
                             <input type="hidden" name="_template" value="table">
-                            <input type="hidden" name="_next" value="https://brotbeutel.github.io/j-keebs/contact.html?sent=1">
+                            <input type="hidden" name="_next" value="{{ og_url }}?sent=1">
                             <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
 
                             <div class="form-grid">

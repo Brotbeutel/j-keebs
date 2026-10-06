@@ -18,14 +18,14 @@ Portfolio site for custom mechanical keyboards, modding and upcycling, with a fo
 ```
 /
 ├── src/
-│   ├── pages/            # one .njk template per page (21 pages, blog posts included)
+│   ├── pages/            # one .njk template per page (21 pages, blog posts included), pages.11tydata.js (layout + computed og_url), sitemap.njk (generated sitemap.xml)
 │   ├── _includes/base.njk# shared layout: head, header, nav, footer, fullscreen overlay
 │   └── _data/site.js     # site data and navigation
 ├── images/               # original photography and logos (copied as is; build also derives resized WebP into _site/img/, see ai/CONVENTIONS.md "Images")
 ├── fonts/                # self-hosted woff2 fonts + OFL licences (copied as is)
 ├── style.css             # all styles (tokens in :root and [data-theme="light"])
 ├── main.js               # theme, i18n, gallery, nav, contact form
-├── robots.txt, sitemap.xml
+├── robots.txt            # static, hand-maintained (sitemap.xml is generated from src/pages/sitemap.njk)
 ├── eleventy.config.js    # input src/, output _site/, passthrough copy of the root assets
 ├── .github/workflows/deploy.yml   # build with Eleventy and deploy _site/ to GitHub Pages
 ├── ai/                   # handoff notes for humans and agents (start with ai/README.md)
@@ -47,6 +47,7 @@ npm run build     # build to _site/
 Pushing to `main` builds and deploys automatically via GitHub Actions.
 
 - Page content and page-specific translations: `src/pages/<page>.njk` (front matter holds metadata and the `window.J_KEEBS_I18N` dictionary)
+- `layout` and `og_url` come from `src/pages/pages.11tydata.js` (do not set them per page); `og_image` is a path relative to the site root
 - Header, footer, navigation markup: `src/_includes/base.njk`, navigation items in `src/_data/site.js`
 - Shared UI strings: `J_KEEBS_I18N_COMMON` in `main.js`
 - All absolute URLs must contain the `/j-keebs/` base path

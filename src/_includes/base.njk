@@ -8,14 +8,14 @@
     og_title        – Open Graph title (defaults to title)
     og_description  – Open Graph description (defaults to description)
     og_type         – Open Graph type (defaults to "website")
-    og_url          – Full canonical URL
-    canonical       – Canonical URL (defaults to og_url)
+    og_url          – Full canonical URL; COMPUTED in src/pages/pages.11tydata.js (site.url + page.url). Do not set it per page.
+    canonical       – Canonical URL (defaults to og_url); normally not set
     twitter_card    – twitter:card value (defaults to "summary_large_image")
     active_nav      – filename of the current page for aria-current (e.g. "about.html")
 
   Optional front-matter:
-    og_image        – Open Graph image URL (defaults to site default 1200x630 card)
-    extra_head      – additional <head> content (injected raw)
+    og_image        – Open Graph image, RELATIVE to the site root (e.g. "images/x.jpg"); defaults to images/og-preview.jpg. base.njk prefixes site.url.
+    extra_head      – additional <head> content (injected raw; the token @@OG_URL@@ is replaced by the page's canonical URL)
     page_class      – additional class on <body>
     root_paths      – set to true ONLY for pages that are served at arbitrary depth
                       (404.html, which GitHub Pages returns for /j-keebs/foo/bar).
@@ -53,12 +53,12 @@
     <meta name="twitter:card" content="{{ twitter_card or 'summary_large_image' }}">
     <meta name="twitter:title" content="{{ og_title or title }}">
     <meta name="twitter:description" content="{{ og_description or description }}">
-    {%- set social_image = og_image or (site.url ~ "/images/og-preview.jpg") %}
+    {%- set social_image = site.url ~ "/" ~ (og_image or "images/og-preview.jpg") %}
     <meta property="og:image" content="{{ social_image }}">
     <meta name="twitter:image" content="{{ social_image }}">
     <link rel="canonical" href="{{ canonical or og_url }}">
     <link rel="stylesheet" href="{{ rp or './' }}style.css">
-    {% if extra_head %}{{ extra_head | safe }}{% endif %}
+    {% if extra_head %}{{ extra_head | replace("@@OG_URL@@", canonical or og_url) | safe }}{% endif %}
     <title>{{ title }}</title>
 </head>
 <body{% if page_class %} class="{{ page_class }}"{% endif %}>

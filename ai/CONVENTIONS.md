@@ -4,7 +4,7 @@
 
 - **Source of truth:** `src/pages/*.njk`, `src/_includes/base.njk`, `src/_data/site.js`. `_site/` is generated and gitignored — never edit it. Build with `npm run build`, preview with `npm run dev` (served under `/j-keebs/`).
 - **Shared chrome** (head, theme boot script, header, language/theme toggles, footer, fullscreen overlay) lives in `base.njk`; nav items live in `site.js`. Change it there, once. If a change seems to require touching many page files, stop and check whether it belongs in the layout or in data.
-- **Front matter per page:** `layout`, `permalink` (must equal the public filename), `title`, `description`, `og_url`, `canonical`, `active_nav`; optional `og_image`, `extra_head`, `page_script`, `page_class`, `root_paths`.
+- **Front matter per page:** `permalink` (must equal the public filename), `title`, `description`, `active_nav`; optional `og_image`, `extra_head`, `page_script`, `page_class`, `root_paths`. **Do not set `layout`, `og_url` or `canonical`** — they come from `src/pages/pages.11tydata.js` (see "URLs").
 - **Relative URLs and depth:** chrome and page URLs are relative (`index.html`, `images/…`, `./style.css`), which only works for pages served at their own filename. `404.html` is the one page GitHub Pages serves at any depth (`/j-keebs/foo/bar`): it sets `root_paths: true`, and `base.njk` then prefixes every chrome URL with `site.basePath`. **Do not use a `<base>` element** (it must precede URL-bearing elements and turns `#main` into a link to the homepage). Other pages must not set `root_paths`.
 - The page dictionary `window.J_KEEBS_I18N` goes into `page_script`. Shared UI strings live in `J_KEEBS_I18N_COMMON` (`main.js`); do not duplicate footer/nav keys in a page dictionary unless the page must override them.
 - Keep German visible text in the template as the no-JS source. Keep matching keys in the dictionary.
@@ -12,6 +12,7 @@
 - `id="guidesSubmenu"` and `id="siteNav"` must stay unique per document.
 - Legal pages stay German-only by design.
 - Do not recreate the old copy/paste pattern inside templates: repeated values belong in data files (see P2-F in `BACKLOG.md`).
+- `src/pages/sitemap.njk` (`layout: false`) generates `sitemap.xml`; it must never inherit `base.njk`.
 - Bulk changes across many templates: script with `assert` guards, then diff.
 
 ## Verification (before you say "done")
@@ -59,7 +60,7 @@ The transform (not the ready-made `eleventyImageTransformPlugin` — it can't re
 - **`sizes`:** looked up by usage context in `eleventy.config.js`'s `SIZES_BY_CONTEXT` (gallery / single-polaroid / blog-featured / blog-teaser / partner-logo / header-logo / footer-logo / the one-off `Werkbank_Hero.jpg` hero). Context is detected from the `<img>`'s own attributes (`data-slide`, `class`) where possible, otherwise from the nearest preceding `<figure class="…">` in the rendered HTML. **A new reusable image component needs a new context**: add its class to `detectContext()` and a matching entry to `SIZES_BY_CONTEXT` — don't let it fall through to the `"100vw"` default. The current values were computed from `style.css` at 375/768/1280/1920px (no browser available in the sandbox that built P2-E); see `ai/STATUS.md` for the derivation and get a real DevTools measurement before trusting them for a very different layout.
 - **Loading policy:** the transform picks it automatically — the first non-logo processed `<img>` in a page's rendered document order gets `loading="eager" fetchpriority="high"`, every later one `loading="lazy" decoding="async"`. Logos are excluded from this and keep whatever the template already says (header logo: no attribute = implicit eager; footer/partner logos: `loading="lazy"`). So: **don't hand-set `loading`/`fetchpriority` on a processed `<img>`** — reordering content on the page changes which image "wins" automatically. If a page ever needs a *different* image to be the eager one than "the first one in the HTML", reorder the markup rather than fighting the transform.
 - `images/` itself stays a passthrough copy (`eleventy.config.js`) — old absolute URLs (`og:image`, external hotlinks) keep working unchanged.
-- **Social preview tags** use the JPEG/PNG originals in `images/`, never the generated WebP in `img/`. Default card: `images/og-preview.jpg` (1200×630). `apple-touch-icon` is `images/apple-touch-icon.png` (180×180). Pages may set `og_image` in front matter; otherwise `base.njk` uses `site.url + "/images/og-preview.jpg"`.
+- **Social preview tags** use the JPEG/PNG originals in `images/`, never the generated WebP in `img/`. Default card: `images/og-preview.jpg` (1200×630). `apple-touch-icon` is `images/apple-touch-icon.png` (180×180). Pages may set `og_image` in front matter as a path **relative to the site root** (`images/x.jpg`, never an absolute URL); `base.njk` builds `site.url + "/" + og_image` and falls back to `images/og-preview.jpg`.
 
 ## Fonts
 
@@ -78,7 +79,11 @@ The transform (not the ready-made `eleventyImageTransformPlugin` — it can't re
 
 - The site is a GitHub Pages **project page** at `https://brotbeutel.github.io/j-keebs/`. Every absolute URL (`canonical`, `og:url`, `og:image`, `twitter:image`, JSON-LD `url`, `sitemap.xml`, `robots.txt`, FormSubmit `_next`) must include `/j-keebs/`.
 - Renaming a page = new `permalink`. The owner deleted all redirect stubs (2026-09-11): old URLs 404. If a redirect is wanted, add a redirect template (see `PLAN.md`) and say so explicitly.
-- Update `sitemap.xml` and every internal `href` in the same change.
+- `sitemap.xml` is generated; a renamed or new page appears in it automatically. Update every internal `href` in the same change. `robots.txt` stays a static passthrough file.
+- **Computed URLs (P2-F1).** The site's own base URL lives once, in `src/_data/site.js` (`site.url`, no trailing slash). `src/pages/pages.11tydata.js` sets `layout: "base.njk"` for every page and computes `og_url = site.url + page.url` (`/` for index, `/404.html` for the 404 page). `base.njk` renders `canonical` as `canonical or og_url`; do not duplicate that fallback. A page author therefore sets **neither `og_url` nor `canonical`**, and never types the domain into a template.
+- `og_image` is relative (`images/….jpg`); see "Images".
+- In a page **body** use `{{ og_url }}` for the page's own absolute URL (e.g. FormSubmit `_next` in `contact.njk`: `{{ og_url }}?sent=1`). `canonical` is normally unset, so `{{ canonical }}` renders empty.
+- Front-matter strings such as `extra_head` are injected raw and are not rendered by Nunjucks, so `{{ … }}` does not work there. Write the token `@@OG_URL@@` instead (used by the JSON-LD `url` in `index.njk`); `base.njk` replaces it with the page's canonical URL. Check `_site` for leftover `@@` after adding one.
 
 ## What not to do
 
