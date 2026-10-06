@@ -3185,7 +3185,175 @@ textarea { min-height: 8.5rem; resize: vertical; }
 }
 
 /* ==========================================================================
-   PRINT STYLES — Optimized for legal pages (Impressum, Datenschutz, AGB, Cookies):
+/* Final Win2K balance: recognizable chrome, local pixel-mono type, restrained tint. */
+.win2k-window {
+    --w2k-bg: #c3ccd2;
+    --w2k-panel: #d8dfe3;
+    --w2k-title: #123a70;
+    --w2k-text: #18212a;
+    --w2k-input: #fbfbf6;
+    --w2k-highlight: #ffffff;
+    --w2k-shadow: #68757e;
+    --w2k-accent: #b95845;
+    background: var(--w2k-bg) !important;
+    border: 2px solid var(--w2k-highlight) !important;
+    border-right-color: var(--w2k-shadow) !important;
+    border-bottom-color: var(--w2k-shadow) !important;
+    border-radius: 0 !important;
+    box-shadow: inset 1px 1px 0 var(--w2k-panel), 5px 5px 0 rgba(24, 33, 42, 0.18) !important;
+    color: var(--w2k-text) !important;
+}
+
+[data-theme="dark"] .win2k-window {
+    --w2k-bg: #536777;
+    --w2k-panel: #627888;
+    --w2k-title: #214e7c;
+    --w2k-text: #f7f0dc;
+    --w2k-input: #344754;
+    --w2k-highlight: #a9bbc4;
+    --w2k-shadow: #1d2a35;
+    --w2k-accent: #ef9a83;
+    box-shadow: inset 1px 1px 0 var(--w2k-panel), 5px 5px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+.win2k-titlebar {
+    background: linear-gradient(90deg, var(--w2k-title), color-mix(in srgb, var(--w2k-title) 70%, #6e9bc2)) !important;
+    border: 0 !important;
+    border-bottom: 2px solid var(--w2k-shadow) !important;
+    color: #ffffff !important;
+    font-family: var(--font-mono), "Courier New", monospace !important;
+    font-size: 0.82rem !important;
+    letter-spacing: 0.02em;
+    padding: 0.45rem 0.5rem 0.45rem 0.7rem;
+    -webkit-font-smoothing: none !important;
+}
+
+.win2k-titlebar__text::before {
+    content: "▣";
+    color: #d9edf1;
+    font-family: var(--font-mono), "Courier New", monospace !important;
+    margin-right: 0.35rem;
+}
+
+.win2k-btn,
+.win2k-window button[type="submit"] {
+    background: var(--w2k-panel) !important;
+    border: 2px solid var(--w2k-highlight) !important;
+    border-right-color: var(--w2k-shadow) !important;
+    border-bottom-color: var(--w2k-shadow) !important;
+    border-radius: 0 !important;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.35) !important;
+    color: var(--w2k-text) !important;
+    font-family: var(--font-mono), "Courier New", monospace !important;
+    font-size: 0.8rem !important;
+    -webkit-font-smoothing: none !important;
+}
+
+.win2k-btn {
+    cursor: pointer;
+    min-width: 1.55rem;
+    padding: 0.12rem 0.35rem !important;
+}
+
+.win2k-btn:hover,
+.win2k-btn:focus-visible,
+.win2k-window button[type="submit"]:hover,
+.win2k-window button[type="submit"]:focus-visible {
+    background: var(--w2k-accent) !important;
+    color: #ffffff !important;
+}
+
+.win2k-btn:active,
+.win2k-window button[type="submit"]:active {
+    border-top-color: var(--w2k-shadow) !important;
+    border-left-color: var(--w2k-shadow) !important;
+    border-right-color: var(--w2k-highlight) !important;
+    border-bottom-color: var(--w2k-highlight) !important;
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.18) !important;
+    padding: 0.12rem 0.35rem !important;
+    transform: none;
+}
+
+.win2k-window button[type="submit"] {
+    color: var(--w2k-text) !important;
+    font-weight: 700 !important;
+    padding: 0.55rem 1rem !important;
+}
+
+.win2k-window button[type="submit"]:active {
+    padding: 0.55rem 1rem !important;
+}
+
+.win2k-body {
+    background: var(--w2k-bg) !important;
+    color: var(--w2k-text) !important;
+    padding: clamp(1rem, 3vw, 1.4rem);
+}
+
+.win2k-dialog-header {
+    border-bottom: 1px dotted var(--w2k-shadow);
+    padding-bottom: 1rem;
+}
+
+.win2k-monitor-icon {
+    background: var(--w2k-title);
+    border: 2px solid var(--w2k-highlight);
+    border-right-color: var(--w2k-shadow);
+    border-bottom-color: var(--w2k-shadow);
+    padding: 0.25rem;
+    width: clamp(4rem, 15vw, 5.5rem);
+}
+
+.win2k-body p,
+.win2k-body span,
+.win2k-body h3,
+.win2k-body label {
+    color: var(--w2k-text) !important;
+}
+
+.win2k-body .meta,
+.win2k-body label > span {
+    color: var(--w2k-title) !important;
+    font-family: var(--font-mono), "Courier New", monospace !important;
+    font-size: 0.72rem !important;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    -webkit-font-smoothing: none !important;
+}
+
+[data-theme="dark"] .win2k-body .meta,
+[data-theme="dark"] .win2k-body label > span {
+    color: var(--w2k-highlight) !important;
+}
+
+.win2k-body .muted {
+    color: var(--w2k-text) !important;
+    opacity: 0.82;
+}
+
+.win2k-window input[type="text"],
+.win2k-window input[type="email"],
+.win2k-window textarea {
+    background: var(--w2k-input) !important;
+    border: 2px solid var(--w2k-shadow) !important;
+    border-right-color: var(--w2k-highlight) !important;
+    border-bottom-color: var(--w2k-highlight) !important;
+    border-radius: 0 !important;
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.22) !important;
+    color: var(--w2k-text) !important;
+    padding: 0.6rem 0.65rem !important;
+}
+
+.win2k-window input[type="text"]:focus,
+.win2k-window input[type="email"]:focus,
+.win2k-window textarea:focus {
+    border-color: var(--w2k-title) !important;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--w2k-accent) 42%, transparent) !important;
+    outline: 0 !important;
+}
+
+/* PRINT STYLES — Optimized for legal pages (Impressum, Datenschutz, AGB, Cookies):
    Dark headers/footers, film grain textures, and gradients waste ink and reduce
    readability on paper. Reduces to black text on white background, hides pure UI
    elements (nav, theme/language toggles, buttons, jump nav) and prints link
