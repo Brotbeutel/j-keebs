@@ -92,6 +92,10 @@ Check items when done. Move completed items into a short "Done" note at the bott
 
 - [x] Contact map: persist saturation for the active touch card and clear it on outside touch (`main.js`, `style.css`); local checks pass, deployment/device verification pending.
 
+## Contact page
+
+- [x] Restyle the Windows 2K-inspired contact form to fit the site visual system without changing form behavior (`style.css`); local checks pass, deployment review pending.
+
 ## i18n maintenance
 
 - [x] Homepage dictionary loading: explicitly map the root page to `src/_data/i18n/index.js` in `src/pages/pages.11tydata.js`; generated `_site/index.html` now emits its page dictionary.

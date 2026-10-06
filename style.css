@@ -2792,6 +2792,169 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border-bottom: 3px solid rgba(0, 0, 0, 0.9) !important;
 }
 
+/* Contact form refinement: keep the retro cue, but let the panel belong to the site. */
+.win2k-window {
+    background: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow-soft) !important;
+    padding: 0 !important;
+    font-family: var(--font-body) !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    color: var(--text) !important;
+}
+
+.win2k-titlebar {
+    background: var(--surface-2) !important;
+    color: var(--text) !important;
+    border-bottom: 1px solid var(--border-strong);
+    padding: 0.75rem 0.9rem;
+    font-family: var(--font-body) !important;
+    font-size: 0.82rem !important;
+    letter-spacing: 0.04em;
+    text-shadow: none;
+}
+
+.win2k-titlebar__text::before {
+    content: "▣";
+    color: var(--accent);
+    font-family: var(--font-mono) !important;
+    margin-right: 0.45rem;
+}
+
+.win2k-btn,
+.win2k-window button[type="submit"] {
+    background: transparent !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: none !important;
+    color: var(--text) !important;
+    font-family: var(--font-body) !important;
+    font-size: 0.85rem !important;
+    -webkit-font-smoothing: antialiased !important;
+}
+
+.win2k-btn {
+    padding: 0.15rem 0.45rem !important;
+    min-width: 1.8rem;
+    cursor: pointer;
+}
+
+.win2k-btn:hover,
+.win2k-btn:focus-visible {
+    background: var(--accent) !important;
+    color: var(--bg) !important;
+}
+
+.win2k-btn:active,
+.win2k-window button[type="submit"]:active {
+    border: 1px solid var(--border-strong) !important;
+    box-shadow: none !important;
+    padding: 0.15rem 0.45rem !important;
+}
+
+.win2k-body {
+    padding: clamp(1rem, 3vw, 1.5rem);
+    background: var(--surface) !important;
+    gap: 1.25rem;
+}
+
+.win2k-dialog-header {
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.win2k-monitor-icon {
+    width: clamp(3.5rem, 16vw, 5rem);
+    height: auto;
+    flex: 0 0 auto;
+}
+
+.win2k-body p,
+.win2k-body span,
+.win2k-body h3,
+.win2k-body label {
+    font-family: var(--font-body) !important;
+    -webkit-font-smoothing: antialiased !important;
+    color: var(--text) !important;
+    font-size: inherit !important;
+}
+
+.win2k-body .meta {
+    color: var(--accent) !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.72rem !important;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.win2k-body .muted {
+    color: var(--text-muted) !important;
+    line-height: 1.55;
+}
+
+.win2k-body a {
+    color: var(--accent-strong) !important;
+    font-weight: 600 !important;
+}
+
+.win2k-window input[type="text"],
+.win2k-window input[type="email"],
+.win2k-window textarea {
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: none !important;
+    background: var(--bg) !important;
+    color: var(--text) !important;
+    font-family: var(--font-body) !important;
+    -webkit-font-smoothing: antialiased !important;
+    font-size: 1rem !important;
+    line-height: 1.4;
+    padding: 0.7rem 0.75rem !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.win2k-window input[type="text"]:focus,
+.win2k-window input[type="email"]:focus,
+.win2k-window textarea:focus {
+    outline: 2px solid var(--accent-bright) !important;
+    outline-offset: 1px !important;
+    border-color: var(--accent-strong) !important;
+    box-shadow: none !important;
+}
+
+.win2k-window textarea {
+    min-height: 8rem;
+}
+
+.win2k-window button[type="submit"] {
+    background: var(--accent) !important;
+    color: var(--bg) !important;
+    cursor: pointer !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    padding: 0.75rem 1rem !important;
+}
+
+.win2k-window button[type="submit"]:hover,
+.win2k-window button[type="submit"]:focus-visible {
+    background: var(--accent-bright) !important;
+    color: var(--bg) !important;
+}
+
+@media (max-width: 480px) {
+    .win2k-dialog-header {
+        align-items: flex-start;
+    }
+
+    .win2k-monitor-icon {
+        width: 3.5rem;
+    }
+}
+
 .win2k-window button[type="submit"]:active {
     border-top: 3px solid rgba(0, 0, 0, 0.6) !important;
     border-left: 3px solid rgba(0, 0, 0, 0.6) !important;
@@ -2807,6 +2970,12 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border-left: 3px solid rgba(0, 0, 0, 0.9) !important;
     border-right: 3px solid rgba(255, 255, 255, 0.15) !important;
     border-bottom: 3px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.win2k-window button[type="submit"]:active {
+    border: 1px solid var(--border-strong) !important;
+    box-shadow: none !important;
+    padding: 0.75rem 1rem !important;
 }
 
 /* ==========================================================================

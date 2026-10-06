@@ -31,6 +31,8 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 
 **Gallery caption i18n regression fixed locally:** `relabelCarousels()` now refreshes the generated caption from the active image after language changes, so gallery captions update immediately without requiring next/previous navigation. Build, link, tag, and syntax checks pass.
 
+**Contact panel visual refinement completed locally:** the Windows 2K-inspired form now uses the site's typography, color tokens, borders, shadows, spacing, focus states, and responsive sizing while retaining the retro title bar and monitor icon. Form markup and submission behavior are unchanged. Build, link, tag, and syntax checks pass.
+
 **Done in source through P3 documentation (committed):**
 - P0/P0-B/P0-C — URL fixes, English slugs, base path
 - P1/P1-A/P1-B — contact form, brand assets, about page, OWA LABS, guide taxonomy
