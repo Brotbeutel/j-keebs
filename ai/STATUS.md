@@ -5,13 +5,13 @@
 - **Repo:** https://github.com/Brotbeutel/j-keebs
 - **Owner:** Jannik Schlüter
 - **Planner:** dedicated planning chat; implementers use a **new** chat per work package
-- **Updated:** 2026-10-05
+- **Updated:** 2026-10-05 (planner review)
 
 ## Snapshot
 
-The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → upload `_site/` → GitHub Pages). Working tree is clean and up-to-date with `origin/main` at `fe9c140`.
+The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → upload `_site/` → GitHub Pages; no `paths-ignore`, so every push builds and deploys). `origin/main` is now at `c1ae790` (code unchanged since `fe9c140`; `111dae2`/`e11d90c`/`2749621` moved the verification scripts to `scripts/` and tidied the repo; `c1ae790` re-saved the `ai/` handoff docs).
 
-**Everything through P2-E2 is in git (`fe9c140` on `origin/main`). Live Pages was still the pre-P2-E2 HTML as of 2026-10-05 22:55 CEST** (homepage `og:image` still `Werkbank_Hero.jpg`; `images/og-preview.jpg` and `images/apple-touch-icon.png` 404 on the live host). Do not treat P2-E2 as live until those URLs return 200 with the new tags.
+**Everything through P2-E2 is in git. Live Pages was still pre-P2-E2 at this planner review (2026-10-05, fresh fetch of `index.html`, `faq.html` and `keyboards.html`): all three still have `og:image: Werkbank_Hero.jpg` and no `og:site_name` / `twitter:description` meta tags.** Since the workflow has no path filter, the push that landed `fe9c140` should already have deployed it — this review could not check the Actions run log (GitHub API rate-limited from the sandbox, no browser available). **Owner: open https://github.com/Brotbeutel/j-keebs/actions and confirm the latest run is green before re-checking** (`ai/CONVENTIONS.md` has the PowerShell commands). If it is green and the site is still old, it is a Pages cache delay — wait a few minutes and retry.
 
 **Done in source through P2-E2:**
 - P0/P0-B/P0-C — URL fixes, English slugs, base path
@@ -34,13 +34,22 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - Blog/article `og:image` files are landscape (~16:9); homepage/keyboards no longer use portrait `Werkbank_Hero.jpg` for OG.
 - Live check: homepage 200 but still old chrome; `https://brotbeutel.github.io/j-keebs/images/og-preview.jpg` 404.
 
+**Verified 2026-10-05 (planner, fresh clone of `c1ae790`):**
+- `npm ci && npm run build` → Copied 54, Wrote 21 files, 0.3–20s depending on image cache. No errors.
+- `python scripts/check_links.py _site` → pages 21, references 1195, errors 0.
+- `python scripts/tag_balance.py _site` → pages 21, problems 0.
+- `python scripts/img_report.py` → 95.0% size reduction, unchanged from the P2-E verification.
+- Live re-check (see above): P2-E2 still not visible on `index.html`, `faq.html`, `keyboards.html`.
+- `diff readme.md ai/README.md` → **2 stale lines in `ai/README.md`**: the `images/` comment doesn't mention the WebP pipeline, and the Node version says 18 instead of 22. Low priority, bundled into the next package's "Done when" (see `PLAN.md`).
+
 **Still open:**
-- R6: Homepage gallery DE dictionary contradicts the German HTML default; placeholder "– ergänzen" visible live. **Owner decision needed** on which German title is final.
+- R6: `src/pages/index.njk` — the German HTML default for the first gallery card is "Der Garagenfund" (line ~373), but the German dictionary's `gallery1.title` key says "Cherry G80-3000" (line ~138): a JS+DE visitor sees a different title than a no-JS visitor. Separately, `gallery2.li3value` is the literal placeholder "– ergänzen" (visible live on the "Holz-Case" card's "Switches" field). **Owner decision needed** — proposed default: set `gallery1.title` to match the HTML default ("Der Garagenfund") unless the keyboard should actually be labelled "Cherry G80-3000"; "– ergänzen" needs the real switch type.
 - Contact form: live browser test (submit with JS on + JS off) still not done.
 - Dual-theme brand logos: owner request not yet scoped.
 - Gallery a11y: cheat-sheet toggle vs fullscreen both bind to the polaroid.
 - Unused draft cards `images/card_v1.jpg` / `images/card_v2.jpg` (see BACKLOG).
-- `scripts/generate_social_assets.js` needs `sharp`, which is not an npm dependency.
+- `scripts/generate_social_assets.js` needs `sharp`, which is not an npm dependency (it happens to resolve today because `@11ty/eleventy-img` pulls `sharp` in transitively — not a direct, guaranteed dependency).
+- R10: `mechanicon_logo.png` confirmed unused (no reference anywhere in `src/`, `main.js`, `style.css`). Three files in `images/` have spaces/uppercase extensions and ARE referenced in `src/pages/keyboards.njk`: `Monsgeek M1.jpg`, `Keychron Q3_1.JPG`, `Keychron Q3_2.JPG` — renaming needs a matching template update, not just a file rename.
 
 ## In flight
 
@@ -51,7 +60,9 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - [x] P2-D — fonts, logo, 404, PCBWay — done and deployed
 - [x] P2-E — image pipeline — done and deployed (`1a9325f`)
 - [x] **P2-E2 — icons and social previews** — in git (`fe9c140`); **not confirmed live**
-- [ ] P2-F — Eleventy data model (computed URLs, i18n data, blog collection, generated sitemap) ← next (planner)
+- [ ] **P2-F1 — computed URLs, directory data, generated sitemap** ← queued (see `PLAN.md`)
+- [ ] P2-F2 — i18n as data files, nav key naming
+- [ ] P2-F3 — blog as a collection
 - [ ] P2-remaining — a11y items
 - [ ] Owner (optional): lawyer review of Art. 6 Abs. 1 lit. f DSGVO for auto-loading map
 
