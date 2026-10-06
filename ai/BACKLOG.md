@@ -92,6 +92,10 @@ Check items when done. Move completed items into a short "Done" note at the bott
 
 - [x] Contact map: persist saturation for the active touch card and clear it on outside touch (`main.js`, `style.css`); local checks pass, deployment/device verification pending.
 
+## i18n maintenance
+
+- [x] Homepage dictionary loading: explicitly map the root page to `src/_data/i18n/index.js` in `src/pages/pages.11tydata.js`; generated `_site/index.html` now emits its page dictionary.
+
 ## Done
 
 - 2026-10-06 — Owner decisions: index gallery features the Cherry G80-3000 and YMDK68; YMDK68 switches are Kailh Box Jade; Der Garagenfund moves to a future blog article; separate light/dark logos are cancelled.

@@ -27,6 +27,8 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 
 **Implementation batch is complete locally (2026-10-06; uncommitted).** The index gallery now identifies Cherry G80-3000 and YMDK68, uses Kailh Box Jade for the YMDK68, and keeps “Der Garagenfund” for future blog content. The mobile contact map persists saturation for the active touch card and clears it on outside touch. The J80 article now distinguishes its historical failure from the current fully functional VIA state. CI now runs link/tag checks, `sharp` is a direct dev dependency, and all `ai/*.md` files use LF line endings. Local build, link, tag, and JavaScript checks pass.
 
+**Homepage i18n regression fixed locally:** `src/pages/pages.11tydata.js` now explicitly loads `src/_data/i18n/index.js` for the root URL because Eleventy does not expose that special `index.js` data module under the same per-page slug key as the other page dictionaries. `_site/index.html` now emits `window.J_KEEBS_I18N`; build, link, tag, and syntax checks pass.
+
 **Done in source through P3 documentation (committed):**
 - P0/P0-B/P0-C — URL fixes, English slugs, base path
 - P1/P1-A/P1-B — contact form, brand assets, about page, OWA LABS, guide taxonomy

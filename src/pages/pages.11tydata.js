@@ -8,7 +8,8 @@ module.exports = {
   layout: "base.njk",
   eleventyComputed: {
     og_url: (data) => data.site.url + data.page.url,
-    page_i18n: (data) => data.i18n[data.page.fileSlug],
+    page_i18n: (data) => data.i18n[data.page.fileSlug]
+      || (data.page.url === "/" ? require("../_data/i18n/index.js") : undefined),
     blogArticles: (data) => data.blog,
     blogFeatured: (data) => data.blog.find((article) => article.featured),
     blogTeasers: (data) => data.blog.filter((article) => !article.featured),
