@@ -99,11 +99,19 @@
 }
 
 @font-face {
-    font-family: "Press Start 2P";
+    font-family: "Silkscreen";
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url("./fonts/press-start-2p-latin-400-normal.woff2") format("woff2");
+    src: url("./fonts/silkscreen-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Silkscreen";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("./fonts/silkscreen-latin-700-normal.woff2") format("woff2");
 }
 
 @font-face {
@@ -3229,7 +3237,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border: 0 !important;
     border-bottom: 2px solid var(--w2k-shadow) !important;
     color: var(--w2k-text) !important;
-    font-family: "Press Start 2P", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
+    font-family: "Silkscreen", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
     font-size: 0.82rem !important;
     letter-spacing: 0.02em;
     padding: 0.45rem 0.5rem 0.45rem 0.7rem;
@@ -3239,7 +3247,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
 .win2k-titlebar__text::before {
     content: "▣";
     color: var(--w2k-accent);
-    font-family: "Press Start 2P", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
+    font-family: "Silkscreen", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
     margin-right: 0.35rem;
 }
 
@@ -3252,7 +3260,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border-radius: 0 !important;
     box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.35) !important;
     color: var(--w2k-text) !important;
-    font-family: "Press Start 2P", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
+    font-family: "Silkscreen", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
     font-size: 0.8rem !important;
     -webkit-font-smoothing: none !important;
 }
@@ -3337,7 +3345,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
 .win2k-body .meta,
 .win2k-body label > span {
     color: var(--w2k-highlight) !important;
-    font-family: "Press Start 2P", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
+    font-family: "Silkscreen", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
     font-size: 0.72rem !important;
     font-weight: 700;
     letter-spacing: 0.02em;
