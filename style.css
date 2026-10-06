@@ -3203,14 +3203,14 @@ textarea { min-height: 8.5rem; resize: vertical; }
 /* ==========================================================================
 /* Final Win2K balance: recognizable chrome, local pixel-mono type, restrained tint. */
 .win2k-window {
-    --w2k-bg: #303844;
-    --w2k-panel: #3f4a58;
-    --w2k-title: #242b35;
-    --w2k-text: #f7f0dc;
-    --w2k-input: #202731;
-    --w2k-highlight: #7e8994;
-    --w2k-shadow: #151b22;
-    --w2k-accent: #c28c7d;
+    --w2k-bg: #3b3028;
+    --w2k-panel: #4a3b30;
+    --w2k-title: #5a3d24;
+    --w2k-text: #f4ead2;
+    --w2k-input: #2f271f;
+    --w2k-highlight: #cdbb91;
+    --w2k-shadow: #211914;
+    --w2k-accent: #c59b52;
     background: var(--w2k-bg) !important;
     border: 2px solid var(--w2k-highlight) !important;
     border-right-color: var(--w2k-shadow) !important;
@@ -3221,14 +3221,14 @@ textarea { min-height: 8.5rem; resize: vertical; }
 }
 
 [data-theme="dark"] .win2k-window {
-    --w2k-bg: #d0d4d5;
-    --w2k-panel: #e1e4e4;
-    --w2k-title: #545c63;
-    --w2k-text: #18212a;
-    --w2k-input: #fbfbf6;
-    --w2k-highlight: #ffffff;
-    --w2k-shadow: #737b80;
-    --w2k-accent: #8d5f53;
+    --w2k-bg: #ddd0af;
+    --w2k-panel: #eee5cc;
+    --w2k-title: #77512e;
+    --w2k-text: #2b2119;
+    --w2k-input: #fff8e8;
+    --w2k-highlight: #fff4d0;
+    --w2k-shadow: #6b4b30;
+    --w2k-accent: #a87533;
     box-shadow: inset 1px 1px 0 var(--w2k-panel), 5px 5px 0 rgba(0, 0, 0, 0.3) !important;
 }
 
@@ -3237,7 +3237,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border: 0 !important;
     border-bottom: 2px solid var(--w2k-shadow) !important;
     color: var(--w2k-text) !important;
-    font-family: "Silkscreen", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
+    font-family: var(--font-body) !important;
     font-size: 0.82rem !important;
     letter-spacing: 0.02em;
     padding: 0.45rem 0.5rem 0.45rem 0.7rem;
@@ -3247,7 +3247,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
 .win2k-titlebar__text::before {
     content: "▣";
     color: var(--w2k-accent);
-    font-family: "Silkscreen", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
+    font-family: var(--font-mono) !important;
     margin-right: 0.35rem;
 }
 
@@ -3260,15 +3260,21 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border-radius: 0 !important;
     box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.35) !important;
     color: var(--w2k-text) !important;
-    font-family: "Silkscreen", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
+    font-family: var(--font-body) !important;
     font-size: 0.8rem !important;
     -webkit-font-smoothing: none !important;
 }
 
 .win2k-btn {
+    align-items: center;
     cursor: pointer;
-    min-width: 1.55rem;
-    padding: 0.12rem 0.35rem !important;
+    display: inline-flex;
+    justify-content: center;
+    min-width: 1.7rem;
+    width: 1.7rem;
+    height: 1.7rem;
+    padding: 0 !important;
+    aspect-ratio: 1;
 }
 
 .win2k-btn:hover,
@@ -3294,14 +3300,17 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border-right-color: var(--w2k-highlight) !important;
     border-bottom-color: var(--w2k-highlight) !important;
     box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.18) !important;
-    padding: 0.12rem 0.35rem !important;
+    padding: 0 !important;
     transform: none;
 }
 
 .win2k-window button[type="submit"] {
     color: var(--w2k-text) !important;
+    font-family: var(--font-body) !important;
     font-weight: 700 !important;
+    letter-spacing: normal;
     padding: 0.55rem 1rem !important;
+    text-transform: none;
 }
 
 .win2k-window button[type="submit"]:active {
