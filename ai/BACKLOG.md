@@ -41,14 +41,14 @@ Check items when done. Move completed items into a short "Done" note at the bott
 
 ## P2-remaining — a11y
 
-- [x] Gallery: cheat-sheet activation is limited to `.cheat-toggle`; fullscreen activation remains on image click/keyboard handlers, so the actions have distinct event targets
+- [x] Gallery: cheat-sheet activation is limited to `.cheat-toggle`; fullscreen activation remains on image click/keyboard handlers, so the actions have distinct event targets (`e0a807f`)
 
 ## P3 — content and hygiene
 
+- [x] Documentation honesty: `readme.md` and `ai/README.md` now match the actual Eleventy data layout, i18n convention, blog navigation, Node requirement, image pipeline, and intentional client-side language behavior
 - [ ] Fill or remove gallery placeholders (R6, after owner decision)
 - [ ] Guides: finish or hide pending cards
 - [ ] Rewrite or unpublish non-original blog text
-- [ ] `readme.md`: re-check structure claims when architecture changes
 - [ ] Consider dropping AGB if nothing is sold
 - [ ] Link checker in CI (see P2-F)
 
@@ -83,9 +83,15 @@ Check items when done. Move completed items into a short "Done" note at the bott
 
 - [x] (done in P2-F1, 2026-10-06) `ai/README.md` has drifted from root `readme.md` by 2 lines (the `images/` project-structure comment doesn't mention the WebP pipeline; Node version says 18 instead of 22). Folded into P2-F1's "Done when" (see `PLAN.md`) since the implementer is already touching project-structure docs there.
 
+## Found during P3 (low priority, not blocking)
+
+- [ ] Handoff Markdown files use CRLF line endings, so `git diff --check` reports trailing-whitespace markers on changed documentation lines and existing planner changes. Normalize line endings in a dedicated documentation-hygiene change; do not mix it into website packages.
+
 ## Done
 
-- 2026-10-06 — P2-remaining gallery control accessibility: removed the competing polaroid frame click handler so cheat-sheet and fullscreen actions have distinct targets. Local build and all required checks pass; live deployment is not confirmed.
+- 2026-10-06 — P3 documentation and handoff honesty: synchronized both README files with the current Eleventy/data architecture and recorded remaining launch blockers, owner decisions, and live-deployment uncertainty. No website source or runtime behavior changed; live deployment is not confirmed.
+
+- 2026-10-06 — P2-remaining gallery control accessibility: removed the competing polaroid frame click handler so cheat-sheet and fullscreen actions have distinct targets. Committed and pushed as `e0a807f`; local build and all required checks pass; live deployment is not confirmed.
 
 - 2026-10-06 — P2-F3: moved the seven blog records into `src/_data/blog.js`, generated the blog index and article navigation from that data, and documented the convention. Committed and pushed as `5237912`; local build, link/tag checks, image report, and blog-specific output assertions pass; live deployment is not confirmed.
 

@@ -22,20 +22,20 @@ If an implementer finds a new issue: add it to `BACKLOG.md` under the right prio
 8. ~~P2-F1 — computed URLs, directory data, generated sitemap~~ ✅ done and pushed (`0211d43`); live still needs confirmation
 9. ~~P2-F2 — i18n as data files, nav key naming~~ ✅ done and pushed (`4cc9980`); live still needs confirmation
 10. ~~P2-F3 — blog as a collection~~ ✅ done and pushed (`5237912`); live still needs confirmation
-11. **P2-remaining — gallery control accessibility** ← current package (below)
-12. P3 — content / README honesty
+11. ~~P2-remaining — gallery control accessibility~~ ✅ done and pushed (`e0a807f`); live still needs confirmation
+12. **P3 — content / README honesty** ← current package (below)
 
 Do not skip ahead.
 
-## Current work package: P2-remaining — gallery control accessibility
+## Current work package: P3 — content / README honesty
 
-**Goal:** Give the gallery's cheat-sheet and fullscreen actions distinct, predictable controls without changing gallery content, URLs, or the existing visual language.
+**Goal:** Keep the public README and launch-bar records honest about the current source architecture, verification status, and unfinished content. Resolve documentation drift without inventing completion claims.
 
 **In scope**
 
-1. **Separate gallery actions.** Inspect the gallery markup and handlers in `src/pages/index.njk` and `main.js`; ensure the cheat-sheet toggle and fullscreen action do not both bind to the same polaroid click target.
-2. **Preserve interaction contracts.** Keep gallery keyboard access, focus behavior, carousel controls, fullscreen close behavior, existing `data-slide` hooks, and visible German/English labels working.
-3. **Keep the change narrow.** Do not change gallery content, image sources, URLs, i18n architecture, or unrelated page controls. Update `CONVENTIONS.md` only if a durable accessibility convention is introduced.
+1. **Reconcile README structure.** Review `readme.md` and `ai/README.md` against the actual Eleventy/data layout, generated sitemap, image pipeline, scripts, supported Node version, and current language behavior. Keep both README files identical.
+2. **Audit launch-bar claims.** Make `ai/STATUS.md` and `ai/BACKLOG.md` distinguish verified facts from owner decisions and unfinished content, including the blog originality, guide placeholders, R6 gallery placeholder, and live-deployment uncertainty.
+3. **Preserve source behavior.** This package is documentation and handoff work; do not change visible website copy, templates, assets, URLs, or runtime behavior without an explicit follow-up package.
 
 **Out of scope**
 
@@ -43,6 +43,7 @@ Do not skip ahead.
 - Static `/en/` output, language-routing changes, or changing the confirmed English default
 - i18n restructuring or navigation-key changes (P2-F2 is complete)
 - Blog collection/data work (P2-F3 is complete)
+- Gallery interaction changes (P2-remaining is complete)
 - `src/assets/` reorg (unscheduled, see `BACKLOG.md`)
 - CI changes (`paths-ignore`, a link-check step) — separate, unscheduled
 - R6/R7/R11 content fixes (owner decisions)
@@ -54,13 +55,11 @@ Do not skip ahead.
 
 - `npm run build` succeeds with 21 HTML pages and no errors.
 - `python scripts/check_links.py _site` and `python scripts/tag_balance.py _site` report no problems; the baseline remains 1195 references and 0 tag-balance problems unless a deliberate source-only change explains a difference.
-- The gallery cheat-sheet and fullscreen actions have distinct event targets and do not trigger each other when activated.
-- Keyboard activation and focus behavior work for both actions; fullscreen open/close and gallery carousel behavior remain intact.
-- `npm run build` succeeds with 21 HTML pages and no errors.
-- `python scripts/check_links.py _site` and `python scripts/tag_balance.py _site` report no problems; the baseline remains 1195 references and 0 tag-balance problems unless a deliberate source-only change explains a difference.
-- No gallery image URLs, page permalinks, or existing i18n keys change unintentionally.
-- `diff readme.md ai/README.md` remains empty, and `STATUS.md` / `BACKLOG.md` record the package result and any owner live-check step.
+- `readme.md` and `ai/README.md` are byte-identical and accurately describe the current source layout and verification constraints.
+- No README claims WCAG compliance, a full English rewrite, finished guides, or completed launch-bar content that has not been verified.
+- `STATUS.md` and `BACKLOG.md` identify remaining launch blockers and owner decisions with concrete paths and priorities; live deployment is not claimed without a live check.
+- `git diff --check` passes, and no website source, generated output, or runtime behavior changes are introduced by this package.
 
-## After P2-remaining
+## After P3
 
-Return to the planner chat. Next is P3 (content / README honesty).
+Return to the planner chat. Next is owner-scoped content work or a new planner package based on the remaining launch blockers.
