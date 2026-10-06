@@ -95,6 +95,7 @@ Check items when done. Move completed items into a short "Done" note at the bott
 ## Contact page
 
 - [x] Restyle the Windows 2K-inspired contact form to fit the site visual system without changing form behavior (`style.css`); local checks pass, deployment review pending.
+- [x] Complete the contact-panel redesign with a distinct terminal palette and pixel-mono hierarchy without a 1:1 Windows clone (`style.css`); local checks pass, deployment review pending.
 
 ## i18n maintenance
 

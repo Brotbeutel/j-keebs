@@ -2978,6 +2978,212 @@ textarea { min-height: 8.5rem; resize: vertical; }
     padding: 0.75rem 1rem !important;
 }
 
+/* Windows 2000 reference, J-Keebs interpretation: pixel labels, terminal colors,
+   and a compact title bar without recreating the stock dialog chrome. */
+.win2k-window {
+    --terminal-ink: #111a2d;
+    --terminal-blue: #1d4f78;
+    --terminal-cyan: #7be0e4;
+    --terminal-coral: #ef806b;
+    --terminal-paper: #f4edda;
+    --terminal-line: #9bb7b9;
+    background: var(--terminal-paper) !important;
+    border: 1px solid var(--terminal-blue) !important;
+    border-radius: 0.25rem !important;
+    box-shadow: 8px 8px 0 rgba(17, 26, 45, 0.18) !important;
+    color: var(--terminal-ink) !important;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .win2k-window {
+    background: var(--terminal-ink) !important;
+    border-color: var(--terminal-cyan) !important;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.35) !important;
+    color: var(--terminal-paper) !important;
+}
+
+.win2k-titlebar {
+    position: relative;
+    background: var(--terminal-blue) !important;
+    border: 0 !important;
+    border-bottom: 3px solid var(--terminal-cyan) !important;
+    color: #fff !important;
+    min-height: 2.75rem;
+    padding: 0.7rem 0.8rem 0.65rem 1rem;
+    font-family: var(--font-mono) !important;
+    font-size: 0.78rem !important;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.win2k-titlebar__text::before {
+    content: "[ ]";
+    color: var(--terminal-cyan);
+    font-family: var(--font-mono) !important;
+    margin-right: 0.5rem;
+}
+
+.win2k-titlebar__controls {
+    display: flex;
+    gap: 0.35rem;
+}
+
+.win2k-btn {
+    background: var(--terminal-coral) !important;
+    border: 0 !important;
+    border-radius: 0.15rem !important;
+    box-shadow: 2px 2px 0 rgba(17, 26, 45, 0.35) !important;
+    color: var(--terminal-ink) !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.8rem !important;
+    font-weight: 700;
+    min-width: 1.6rem;
+    padding: 0.2rem 0.35rem !important;
+}
+
+.win2k-btn:hover,
+.win2k-btn:focus-visible {
+    background: var(--terminal-cyan) !important;
+    color: var(--terminal-ink) !important;
+}
+
+.win2k-btn:active {
+    box-shadow: none !important;
+    transform: translate(2px, 2px);
+}
+
+.win2k-body {
+    background: transparent !important;
+    color: inherit !important;
+    gap: 1.4rem;
+    padding: clamp(1.2rem, 3vw, 1.8rem);
+}
+
+.win2k-dialog-header {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px dashed var(--terminal-line);
+}
+
+.win2k-monitor-icon {
+    width: clamp(3.75rem, 15vw, 5.5rem);
+    height: auto;
+    padding: 0.35rem;
+    background: var(--terminal-blue);
+    border: 2px solid var(--terminal-cyan);
+    image-rendering: pixelated;
+}
+
+.win2k-body p,
+.win2k-body span,
+.win2k-body h3,
+.win2k-body label {
+    color: inherit !important;
+    font-family: var(--font-body) !important;
+    font-size: inherit !important;
+    -webkit-font-smoothing: antialiased !important;
+}
+
+.win2k-body .meta,
+.win2k-body label > span {
+    color: var(--terminal-blue) !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.72rem !important;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+[data-theme="dark"] .win2k-body .meta,
+[data-theme="dark"] .win2k-body label > span {
+    color: var(--terminal-cyan) !important;
+}
+
+.win2k-body .muted {
+    color: #3d4b59 !important;
+    line-height: 1.55;
+}
+
+[data-theme="dark"] .win2k-body .muted {
+    color: #c5d0d1 !important;
+}
+
+.win2k-body a {
+    color: var(--terminal-blue) !important;
+    font-weight: 700 !important;
+}
+
+[data-theme="dark"] .win2k-body a {
+    color: var(--terminal-cyan) !important;
+}
+
+.win2k-window input[type="text"],
+.win2k-window input[type="email"],
+.win2k-window textarea {
+    background: rgba(255, 255, 255, 0.6) !important;
+    border: 1px solid var(--terminal-line) !important;
+    border-radius: 0.15rem !important;
+    box-shadow: inset 3px 3px 0 rgba(17, 26, 45, 0.08) !important;
+    color: var(--terminal-ink) !important;
+    font-family: var(--font-body) !important;
+    font-size: 1rem !important;
+    margin-top: 0.4rem;
+    padding: 0.7rem 0.75rem !important;
+}
+
+[data-theme="dark"] .win2k-window input[type="text"],
+[data-theme="dark"] .win2k-window input[type="email"],
+[data-theme="dark"] .win2k-window textarea {
+    background: #1b2940 !important;
+    border-color: #547789 !important;
+    box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.25) !important;
+    color: var(--terminal-paper) !important;
+}
+
+.win2k-window input[type="text"]:focus,
+.win2k-window input[type="email"]:focus,
+.win2k-window textarea:focus {
+    border-color: var(--terminal-coral) !important;
+    box-shadow: 0 0 0 2px rgba(239, 128, 107, 0.25) !important;
+    outline: 0 !important;
+}
+
+.win2k-window textarea {
+    min-height: 8rem;
+}
+
+.win2k-window button[type="submit"] {
+    background: var(--terminal-coral) !important;
+    border: 0 !important;
+    border-radius: 0.15rem !important;
+    box-shadow: 3px 3px 0 var(--terminal-ink) !important;
+    color: var(--terminal-ink) !important;
+    cursor: pointer !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.04em;
+    padding: 0.8rem 1rem !important;
+    text-transform: uppercase;
+}
+
+.win2k-window button[type="submit"]:hover,
+.win2k-window button[type="submit"]:focus-visible {
+    background: var(--terminal-cyan) !important;
+    color: var(--terminal-ink) !important;
+}
+
+.win2k-window button[type="submit"]:active {
+    box-shadow: none !important;
+    padding: 0.8rem 1rem !important;
+    transform: translate(3px, 3px);
+}
+
 /* ==========================================================================
    PRINT STYLES — Optimized for legal pages (Impressum, Datenschutz, AGB, Cookies):
    Dark headers/footers, film grain textures, and gradients waste ink and reduce

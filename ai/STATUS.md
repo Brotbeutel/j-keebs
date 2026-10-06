@@ -33,6 +33,8 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 
 **Contact panel visual refinement completed locally:** the Windows 2K-inspired form now uses the site's typography, color tokens, borders, shadows, spacing, focus states, and responsive sizing while retaining the retro title bar and monitor icon. Form markup and submission behavior are unchanged. Build, link, tag, and syntax checks pass.
 
+**Contact panel redesign completed locally:** the panel now uses a distinct navy/cyan/coral terminal palette, pixel-mono labels, a warm paper form surface, and restrained Windows 2000-era geometry without reproducing stock system chrome. Form behavior is unchanged; build, link, tag, syntax, and whitespace checks pass.
+
 **Done in source through P3 documentation (committed):**
 - P0/P0-B/P0-C — URL fixes, English slugs, base path
 - P1/P1-A/P1-B — contact form, brand assets, about page, OWA LABS, guide taxonomy
