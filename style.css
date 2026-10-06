@@ -99,6 +99,14 @@
 }
 
 @font-face {
+    font-family: "Press Start 2P";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("./fonts/press-start-2p-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
     font-family: "Playwrite DE Grund";
     font-style: normal;
     font-weight: 100 400;
@@ -3187,14 +3195,14 @@ textarea { min-height: 8.5rem; resize: vertical; }
 /* ==========================================================================
 /* Final Win2K balance: recognizable chrome, local pixel-mono type, restrained tint. */
 .win2k-window {
-    --w2k-bg: #c3ccd2;
-    --w2k-panel: #d8dfe3;
+    --w2k-bg: #2f3947;
+    --w2k-panel: #3f4c5a;
     --w2k-title: #123a70;
-    --w2k-text: #18212a;
-    --w2k-input: #fbfbf6;
-    --w2k-highlight: #ffffff;
-    --w2k-shadow: #68757e;
-    --w2k-accent: #b95845;
+    --w2k-text: #f7f0dc;
+    --w2k-input: #202a36;
+    --w2k-highlight: #8093a3;
+    --w2k-shadow: #111820;
+    --w2k-accent: #ef9a83;
     background: var(--w2k-bg) !important;
     border: 2px solid var(--w2k-highlight) !important;
     border-right-color: var(--w2k-shadow) !important;
@@ -3205,14 +3213,14 @@ textarea { min-height: 8.5rem; resize: vertical; }
 }
 
 [data-theme="dark"] .win2k-window {
-    --w2k-bg: #536777;
-    --w2k-panel: #627888;
-    --w2k-title: #214e7c;
-    --w2k-text: #f7f0dc;
-    --w2k-input: #344754;
-    --w2k-highlight: #a9bbc4;
-    --w2k-shadow: #1d2a35;
-    --w2k-accent: #ef9a83;
+    --w2k-bg: #c3ccd2;
+    --w2k-panel: #d8dfe3;
+    --w2k-title: #123a70;
+    --w2k-text: #18212a;
+    --w2k-input: #fbfbf6;
+    --w2k-highlight: #ffffff;
+    --w2k-shadow: #68757e;
+    --w2k-accent: #b95845;
     box-shadow: inset 1px 1px 0 var(--w2k-panel), 5px 5px 0 rgba(0, 0, 0, 0.3) !important;
 }
 
@@ -3221,7 +3229,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border: 0 !important;
     border-bottom: 2px solid var(--w2k-shadow) !important;
     color: #ffffff !important;
-    font-family: var(--font-mono), "Courier New", monospace !important;
+    font-family: "Press Start 2P", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
     font-size: 0.82rem !important;
     letter-spacing: 0.02em;
     padding: 0.45rem 0.5rem 0.45rem 0.7rem;
@@ -3231,7 +3239,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
 .win2k-titlebar__text::before {
     content: "▣";
     color: #d9edf1;
-    font-family: var(--font-mono), "Courier New", monospace !important;
+    font-family: "Press Start 2P", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
     margin-right: 0.35rem;
 }
 
@@ -3244,7 +3252,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border-radius: 0 !important;
     box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.35) !important;
     color: var(--w2k-text) !important;
-    font-family: var(--font-mono), "Courier New", monospace !important;
+    font-family: "Press Start 2P", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
     font-size: 0.8rem !important;
     -webkit-font-smoothing: none !important;
 }
@@ -3313,8 +3321,8 @@ textarea { min-height: 8.5rem; resize: vertical; }
 
 .win2k-body .meta,
 .win2k-body label > span {
-    color: var(--w2k-title) !important;
-    font-family: var(--font-mono), "Courier New", monospace !important;
+    color: var(--w2k-highlight) !important;
+    font-family: "Press Start 2P", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
     font-size: 0.72rem !important;
     font-weight: 700;
     letter-spacing: 0.02em;
@@ -3324,12 +3332,17 @@ textarea { min-height: 8.5rem; resize: vertical; }
 
 [data-theme="dark"] .win2k-body .meta,
 [data-theme="dark"] .win2k-body label > span {
-    color: var(--w2k-highlight) !important;
+    color: var(--w2k-title) !important;
 }
 
 .win2k-body .muted {
     color: var(--w2k-text) !important;
     opacity: 0.82;
+}
+
+.win2k-body a {
+    color: var(--w2k-accent) !important;
+    font-weight: 700 !important;
 }
 
 .win2k-window input[type="text"],
