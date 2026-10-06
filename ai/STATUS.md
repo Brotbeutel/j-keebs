@@ -5,11 +5,11 @@
 - **Repo:** https://github.com/Brotbeutel/j-keebs
 - **Owner:** Jannik Schlüter
 - **Planner:** dedicated planning chat; implementers use a **new** chat per work package
-- **Updated:** 2026-10-06 (P2-F3 implementer)
+- **Updated:** 2026-10-06 (P2-remaining implementer)
 
 ## Snapshot
 
-The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → upload `_site/` → GitHub Pages; no `paths-ignore`, so every push builds and deploys). The current repository is clean at `4cc9980` (`latenight GitHub Copilot push`), which is also `origin/main`.
+The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → upload `_site/` → GitHub Pages; no `paths-ignore`, so every push builds and deploys). The current repository is clean at `5237912` (`Move blog metadata into Eleventy data`), which is also `origin/main`.
 
 **Everything through P2-E2 is in git. Live Pages was still pre-P2-E2 at this planner review (2026-10-05, fresh fetch of `index.html`, `faq.html` and `keyboards.html`): all three still have `og:image: Werkbank_Hero.jpg` and no `og:site_name` / `twitter:description` meta tags.** Since the workflow has no path filter, the push that landed `fe9c140` should already have deployed it — this review could not check the Actions run log (GitHub API rate-limited from the sandbox, no browser available). **Owner: open https://github.com/Brotbeutel/j-keebs/actions and confirm the latest run is green before re-checking** (`ai/CONVENTIONS.md` has the PowerShell commands). If it is green and the site is still old, it is a Pages cache delay — wait a few minutes and retry.
 
@@ -17,9 +17,11 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 
 **P2-F2 is committed and pushed in `4cc9980` (2026-10-06).** Page-local dictionaries now live in 17 modules under `src/_data/i18n/` and are selected by `src/pages/pages.11tydata.js`; legal pages remain dictionary-free. The shared navigation key is `nav.contact` everywhere. Local verification: `npm run build` writes 21 HTML pages plus `sitemap.xml`; `python scripts/check_links.py _site` reports 1195 references and 0 errors; `python scripts/tag_balance.py _site` reports 0 problems; URL hygiene and `diff readme.md ai/README.md` pass. Live deployment remains unverified.
 
-**P2-F3 is complete locally (2026-10-06; not committed).** The seven blog records now live in `src/_data/blog.js` in the existing display order. `blog.njk` renders the featured card and six teasers from that data, and the seven article pages use collection-derived previous/next values through `article-nav.njk`. Local verification: `npm run build` writes 21 HTML pages plus `sitemap.xml`; link/tag checks remain at 1195 references and 0 problems; the blog index preserves all seven URLs and order; article boundary navigation and no-stale-URL checks pass. Live deployment remains unverified.
+**P2-F3 is committed and pushed in `5237912` (2026-10-06).** The seven blog records now live in `src/_data/blog.js` in the existing display order. `blog.njk` renders the featured card and six teasers from that data, and the seven article pages use collection-derived previous/next values through `article-nav.njk`. Local verification: `npm run build` writes 21 HTML pages plus `sitemap.xml`; link/tag checks remain at 1195 references and 0 problems; the image report shows 94.2% reduction; the blog index preserves all seven URLs and order; article boundary navigation and no-stale-URL checks pass. Live deployment remains unverified.
 
-**Done in source through P2-F2 (committed):**
+**P2-remaining gallery control accessibility is complete locally (2026-10-06; not committed).** The cheat-sheet action is now activated only by its explicit `.cheat-toggle` button; the polaroid frame no longer has a competing click handler. Fullscreen remains bound to gallery images with click, Enter and Space activation, focus restoration, and carousel behavior unchanged. Local verification: `node --check main.js`, `npm run build`, link/tag checks, image report, URL hygiene, README parity, and gallery-specific hook assertions pass. Live deployment remains unverified.
+
+**Done in source through P2-F3 (committed):**
 - P0/P0-B/P0-C — URL fixes, English slugs, base path
 - P1/P1-A/P1-B — contact form, brand assets, about page, OWA LABS, guide taxonomy
 - P2-A — interaction/visual polish (map, fullscreen controls, homepage)
@@ -29,6 +31,7 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - P2-E2 — default 1200×630 `images/og-preview.jpg`, 180×180 `images/apple-touch-icon.png`, `og:site_name`, `twitter:description`, longer legal/contact meta descriptions (`fe9c140`)
 - P2-F1 — computed URLs, directory data, generated sitemap (`0211d43`)
 - P2-F2 — i18n data files and navigation key normalization (`4cc9980`)
+- P2-F3 — blog data, index rendering, and computed article navigation (`5237912`)
 
 **Verified 2026-10-05 (P2-E2 implementer, local `_site/`):**
 - `npm run build` → Copied 54, Wrote 21 files, 0.61s (warm). No errors. Node v24.19.0.
@@ -68,9 +71,15 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - `npm run build` writes 21 HTML pages plus `sitemap.xml`; `python scripts/check_links.py _site` reports 1195 references and 0 errors; `python scripts/tag_balance.py _site` reports 0 problems.
 - `diff readme.md ai/README.md` is empty. Live deployment remains unverified.
 
+**P2-F3 verification (planner reconciliation, 2026-10-06, local; commit `5237912`):**
+
+- `src/_data/blog.js` contains the seven ordered article records; `src/pages/blog.njk` consumes them; `src/_includes/article-nav.njk` renders computed previous/next links for all seven article pages.
+- `npm run build` writes 21 HTML pages plus `sitemap.xml`; link checks report 1195 references and 0 errors; tag balance reports 0 problems; `scripts/img_report.py` reports 94.2% reduction; `diff readme.md ai/README.md` is empty.
+- Blog index URL/order and article navigation boundary assertions pass. Live deployment remains unverified.
+
 **Planner reconciliation findings (2026-10-06)**
 
-- **P2 / next:** P2-F3 is complete locally. The next package is P2-remaining (a11y items).
+- **P2 / next:** P2-remaining gallery control accessibility is complete locally. The next package is P3 (content / README honesty).
 - **P2 / verification pending:** `src/_includes/base.njk`, page metadata, and `images/og-preview.jpg` contain the committed P2-E2/P2-F1 social and URL work locally; GitHub Actions and the deployed `sitemap.xml` still need an owner/live check.
 - **P3 / owner decision:** `src/pages/index.njk` and its page dictionary still expose the R6 title contradiction and the `gallery2.li3value` placeholder; no wording was changed in this planner session.
 - **P3 / owner decision:** `images/mechanicon_logo.png` is unused, while `images/Monsgeek M1.jpg`, `images/Keychron Q3_1.JPG`, and `images/Keychron Q3_2.JPG` are referenced by `src/pages/keyboards.njk`; no asset rename or deletion was attempted.
@@ -95,8 +104,8 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - [x] **P2-E2 — icons and social previews** — in git (`fe9c140`); **not confirmed live**
 - [x] **P2-F1 — computed URLs, directory data, generated sitemap** — committed and pushed as `0211d43`; live not confirmed
 - [x] **P2-F2 — i18n as data files, nav key naming** — committed and pushed as `4cc9980`; live not confirmed
-- [x] **P2-F3 — blog as a collection** — complete locally; live not confirmed
-- [ ] P2-remaining — a11y items
+- [x] **P2-F3 — blog as a collection** — committed and pushed as `5237912`; live not confirmed
+- [x] **P2-remaining — gallery control accessibility** — complete locally; live not confirmed
 - [ ] Owner (optional): lawyer review of Art. 6 Abs. 1 lit. f DSGVO for auto-loading map
 
 ## Do not assume

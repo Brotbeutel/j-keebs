@@ -432,13 +432,6 @@ window.J_KEEBS_I18N_COMMON = {
             });
         }
 
-        // Toggle on caption / frame click (excluding viewport, carousel controls, and toggle button)
-        frame.addEventListener("click", function (e) {
-            if (e.target.closest(".polaroid-frame__viewport") || e.target.closest(".carousel-btn") || e.target.closest(".carousel-dots") || e.target.closest(".cheat-toggle")) {
-                return;
-            }
-            toggle();
-        });
     }
 
     // ============================================================================

@@ -23,7 +23,7 @@ Check items when done. Move completed items into a short "Done" note at the bott
 - [x] i18n as data: 17 page-local dictionaries moved from YAML front matter to `src/_data/i18n/<page-file-slug>.js`; `base.njk` emits only the current page's dictionary, while legal pages remain dictionary-free
 - [x] Nav key naming: `nav.kontakt` renamed to `nav.contact` in the navigation data and both shared language dictionaries
 
-**P2-F3 — done locally 2026-10-06 (not committed; live not confirmed):**
+**P2-F3 — done 2026-10-06 (committed and pushed as `5237912`; live not confirmed):**
 - [x] Blog records: seven ordered records now live in `src/_data/blog.js`, including URLs, display/navigation order, dates, teasers, images and German no-JS defaults
 - [x] Blog index: featured and teaser cards render from the data records with the existing seven-article order and output contract
 - [x] Article navigation: previous/next links are computed from navigation order and rendered through `src/_includes/article-nav.njk`; first/last boundaries remain empty on the appropriate side
@@ -41,7 +41,7 @@ Check items when done. Move completed items into a short "Done" note at the bott
 
 ## P2-remaining — a11y
 
-- [ ] Gallery: cheat-sheet toggle vs fullscreen both bind to the polaroid; one control per action
+- [x] Gallery: cheat-sheet activation is limited to `.cheat-toggle`; fullscreen activation remains on image click/keyboard handlers, so the actions have distinct event targets
 
 ## P3 — content and hygiene
 
@@ -75,7 +75,7 @@ Check items when done. Move completed items into a short "Done" note at the bott
 ## Found during P2-F1 (low priority, not blocking)
 
 - [ ] Front-matter `extra_head` is injected raw, so the JSON-LD block in `index.njk` needs the `@@OG_URL@@` token workaround (see `CONVENTIONS.md` "URLs"). Keep this as a separate future head-data cleanup; P2-F2 deliberately covered page i18n data only.
-- [ ] The `sitemap.xml` has no `<lastmod>`. Optional; would need a per-page date (blog posts have one in the content, not in front matter). Do with P2-F3 if wanted.
+- [ ] The `sitemap.xml` has no `<lastmod>`. Optional; would need a per-page date (blog posts have one in the content, not in front matter). Keep as a future metadata cleanup.
 - [ ] Comments in `eleventy.config.js` ("while the legacy site remains live") are stale since P2-C. Cosmetic; touch when the file is edited for another reason.
 - [ ] `npm run build` reports `Wrote 22 files` now: 21 HTML pages + the generated `sitemap.xml`. "21 pages" in checks still refers to HTML pages.
 
@@ -85,7 +85,9 @@ Check items when done. Move completed items into a short "Done" note at the bott
 
 ## Done
 
-- 2026-10-06 — P2-F3: moved the seven blog records into `src/_data/blog.js`, generated the blog index and article navigation from that data, and documented the convention. Local build, link/tag checks, image report, and blog-specific output assertions pass; live deployment is not confirmed.
+- 2026-10-06 — P2-remaining gallery control accessibility: removed the competing polaroid frame click handler so cheat-sheet and fullscreen actions have distinct targets. Local build and all required checks pass; live deployment is not confirmed.
+
+- 2026-10-06 — P2-F3: moved the seven blog records into `src/_data/blog.js`, generated the blog index and article navigation from that data, and documented the convention. Committed and pushed as `5237912`; local build, link/tag checks, image report, and blog-specific output assertions pass; live deployment is not confirmed.
 
 - 2026-10-06 — P2-F2: externalized 17 page-local i18n dictionaries, kept legal pages German-only, renamed `nav.kontakt` to `nav.contact`, and documented the data convention. Committed and pushed as `4cc9980`; local build and link/tag checks pass; live deployment is not confirmed.
 
