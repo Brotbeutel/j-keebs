@@ -29,6 +29,8 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 
 **Homepage i18n regression fixed locally:** `src/pages/pages.11tydata.js` now explicitly loads `src/_data/i18n/index.js` for the root URL because Eleventy does not expose that special `index.js` data module under the same per-page slug key as the other page dictionaries. `_site/index.html` now emits `window.J_KEEBS_I18N`; build, link, tag, and syntax checks pass.
 
+**Gallery caption i18n regression fixed locally:** `relabelCarousels()` now refreshes the generated caption from the active image after language changes, so gallery captions update immediately without requiring next/previous navigation. Build, link, tag, and syntax checks pass.
+
 **Done in source through P3 documentation (committed):**
 - P0/P0-B/P0-C — URL fixes, English slugs, base path
 - P1/P1-A/P1-B — contact form, brand assets, about page, OWA LABS, guide taxonomy

@@ -260,6 +260,12 @@ window.J_KEEBS_I18N_COMMON = {
             const next = frame.querySelector(".carousel-btn--next");
             if (prev) prev.setAttribute("aria-label", prevLabel);
             if (next) next.setAttribute("aria-label", nextLabel);
+
+            const activeImage = frame.querySelector(".polaroid-frame__viewport img.is-active");
+            const caption = frame.querySelector(".polaroid-frame__caption");
+            if (activeImage && caption) {
+                caption.textContent = activeImage.getAttribute("title") || activeImage.getAttribute("alt") || "";
+            }
         });
 
         const fullscreenLabel = dict["utility.image.fullscreen"] || "Open photo in full screen";

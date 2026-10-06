@@ -95,6 +95,7 @@ Check items when done. Move completed items into a short "Done" note at the bott
 ## i18n maintenance
 
 - [x] Homepage dictionary loading: explicitly map the root page to `src/_data/i18n/index.js` in `src/pages/pages.11tydata.js`; generated `_site/index.html` now emits its page dictionary.
+- [x] Gallery captions: refresh generated active-slide captions during language changes instead of waiting for carousel navigation (`main.js`).
 
 ## Done
 
