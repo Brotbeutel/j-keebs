@@ -1,0 +1,14 @@
+                <nav class="article-nav" aria-label="Weitere Artikel" data-i18n-attr="aria-label:utility.articleNav.aria">
+                {% if blogPrevious %}
+                <a class="article-nav__link article-nav__link--prev" href="{{ blogPrevious.url }}">
+                    <span class="article-nav__label" data-i18n="article.prevLabel">Vorheriger Artikel</span>
+                    <span class="article-nav__title" data-i18n="post{{ blogPrevious.id }}.navTitle">{{ blogPrevious.title }}</span>
+                </a>
+                {% endif %}
+                {% if blogNext %}
+                <a class="article-nav__link article-nav__link--next" href="{{ blogNext.url }}">
+                    <span class="article-nav__label" data-i18n="article.nextLabel">Nächster Artikel</span>
+                    <span class="article-nav__title" data-i18n="post{{ blogNext.id }}.navTitle">{{ blogNext.title }}</span>
+                </a>
+                {% endif %}
+                </nav>

@@ -9,5 +9,17 @@ module.exports = {
   eleventyComputed: {
     og_url: (data) => data.site.url + data.page.url,
     page_i18n: (data) => data.i18n[data.page.fileSlug],
+    blogArticles: (data) => data.blog,
+    blogFeatured: (data) => data.blog.find((article) => article.featured),
+    blogTeasers: (data) => data.blog.filter((article) => !article.featured),
+    blogArticle: (data) => data.blog.find((article) => article.slug === data.page.fileSlug),
+    blogPrevious: (data) => {
+      const article = data.blog.find((item) => item.slug === data.page.fileSlug);
+      return article && data.blog.find((item) => item.navOrder === article.navOrder - 1);
+    },
+    blogNext: (data) => {
+      const article = data.blog.find((item) => item.slug === data.page.fileSlug);
+      return article && data.blog.find((item) => item.navOrder === article.navOrder + 1);
+    },
   },
 };

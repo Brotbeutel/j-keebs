@@ -5,19 +5,21 @@
 - **Repo:** https://github.com/Brotbeutel/j-keebs
 - **Owner:** Jannik Schlüter
 - **Planner:** dedicated planning chat; implementers use a **new** chat per work package
-- **Updated:** 2026-10-06 (P2-F2 implementer)
+- **Updated:** 2026-10-06 (P2-F3 implementer)
 
 ## Snapshot
 
-The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → upload `_site/` → GitHub Pages; no `paths-ignore`, so every push builds and deploys). At the start of the P2-F1 session `origin/main` was at `18ed027` (planner `ai/` updates on top of `c1ae790`; code unchanged since `fe9c140`; `111dae2`/`e11d90c`/`2749621` moved the verification scripts to `scripts/` and tidied the repo; `c1ae790` re-saved the `ai/` handoff docs).
+The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → upload `_site/` → GitHub Pages; no `paths-ignore`, so every push builds and deploys). The current repository is clean at `4cc9980` (`latenight GitHub Copilot push`), which is also `origin/main`.
 
 **Everything through P2-E2 is in git. Live Pages was still pre-P2-E2 at this planner review (2026-10-05, fresh fetch of `index.html`, `faq.html` and `keyboards.html`): all three still have `og:image: Werkbank_Hero.jpg` and no `og:site_name` / `twitter:description` meta tags.** Since the workflow has no path filter, the push that landed `fe9c140` should already have deployed it — this review could not check the Actions run log (GitHub API rate-limited from the sandbox, no browser available). **Owner: open https://github.com/Brotbeutel/j-keebs/actions and confirm the latest run is green before re-checking** (`ai/CONVENTIONS.md` has the PowerShell commands). If it is green and the site is still old, it is a Pages cache delay — wait a few minutes and retry.
 
 **P2-F1 is committed and pushed in `0211d43` (2026-10-06).** The local acceptance checks pass. The live deployment of P2-F1, and the earlier P2-E2 metadata changes, still need an owner check in GitHub Actions and on Pages; do not infer live state from the local build.
 
-**P2-F2 is complete locally (2026-10-06; not committed).** Page-local dictionaries now live in 17 modules under `src/_data/i18n/` and are selected by `src/pages/pages.11tydata.js`; legal pages remain dictionary-free. The shared navigation key is `nav.contact` everywhere. Local verification: `npm run build` writes 21 HTML pages plus `sitemap.xml`; `python scripts/check_links.py _site` reports 1195 references and 0 errors; `python scripts/tag_balance.py _site` reports 0 problems; URL hygiene and `diff readme.md ai/README.md` pass. Live deployment remains unverified.
+**P2-F2 is committed and pushed in `4cc9980` (2026-10-06).** Page-local dictionaries now live in 17 modules under `src/_data/i18n/` and are selected by `src/pages/pages.11tydata.js`; legal pages remain dictionary-free. The shared navigation key is `nav.contact` everywhere. Local verification: `npm run build` writes 21 HTML pages plus `sitemap.xml`; `python scripts/check_links.py _site` reports 1195 references and 0 errors; `python scripts/tag_balance.py _site` reports 0 problems; URL hygiene and `diff readme.md ai/README.md` pass. Live deployment remains unverified.
 
-**Done in source through P2-E2 (committed):**
+**P2-F3 is complete locally (2026-10-06; not committed).** The seven blog records now live in `src/_data/blog.js` in the existing display order. `blog.njk` renders the featured card and six teasers from that data, and the seven article pages use collection-derived previous/next values through `article-nav.njk`. Local verification: `npm run build` writes 21 HTML pages plus `sitemap.xml`; link/tag checks remain at 1195 references and 0 problems; the blog index preserves all seven URLs and order; article boundary navigation and no-stale-URL checks pass. Live deployment remains unverified.
+
+**Done in source through P2-F2 (committed):**
 - P0/P0-B/P0-C — URL fixes, English slugs, base path
 - P1/P1-A/P1-B — contact form, brand assets, about page, OWA LABS, guide taxonomy
 - P2-A — interaction/visual polish (map, fullscreen controls, homepage)
@@ -25,6 +27,8 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - P2-D — self-hosted fonts, logo fix, 404 layout, PCBWay `rel=sponsored`
 - P2-E — build-time image pipeline (WebP srcset/sizes, eager/lazy policy)
 - P2-E2 — default 1200×630 `images/og-preview.jpg`, 180×180 `images/apple-touch-icon.png`, `og:site_name`, `twitter:description`, longer legal/contact meta descriptions (`fe9c140`)
+- P2-F1 — computed URLs, directory data, generated sitemap (`0211d43`)
+- P2-F2 — i18n data files and navigation key normalization (`4cc9980`)
 
 **Verified 2026-10-05 (P2-E2 implementer, local `_site/`):**
 - `npm run build` → Copied 54, Wrote 21 files, 0.61s (warm). No errors. Node v24.19.0.
@@ -57,9 +61,16 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - `grep -rn "https://brotbeutel.github.io/j-keebs" src/` → only `src/_data/site.js:3`. Unprefixed-URL grep over `_site` HTML/XML/TXT → empty. No `@@OG_URL@@` or `{{` left in `_site`.
 - **Owner step:** `0211d43` is already on `origin/main`. Check the Actions run and the live `sitemap.xml`; live deployment is **not** verified.
 
+**P2-F2 verification (planner reconciliation, 2026-10-06, local; commit `4cc9980`):**
+
+- 17 page-local dictionaries are in `src/_data/i18n/`; legal pages remain dictionary-free; `base.njk` emits only the selected page dictionary.
+- `nav.kontakt` has no remaining source definition or consumer; `nav.contact` is used in `src/_data/site.js`, `main.js`, and the shared dictionaries.
+- `npm run build` writes 21 HTML pages plus `sitemap.xml`; `python scripts/check_links.py _site` reports 1195 references and 0 errors; `python scripts/tag_balance.py _site` reports 0 problems.
+- `diff readme.md ai/README.md` is empty. Live deployment remains unverified.
+
 **Planner reconciliation findings (2026-10-06)**
 
-- **P2 / next:** `src/pages/*.njk`, `main.js`, and `src/_data/site.js` still contain the page-local i18n/front-matter and navigation-key surface scoped to P2-F2. `PLAN.md` now defines the extraction and `nav.contact` rename as the only active package.
+- **P2 / next:** P2-F3 is complete locally. The next package is P2-remaining (a11y items).
 - **P2 / verification pending:** `src/_includes/base.njk`, page metadata, and `images/og-preview.jpg` contain the committed P2-E2/P2-F1 social and URL work locally; GitHub Actions and the deployed `sitemap.xml` still need an owner/live check.
 - **P3 / owner decision:** `src/pages/index.njk` and its page dictionary still expose the R6 title contradiction and the `gallery2.li3value` placeholder; no wording was changed in this planner session.
 - **P3 / owner decision:** `images/mechanicon_logo.png` is unused, while `images/Monsgeek M1.jpg`, `images/Keychron Q3_1.JPG`, and `images/Keychron Q3_2.JPG` are referenced by `src/pages/keyboards.njk`; no asset rename or deletion was attempted.
@@ -83,8 +94,8 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - [x] P2-E — image pipeline — done and deployed (`1a9325f`)
 - [x] **P2-E2 — icons and social previews** — in git (`fe9c140`); **not confirmed live**
 - [x] **P2-F1 — computed URLs, directory data, generated sitemap** — committed and pushed as `0211d43`; live not confirmed
-- [x] **P2-F2 — i18n as data files, nav key naming** — complete locally; live not confirmed
-- [ ] P2-F3 — blog as a collection
+- [x] **P2-F2 — i18n as data files, nav key naming** — committed and pushed as `4cc9980`; live not confirmed
+- [x] **P2-F3 — blog as a collection** — complete locally; live not confirmed
 - [ ] P2-remaining — a11y items
 - [ ] Owner (optional): lawyer review of Art. 6 Abs. 1 lit. f DSGVO for auto-loading map
 

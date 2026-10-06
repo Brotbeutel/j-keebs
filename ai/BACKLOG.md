@@ -19,12 +19,14 @@ Check items when done. Move completed items into a short "Done" note at the bott
 - [x] Directory data: `layout: base.njk` repeated in 21 files; use `src/pages/pages.11tydata.js`
 - [x] Generate `sitemap.xml` from the page collection (currently a static root file, 20 `<url>` entries, must be hand-updated on every rename)
 
-**P2-F2 — done locally 2026-10-06 (not committed; live not confirmed):**
+**P2-F2 — done 2026-10-06 (committed and pushed as `4cc9980`; live not confirmed):**
 - [x] i18n as data: 17 page-local dictionaries moved from YAML front matter to `src/_data/i18n/<page-file-slug>.js`; `base.njk` emits only the current page's dictionary, while legal pages remain dictionary-free
 - [x] Nav key naming: `nav.kontakt` renamed to `nav.contact` in the navigation data and both shared language dictionaries
 
-**P2-F3 — after F2:**
-- [ ] Blog as collection: 7 articles + 240-line `blog.njk` hard-code order, dates, teasers, prev/next
+**P2-F3 — done locally 2026-10-06 (not committed; live not confirmed):**
+- [x] Blog records: seven ordered records now live in `src/_data/blog.js`, including URLs, display/navigation order, dates, teasers, images and German no-JS defaults
+- [x] Blog index: featured and teaser cards render from the data records with the existing seven-article order and output contract
+- [x] Article navigation: previous/next links are computed from navigation order and rendered through `src/_includes/article-nav.njk`; first/last boundaries remain empty on the appropriate side
 
 **Unscheduled (small, independent — pick up opportunistically):**
 - [ ] `robots.txt`: **planner decision 2026-10-05 — not worth generating.** It's 4 static lines with one URL in it; a template would cost more than it saves. Leave it a hand-maintained passthrough file (see `DECISIONS.md`).
@@ -72,7 +74,7 @@ Check items when done. Move completed items into a short "Done" note at the bott
 
 ## Found during P2-F1 (low priority, not blocking)
 
-- [ ] Front-matter `extra_head` is injected raw, so the JSON-LD block in `index.njk` needs the `@@OG_URL@@` token workaround (see `CONVENTIONS.md` "URLs"). Fold into P2-F2 (move JSON-LD / head extras into data) and drop the token then.
+- [ ] Front-matter `extra_head` is injected raw, so the JSON-LD block in `index.njk` needs the `@@OG_URL@@` token workaround (see `CONVENTIONS.md` "URLs"). Keep this as a separate future head-data cleanup; P2-F2 deliberately covered page i18n data only.
 - [ ] The `sitemap.xml` has no `<lastmod>`. Optional; would need a per-page date (blog posts have one in the content, not in front matter). Do with P2-F3 if wanted.
 - [ ] Comments in `eleventy.config.js` ("while the legacy site remains live") are stale since P2-C. Cosmetic; touch when the file is edited for another reason.
 - [ ] `npm run build` reports `Wrote 22 files` now: 21 HTML pages + the generated `sitemap.xml`. "21 pages" in checks still refers to HTML pages.
@@ -83,7 +85,9 @@ Check items when done. Move completed items into a short "Done" note at the bott
 
 ## Done
 
-- 2026-10-06 — P2-F2: externalized 17 page-local i18n dictionaries, kept legal pages German-only, renamed `nav.kontakt` to `nav.contact`, and documented the data convention. Local build and link/tag checks pass; live deployment is not confirmed.
+- 2026-10-06 — P2-F3: moved the seven blog records into `src/_data/blog.js`, generated the blog index and article navigation from that data, and documented the convention. Local build, link/tag checks, image report, and blog-specific output assertions pass; live deployment is not confirmed.
+
+- 2026-10-06 — P2-F2: externalized 17 page-local i18n dictionaries, kept legal pages German-only, renamed `nav.kontakt` to `nav.contact`, and documented the data convention. Committed and pushed as `4cc9980`; local build and link/tag checks pass; live deployment is not confirmed.
 
 - 2026-10-06 — P2-F1: computed `og_url` / relative `og_image` / `pages.11tydata.js` (`layout`) / generated `sitemap.xml`; zero hardcoded base URLs left in templates; `ai/README.md` synced with `readme.md`. Committed and pushed as `0211d43`. Local build writes 21 HTML pages plus `sitemap.xml`; link and tag checks pass. Live deployment is not confirmed.
 - 2026-10-05 — Planner: re-confirmed P2-E2 in git but still not live (R9); confirmed R10 (`mechanicon_logo.png` unused, 3 odd filenames identified and in use); detailed R6 (exact conflicting values, proposed default); found `ai/README.md` drift (2 lines); split P2-F into F1/F2/F3 and queued F1 in `PLAN.md`; decided `robots.txt` is not worth generating. No code changed.

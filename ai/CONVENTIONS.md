@@ -12,6 +12,7 @@
 - `id="guidesSubmenu"` and `id="siteNav"` must stay unique per document.
 - Legal pages stay German-only by design.
 - Do not recreate the old copy/paste pattern inside templates: repeated values belong in data files (see P2-F in `BACKLOG.md`).
+- Blog records live in `src/_data/blog.js` in display order. Each record owns its article slug, URL, navigation order, image, date, teaser and German no-JS defaults; `src/pages/pages.11tydata.js` derives the featured, teaser, previous and next values from that array.
 - `src/pages/sitemap.njk` (`layout: false`) generates `sitemap.xml`; it must never inherit `base.njk`.
 - Bulk changes across many templates: script with `assert` guards, then diff.
 
