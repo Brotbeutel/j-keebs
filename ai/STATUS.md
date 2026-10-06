@@ -33,7 +33,7 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 
 **Contact panel visual refinement completed locally:** the Windows 2K-inspired form now uses the site's typography, color tokens, borders, shadows, spacing, focus states, and responsive sizing while retaining the retro title bar and monitor icon. Form markup and submission behavior are unchanged. Build, link, tag, and syntax checks pass.
 
-**Contact panel redesign completed locally:** the panel now uses the self-hosted Press Start 2P pixel font for Windows-inspired chrome, a classic blue title bar, restrained beveled controls, and opposite tinted surfaces: dark charcoal in light mode and lighter steel blue in dark mode. Form behavior is unchanged; build, link, tag, syntax, and whitespace checks pass. Link references are now 1196 because the local font asset is included.
+**Contact panel redesign completed locally:** the panel now uses the self-hosted Press Start 2P pixel font for Windows-inspired chrome, neutral dark/light title surfaces without blue, restrained beveled controls, the same floating card lift/shadow on hover, and an expanded framed pixel-art header. Form behavior is unchanged; build, link, tag, syntax, and whitespace checks pass. Link references are now 1196 because the local font asset is included.
 
 **Done in source through P3 documentation (committed):**
 - P0/P0-B/P0-C — URL fixes, English slugs, base path

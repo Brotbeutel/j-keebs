@@ -3195,14 +3195,14 @@ textarea { min-height: 8.5rem; resize: vertical; }
 /* ==========================================================================
 /* Final Win2K balance: recognizable chrome, local pixel-mono type, restrained tint. */
 .win2k-window {
-    --w2k-bg: #2f3947;
-    --w2k-panel: #3f4c5a;
-    --w2k-title: #123a70;
+    --w2k-bg: #303844;
+    --w2k-panel: #3f4a58;
+    --w2k-title: #242b35;
     --w2k-text: #f7f0dc;
-    --w2k-input: #202a36;
-    --w2k-highlight: #8093a3;
-    --w2k-shadow: #111820;
-    --w2k-accent: #ef9a83;
+    --w2k-input: #202731;
+    --w2k-highlight: #7e8994;
+    --w2k-shadow: #151b22;
+    --w2k-accent: #c28c7d;
     background: var(--w2k-bg) !important;
     border: 2px solid var(--w2k-highlight) !important;
     border-right-color: var(--w2k-shadow) !important;
@@ -3213,22 +3213,22 @@ textarea { min-height: 8.5rem; resize: vertical; }
 }
 
 [data-theme="dark"] .win2k-window {
-    --w2k-bg: #c3ccd2;
-    --w2k-panel: #d8dfe3;
-    --w2k-title: #123a70;
+    --w2k-bg: #d0d4d5;
+    --w2k-panel: #e1e4e4;
+    --w2k-title: #545c63;
     --w2k-text: #18212a;
     --w2k-input: #fbfbf6;
     --w2k-highlight: #ffffff;
-    --w2k-shadow: #68757e;
-    --w2k-accent: #b95845;
+    --w2k-shadow: #737b80;
+    --w2k-accent: #8d5f53;
     box-shadow: inset 1px 1px 0 var(--w2k-panel), 5px 5px 0 rgba(0, 0, 0, 0.3) !important;
 }
 
 .win2k-titlebar {
-    background: linear-gradient(90deg, var(--w2k-title), color-mix(in srgb, var(--w2k-title) 70%, #6e9bc2)) !important;
+    background: linear-gradient(90deg, var(--w2k-title), color-mix(in srgb, var(--w2k-title) 78%, #ffffff)) !important;
     border: 0 !important;
     border-bottom: 2px solid var(--w2k-shadow) !important;
-    color: #ffffff !important;
+    color: var(--w2k-text) !important;
     font-family: "Press Start 2P", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
     font-size: 0.82rem !important;
     letter-spacing: 0.02em;
@@ -3238,7 +3238,7 @@ textarea { min-height: 8.5rem; resize: vertical; }
 
 .win2k-titlebar__text::before {
     content: "▣";
-    color: #d9edf1;
+    color: var(--w2k-accent);
     font-family: "Press Start 2P", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
     margin-right: 0.35rem;
 }
@@ -3271,6 +3271,14 @@ textarea { min-height: 8.5rem; resize: vertical; }
     color: #ffffff !important;
 }
 
+@media (hover: hover) {
+    .win2k-window:hover {
+        box-shadow: var(--shadow) !important;
+        transform: translateY(-4px);
+        border-color: var(--accent) !important;
+    }
+}
+
 .win2k-btn:active,
 .win2k-window button[type="submit"]:active {
     border-top-color: var(--w2k-shadow) !important;
@@ -3299,6 +3307,10 @@ textarea { min-height: 8.5rem; resize: vertical; }
 }
 
 .win2k-dialog-header {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.42fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: 1rem;
     border-bottom: 1px dotted var(--w2k-shadow);
     padding-bottom: 1rem;
 }
@@ -3309,7 +3321,10 @@ textarea { min-height: 8.5rem; resize: vertical; }
     border-right-color: var(--w2k-shadow);
     border-bottom-color: var(--w2k-shadow);
     padding: 0.25rem;
-    width: clamp(4rem, 15vw, 5.5rem);
+    width: 100%;
+    height: 100%;
+    min-height: 7rem;
+    object-fit: contain;
 }
 
 .win2k-body p,
@@ -3343,6 +3358,16 @@ textarea { min-height: 8.5rem; resize: vertical; }
 .win2k-body a {
     color: var(--w2k-accent) !important;
     font-weight: 700 !important;
+}
+
+@media (max-width: 480px) {
+    .win2k-dialog-header {
+        grid-template-columns: minmax(5.5rem, 0.36fr) minmax(0, 1fr);
+    }
+
+    .win2k-monitor-icon {
+        min-height: 5.5rem;
+    }
 }
 
 .win2k-window input[type="text"],
