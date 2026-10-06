@@ -8,5 +8,6 @@ module.exports = {
   layout: "base.njk",
   eleventyComputed: {
     og_url: (data) => data.site.url + data.page.url,
+    page_i18n: (data) => data.i18n[data.page.fileSlug],
   },
 };

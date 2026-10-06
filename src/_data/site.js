@@ -22,6 +22,6 @@ module.exports = {
     { href: "about.html", i18n: "nav.about", label: "Über mich" },
     { href: "faq.html", i18n: "nav.faq", label: "FAQ" },
     { href: "partner.html", i18n: "nav.partner", label: "Partner" },
-    { href: "contact.html", i18n: "nav.kontakt", label: "Kontakt" },
+    { href: "contact.html", i18n: "nav.contact", label: "Kontakt" },
   ],
 };

@@ -14,14 +14,14 @@ Check items when done. Move completed items into a short "Done" note at the bott
 
 ## Eleventy structure debt (P2-F, split 2026-10-05 planner review)
 
-**P2-F1 — done 2026-10-06 (in working tree, not committed):**
+**P2-F1 — done 2026-10-06 (committed and pushed as `0211d43`; live not confirmed):**
 - [x] Computed URLs: derive `canonical`/`og_url` from `site.url` + `page.url` via `eleventyComputed` (52 hard-coded absolute-URL lines measured 2026-10-05: 21×`og_url` + 21×`canonical` + 8×`og_image` on blog pages + 1 JSON-LD `url` + 1 FormSubmit `_next`, across 20 template files)
 - [x] Directory data: `layout: base.njk` repeated in 21 files; use `src/pages/pages.11tydata.js`
 - [x] Generate `sitemap.xml` from the page collection (currently a static root file, 20 `<url>` entries, must be hand-updated on every rename)
 
-**P2-F2 — next after F1:**
-- [ ] i18n as data: ~35% of template bytes are raw `<script>` i18n blocks in YAML front matter; 82 key/value pairs duplicated across templates
-- [ ] Nav key naming inconsistent (`nav.kontakt` for `contact.html`) — fold into the i18n-as-data rework, not a standalone rename, to avoid churning the same keys twice
+**P2-F2 — done locally 2026-10-06 (not committed; live not confirmed):**
+- [x] i18n as data: 17 page-local dictionaries moved from YAML front matter to `src/_data/i18n/<page-file-slug>.js`; `base.njk` emits only the current page's dictionary, while legal pages remain dictionary-free
+- [x] Nav key naming: `nav.kontakt` renamed to `nav.contact` in the navigation data and both shared language dictionaries
 
 **P2-F3 — after F2:**
 - [ ] Blog as collection: 7 articles + 240-line `blog.njk` hard-code order, dates, teasers, prev/next
@@ -83,7 +83,9 @@ Check items when done. Move completed items into a short "Done" note at the bott
 
 ## Done
 
-- 2026-10-06 — P2-F1: computed `og_url` / relative `og_image` / `pages.11tydata.js` (`layout`) / generated `sitemap.xml`; zero hardcoded base URLs left in templates; `ai/README.md` synced with `readme.md`. Built `_site` HTML (21 files) and `sitemap.xml` byte-identical to the pre-change build. Not committed; not confirmed live.
+- 2026-10-06 — P2-F2: externalized 17 page-local i18n dictionaries, kept legal pages German-only, renamed `nav.kontakt` to `nav.contact`, and documented the data convention. Local build and link/tag checks pass; live deployment is not confirmed.
+
+- 2026-10-06 — P2-F1: computed `og_url` / relative `og_image` / `pages.11tydata.js` (`layout`) / generated `sitemap.xml`; zero hardcoded base URLs left in templates; `ai/README.md` synced with `readme.md`. Committed and pushed as `0211d43`. Local build writes 21 HTML pages plus `sitemap.xml`; link and tag checks pass. Live deployment is not confirmed.
 - 2026-10-05 — Planner: re-confirmed P2-E2 in git but still not live (R9); confirmed R10 (`mechanicon_logo.png` unused, 3 odd filenames identified and in use); detailed R6 (exact conflicting values, proposed default); found `ai/README.md` drift (2 lines); split P2-F into F1/F2/F3 and queued F1 in `PLAN.md`; decided `robots.txt` is not worth generating. No code changed.
 - 2026-10-05 — P2-E2: default 1200×630 `og-preview.jpg`, 180×180 `apple-touch-icon.png`, `og:site_name` + `twitter:description` in `base.njk`, legal/contact meta descriptions 50–160 chars (`fe9c140`). Local build 21 pages / 0 link errors. Live Pages still old at verification time.
 - 2026-10-05 — Planner: verified P2-E committed and deployed (`1a9325f`). Build 21 pages, 0 errors, 78 WebP files / 7.0 MB. Stray files removed (`e11d90c`). AI files updated. P2-E2 scoped.

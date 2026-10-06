@@ -17,6 +17,7 @@
     og_image        – Open Graph image, RELATIVE to the site root (e.g. "images/x.jpg"); defaults to images/og-preview.jpg. base.njk prefixes site.url.
     extra_head      – additional <head> content (injected raw; the token @@OG_URL@@ is replaced by the page's canonical URL)
     page_class      – additional class on <body>
+    page_i18n       – computed page-local dictionary from src/_data/i18n/
     root_paths      – set to true ONLY for pages that are served at arbitrary depth
                       (404.html, which GitHub Pages returns for /j-keebs/foo/bar).
                       Every relative URL of the shared chrome then gets the base
@@ -175,7 +176,11 @@
         </div>
     </div>
 
-    {% if page_script %}{{ page_script | safe }}{% endif %}
+    {% if page_i18n %}
+    <script>
+        window.J_KEEBS_I18N = {{ page_i18n | dump | safe }};
+    </script>
+    {% endif %}
     <script src="{{ rp or './' }}main.js" defer></script>
 </body>
 </html>
