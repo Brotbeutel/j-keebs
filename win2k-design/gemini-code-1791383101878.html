@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>J-Keebs - Kontakt</title>
+  <style>
+    /* --------------------------------------------------
+       1. FONT IMPORTS (Google Fonts / Pixel Fallbacks)
+       FontPixel nutzt @font-face / Pixel-Fonts.
+       Hier nutzen wir eine saubere Pixel-Konfiguration.
+    -------------------------------------------------- */
+    @import url('https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap');
+
+    @font-face {
+      font-family: 'Gohufont';
+      src: url('https://fontpixel.com/fonts/gohufont.woff2') format('woff2'),
+           url('https://fontpixel.com/fonts/gohufont.ttf') format('truetype');
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Monogram';
+      src: url('https://fontpixel.com/fonts/monogram.woff2') format('woff2'),
+           url('https://fontpixel.com/fonts/monogram.ttf') format('truetype');
+      font-display: swap;
+    }
+
+    /* --------------------------------------------------
+       2. FARB-VARIANTE (Angepasst an J-Keebs Design)
+    -------------------------------------------------- */
+    :root {
+      --bg-dark: #2a2826;            /* Dunkler Hintergrund der Seite */
+      --win-bg: #3c3836;             /* Fenster-Hintergrund (Classic Dark Gray) */
+      --win-title-bg: #60513e;       /* Titelzeile (Warmer Messing/Braun-Ton) */
+      --win-title-text: #f0e6d2;     /* Text in der Titelzeile */
+      --border-light: #5a544f;       /* Helle Kante für 3D-Effekt */
+      --border-dark: #1e1c1a;        /* Dunkle Kante für 3D-Effekt */
+      --text-main: #e8e0d5;         /* Haupttext */
+      --text-muted: #a3998e;        /* Muted Text */
+      --input-bg: #1c1a19;          /* Hintergrund für Eingabefelder */
+      --accent-gold: #c29b62;        /* J-Keebs Button-Gold */
+      --accent-gold-hover: #d8b278;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      image-rendering: pixelated;   /* Scharfe Pixel-Darstellung */
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Gohufont', 'VT323', monospace;
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* --------------------------------------------------
+       3. RETRO WINDOW CONTAINER (Windows 2000 Style)
+    -------------------------------------------------- */
+    .retro-window {
+      width: 100%;
+      max-width: 520px;
+      background-color: var(--win-bg);
+      /* Retro 3D-Border (Bevel/Outset) */
+      border-top: 2px solid var(--border-light);
+      border-left: 2px solid var(--border-light);
+      border-right: 2px solid var(--border-dark);
+      border-bottom: 2px solid var(--border-dark);
+      box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4);
+      padding: 3px;
+    }
+
+    /* Titlebar */
+    .window-titlebar {
+      background: linear-gradient(90deg, var(--win-title-bg), #42382b);
+      color: var(--win-title-text);
+      font-family: 'Monogram', 'Press Start 2P', monospace;
+      font-size: 15px;
+      padding: 4px 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .titlebar-text {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .titlebar-icon {
+      width: 14px;
+      height: 14px;
+      background-color: var(--accent-gold);
+      display: inline-block;
+      border: 1px solid #000;
+    }
+
+    /* Close Button (Retro [X]) */
+    .window-controls button {
+      width: 24px;
+      height: 24px;
+      background-color: var(--win-bg);
+      border-top: 1px solid var(--border-light);
+      border-left: 1px solid var(--border-light);
+      border-right: 1px solid var(--border-dark);
+      border-bottom: 1px solid var(--border-dark);
+      color: var(--text-main);
+      font-family: monospace;
+      font-size: 10px;
+      line-height: 10px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .window-controls button:active {
+      border-top: 1px solid var(--border-dark);
+      border-left: 1px solid var(--border-dark);
+      border-right: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    /* Window Body */
+    .window-body {
+      padding: 16px;
+    }
+
+    .window-description {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.4;
+      border-bottom: 1px dashed var(--border-light);
+      padding-bottom: 10px;
+    }
+
+    /* --------------------------------------------------
+       4. FORM STYLING
+    -------------------------------------------------- */
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: bold;
+      color: var(--text-main);
+    }
+
+    /* Inset 3D Effect for Inputs (Win2k Style) */
+    .retro-input,
+    .retro-textarea,
+    .retro-select {
+      width: 100%;
+      background-color: var(--input-bg);
+      color: #fff;
+      font-family: 'Gohufont', monospace;
+      font-size: 14px;
+      padding: 6px 8px;
+      outline: none;
+      /* Inset 3D border */
+      border-top: 2px solid var(--border-dark);
+      border-left: 2px solid var(--border-dark);
+      border-right: 2px solid var(--border-light);
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    .retro-input:focus,
+    .retro-textarea:focus,
+    .retro-select:focus {
+      background-color: #24211f;
+      border-top-color: var(--accent-gold);
+    }
+
+    .retro-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* Checkbox / Radio Retro Style */
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+
+    .checkbox-group input {
+      accent-color: var(--accent-gold);
+    }
+
+    /* Buttons (Aktionsleiste unten) */
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-dark);
+    }
+
+    .retro-btn {
+      font-family: 'Monogram', 'Press Start 2P', monospace;
+      font-size: 14px;
+      padding: 6px 16px;
+      background-color: var(--win-bg);
+      color: var(--text-main);
+      cursor: pointer;
+      /* Outset 3D border */
+      border-top: 2px solid var(--border-light);
+      border-left: 2px solid var(--border-light);
+      border-right: 2px solid var(--border-dark);
+      border-bottom: 2px solid var(--border-dark);
+    }
+
+    .retro-btn-primary {
+      background-color: var(--accent-gold);
+      color: #1a1816;
+      font-weight: bold;
+    }
+
+    .retro-btn-primary:hover {
+      background-color: var(--accent-gold-hover);
+    }
+
+    .retro-btn:active {
+      /* Gedrückter Button Effekt */
+      border-top: 2px solid var(--border-dark);
+      border-left: 2px solid var(--border-dark);
+      border-right: 2px solid var(--border-light);
+      border-bottom: 2px solid var(--border-light);
+      padding: 7px 15px 5px 17px; /* Klick-Verschiebung */
+    }
+
+    /* Statusbar am Ende des Fensters */
+    .status-bar {
+      margin-top: 12px;
+      padding: 3px 6px;
+      background-color: var(--win-bg);
+      border-top: 1px solid var(--border-dark);
+      border-left: 1px solid var(--border-dark);
+      border-right: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Windows 2000 Style Dialog-Fenster -->
+  <div class="retro-window">
+    
+    <!-- Titlebar -->
+    <div class="window-titlebar">
+      <div class="titlebar-text">
+        <span class="titlebar-icon"></span>
+        J-Keebs_Contact_v1.0.exe
+      </div>
+      <div class="window-controls">
+        <button aria-label="Schließen">✕</button>
+      </div>
+    </div>
+
+    <!-- Window Content -->
+    <div class="window-body">
+      <p class="window-description">
+        Hast du Fragen zu Custom-Tastaturen, Switches oder Modding-Services? Hinterlasse eine Nachricht:
+      </p>
+
+      <form action="#" method="POST">
+        
+        <!-- Name -->
+        <div class="form-group">
+          <label for="name">User / Name:</label>
+          <input type="text" id="name" name="name" class="retro-input" placeholder="z. B. Alex" required>
+        </div>
+
+        <!-- E-Mail -->
+        <div class="form-group">
+          <label for="email">E-Mail Adresse:</label>
+          <input type="email" id="email" name="email" class="retro-input" placeholder="alex@domain.de" required>
+        </div>
+
+        <!-- Betreff / Thema -->
+        <div class="form-group">
+          <label for="topic">Betreff / Kategorie:</label>
+          <select id="topic" name="topic" class="retro-select">
+            <option value="custom-build">Custom Build Anfrage</option>
+            <option value="modding">Switch & Stabilizer Modding</option>
+            <option value="firmware">QMK / VIA Hilfe</option>
+            <option value="general">Allgemeine Frage</option>
+          </select>
+        </div>
+
+        <!-- Nachricht -->
+        <div class="form-group">
+          <label for="message">Nachricht:</label>
+          <textarea id="message" name="message" class="retro-textarea" rows="5" placeholder="Beschreibe dein Anliegen..." required></textarea>
+        </div>
+
+        <!-- Checkbox -->
+        <div class="form-group">
+          <label class="checkbox-group">
+            <input type="checkbox" required>
+            <span>ISO-DE Layout bevorzugt</span>
+          </label>
+        </div>
+
+        <!-- Actions / Submit Buttons -->
+        <div class="form-actions">
+          <button type="reset" class="retro-btn">Zurücksetzen</button>
+          <button type="submit" class="retro-btn retro-btn-primary">[ SENDEN ]</button>
+        </div>
+
+      </form>
+
+      <!-- Statusleiste -->
+      <div class="status-bar">
+        Status: Bereit zum Senden... (Port 8080)
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>J-Keebs - Kontakt</title>
+  <style>
+    
+    /* --------------------------------------------------
+       1. FONT IMPORTS & BASE CONFIG
+    -------------------------------------------------- */
+  
+    @import url('https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap');
+
+    @font-face {
+      font-family: 'Gohufont';
+      src: url('https://fontpixel.com/downloads/gohufont-bold-14px-square.woff2') format('woff2'),
+           url('https://fontpixel.com/fonts/gohufont.ttf') format('truetype');
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Monogram';
+      src: url('https://fontpixel.com/downloads/monogram-16px-square.woff2') format('woff2'),
+           url('https://fontpixel.com/fonts/monogram.ttf') format('truetype');
+      font-display: swap;
+    }
+
+    .pixel {
+    font-family: "GohuFont", monospace;
+    }
+
+    /* --------------------------------------------------
+       2. FARBPALETTE (Passend zu J-Keebs)
+    -------------------------------------------------- */
+    :root {
+      --bg-dark: #2a2826;            /* Dunkler Hintergrund */
+      --win-bg: #3c3836;             /* Fenster-Hintergrund */
+      --win-title-bg: #60513e;       /* Titelzeile (Warmer Messing/Braun-Ton) */
+      --win-title-text: #f0e6d2;     /* Text in der Titelzeile */
+      --border-light: #5a544f;       /* Helle Kante für 3D-Effekt */
+      --border-dark: #1e1c1a;        /* Dunkle Kante für 3D-Effekt */
+      --text-main: #e8e0d5;         /* Haupttext */
+      --text-muted: #a3998e;        /* Muted Text */
+      --input-bg: #2b2826;          /* Hintergrund für Eingabefelder */
+      --accent-gold: #c29b62;        /* J-Keebs Button-Gold */
+      --accent-gold-hover: #d8b278;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Gohufont', 'VT323', monospace;
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* --------------------------------------------------
+       3. RETRO WINDOW CONTAINER
+    -------------------------------------------------- */
+    .retro-window {
+      width: 100%;
+      max-width: 560px;
+      background-color: var(--win-bg);
+      /* Retro 3D Bevel Edge */
+      border-top: 3px solid var(--border-light);
+      border-left: 3px solid var(--border-light);
+      border-right: 3px solid var(--border-dark);
+      border-bottom: 3px solid var(--border-dark);
+      box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+      padding: 3px;
+    }
+
+    /* Titelzeile */
+    .window-titlebar {
+      background: linear-gradient(90deg, var(--win-title-bg), #3a3124);
+      color: var(--win-title-text);
+      font-family: 'Gohufont', 'Press Start 2P', monospace;
+      font-size: 18px;
+      font-style: normal;
+      letter-spacing: 2px;
+      padding: 4px 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .titlebar-text {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Mini PixelArt Icon in der Titelleiste */
+    .titlebar-icon {
+      width: 20px;
+      height: 20px;
+      image-rendering: pixelated;
+    }
+
+    /* Close Button (Retro [X]) */
+    .window-controls button {
+      width: 24px;
+      height: 24px;
+      background-color: var(--win-bg);
+      border-top: 3px solid var(--border-light);
+      border-left: 3px solid var(--border-light);
+      border-right: 3px solid var(--border-dark);
+      border-bottom: 3px solid var(--border-dark);
+      color: var(--text-main);
+      font-family: monospace;
+      font-weight: bolder;
+      font-size: 14px;
+      line-height: 10px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .window-controls button:active {
+      border-top: 3px solid var(--border-dark);
+      border-left: 3px solid var(--border-dark);
+      border-right: 3px solid var(--border-light);
+      border-bottom: 3px solid var(--border-light);
+    }
+
+    /* Window Body */
+    .window-body {
+      padding: 16px;
+    }
+
+    /* --------------------------------------------------
+       4. DIALOG HEADER WITH PIXEL ART
+    -------------------------------------------------- */
+    .dialog-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      border-bottom: 2px groove var(--border-light);
+      padding-bottom: 14px;
+    }
+
+    .dialog-header-text {
+      flex: 1;
+    }
+
+    .dialog-header-text h2 {
+      font-family: 'Gohufont', monospace;
+      font-size: 18px;
+      color: var(--accent-gold);
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .dialog-header-text p {
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    /* Das PixelArt Bild scharf gerendert mit Bevel-Rahmen */
+    .pixelart-container {
+      flex-shrink: 0;
+      background-color: var(--input-bg);
+      padding: 8px;
+      border-top: 3px solid var(--border-dark);
+      border-left: 3px solid var(--border-dark);
+      border-right: 3px solid var(--border-light);
+      border-bottom: 3px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pixelart-img {
+      width: 80px;
+      height: 80px;
+      image-rendering: pixelated; /* Erhält die knackigen Pixel */
+      display: block;
+    }
+
+    /* --------------------------------------------------
+       5. FORM ELEMENTS
+    -------------------------------------------------- */
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: bold;
+      color: var(--text-main);
+    }
+
+    /* Inset 3D Inputs */
+    .retro-input,
+    .retro-textarea,
+    .retro-select {
+      width: 100%;
+      background-color: var(--input-bg);
+      color: #fff;
+      font-family: 'Gohufont', monospace;
+      font-size: 14px;
+      padding: 6px 8px;
+      outline: none;
+      image-rendering: pixelated;
+      border-top: 3px solid var(--border-dark);
+      border-left: 3px solid var(--border-dark);
+      border-right: 3px solid var(--border-light);
+      border-bottom: 3px solid var(--border-light);
+    }
+
+    .retro-input:focus,
+    .retro-textarea:focus,
+    .retro-select:focus {
+      background-color: #24211f;
+      border-top-color: var(--accent-gold);
+    }
+
+    .retro-textarea {
+      resize: vertical;
+      min-height: 90px;
+
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+
+    .checkbox-group input {
+      accent-color: var(--accent-gold);
+    }
+
+    /* --------------------------------------------------
+       6. BUTTONS & STATUS BAR
+    -------------------------------------------------- */
+    .form-actions {
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-dark);
+    }
+
+    .retro-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 14px;
+      font-weight: bolder;
+      padding: 12px 12px;
+      background-color: var(--win-bg);
+      color: var(--text-main);
+      cursor: pointer;
+      border-top: 3px solid var(--border-light);
+      border-left: 3px solid var(--border-light);
+      border-right: 3px solid var(--border-dark);
+      border-bottom: 3px solid var(--border-dark);
+    }
+
+    .retro-btn-primary {
+      background-color: var(--accent-gold);
+      color: #1a1816;
+      font-weight: bold;
+    }
+
+    .retro-btn-primary:hover {
+      background-color: var(--accent-gold-hover);
+    }
+
+    .retro-btn:active {
+      border-top: 3px solid var(--border-dark);
+      border-left: 3px solid var(--border-dark);
+      border-right: 3px solid var(--border-light);
+      border-bottom: 3px solid var(--border-light);
+      padding: 7px 15px 5px 17px;
+    }
+
+    .status-bar {
+      margin-top: 12px;
+      padding: 3px 6px;
+      background-color: var(--win-bg);
+      border-top: 2px solid var(--border-dark);
+      border-left: 2px solid var(--border-dark);
+      border-right: 2px solid var(--border-light);
+      border-bottom: 2px solid var(--border-light);
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Windows 2000 Retro Window -->
+  <div class="retro-window">
+    
+    <!-- Titlebar -->
+    <div class="window-titlebar">
+      <div class="titlebar-text">
+        <!-- Das Bild wird hier auch als Icon wiederverwendet -->
+        <img src="Retro-PC_pixelart_generated.png" alt="Icon" class="titlebar-icon">
+        J-Keebs_Contact.exe
+      </div>
+      <div class="window-controls">
+        <button aria-label="Schließen">✕</button>
+      </div>
+    </div>
+
+    <!-- Window Body -->
+    <div class="window-body">
+      
+      <!-- Header mit PixelArt Bild -->
+      <div class="dialog-header">
+        <div class="dialog-header-text">
+          <h2>[ Sende eine Nachricht ]</h2>
+          <p>
+            Hast du Fragen zu Custom-Tastaturen, Switches, QMK-Firmware oder Modding-Services? Hinterlasse mir eine Zeile!
+          </p>
+        </div>
+        <div class="pixelart-container">
+          <!-- PixelArt PC Bild -->
+          <img src="Retro-PC_pixelart_generated.png" alt="Retro PC PixelArt" class="pixelart-img">
+        </div>
+      </div>
+
+      <!-- Kontaktformular -->
+      <form action="#" method="POST">
+        
+        <!-- Name & E-Mail Nebeneinander für echtes Dialog-Feeling -->
+        <div class="form-group">
+          <label for="name">User / Name:</label>
+          <input type="text" id="name" name="name" class="retro-input" placeholder="z. B. Alex" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-Mail Adresse:</label>
+          <input type="email" id="email" name="email" class="retro-input" placeholder="alex@domain.de" required>
+        </div>
+
+        <div class="form-group">
+          <label for="topic">Betreff / Kategorie:</label>
+          <select id="topic" name="topic" class="retro-select">
+            <option value="custom-build">Custom Build Anfrage</option>
+            <option value="modding">Switch & Stabilizer Modding</option>
+            <option value="firmware">QMK / VIA / Firmware Hilfe</option>
+            <option value="general">Allgemeine Anfrage</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Nachricht:</label>
+          <textarea id="message" name="message" class="retro-textarea" placeholder="Beschreibe dein Anliegen..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-group">
+            <input type="checkbox" checked>
+            <span>ISO-DE Layout bevorzugt</span>
+          </label>
+        </div>
+
+        <!-- Buttons -->
+        <div class="form-actions">
+          <button type="submit" class="retro-btn retro-btn-primary">[ SENDEN ]</button>
+          <button type="reset" class="retro-btn">Zurücksetzen</button>
+        </div>
+      </form>
+
+      <!-- Statusbar -->
+      <div class="status-bar">
+        <span>Status: Verbindung hergestellt</span>
+        <span>COM1: 9600 BAUD</span>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
