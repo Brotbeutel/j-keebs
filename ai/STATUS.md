@@ -5,143 +5,57 @@
 - **Repo:** https://github.com/Brotbeutel/j-keebs
 - **Owner:** Jannik Schlüter
 - **Planner:** dedicated planning chat; implementers use a **new** chat per work package
-- **Updated:** 2026-10-06 (implementation batch reconciliation)
+- **Updated:** 2026-10-14 (planner review of source `4e04a3e`)
 
 ## Snapshot
 
-The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → upload `_site/` → GitHub Pages; no `paths-ignore`, so every push builds and deploys). The source commit is `66ff9e0` (`Reconcile README and project handoff`), which is also `origin/main`; the implementation batch is currently uncommitted.
+The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → `check_links.py` → `tag_balance.py` → upload `_site/` → GitHub Pages; no `paths-ignore`, so every push builds and deploys). `origin/main` is `4e04a3e` ("New To Do's", 2026-10-13, only `ai/USERNOTES.md`); the last source change is `3da476a` (contact form redesign, 2026-10-07). There is no uncommitted implementation batch any more — the earlier "batch" (index gallery correction, mobile map, J80 wording, CI checks, `sharp`, LF handoff files, caption i18n fix) landed in `a864192`, `ecc9bd8` and `a549b70`.
 
-**Owner live check (2026-10-06):** `https://brotbeutel.github.io/j-keebs/sitemap.xml` returned HTTP 200. The deployed homepage contains the expected `og:site_name`, `twitter:description`, `og:image`, canonical project URL, `/j-keebs/` asset paths, and `nav.contact`; the corrected PowerShell `Select-String` check confirmed all three social metadata tags.
+**Live state (planner fetch 2026-10-14, cache-busted):** the homepage shows the corrected gallery (Cherry G80-3000, YMDK68 with "Kailh Box Jade"), the J80 card with "Voll Funktionsfähig. Programmierbar mit Via.", the Keycaps entry in the Guides dropdown, and `og:image` / `og:site_name` / `twitter:description` meta tags. The contact page shows the redesigned pixel-UI panel and the auto-loading OSM iframe. The legal pages, `sitemap.xml` and the Actions run log could not be fetched in this review, so their live state is inferred only from the unchanged templates (`0211d43`, 2026-10-06 was their last change). A single un-busted `web_fetch` of `contact.html` returned a stale pre-migration copy — use a cache-busting query string when checking live (`CONVENTIONS.md`).
 
-**Everything through P2-E2 is in git. Live Pages was still pre-P2-E2 at this planner review (2026-10-05, fresh fetch of `index.html`, `faq.html` and `keyboards.html`): all three still have `og:image: Werkbank_Hero.jpg` and no `og:site_name` / `twitter:description` meta tags.** Since the workflow has no path filter, the push that landed `fe9c140` should already have deployed it — this review could not check the Actions run log (GitHub API rate-limited from the sandbox, no browser available). **Owner: open https://github.com/Brotbeutel/j-keebs/actions and confirm the latest run is green before re-checking** (`ai/CONVENTIONS.md` has the PowerShell commands). If it is green and the site is still old, it is a Pages cache delay — wait a few minutes and retry.
+**Local verification, planner review 2026-10-14 (fresh clone of `4e04a3e`, Node 22.22.2):** `npm ci && npm run build` → Copied 56, wrote 22 files (21 HTML + `sitemap.xml`), no errors; `python scripts/check_links.py _site` → 21 pages, **1197** references, 0 errors; `python scripts/tag_balance.py _site` → 0 problems; unprefixed-URL grep empty; no `@@`/`{{` left in `_site`; `diff readme.md ai/README.md` empty; `node --check main.js` ok; DE/EN dictionary key sets identical; German HTML defaults equal the German dictionaries except `about` `story.body` (R13) and two straight-quote differences (R11). Sitemap has 20 URLs (404 excluded). Details and all findings: `BACKLOG.md` → "Planner review 2026-10-14".
 
-**P2-F1 is committed and pushed in `0211d43` (2026-10-06).** The local acceptance checks pass. The live deployment of P2-F1, and the earlier P2-E2 metadata changes, still need an owner check in GitHub Actions and on Pages; do not infer live state from the local build.
+**Workflow (2026-10-15):** six roles — Planner, Implementer, Writer, Designer, Lawyer, Owner (`AGENTS.md`, `ai/PROMPTS.md`); Writer/Designer/Lawyer deliverables go to `ai/drafts/` (prototypes to `design/`) and are integrated only after owner approval; tool catalog and baselines in `ai/TOOLS.md`; briefs in `ai/CONTENT.md`, `ai/DESIGN.md`, `ai/LEGAL.md`. These files and the three audit scripts in `scripts/` were delivered to the owner and are **not yet in the repo** until the owner copies and commits them.
 
-**P2-F2 is committed and pushed in `4cc9980` (2026-10-06).** Page-local dictionaries now live in 17 modules under `src/_data/i18n/` and are selected by `src/pages/pages.11tydata.js`; legal pages remain dictionary-free. The shared navigation key is `nav.contact` everywhere. Local verification: `npm run build` writes 21 HTML pages plus `sitemap.xml`; `python scripts/check_links.py _site` reports 1195 references and 0 errors; `python scripts/tag_balance.py _site` reports 0 problems; URL hygiene and `diff readme.md ai/README.md` pass. Live deployment remains unverified.
+**Owner priorities (2026-10-15):** 1. Mechanicon post (P3-M, Due 2026-10-16, event Sat 2026-10-17), 2. contact page redesign (Designer D-1 → P3-C). Owner device test of the map: tapping the map itself does not colour it (R24).
 
-**P2-F3 is committed and pushed in `5237912` (2026-10-06).** The seven blog records now live in `src/_data/blog.js` in the existing display order. `blog.njk` renders the featured card and six teasers from that data, and the seven article pages use collection-derived previous/next values through `article-nav.njk`. Local verification: `npm run build` writes 21 HTML pages plus `sitemap.xml`; link/tag checks remain at 1195 references and 0 problems; the image report shows 94.2% reduction; the blog index preserves all seven URLs and order; article boundary navigation and no-stale-URL checks pass. Live deployment remains unverified.
+**Open launch-relevant findings:** R12 (owner-addressed notes visible on Impressum and Datenschutz — **High**, rider of P3-M), R24 (tapping the map itself does not colour it — contact redesign), R13 (About dictionary text wrong, owner rewrites the page; interim sync in P3-H), R14 (contact "X" resets the form, in the contact redesign), R16 (h1→h3 skip, in P3-H), R17 (Keychron keycaps → Glorious Aura V2, in P3-H), R18 (light-theme gold text contrast 2.24:1, needs owner visual OK), R19 (J80 article flow, owner content), R22 (cookies page omits a `sessionStorage` key — Lawyer), R23 (K70 origin-story contradiction — owner/Writer). Decided/resolved: R15 (credit stays; legal via separate bot), R20, R21.
 
-**P2-remaining gallery control accessibility is committed and pushed in `e0a807f` (2026-10-06).** The cheat-sheet action is now activated only by its explicit `.cheat-toggle` button; the polaroid frame no longer has a competing click handler. Fullscreen remains bound to gallery images with click, Enter and Space activation, focus restoration, and carousel behavior unchanged. Verification: `node --check main.js`, `npm run build`, link/tag checks, image report, URL hygiene, README parity, and gallery-specific hook assertions pass. Live deployment remains unverified.
-
-**P3 documentation and handoff honesty is committed and pushed in `66ff9e0` (2026-10-06).** `readme.md`, `README.md`, and `ai/README.md` describe the actual Eleventy data, i18n, blog-navigation, Node, image-pipeline, and language conventions. The later implementation batch is uncommitted; all handoff Markdown files are now normalized to LF and `git diff --check` passes.
-
-**Implementation batch is complete locally (2026-10-06; uncommitted).** The index gallery now identifies Cherry G80-3000 and YMDK68, uses Kailh Box Jade for the YMDK68, and keeps “Der Garagenfund” for future blog content. The mobile contact map persists saturation for the active touch card and clears it on outside touch. The J80 article now distinguishes its historical failure from the current fully functional VIA state. CI now runs link/tag checks, `sharp` is a direct dev dependency, and all `ai/*.md` files use LF line endings. Local build, link, tag, and JavaScript checks pass.
-
-**Homepage i18n regression fixed locally:** `src/pages/pages.11tydata.js` now explicitly loads `src/_data/i18n/index.js` for the root URL because Eleventy does not expose that special `index.js` data module under the same per-page slug key as the other page dictionaries. `_site/index.html` now emits `window.J_KEEBS_I18N`; build, link, tag, and syntax checks pass.
-
-**Gallery caption i18n regression fixed locally:** `relabelCarousels()` now refreshes the generated caption from the active image after language changes, so gallery captions update immediately without requiring next/previous navigation. Build, link, tag, and syntax checks pass.
-
-**Contact panel visual refinement completed locally:** the Windows 2K-inspired form now uses the site's typography, color tokens, borders, shadows, spacing, focus states, and responsive sizing while retaining the retro title bar and monitor icon. Form markup and submission behavior are unchanged. Build, link, tag, and syntax checks pass.
-
-**Contact panel redesign completed locally:** the panel now uses the self-hosted Silkscreen mixed-case pixel font for Windows-inspired chrome, neutral dark/light title surfaces without blue, restrained beveled controls, the same floating card lift/shadow on hover, and an expanded framed pixel-art header. Form behavior is unchanged; build, link, tag, syntax, and whitespace checks pass. Link references are now 1197 because the local pixel-font assets are included.
-
-**Done in source through P3 documentation (committed):**
+**Done in source (committed):**
 - P0/P0-B/P0-C — URL fixes, English slugs, base path
 - P1/P1-A/P1-B — contact form, brand assets, about page, OWA LABS, guide taxonomy
-- P2-A — interaction/visual polish (map, fullscreen controls, homepage)
+- P2-A — interaction/visual polish
 - P2-B/P2-C — Eleventy migration (21 pages on `base.njk`, GitHub Actions CI/CD)
 - P2-D — self-hosted fonts, logo fix, 404 layout, PCBWay `rel=sponsored`
 - P2-E — build-time image pipeline (WebP srcset/sizes, eager/lazy policy)
-- P2-E2 — default 1200×630 `images/og-preview.jpg`, 180×180 `images/apple-touch-icon.png`, `og:site_name`, `twitter:description`, longer legal/contact meta descriptions (`fe9c140`)
+- P2-E2 — social preview image, touch icon, `og:site_name`, `twitter:description` (`fe9c140`)
 - P2-F1 — computed URLs, directory data, generated sitemap (`0211d43`)
-- P2-F2 — i18n data files and navigation key normalization (`4cc9980`)
-- P2-F3 — blog data, index rendering, and computed article navigation (`5237912`)
+- P2-F2 — i18n data files, `nav.contact` (`4cc9980`)
+- P2-F3 — blog data and computed article navigation (`5237912`)
 - P2-remaining — separate gallery cheat-sheet and fullscreen controls (`e0a807f`)
 - P3 — README and handoff honesty (`66ff9e0`)
+- P3 batch — index gallery correction, mobile map touch persistence, J80 wording, CI link/tag checks, direct `sharp`, LF handoff files, homepage i18n loading fix, gallery caption refresh (`a864192`, `ecc9bd8`, `a549b70`)
+- Contact panel redesign — self-hosted Silkscreen, pixel-art header, neutral title bar, beveled controls; form behaviour unchanged (`eb10aec`…`3da476a`)
 
-**Verified 2026-10-05 (P2-E2 implementer, local `_site/`):**
-- `npm run build` → Copied 54, Wrote 21 files, 0.61s (warm). No errors. Node v24.19.0.
-- `python scripts/check_links.py _site` → pages 21, references 1195, errors 0.
-- `python scripts/tag_balance.py _site` → pages 21, problems 0.
-- Unprefixed `brotbeutel.github.io/` (missing `/j-keebs/`) in `_site` HTML/XML/TXT → empty.
-- Default social image `images/og-preview.jpg` is 1200×630 JPEG (59 KB).
-- `images/apple-touch-icon.png` is 180×180 PNG (18 KB).
-- All 21 built pages have `og:image` (absolute JPEG/PNG under `/j-keebs/images/…`, not `_site/img/` WebP), `og:site_name` (J-Keebs), and `twitter:description`.
-- Legal/contact `description` lengths: contact 152, cookies 146, impressum 156, privacy 151, terms 156 (all 50–160).
-- Blog/article `og:image` files are landscape (~16:9); homepage/keyboards no longer use portrait `Werkbank_Hero.jpg` for OG.
-- Live check: homepage 200 but still old chrome; `https://brotbeutel.github.io/j-keebs/images/og-preview.jpg` 404.
+**Earlier per-package verification (condensed; full logs are in git history):** P2-E2/F1/F2/F3/remaining/P3 each ended with build 21 pages + `sitemap.xml`, link check 1195 references (1197 since the Silkscreen font files), tag balance 0, image report 94–95 % byte reduction, README parity. P2-F1 additionally proved byte-identical rendered HTML for all 21 pages before/after.
 
-**Verified 2026-10-05 (planner, fresh clone of `c1ae790`):**
-- `npm ci && npm run build` → Copied 54, Wrote 21 files, 0.3–20s depending on image cache. No errors.
-- `python scripts/check_links.py _site` → pages 21, references 1195, errors 0.
-- `python scripts/tag_balance.py _site` → pages 21, problems 0.
-- `python scripts/img_report.py` → 95.0% size reduction, unchanged from the P2-E verification.
-- Live re-check (see above): P2-E2 still not visible on `index.html`, `faq.html`, `keyboards.html`.
-- `diff readme.md ai/README.md` → 2 stale lines in `ai/README.md` (fixed in P2-F1, see below).
+**Owner decisions on record (2026-10-06):** index gallery features Cherry G80-3000 and YMDK68 (`Kailh Box Jade`); "Der Garagenfund" reserved for a future article; separate light/dark logos cancelled; J80-3000 is fully functional and VIA-programmable (earlier failure is history); guide WIP cards stay visible until launch; client-side DE/EN stays.
 
-**P2-F1 verification (planner reconciliation, 2026-10-06, local; Node v22.22.2):**
-- New `src/pages/pages.11tydata.js`: `layout: "base.njk"` + `eleventyComputed.og_url = site.url + page.url`. `layout`, `og_url`, `canonical` removed from all 21 pages (scripted, with asserts); the 8 `og_image` values are relative (`images/….jpg`), `base.njk` builds `site.url + "/" + (og_image or "images/og-preview.jpg")`.
-- `index.njk` JSON-LD `url` → token `@@OG_URL@@` (replaced in `base.njk`; front-matter strings are not rendered by Nunjucks). `contact.njk` FormSubmit `_next` → `{{ og_url }}?sent=1`. Deviation from the `PLAN.md` wording (`{{ canonical }}`) and why: `DECISIONS.md` 2026-10-06.
-- New `src/pages/sitemap.njk` (`layout: false`, `eleventyExcludeFromCollections: true`) generates `sitemap.xml` from `collections.all`, skipping `/404.html`. Root `sitemap.xml` deleted; its passthrough line removed from `eleventy.config.js`. `robots.txt` untouched.
-- `ai/README.md` := `readme.md`, then both got the same two additions (structure tree, data-file note). `diff readme.md ai/README.md` → empty.
-- `rm -rf _site && npm run build` → Copied 53, Wrote 22 files (21 HTML + `sitemap.xml`), no errors.
-- `cmp` of every `_site/*.html` against a snapshot of the build made before any change → all 21 identical; `sitemap.xml` and `robots.txt` identical too (so canonical/og:url/og:image/twitter:image on all pages, incl. the 8 blog `og:image`, are unchanged).
-- `python scripts/check_links.py _site` → pages 21, references 1195, errors 0 (baseline unchanged). `python scripts/tag_balance.py _site` → pages 21, problems 0.
-- `grep -rn "https://brotbeutel.github.io/j-keebs" src/` → only `src/_data/site.js:3`. Unprefixed-URL grep over `_site` HTML/XML/TXT → empty. No `@@OG_URL@@` or `{{` left in `_site`.
-- **Owner step:** `0211d43` is already on `origin/main`. Check the Actions run and the live `sitemap.xml`; live deployment is **not** verified.
-
-**P2-F2 verification (planner reconciliation, 2026-10-06, local; commit `4cc9980`):**
-
-- 17 page-local dictionaries are in `src/_data/i18n/`; legal pages remain dictionary-free; `base.njk` emits only the selected page dictionary.
-- `nav.kontakt` has no remaining source definition or consumer; `nav.contact` is used in `src/_data/site.js`, `main.js`, and the shared dictionaries.
-- `npm run build` writes 21 HTML pages plus `sitemap.xml`; `python scripts/check_links.py _site` reports 1195 references and 0 errors; `python scripts/tag_balance.py _site` reports 0 problems.
-- `diff readme.md ai/README.md` is empty. Live deployment remains unverified.
-
-**P2-F3 verification (planner reconciliation, 2026-10-06, local; commit `5237912`):**
-
-- `src/_data/blog.js` contains the seven ordered article records; `src/pages/blog.njk` consumes them; `src/_includes/article-nav.njk` renders computed previous/next links for all seven article pages.
-- `npm run build` writes 21 HTML pages plus `sitemap.xml`; link checks report 1195 references and 0 errors; tag balance reports 0 problems; `scripts/img_report.py` reports 94.2% reduction; `diff readme.md ai/README.md` is empty.
-- Blog index URL/order and article navigation boundary assertions pass. Live deployment remains unverified.
-
-**P2-remaining verification (planner reconciliation, 2026-10-06, local; commit `e0a807f`):**
-
-- `.cheat-toggle` is the only cheat-sheet activation hook; the polaroid frame has no competing click handler. Gallery image fullscreen activation and focus restoration remain present.
-- `node --check main.js`, `npm run build`, link/tag checks, image report (94.2% reduction), README parity, and gallery assertions pass. Live deployment remains unverified.
-
-**Owner decisions (2026-10-06)**
-
-- Index gallery: feature the Cherry G80-3000 and YMDK68.
-- YMDK68 switches: `Kailh Box Jade`.
-- `Der Garagenfund`: reserve for a future blog article, not the index gallery title.
-- Separate light/dark logos: request cancelled; do not scope it.
-- J80-3000 current state: fully functional and programmable with VIA; earlier failure text is historical and needs clearer framing in the blog.
-
-**Planner reconciliation findings (2026-10-06)**
-
-- **P3 / complete locally:** index gallery, mobile map, J80 historical wording, CI checks, direct `sharp`, and handoff line endings are updated; deployment and device verification remain pending.
-- **P2 / verified live:** `src/_includes/base.njk`, page metadata, and `images/og-preview.jpg` are now confirmed on Pages by the owner; the deployed sitemap returned HTTP 200.
-- **P3 / approved implementation:** `src/pages/index.njk` and `src/_data/i18n/index.js` still expose the old R6 title/region and `gallery2.li3value` placeholder; the next implementer may now correct them to the approved values.
-- **P3 / content follow-up:** R7 is factually resolved; the future blog content pass should distinguish the earlier failure from the current working state.
-- **P3 / owner decision:** `images/mechanicon_logo.png` is unused, while `images/Monsgeek M1.jpg`, `images/Keychron Q3_1.JPG`, and `images/Keychron Q3_2.JPG` are referenced by `src/pages/keyboards.njk`; no asset rename or deletion was attempted.
-- **Mobile map interaction:** `main.js` and `style.css` now persist the map's saturated state while the latest touch is inside the contact card and clear it on outside touch. Local syntax, build, link, and tag checks pass; not deployed.
-
-**Still open:**
-- Mobile map and index-gallery implementation are complete locally; deploy and verify them on a real mobile device.
-- Contact form: live browser test (submit with JS on + JS off) still not done.
-- Mobile contact map: touch activation is implemented locally; deployment and a real-device check remain pending.
-- Dual-theme brand logos: owner cancelled the request 2026-10-06; no separate assets are needed.
-- Gallery a11y: cheat-sheet toggle vs fullscreen both bind to the polaroid.
-- Unused draft cards `images/card_v1.jpg` / `images/card_v2.jpg` (see BACKLOG).
-- `scripts/generate_social_assets.js` now has a direct `sharp` dev dependency; generator execution remains optional.
-- R10: `mechanicon_logo.png` confirmed unused (no reference anywhere in `src/`, `main.js`, `style.css`). Three files in `images/` have spaces/uppercase extensions and ARE referenced in `src/pages/keyboards.njk`: `Monsgeek M1.jpg`, `Keychron Q3_1.JPG`, `Keychron Q3_2.JPG` — renaming needs a matching template update, not just a file rename.
+**Still open (owner or later packages):**
+- Live contact-form test (done for the map on 2026-10-15, see R24; still open for the form: submit with JS on and off; FormSubmit needs the first-time activation mail confirmed).
+- Owner questions still open: what exactly to rework in the new Win2k draft (`win2k-design/win2k-redesign.html`); the cut-off wording of the "Mit GitHub Pages betrieben" footer note; nav position and category order of "Tools & Ressourcen" (planner proposal in `BACKLOG.md`); delete or keep the unused `card_v1.jpg` / `card_v2.jpg`. Answered 2026-10-14: R13 (About text in `about.njk` is correct, owner rewrites it), R15 (PCBWay credit stays; legal questions go to a separate bot), R17 (Glorious Aura V2), R20 (OWA LABS link correct).
+- Optional: lawyer review of Art. 6 Abs. 1 lit. f DSGVO for the auto-loading map.
+- Unused draft cards `images/card_v1.jpg` / `images/card_v2.jpg`; `images/mechanicon_logo.png` (kept for the Mechanicon article); three image files with spaces/uppercase extensions that `keyboards.njk` references (`Monsgeek M1.jpg`, `Keychron Q3_1.JPG`, `Keychron Q3_2.JPG`) — rename only together with the template.
+- `win2k-design/` holds the owner's new Win2k redesign draft (tracked, unpublished, to be migrated later).
 
 ## In flight
 
-- [x] P0 / P0-B / P0-C — done and deployed
-- [x] P1 / P1-A / P1-B — done and deployed
-- [x] P2-A — done and deployed
-- [x] P2-B / P2-C — Eleventy migration, done and deployed
-- [x] P2-D — fonts, logo, 404, PCBWay — done and deployed
-- [x] P2-E — image pipeline — done and deployed (`1a9325f`)
-- [x] **P2-E2 — icons and social previews** — in git (`fe9c140`); **not confirmed live**
-- [x] **P2-F1 — computed URLs, directory data, generated sitemap** — committed and pushed as `0211d43`; live not confirmed
-- [x] **P2-F2 — i18n as data files, nav key naming** — committed and pushed as `4cc9980`; live not confirmed
-- [x] **P2-F3 — blog as a collection** — committed and pushed as `5237912`; live not confirmed
-- [x] **P2-remaining — gallery control accessibility** — committed and pushed as `e0a807f`; live not confirmed
-- [x] **P3 — content / README honesty** — committed and pushed as `66ff9e0`; live not confirmed
-- [x] **Owner gate — launch content and deployment decisions** — R6, switch type, future blog direction, and logo request resolved 2026-10-06
-- [ ] **P3 — index gallery corrections** ← next
-- [ ] Owner (optional): lawyer review of Art. 6 Abs. 1 lit. f DSGVO for auto-loading map
+- [x] Everything through the contact panel redesign — committed; the homepage and contact page are confirmed live
+- [ ] **P3-M — Mechanicon announcement post + R12 rider** (event Sat 2026-10-17; Due 2026-10-16) ← current package, see `PLAN.md`
+- [ ] **D-1 — Designer: contact page redesign** (parallel, no code; brief in `ai/DESIGN.md`)
+- [ ] P3-C — contact migration of the approved design (`BACKLOG.md` → "Ready"; includes R14, R24)
+- [ ] P3-H — launch hygiene, reduced (R11 part, R13 interim, R16, R17)
+- [ ] Owner gates: see "Still open" above and `BACKLOG.md` → "Next candidates"
 
 ## Do not assume
 
@@ -160,15 +74,15 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 
 | Piece | File / place |
 | --- | --- |
-| Templates | `src/pages/*.njk` (21 pages + `sitemap.njk`), `src/pages/pages.11tydata.js` (layout, computed `og_url`), `src/_includes/base.njk`, `src/_data/site.js` |
+| Templates | `src/pages/*.njk` (21 pages + `sitemap.njk`), `src/pages/pages.11tydata.js` (layout, computed `og_url`, blog navigation), `src/_includes/base.njk` + `article-nav.njk`, `src/_data/site.js`, `src/_data/blog.js`, `src/_data/i18n/*.js` |
 | Output | `_site/` (21 HTML + assets + `img/` WebP), gitignored |
 | Build / CI | Eleventy 3.1.6, `@11ty/eleventy-img` 7.x, `.github/workflows/deploy.yml` (Node 22) |
 | Hosting | GitHub Pages project site, base path `/j-keebs/` |
 | CSS | `style.css` (root, passthrough) |
 | JS | `main.js` (root, passthrough) |
-| i18n | `J_KEEBS_I18N_COMMON` in `main.js` + per-page `J_KEEBS_I18N` in `page_script` front matter |
+| i18n | `J_KEEBS_I18N_COMMON` in `main.js` + page-local dictionaries in `src/_data/i18n/<page-file-slug>.js` (selected by `src/pages/pages.11tydata.js`, emitted by `base.njk`) |
 | Contact | FormSubmit (AJAX + no-JS fallback) |
 | Map | OpenStreetMap iframe, auto-loading, desaturated until hover/focus |
-| Fonts | Self-hosted woff2 in `fonts/` |
+| Fonts | Self-hosted woff2 in `fonts/` (Libre Caslon Text, IBM Plex Sans, Courier Prime, Playwrite DE Grund, Silkscreen) |
 | Images | `images/` (originals, passthrough) + `_site/img/` (generated WebP, build-time). Social default: `images/og-preview.jpg`. Touch icon: `images/apple-touch-icon.png`. |
-| Scripts | `scripts/check_links.py`, `scripts/tag_balance.py`, `scripts/img_report.py` (Python 3); `scripts/generate_social_assets.js` (needs `sharp`, not in `package.json`) |
+| Scripts | `scripts/check_links.py`, `scripts/tag_balance.py`, `scripts/img_report.py` (Python 3); `scripts/generate_social_assets.js` (needs `sharp`, now a direct dev dependency) |

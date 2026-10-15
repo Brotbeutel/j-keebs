@@ -27,3 +27,6 @@ The homepage "not launched yet" banner stays until:
 - Duplicate legal/about/contact URLs are collapsed
 - Blog posts that are not original are rewritten or unpublished
 - Guides page has at least one finished guide per advertised category, or pending cards are removed from the main view
+- Legal pages contain no editorial notes addressed to the owner (R12), and the About page text is final and consistent with the Impressum (R13)
+- Partner credit and legal wording have been cleared through the owner's separate legal review (R15; the planner gives no legal verdicts)
+- Gold label text meets contrast in the light theme before any accessibility claim is made (R18)

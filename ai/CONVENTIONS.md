@@ -22,7 +22,9 @@
 - Unprefixed absolute URLs: `grep -rn "brotbeutel.github.io/" _site --include="*.html" --include="*.xml" --include="*.txt" | grep -v "brotbeutel.github.io/j-keebs"` must be empty.
 - Broken internal links / assets: check every `href`/`src` in `_site/*.html` against `_site/` (URL-decode `%20`), and every `#anchor` against the target page's IDs.
 - Scripts (Python 3, standard library only): `python scripts/check_links.py _site` checks every `href`/`src`/`srcset`, URL-decoded, against `_site/`, every `#anchor` against the target page's IDs, CSS `url()` references, and re-resolves `404.html` at deep paths; `python scripts/tag_balance.py _site` reports unbalanced tags. Both must report no problems. `python scripts/img_report.py` prints a before/after bytes-per-page table for the image pipeline (static file-size approximation, not a network trace — see its docstring).
-- Do not claim a live result without checking the deployed site after the push.
+- Run the audit scripts listed in `ai/TOOLS.md` (`i18n_audit.js`, `de_default_audit.py`, `a11y_audit.py`) and compare with the baseline there.
+- Do not claim a live result without checking the deployed site after the push. Check with a cache-busting query string (`?v=<random>`): GitHub Pages and fetch tools can serve a stale copy of a single URL while others are already new (seen 2026-10-14).
+- A German visible default in a template and the German dictionary value for the same key must be identical. Compare them after touching copy; the planner review of 2026-10-14 found three diffs this way.
 
 ## Commands for the owner
 
@@ -36,6 +38,9 @@ The owner works in **Windows PowerShell**. Every owner step and every check the 
 | Largest files | `Get-ChildItem _site\img -File \| Sort-Object Length -Descending \| Select-Object -First 5 Name, Length` |
 | Files tracked by git | `(git ls-files node_modules).Count` |
 | Chain commands | separate lines, or `;` (not `&&`) |
+| Live page, bypassing caches | `(Invoke-WebRequest "https://brotbeutel.github.io/j-keebs/contact.html?v=$(Get-Random)" -UseBasicParsing).StatusCode` |
+| Live page contains text | `(Invoke-WebRequest "https://brotbeutel.github.io/j-keebs/index.html?v=$(Get-Random)" -UseBasicParsing).Content -match 'Kailh Box Jade'` |
+| Latest Actions run | open `https://github.com/Brotbeutel/j-keebs/actions` in a browser (the API is rate-limited for anonymous callers) |
 
 Implementers may use their own (bash) tooling for their own checks, but the handoff must give the owner the PowerShell version.
 
@@ -65,7 +70,7 @@ The transform (not the ready-made `eleventyImageTransformPlugin` — it can't re
 
 ## Fonts
 
-- Fonts are **self-hosted**: woff2 files and their OFL licence texts in `fonts/` (provenance in `fonts/README.md`), `@font-face` blocks with `font-display: swap` at the top of `style.css`, copied to `_site/fonts/` by `eleventy.config.js`. Families: Libre Caslon Text (400, 400 italic, 700), IBM Plex Sans (400–700), Courier Prime (400, 700), Playwrite DE Grund (variable, 100–400).
+- Fonts are **self-hosted**: woff2 files and their OFL licence texts in `fonts/` (provenance in `fonts/README.md`), `@font-face` blocks with `font-display: swap` at the top of `style.css`, copied to `_site/fonts/` by `eleventy.config.js`. Families: Libre Caslon Text (400, 400 italic, 700), IBM Plex Sans (400–700), Courier Prime (400, 700), Playwrite DE Grund (variable, 100–400), Silkscreen (400, 700; pixel UI of the contact panel, Fontsource, licence `LICENSE-silkscreen.txt`).
 - Keep the `--font-*` tokens and their fallback stacks. To add a weight: add the woff2 (Latin subset) to `fonts/`, add an `@font-face`, keep the licence file next to it.
 - Never link Google Fonts or any other font CDN (see "What not to do").
 
@@ -85,6 +90,24 @@ The transform (not the ready-made `eleventyImageTransformPlugin` — it can't re
 - `og_image` is relative (`images/….jpg`); see "Images".
 - In a page **body** use `{{ og_url }}` for the page's own absolute URL (e.g. FormSubmit `_next` in `contact.njk`: `{{ og_url }}?sent=1`). `canonical` is normally unset, so `{{ canonical }}` renders empty.
 - Front-matter strings such as `extra_head` are injected raw and are not rendered by Nunjucks, so `{{ … }}` does not work there. Write the token `@@OG_URL@@` instead (used by the JSON-LD `url` in `index.njk`); `base.njk` replaces it with the page's canonical URL. Check `_site` for leftover `@@` after adding one.
+
+## Roles, text and deadlines
+
+- Six roles (`AGENTS.md`, `PROMPTS.md`): Planner, Implementer, Writer, Designer, Lawyer, Owner. One role per chat. Writer, Designer and Lawyer change no site code and can run in parallel with an implementer.
+- **Copy:** visible text comes from the owner, from an owner-approved Writer package in `ai/drafts/`, or from the work-package spec. Implementers do not invent copy or facts; missing text becomes a "needs Writer" entry in `BACKLOG.md`.
+- **Facts** have one home each (`ai/CONTENT.md`, "Where each fact lives"). Do not repeat a fact in a second place; when two places disagree, record it in "Known contradictions" and ask the owner.
+- **Design:** the Designer's spec lives in `ai/drafts/`, the prototype in `design/<topic>-vN.html` (reference only, never published, no external requests). An implementer rebuilds it in `src/` + `style.css` + `main.js`, lists every deviation in the report, and the owner checks the acceptance criteria on a real device. UI strings still go through `data-i18n` (DE + EN).
+- **Drafts** (`ai/drafts/`) are never published. Status line: `draft` → `owner-approved` → `integrated`; only `owner-approved` drafts are integrated, verbatim.
+- **Deadlines:** an item that depends on an external date carries `Due: YYYY-MM-DD` in `BACKLOG.md` / `PLAN.md`; planners check these first (Mechanicon 2026-10-17 was nearly missed because the note did not say it was urgent).
+- **Legal impact:** an implementer who adds a service, a network request or a storage key writes "Legal impact: yes" in `BACKLOG.md` so the Lawyer can update `ai/LEGAL.md` and the legal pages.
+- **Tools:** run everything in `ai/TOOLS.md` before saying "done" and compare with its baseline.
+
+## Legal pages
+
+- Impressum, Datenschutz, Cookies and AGB are German-only, owner-controlled text. Implementers may fix typography and markup, but never change legal wording, "Stand" dates or the set of described services — except verbatim from a Lawyer memo in `ai/drafts/` that the owner has approved (`status: owner-approved`, see `ai/LEGAL.md`).
+- **No editorial notes addressed to the owner in visible markup** ("ergänze bitte …", "deine eigene Vorlage"). Put such reminders here or in `DECISIONS.md` instead (a leftover of this kind sat on Impressum and Datenschutz until 2026-10-14, see `BACKLOG.md` R12).
+- Triggers that require the owner to extend the legal pages (moved here from the removed notes): **selling anything or adding affiliate/sponsored links beyond PCBWay** → Impressum (Umsatzsteuer-ID, Streitschlichtung wording) and AGB; **any new external service** (analytics, embeds, fonts, maps, forms) → Datenschutz and Cookies; **new local-storage keys or cookies** → Cookies.
+- PCBWay is a compensated (barter) partner: `rel="sponsored"` plus a visible "Werbung" marker where the partner is promoted; the owner decided on 2026-10-14 to keep the discreet sitewide "Powered by PCBWay" footer credit. **Legal questions go to the Lawyer role** (`ai/LEGAL.md`) — planners and implementers record facts for it (`BACKLOG.md` R15) but give no legal verdicts. Uncompensated partners (OWA LABS) need neither.
 
 ## What not to do
 
