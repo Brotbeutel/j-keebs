@@ -1,0 +1,1168 @@
+<!doctype html>
+<html lang="de" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Kontakt zu J-Keebs in Schwetzingen: Schreib mir per Kontaktformular oder E-Mail bei Fragen zu Tastatur-Builds, Modding und Upcycling oder vernetze dich.">
+  <title>J-Keebs — Kontakt · Design prototype</title>
+  <style>
+    /* --------------------------------------------------
+       1. FONT DEFINITIONS (Self-hosted woff2, no external requests)
+    -------------------------------------------------- */
+    @font-face {
+      font-family: 'Press Start 2P';
+      src: url('../fonts/press-start-2p-latin-400-normal.woff2') format('woff2');
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'VT323';
+      src: url('../fonts/vt323-latin-400-normal.woff2') format('woff2');
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Gohufont';
+      src: url('../fonts/gohufont-bold-14px-square.woff2') format('woff2');
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Libre Caslon Text';
+      src: url('../fonts/libre-caslon-text-latin-400-normal.woff2') format('woff2');
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'IBM Plex Sans';
+      src: url('../fonts/ibm-plex-sans-latin-400-normal.woff2') format('woff2');
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'IBM Plex Sans';
+      src: url('../fonts/ibm-plex-sans-latin-600-normal.woff2') format('woff2');
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Courier Prime';
+      src: url('../fonts/courier-prime-latin-400-normal.woff2') format('woff2');
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    /* --------------------------------------------------
+       2. COLOR TOKENS & WIN2K PALETTE (aus win2k-redesign.html)
+    -------------------------------------------------- */
+    :root {
+      color-scheme: dark;
+      /* J-Keebs Base tokens */
+      --swatch-mocha: #8c7e74;
+      --swatch-greige: #c3b8ad;
+      --swatch-offwhite: #e9e3d3;
+      --swatch-cream: #f4f0e1;
+      --swatch-charcoal: #4c4b4e;
+      --swatch-slate: #5c5654;
+      --swatch-olive: #5a5c58;
+      --bg: #2a2826;
+      --surface: #3c3836;
+      --surface-2: #4c4b4e;
+      --border: rgba(195, 184, 173, 0.16);
+      --border-strong: #5a544f;
+      --text: #e8e0d5;
+      --text-dim: #a3998e;
+      --accent: #c29b62;
+      --accent-bright: #d8b278;
+      --accent-shade: #60513e;
+      --accent-2: #c3b8ad;
+      --paper: #f4f0e1;
+      --font-display: "Libre Caslon Text", Georgia, "Times New Roman", serif;
+      --font-body: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+      --font-mono: "Courier Prime", monospace;
+
+      /* Win2k exact variables from win2k-redesign.html */
+      --bg-dark: #2a2826;
+      --win-bg: #3c3836;
+      --win-title-bg: #60513e;
+      --win-title-text: #f0e6d2;
+      --border-light: #5a544f;
+      --border-dark: #1e1c1a;
+      --text-main: #e8e0d5;
+      --text-muted: #a3998e;
+      --input-bg: #2b2826;
+      --accent-gold: #c29b62;
+      --accent-gold-hover: #d8b278;
+
+      --map-base: #d8cfbd;
+      --map-road: #f8f3e8;
+      --map-block: #bea58e;
+      --map-park: #99a184;
+      --map-water: #9eb5b7;
+    }
+
+    html[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f4f0e1;
+      --surface: #e9e3d3;
+      --surface-2: #c3b8ad;
+      --border: rgba(78, 78, 84, 0.14);
+      --border-strong: #8c7e74;
+      --text: #3c3836;
+      --text-dim: #5a5c58;
+      --accent: #b38b4d;
+      --accent-bright: #c29b62;
+      --accent-shade: #745b40;
+      --accent-2: #61482c;
+      --paper: #fafaf2;
+
+      /* Win2k Light mode adaptation with authentic beige 3D bevels */
+      --bg-dark: #f4f0e1;
+      --win-bg: #dcd3be;
+      --win-title-bg: #745b40;
+      --win-title-text: #fff8e8;
+      --border-light: #fff8eb;
+      --border-dark: #6e6459;
+      --text-main: #2b2622;
+      --text-muted: #6b6055;
+      --input-bg: #f9f5ea;
+      --accent-gold: #b38b4d;
+      --accent-gold-hover: #9c753a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: radial-gradient(circle at 1px 1px, var(--border) 1px, transparent 0);
+      background-size: 26px 26px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-tap-highlight-color: transparent;
+      padding-bottom: 5rem;
+    }
+
+    button, input, textarea, select {
+      font: inherit;
+      border-radius: 0;
+    }
+
+    button, a, select {
+      touch-action: manipulation;
+    }
+
+    a {
+      color: var(--accent-2);
+      text-decoration-thickness: 1px;
+      text-underline-offset: .2em;
+    }
+    :root:not([data-theme="light"]) a {
+      color: var(--accent-bright);
+    }
+    a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    button {
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -5rem;
+      z-index: 20;
+      padding: .75rem 1rem;
+      background: var(--surface);
+      color: var(--text);
+      border: 2px solid var(--border-strong);
+    }
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    .site-head {
+      width: min(1180px, calc(100% - 40px));
+      min-height: 76px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border-strong);
+    }
+
+    .wordmark {
+      font: 700 1.35rem/1 var(--font-display);
+      letter-spacing: .01em;
+      color: var(--text);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .head-tools {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .head-tool {
+      min-width: 44px;
+      min-height: 44px;
+      padding: .45rem .7rem;
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text);
+      font: 600 .78rem var(--font-mono);
+    }
+    .head-tool:hover {
+      border-color: var(--accent);
+    }
+    .head-tool:focus-visible, .retro-btn:focus-visible, .map-activate:focus-visible, a:focus-visible {
+      outline: 3px solid var(--accent-bright);
+      outline-offset: 3px;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .page-hero {
+      max-width: 760px;
+      padding: clamp(2rem, 5vw, 3.4rem) 0 1.7rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 .4rem;
+      color: var(--accent-bright);
+      font: 400 .78rem/1.4 var(--font-mono);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    html[data-theme="light"] .eyebrow {
+      color: var(--accent-2);
+    }
+
+    h1 {
+      margin: 0 0 .55rem;
+      font: 400 clamp(2.55rem, 6vw, 3.55rem)/1.08 var(--font-display);
+      letter-spacing: -.025em;
+    }
+
+    .page-hero .intro {
+      max-width: 64ch;
+      margin: 0;
+      color: var(--text-dim);
+      font-size: 1.04rem;
+    }
+
+    /* --------------------------------------------------
+       LAYOUT GRID (Formular 8 Spalten, Sidebar 4 Spalten)
+    -------------------------------------------------- */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 1.75rem;
+      align-items: start;
+    }
+
+    .form-column {
+      grid-column: 1 / -1;
+      min-width: 0;
+    }
+
+    .details-column {
+      grid-column: 1 / -1;
+      min-width: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 1024px) {
+      .form-column {
+        grid-column: span 8;
+      }
+      .details-column {
+        grid-column: span 4;
+      }
+    }
+
+    /* --------------------------------------------------
+       3. RETRO WINDOW CONTAINER (1:1 aus win2k-redesign.html)
+    -------------------------------------------------- */
+    .retro-window {
+      width: 100%;
+      background-color: var(--win-bg);
+      /* Retro 3D Bevel Edge */
+      border-top: 3px solid var(--border-light);
+      border-left: 3px solid var(--border-light);
+      border-right: 3px solid var(--border-dark);
+      border-bottom: 3px solid var(--border-dark);
+      box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+      padding: 3px;
+    }
+
+    /* Titelzeile */
+    .window-titlebar {
+      background: linear-gradient(90deg, var(--win-title-bg), #3a3124);
+      color: var(--win-title-text);
+      font-family: 'Gohufont', 'Press Start 2P', monospace;
+      font-size: 16px;
+      font-style: normal;
+      letter-spacing: 1.5px;
+      padding: 4px 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      min-height: 38px;
+    }
+
+    .titlebar-text {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .titlebar-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      image-rendering: pixelated;
+    }
+
+    .window-controls button {
+      width: 24px;
+      height: 24px;
+      background-color: var(--win-bg);
+      border-top: 3px solid var(--border-light);
+      border-left: 3px solid var(--border-light);
+      border-right: 3px solid var(--border-dark);
+      border-bottom: 3px solid var(--border-dark);
+      color: var(--text-main);
+      font-family: monospace;
+      font-weight: bolder;
+      font-size: 14px;
+      line-height: 10px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .window-controls button:active {
+      border-top: 3px solid var(--border-dark);
+      border-left: 3px solid var(--border-dark);
+      border-right: 3px solid var(--border-light);
+      border-bottom: 3px solid var(--border-light);
+    }
+
+    /* Window Body */
+    .window-body {
+      padding: 16px;
+      font-family: 'Gohufont', 'VT323', monospace;
+      font-size: 14px;
+    }
+
+    /* --------------------------------------------------
+       4. DIALOG HEADER WITH PIXEL ART (1:1 aus win2k-redesign.html)
+    -------------------------------------------------- */
+    .dialog-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      border-bottom: 2px groove var(--border-light);
+      padding-bottom: 14px;
+    }
+
+    .dialog-header-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .dialog-header-text h2 {
+      font-family: 'Gohufont', monospace;
+      font-size: 18px;
+      color: var(--accent-gold);
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .dialog-header-text p {
+      color: var(--text-muted);
+      line-height: 1.4;
+      font-size: 14px;
+    }
+
+    .pixelart-container {
+      flex-shrink: 0;
+      background-color: var(--input-bg);
+      padding: 8px;
+      border-top: 3px solid var(--border-dark);
+      border-left: 3px solid var(--border-dark);
+      border-right: 3px solid var(--border-light);
+      border-bottom: 3px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pixelart-img {
+      width: 80px;
+      height: 80px;
+      image-rendering: pixelated;
+      display: block;
+    }
+
+    /* --------------------------------------------------
+       5. FORM ELEMENTS (1:1 aus win2k-redesign.html)
+    -------------------------------------------------- */
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: bold;
+      color: var(--text-main);
+      font-family: 'Gohufont', monospace;
+      font-size: 14px;
+    }
+
+    .form-row-2col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    @media (min-width: 560px) {
+      .form-row-2col {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+    }
+
+    .retro-input,
+    .retro-textarea,
+    .retro-select {
+      width: 100%;
+      background-color: var(--input-bg);
+      color: #fff;
+      font-family: 'Gohufont', monospace;
+      font-size: 14px;
+      padding: 7px 9px;
+      outline: none;
+      image-rendering: pixelated;
+      border-top: 3px solid var(--border-dark);
+      border-left: 3px solid var(--border-dark);
+      border-right: 3px solid var(--border-light);
+      border-bottom: 3px solid var(--border-light);
+    }
+    html[data-theme="light"] .retro-input,
+    html[data-theme="light"] .retro-textarea,
+    html[data-theme="light"] .retro-select {
+      color: #1a1816;
+    }
+
+    .retro-input:focus,
+    .retro-textarea:focus,
+    .retro-select:focus {
+      background-color: #24211f;
+      border-top-color: var(--accent-gold);
+    }
+    html[data-theme="light"] .retro-input:focus,
+    html[data-theme="light"] .retro-textarea:focus,
+    html[data-theme="light"] .retro-select:focus {
+      background-color: #ffffff;
+      border-top-color: var(--accent-gold);
+    }
+
+    .retro-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      cursor: pointer;
+      color: var(--text-main);
+      font-family: 'Gohufont', monospace;
+      font-size: 14px;
+    }
+
+    .checkbox-group input {
+      accent-color: var(--accent-gold);
+      width: 16px;
+      height: 16px;
+    }
+
+    .privacy-note {
+      margin: 12px 0 0;
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .privacy-note a {
+      color: var(--accent-gold);
+      text-decoration: underline;
+    }
+
+    /* --------------------------------------------------
+       6. BUTTONS & STATUS BAR (1:1 aus win2k-redesign.html)
+    -------------------------------------------------- */
+    .form-actions {
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-dark);
+    }
+
+    .retro-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 13px;
+      font-weight: bolder;
+      padding: 10px 14px;
+      background-color: var(--win-bg);
+      color: var(--text-main);
+      cursor: pointer;
+      border-top: 3px solid var(--border-light);
+      border-left: 3px solid var(--border-light);
+      border-right: 3px solid var(--border-dark);
+      border-bottom: 3px solid var(--border-dark);
+    }
+
+    .retro-btn-primary {
+      background-color: var(--accent-gold);
+      color: #1a1816;
+      font-weight: bold;
+    }
+
+    .retro-btn-primary:hover {
+      background-color: var(--accent-gold-hover);
+    }
+
+    .retro-btn:active {
+      border-top: 3px solid var(--border-dark);
+      border-left: 3px solid var(--border-dark);
+      border-right: 3px solid var(--border-light);
+      border-bottom: 3px solid var(--border-light);
+      padding: 11px 13px 9px 15px;
+    }
+
+    .retro-btn:disabled {
+      cursor: wait;
+      opacity: 0.8;
+    }
+
+    .form-status {
+      min-height: 1.5em;
+      margin-top: 8px;
+      font-family: 'Gohufont', monospace;
+      font-size: 13px;
+      color: var(--accent-gold);
+    }
+
+    .status-bar {
+      margin-top: 12px;
+      padding: 4px 6px;
+      background-color: var(--win-bg);
+      border-top: 2px solid var(--border-dark);
+      border-left: 2px solid var(--border-dark);
+      border-right: 2px solid var(--border-light);
+      border-bottom: 2px solid var(--border-light);
+      font-size: 12px;
+      font-family: 'Gohufont', 'VT323', monospace;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* --------------------------------------------------
+       7. SIDEBAR CARDS & MAP EMBED (R24 Fix)
+    -------------------------------------------------- */
+    .detail-card {
+      padding: 1.1rem;
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+      border: 1px solid var(--border-strong);
+      border-left-width: 4px;
+    }
+    .detail-card h2, .detail-card h3 {
+      margin: 0 0 .5rem;
+      color: var(--text);
+      font: 400 1.25rem/1.2 var(--font-display);
+    }
+    .meta {
+      margin: 0 0 .35rem;
+      color: var(--accent-bright);
+      font: 400 .78rem/1.4 var(--font-mono);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    html[data-theme="light"] .meta {
+      color: var(--accent-2);
+    }
+
+    .address {
+      margin: 0 0 .5rem;
+      color: var(--text);
+      font-size: .95rem;
+      line-height: 1.5;
+    }
+
+    .map-embed {
+      position: relative;
+      margin-top: .9rem;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      border: 2px solid var(--border-strong);
+      background: var(--map-base);
+      isolation: isolate;
+    }
+
+    .map-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      filter: grayscale(1) contrast(1.05);
+      transition: filter 650ms cubic-bezier(.22, .61, .36, 1);
+    }
+    .map-canvas svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .map-embed.is-active .map-canvas {
+      filter: grayscale(0) contrast(1);
+    }
+
+    .map-activate {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      border: 0;
+      background: rgba(24, 22, 20, 0.08);
+      color: var(--text);
+      text-align: center;
+      cursor: pointer;
+    }
+    .map-activate[hidden] {
+      display: none;
+    }
+    .map-activate span {
+      position: absolute;
+      left: 50%;
+      bottom: 12px;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: calc(100% - 24px);
+      padding: .45rem .65rem;
+      background: var(--surface);
+      color: var(--text);
+      border: 2px solid var(--border-strong);
+      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+      font: 600 .78rem/1.3 var(--font-body);
+    }
+    .map-embed.is-active .map-activate {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 220ms ease;
+    }
+
+    .direct-list {
+      display: grid;
+      gap: .75rem;
+      list-style: none;
+    }
+    .direct-list li {
+      display: grid;
+      gap: .2rem;
+    }
+    .direct-list a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      width: fit-content;
+      font-size: .95rem;
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: .8rem;
+    }
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+      padding: .45rem .65rem;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      font: 600 .8rem var(--font-mono);
+      color: var(--text);
+      text-decoration: none;
+    }
+    .social-link svg {
+      width: 17px;
+      height: 17px;
+      margin-right: .45rem;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .prototype-note {
+      margin: 2.5rem 0 0;
+      padding: .75rem 1rem;
+      border-left: 3px solid var(--border-strong);
+      color: var(--text-dim);
+      font: 400 .8rem/1.5 var(--font-mono);
+    }
+
+    @media (max-width: 480px) {
+      .site-head, main {
+        width: calc(100% - 32px);
+      }
+      .window-titlebar {
+        font-size: 13px;
+        letter-spacing: 1px;
+      }
+      .dialog-header {
+        gap: 10px;
+      }
+      .pixelart-img {
+        width: 64px;
+        height: 64px;
+      }
+      .dialog-header-text h2 {
+        font-size: 15px;
+      }
+      .retro-btn {
+        font-size: 11px;
+        padding: 9px 10px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="common.skip">Zum Inhalt springen</a>
+  
+  <header class="site-head" aria-label="J-Keebs">
+    <a class="wordmark" href="#main">J-Keebs</a>
+    <div class="head-tools" aria-label="Ansicht" data-i18n-aria="utility.view.label">
+      <button class="head-tool" type="button" id="langToggle" aria-label="Sprache wechseln">EN</button>
+      <button class="head-tool" type="button" id="themeToggle" aria-label="Farbschema wechseln">Hell</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero" aria-labelledby="pageTitle">
+      <p class="eyebrow" data-i18n="hero.eyebrow">Kontakt</p>
+      <h1 id="pageTitle" data-i18n="hero.heading">Sag Hallo.</h1>
+      <p class="intro" data-i18n="hero.intro">Fragen zu einem Build, Ideen für ein gemeinsames Projekt oder einfach Lust auf Austausch über deutsche ISO-Layouts? Meld dich gerne.</p>
+    </section>
+
+    <div class="contact-layout">
+      <!-- Formularbereich: Originalgetreues Win2k Retro-Fenster -->
+      <section class="form-column" aria-label="Kontaktformular">
+        <div class="retro-window" id="contactWindow">
+          
+          <!-- Titlebar -->
+          <div class="window-titlebar">
+            <div class="titlebar-text">
+              <img src="../images/Retro-PC_pixelart_generated.png" alt="" class="titlebar-icon" width="20" height="20" aria-hidden="true">
+              <span data-i18n="c.form.windowTitle">J-Keebs_Contact.exe</span>
+            </div>
+            <div class="window-controls">
+              <button type="button" aria-label="Schließen" class="win-btn win-btn--close" id="winCloseBtn">✕</button>
+            </div>
+          </div>
+
+          <!-- Window Body -->
+          <div class="window-body">
+            
+            <!-- Header mit PixelArt Bild -->
+            <div class="dialog-header">
+              <div class="dialog-header-text">
+                <h2 data-i18n="c.form.heading">[ Sende eine Nachricht ]</h2>
+                <p data-i18n="c.form.introText">
+                  Hast du Fragen zu Custom-Tastaturen, Switches, QMK-Firmware oder Modding-Services? Hinterlasse mir eine Zeile!
+                </p>
+              </div>
+              <div class="pixelart-container">
+                <img src="../images/Retro-PC_pixelart_generated.png" alt="Retro PC PixelArt" class="pixelart-img" width="80" height="80">
+              </div>
+            </div>
+
+            <!-- Kontaktformular -->
+            <form class="contact-form" id="contactForm" action="https://formsubmit.co/jannik_schlueter@hotmail.de" method="POST" novalidate>
+              <input type="hidden" name="_subject" value="Neue Nachricht über J-Keebs">
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="_next" value="contact.html?sent=1">
+              <input id="honey" type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+              <div class="form-row-2col">
+                <div class="form-group">
+                  <label for="name" data-i18n="c.form.name">User / Name:</label>
+                  <input type="text" id="name" name="name" class="retro-input" placeholder="z. B. Alex" required autocomplete="name">
+                </div>
+
+                <div class="form-group">
+                  <label for="email" data-i18n="c.form.email">E-Mail Adresse:</label>
+                  <input type="email" id="email" name="email" class="retro-input" placeholder="alex@domain.de" required autocomplete="email">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="topic" data-i18n="c.form.topic">Betreff / Kategorie:</label>
+                <select id="topic" name="topic" class="retro-select">
+                  <option value="custom-build" data-i18n="c.form.topic.build">Custom Build Anfrage</option>
+                  <option value="modding" data-i18n="c.form.topic.modding">Switch &amp; Stabilizer Modding</option>
+                  <option value="firmware" data-i18n="c.form.topic.firmware">QMK / VIA / Firmware Hilfe</option>
+                  <option value="general" data-i18n="c.form.topic.general">Allgemeine Anfrage</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message" data-i18n="c.form.message">Nachricht:</label>
+                <textarea id="message" name="message" class="retro-textarea" placeholder="Beschreibe dein Anliegen..." required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="checkbox-group">
+                  <input type="checkbox" name="iso_de_layout" value="yes" checked>
+                  <span data-i18n="c.form.isoDe">ISO-DE Layout bevorzugt</span>
+                </label>
+              </div>
+
+              <p class="privacy-note">
+                <span data-i18n="c.form.intro">Landet direkt in meinem Postfach – keine Anmeldung, kein Newsletter, keine Weitergabe an Dritte außer dem Formular-Dienst selbst (Details dazu in der </span><a href="privacy.html" data-i18n="c.form.privacyLink">Datenschutzerklärung</a>).
+              </p>
+
+              <!-- Buttons -->
+              <div class="form-actions">
+                <button type="submit" class="retro-btn retro-btn-primary" id="submitButton" data-i18n="c.form.submit">[ SENDEN ]</button>
+                <button type="reset" class="retro-btn" id="resetButton" data-i18n="c.form.reset">Zurücksetzen</button>
+              </div>
+              
+              <p class="form-status" id="contactFormStatus" role="status" aria-live="polite"></p>
+            </form>
+
+            <!-- Statusbar -->
+            <div class="status-bar" aria-hidden="true">
+              <span id="statusBarMsg" data-i18n="c.form.statusText">Status: Verbindung hergestellt</span>
+              <span>COM1: 9600 BAUD</span>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Sidebar: Anschrift, OSM-Karte mit R24-Touch-Aktivierung, Direkt, Socials -->
+      <aside class="details-column" aria-label="Kontaktinformationen" data-i18n-aria="c.details.label">
+        <section class="detail-card address-card" aria-labelledby="addressHeading">
+          <h2 id="addressHeading" data-i18n="c.address.meta">Anschrift</h2>
+          <p class="address">
+            J-Keebs<br>
+            Jannik Schlüter<br>
+            Maximilianstraße 16<br>
+            68723 Schwetzingen<br>
+            Deutschland
+          </p>
+
+          <div class="map-embed" id="mapEmbed" aria-label="Karte mit dem Standort von J-Keebs" data-i18n-aria="c.map.regionLabel">
+            <div class="map-canvas" id="mapCanvas" tabindex="-1" role="img" aria-label="Schematic map preview">
+              <svg viewBox="0 0 600 340" width="600" height="340" aria-hidden="true" focusable="false">
+                <rect width="600" height="340" fill="var(--map-base)"/>
+                <path d="M20 24h156v74H20zM420 24h145v96H420zM34 220h112v91H34zM432 235h132v76H432z" fill="var(--map-park)" opacity=".88"/>
+                <path d="M-20 156 C110 115 185 186 290 142 S465 95 625 151" fill="none" stroke="var(--map-water)" stroke-width="24"/>
+                <path d="M-20 156 C110 115 185 186 290 142 S465 95 625 151" fill="none" stroke="#e8e3d6" stroke-width="3"/>
+                <g fill="none" stroke="var(--map-road)" stroke-width="15">
+                  <path d="M0 46 600 293"/><path d="M-20 285 600 45"/><path d="M202 0 255 340"/><path d="M408 0 355 340"/>
+                </g>
+                <g fill="none" stroke="#b9a990" stroke-width="2">
+                  <path d="M0 46 600 293"/><path d="M-20 285 600 45"/><path d="M202 0 255 340"/><path d="M408 0 355 340"/>
+                </g>
+                <g fill="var(--map-block)" opacity=".76">
+                  <rect x="100" y="74" width="38" height="24"/><rect x="156" y="105" width="42" height="21"/><rect x="474" y="185" width="41" height="24"/><rect x="278" y="263" width="46" height="22"/><rect x="458" y="60" width="28" height="24"/>
+                </g>
+                <circle cx="322" cy="164" r="18" fill="#f4f0e1" stroke="#6e644e" stroke-width="4"/>
+                <path d="M322 173l-10 17h20z" fill="#6e644e"/>
+                <circle cx="322" cy="164" r="6" fill="#b37563"/>
+                <rect x="346" y="147" width="119" height="30" fill="#f4f0e1" stroke="#6e644e" stroke-width="2"/>
+                <text x="356" y="167" fill="#4c4b4e" font-family="IBM Plex Sans, sans-serif" font-size="15">J-Keebs · Schwetzingen</text>
+              </svg>
+            </div>
+            <button type="button" class="map-activate" id="mapActivate" aria-label="Karte aktivieren" data-i18n-aria="c.map.activate">
+              <span data-i18n="c.map.activate">Tippen, um die Karte zu benutzen</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="detail-card" aria-labelledby="directHeading">
+          <h2 id="directHeading" data-i18n="c.direct.meta">Direkt</h2>
+          <ul class="direct-list">
+            <li>
+              <span class="meta" data-i18n="c.email.meta">E-Mail</span>
+              <a href="mailto:jannik_schlueter@hotmail.de">jannik_schlueter@hotmail.de</a>
+            </li>
+            <li>
+              <span class="meta" data-i18n="c.phone.meta">Telefon</span>
+              <a href="tel:+4915787362802">+49 157 873 628 02</a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="detail-card" aria-labelledby="onlineHeading">
+          <h2 id="onlineHeading" data-i18n="c.online.meta">Online</h2>
+          <p class="address" data-i18n="c.online.body">Code, Firmware-Experimente und Projekte landen auf GitHub. Der fachliche Werdegang steht auf LinkedIn.</p>
+          <div class="social-links" aria-label="Profile" data-i18n-aria="c.online.meta">
+            <a class="social-link" href="https://github.com/Brotbeutel" target="_blank" rel="noopener noreferrer" aria-label="GitHub-Profil von J-Keebs" data-i18n-aria="c.social.githubLabel">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+              <span>GitHub</span>
+            </a>
+            <a class="social-link" href="https://www.linkedin.com/in/jannik-schl%C3%BCter-103270423/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn-Profil von Jannik Schlüter" data-i18n-aria="c.social.linkedinLabel">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 0h-11A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0ZM4.75 13.5h-2v-7h2v7Zm-1-8a1.15 1.15 0 1 1 0-2.3 1.15 1.15 0 0 1 0 2.3ZM13.5 13.5h-2v-3.6c0-.86-.02-1.97-1.2-1.97-1.2 0-1.39.94-1.39 1.9v3.67h-2v-7h1.92v.96h.03c.27-.5.92-1.03 1.9-1.03 2.03 0 2.74 1.33 2.74 3.06v4.01Z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <p class="prototype-note" data-i18n="prototype.note">
+      Prototyp-Hinweis: Die Win2k-Vorlage aus win2k-redesign.html wurde 1:1 übernommen, mit lokal selbst gehosteten Fonts (Gohufont, VT323, Press Start 2P) ohne externe Serveranfragen.
+    </p>
+  </main>
+
+  <script>
+    const copy = {
+      de: {
+        "common.skip": "Zum Inhalt springen",
+        "hero.eyebrow": "Kontakt",
+        "hero.heading": "Sag Hallo.",
+        "hero.intro": "Fragen zu einem Build, Ideen für ein gemeinsames Projekt oder einfach Lust auf Austausch über deutsche ISO-Layouts? Meld dich gerne.",
+        "c.form.windowTitle": "J-Keebs_Contact.exe",
+        "c.form.heading": "[ Sende eine Nachricht ]",
+        "c.form.introText": "Hast du Fragen zu Custom-Tastaturen, Switches, QMK-Firmware oder Modding-Services? Hinterlasse mir eine Zeile!",
+        "c.form.intro": "Landet direkt in meinem Postfach – keine Anmeldung, kein Newsletter, keine Weitergabe an Dritte außer dem Formular-Dienst selbst (Details dazu in der ",
+        "c.form.privacyLink": "Datenschutzerklärung",
+        "c.form.name": "User / Name:",
+        "c.form.email": "E-Mail Adresse:",
+        "c.form.topic": "Betreff / Kategorie:",
+        "c.form.topic.build": "Custom Build Anfrage",
+        "c.form.topic.modding": "Switch & Stabilizer Modding",
+        "c.form.topic.firmware": "QMK / VIA / Firmware Hilfe",
+        "c.form.topic.general": "Allgemeine Anfrage",
+        "c.form.message": "Nachricht:",
+        "c.form.isoDe": "ISO-DE Layout bevorzugt",
+        "c.form.submit": "[ SENDEN ]",
+        "c.form.reset": "Zurücksetzen",
+        "c.form.statusText": "Status: Verbindung hergestellt",
+        "c.form.sending": "Status: Wird gesendet …",
+        "c.form.success": "Status: Danke! Nachricht gesendet.",
+        "c.form.error": "Status: Fehler beim Senden.",
+        "c.address.meta": "Anschrift",
+        "c.email.meta": "E-Mail",
+        "c.phone.meta": "Telefon",
+        "c.direct.meta": "Direkt",
+        "c.details.label": "Kontaktinformationen",
+        "c.map.regionLabel": "Karte mit dem Standort von J-Keebs",
+        "c.map.activate": "Tippen, um die Karte zu benutzen",
+        "c.online.meta": "Online",
+        "c.online.body": "Code, Firmware-Experimente und Projekte landen auf GitHub. Der fachliche Werdegang steht auf LinkedIn.",
+        "c.social.githubLabel": "GitHub-Profil von J-Keebs",
+        "c.social.linkedinLabel": "LinkedIn-Profil von Jannik Schlüter",
+        "prototype.note": "Prototyp-Hinweis: Die Win2k-Vorlage aus win2k-redesign.html wurde 1:1 übernommen, mit lokal selbst gehosteten Fonts (Gohufont, VT323, Press Start 2P) ohne externe Serveranfragen.",
+        "utility.theme.light": "Hell",
+        "utility.theme.dark": "Dunkel",
+        "utility.theme.label": "Farbschema wechseln",
+        "utility.language.label": "Sprache wechseln",
+        "utility.view.label": "Ansicht"
+      },
+      en: {
+        "common.skip": "Skip to content",
+        "hero.eyebrow": "Contact",
+        "hero.heading": "Say hello.",
+        "hero.intro": "Questions about a build, ideas for a joint project, or just want to talk German ISO layouts? Get in touch.",
+        "c.form.windowTitle": "J-Keebs_Contact.exe",
+        "c.form.heading": "[ Send a message ]",
+        "c.form.introText": "Questions about custom keyboards, switches, QMK firmware or modding services? Drop me a line!",
+        "c.form.intro": "Goes straight to my inbox – no account, no newsletter, no sharing with anyone except the form service itself (details in the ",
+        "c.form.privacyLink": "privacy policy (German only)",
+        "c.form.name": "User / Name:",
+        "c.form.email": "Email Address:",
+        "c.form.topic": "Subject / Category:",
+        "c.form.topic.build": "Custom Build Inquiry",
+        "c.form.topic.modding": "Switch & Stabilizer Modding",
+        "c.form.topic.firmware": "QMK / VIA / Firmware Help",
+        "c.form.topic.general": "General Inquiry",
+        "c.form.message": "Message:",
+        "c.form.isoDe": "ISO-DE layout preferred",
+        "c.form.submit": "[ SEND ]",
+        "c.form.reset": "Reset",
+        "c.form.statusText": "Status: Connected",
+        "c.form.sending": "Status: Sending …",
+        "c.form.success": "Status: Thanks! Message sent.",
+        "c.form.error": "Status: Error sending message.",
+        "c.address.meta": "Address",
+        "c.email.meta": "Email",
+        "c.phone.meta": "Phone",
+        "c.direct.meta": "Direct contact",
+        "c.details.label": "Contact information",
+        "c.map.regionLabel": "Map showing the location of J-Keebs",
+        "c.map.activate": "Tap to use the map",
+        "c.online.meta": "Online",
+        "c.online.body": "Code and firmware experiments live on GitHub. My professional background is on LinkedIn.",
+        "c.social.githubLabel": "J-Keebs on GitHub",
+        "c.social.linkedinLabel": "Jannik Schlüter on LinkedIn",
+        "prototype.note": "Prototype note: the Win2k template from win2k-redesign.html was taken over 1:1, using locally self-hosted fonts without external requests.",
+        "utility.theme.light": "Light",
+        "utility.theme.dark": "Dark",
+        "utility.theme.label": "Change color theme",
+        "utility.language.label": "Change language",
+        "utility.view.label": "View controls"
+      }
+    };
+
+    const root = document.documentElement;
+    const form = document.getElementById("contactForm");
+    const status = document.getElementById("contactFormStatus");
+    const statusBarMsg = document.getElementById("statusBarMsg");
+    const submit = document.getElementById("submitButton");
+    const map = document.getElementById("mapEmbed");
+    const mapButton = document.getElementById("mapActivate");
+    const mapCanvas = document.getElementById("mapCanvas");
+
+    let lang = "de";
+    let theme = "dark";
+    let statusKind = "";
+
+    function setLang(next) {
+      lang = next;
+      root.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const val = copy[lang][el.dataset.i18n];
+        if (val !== undefined) el.textContent = val;
+      });
+      document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+        const val = copy[lang][el.dataset.i18nAria];
+        if (val !== undefined) el.setAttribute("aria-label", val);
+      });
+      document.getElementById("langToggle").textContent = lang === "de" ? "EN" : "DE";
+      document.getElementById("langToggle").setAttribute("aria-label", copy[lang]["utility.language.label"]);
+      document.getElementById("themeToggle").textContent = copy[lang][theme === "light" ? "utility.theme.dark" : "utility.theme.light"];
+      document.getElementById("themeToggle").setAttribute("aria-label", copy[lang]["utility.theme.label"]);
+      if (statusKind) setStatus(statusKind);
+    }
+
+    document.getElementById("winCloseBtn").addEventListener("click", () => form.reset());
+    document.getElementById("langToggle").addEventListener("click", () => setLang(lang === "de" ? "en" : "de"));
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      theme = theme === "light" ? "dark" : "light";
+      root.dataset.theme = theme;
+      setLang(lang);
+    });
+
+    function setMapActive(active) {
+      map.classList.toggle("is-active", active);
+      mapButton.hidden = active;
+      if (active) requestAnimationFrame(() => mapCanvas.focus({ preventScroll: true }));
+    }
+    mapButton.addEventListener("click", () => setMapActive(true));
+    document.addEventListener("pointerdown", event => {
+      if (map.classList.contains("is-active") && !map.contains(event.target)) setMapActive(false);
+    }, true);
+    document.addEventListener("focusin", event => {
+      if (map.classList.contains("is-active") && !map.contains(event.target)) setMapActive(false);
+    });
+
+    function setStatus(kind) {
+      statusKind = kind;
+      const statusText = copy[lang]["c.form." + kind] || "";
+      status.textContent = statusText;
+      statusBarMsg.textContent = statusText || copy[lang]["c.form.statusText"];
+      submit.disabled = kind === "sending";
+      submit.textContent = kind === "sending" ? copy[lang]["c.form.sending"] : copy[lang]["c.form.submit"];
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      const invalid = [...form.querySelectorAll("[required]")].filter(field => !field.checkValidity());
+      if (invalid.length) {
+        setStatus("error");
+        invalid[0].reportValidity();
+        invalid[0].focus();
+        return;
+      }
+      setStatus("sending");
+      window.setTimeout(() => {
+        form.reset();
+        setStatus("success");
+      }, 700);
+    });
+
+    const urlParams = new URLSearchParams(location.search);
+    const paramTheme = urlParams.get("theme");
+    if (paramTheme === "dark" || paramTheme === "light") {
+      theme = paramTheme;
+      root.dataset.theme = theme;
+    }
+    const paramLang = urlParams.get("lang");
+    if (paramLang === "en" || paramLang === "de") {
+      lang = paramLang;
+    }
+    const state = urlParams.get("state");
+    if (state === "loading") setStatus("sending");
+    if (state === "error") setStatus("error");
+    if (state === "success") setStatus("success");
+
+    setLang(lang);
+  </script>
+</body>
+</html>

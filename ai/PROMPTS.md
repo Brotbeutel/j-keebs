@@ -4,13 +4,13 @@ Paste a prompt at the start of a **new** chat — one role per chat. Every agent
 
 ## Which role for what
 
-| You need | Role | Result |
-| --- | --- | --- |
-| Priorities, what next, a review, a new package | Planner | updated `ai/` files |
-| Code, templates, build, assets, tool runs | Implementer | code + report |
-| Text for the site (articles, page copy, translations, meta, alt text) | Writer | text package in `ai/drafts/` |
-| Look and feel, a page or component design, UX flows, a design review | Designer | design spec in `ai/drafts/` + prototype in `design/` |
-| Anything legal (legal pages, partner labelling, data protection, cookies, rights) | Lawyer | legal memo in `ai/drafts/` |
+| You need                                                                          | Role        | Result                                               |
+| --------------------------------------------------------------------------------- | ----------- | ---------------------------------------------------- |
+| Priorities, what next, a review, a new package                                    | Planner     | updated `ai/` files                                  |
+| Code, templates, build, assets, tool runs                                         | Implementer | code + report                                        |
+| Text for the site (articles, page copy, translations, meta, alt text)             | Writer      | text package in `ai/drafts/`                         |
+| Look and feel, a page or component design, UX flows, a design review              | Designer    | design spec in `ai/drafts/` + prototype in `design/` |
+| Anything legal (legal pages, partner labelling, data protection, cookies, rights) | Lawyer      | legal memo in `ai/drafts/`                           |
 
 Flow for content, design and legal work: Writer, Designer or Lawyer drafts → **you approve** (`status: owner-approved` in the draft) → an implementer integrates it in a work package (text and legal wording verbatim; a design rebuilt faithfully). Designer, Writer and Lawyer chats change no site code, so they can run **in parallel** with an implementer chat.
 
@@ -122,6 +122,6 @@ Do not implement. Fold owner notes into STATUS.md / BACKLOG.md, clear USERNOTES.
 
 ## Current queue (2026-10-15) — task lines to paste; delete this section when done
 
-- **Writer** (first, ~15 min; the post must be live by Fri 2026-10-16): `[TASK: Write the Mechanicon announcement post for PLAN.md package P3-M — German (authoritative) and natural English, 120–200 words, my voice. Facts: Mechanicon 2026 is on Saturday 2026-10-17 in Frankfurt am Main (Saalbau Bornheim), free admission with a ticket from mechanicon.io, tenth anniversary; I will be there and present one or two of my keyboards. Do not state opening hours, a stand, talks or sponsor status. Include title, excerpt, meta description, image alt and caption in DE and EN. I will tell you which keyboards to mention: [NAMES or "none"].]`
+- **Writer** (first, ~15 min; the post must be live by Fri 2026-10-16): `[TASK: Write the Mechanicon announcement post for PLAN.md package P3-M — German (authoritative) and natural English, 120–200 words, my voice. Facts: Mechanicon 2026 is on Saturday 2026-10-17 in Frankfurt am Main (Saalbau Bornheim), free admission with a ticket from mechanicon.io, tenth anniversary; I will be there and present one or two of my keyboards. Do not state opening hours, a stand, talks or sponsor status. Include title, excerpt, meta description, image alt and caption in DE and EN. I will tell you which keyboards to mention: none.]`
 - **Implementer** (right after the Writer, or in parallel if the Writer is late): the Implementer prompt unchanged — `PLAN.md` holds P3-M. If the Writer package is not approved yet, the plan allows a draft.
 - **Designer** (in parallel with both, no code): `[TASK: Brief D-1 in ai/DESIGN.md — rework win2k-design/win2k-redesign.html into the production design of contact.html, including the map behaviour of finding R24. Deliver spec and prototype.]`

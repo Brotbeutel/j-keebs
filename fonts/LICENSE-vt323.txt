@@ -1,0 +1,3 @@
+VT323 Font License (SIL Open Font License, Version 1.1)
+Copyright (c) 2011, Peter Hull (peter.hull90@gmail.com)
+Distributed under the SIL Open Font License 1.1.

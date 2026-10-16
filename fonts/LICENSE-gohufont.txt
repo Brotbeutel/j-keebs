@@ -1,0 +1,4 @@
+Gohufont License
+Copyright (c) 2010 Guillaume Litaudon
+Distributed under the WTFPL / SIL Open Font License / MIT License.
+FontPixel web package.
