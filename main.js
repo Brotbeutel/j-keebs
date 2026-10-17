@@ -747,6 +747,73 @@ window.J_KEEBS_I18N_COMMON = {
 
         if (!form) return;
 
+        // Keep HTML constraint rules, but replace the browser-owned tooltip
+        // with the contact window's localized Win2k validation message.
+        form.noValidate = true;
+
+        let activeValidation = null;
+
+        function validationMessageKey(field) {
+            return field.validity.typeMismatch
+                ? "c.form.validation.email"
+                : "c.form.validation.required";
+        }
+
+        function clearValidation() {
+            if (!activeValidation) return;
+
+            activeValidation.field.removeAttribute("aria-invalid");
+            if (activeValidation.previousDescribedBy) {
+                activeValidation.field.setAttribute("aria-describedby", activeValidation.previousDescribedBy);
+            } else {
+                activeValidation.field.removeAttribute("aria-describedby");
+            }
+            activeValidation.message.remove();
+            activeValidation = null;
+        }
+
+        function showValidation(field, moveFocus) {
+            const messageKey = validationMessageKey(field);
+            if (activeValidation && activeValidation.field !== field) clearValidation();
+
+            if (!activeValidation) {
+                const message = document.createElement("p");
+                message.className = "retro-contact-form__validation";
+                message.id = field.id + "ValidationError";
+                message.setAttribute("role", "alert");
+
+                const icon = document.createElement("span");
+                icon.className = "retro-contact-form__validation-icon";
+                icon.setAttribute("aria-hidden", "true");
+                icon.textContent = "!";
+
+                const copy = document.createElement("span");
+                copy.className = "retro-contact-form__validation-copy";
+                message.append(icon, copy);
+
+                const previousDescribedBy = field.getAttribute("aria-describedby") || "";
+                const describedBy = previousDescribedBy
+                    ? previousDescribedBy + " " + message.id
+                    : message.id;
+                field.setAttribute("aria-describedby", describedBy);
+                field.closest(".retro-contact-form__group").appendChild(message);
+                activeValidation = { field, message, copy, previousDescribedBy, messageKey: "" };
+            }
+
+            if (activeValidation.messageKey !== messageKey) {
+                const dict = currentDict();
+                const fallback = messageKey === "c.form.validation.email"
+                    ? "Please enter a valid email address."
+                    : "Please fill out this field.";
+                activeValidation.copy.textContent = dict[messageKey] || fallback;
+                activeValidation.copy.setAttribute("data-i18n", messageKey);
+                activeValidation.messageKey = messageKey;
+            }
+
+            field.setAttribute("aria-invalid", "true");
+            if (moveFocus) field.focus();
+        }
+
         function clearFeedback() {
             const dict = currentDict();
             if (status) {
@@ -767,6 +834,7 @@ window.J_KEEBS_I18N_COMMON = {
         }
 
         form.addEventListener("reset", function () {
+            clearValidation();
             if (preserveFeedbackOnReset) {
                 preserveFeedbackOnReset = false;
                 return;
@@ -780,6 +848,18 @@ window.J_KEEBS_I18N_COMMON = {
             });
         }
 
+        function updateActiveValidation(e) {
+            if (!activeValidation || e.target !== activeValidation.field) return;
+            if (activeValidation.field.validity.valid) {
+                clearValidation();
+            } else {
+                showValidation(activeValidation.field, false);
+            }
+        }
+
+        form.addEventListener("input", updateActiveValidation);
+        form.addEventListener("change", updateActiveValidation);
+
         form.addEventListener("submit", function (e) {
             // Honeypot spam protection
             const honey = form.querySelector('[name="_honey"]');
@@ -789,6 +869,14 @@ window.J_KEEBS_I18N_COMMON = {
             }
 
             e.preventDefault();
+            const invalidField = form.querySelector(":invalid");
+            if (invalidField) {
+                clearFeedback();
+                showValidation(invalidField, true);
+                return;
+            }
+
+            clearValidation();
             const submitBtn = form.querySelector('button[type="submit"]');
 
             // Disable button and show sending message

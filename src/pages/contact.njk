@@ -102,12 +102,15 @@ active_nav: "contact.html"
 
                             <div class="retro-contact-form__group">
                                 <label for="contactTopic" data-i18n="c.form.topic">Betreff / Kategorie:</label>
-                                <select id="contactTopic" name="topic" class="retro-contact-form__input">
-                                    <option value="custom-build" data-i18n="c.form.topic.build">Custom Build Anfrage</option>
-                                    <option value="modding" data-i18n="c.form.topic.modding">Switch &amp; Stabilizer Modding</option>
-                                    <option value="firmware" data-i18n="c.form.topic.firmware">QMK / VIA / Firmware Hilfe</option>
-                                    <option value="general" data-i18n="c.form.topic.general">Allgemeine Anfrage</option>
-                                </select>
+                                <div class="retro-contact-form__select-wrap">
+                                    <select id="contactTopic" name="topic" class="retro-contact-form__input">
+                                        <option value="custom-build" data-i18n="c.form.topic.build">Custom Build Anfrage</option>
+                                        <option value="modding" data-i18n="c.form.topic.modding">Switch &amp; Stabilizer Modding</option>
+                                        <option value="firmware" data-i18n="c.form.topic.firmware">QMK / VIA / Firmware Hilfe</option>
+                                        <option value="general" data-i18n="c.form.topic.general">Allgemeine Anfrage</option>
+                                    </select>
+                                    <span class="retro-contact-form__select-arrow" aria-hidden="true"></span>
+                                </div>
                             </div>
 
                             <div class="retro-contact-form__group">
