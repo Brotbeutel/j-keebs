@@ -1,0 +1,32 @@
+module.exports = {
+                de: {
+                    "post8.meta": "Unterwegs · Mechanicon 2026",
+                    "post8.date": "16. Oktober 2026",
+                    "post8.title": "Mechanicon 2026 – ich bin dabei",
+                    "post8.p1.before": "Morgen, am Samstag, dem 17. Oktober, findet in Frankfurt die Mechanicon statt – und ich bin zum zweiten Mal dabei. Dieses Jahr ist das zehnte Jubiläum. Der Eintritt ist frei, man braucht nur ein kostenloses Ticket, das man auf ",
+                    "post8.p1.after": " bekommt.",
+                    "post8.p2": "Letztes Jahr kam ich zu spät, um noch irgendetwas zu zeigen – aber das Zuschauen allein hat sich gelohnt. Zum ersten Mal habe ich Ergo-Tastaturen unter den Fingern gehabt. Interessant, ohne Frage – aber der klassische Look zieht mich dann doch mehr. Am meisten hat mich ein selbstgebautes Split-Keyboard aus Holz mit Stoff-Handauflage beeindruckt. Genauso die riesigen alten Cherry-Tastaturen, die bestimmt 48 Tasten mehr hatten als ein handelsübliches Full-Size-Board. Sehr inspirierend – oder ein Board, das mehr an einen japanischen Tempel erinnert hat als an eine Tastatur.",
+                    "post8.p3": "Diesmal bringe ich meine besten Stücke mit und freue mich darauf, mich mit anderen Enthusiasten auszutauschen – bestimmt lerne ich etwas, vielleicht kann ich auch etwas beisteuern. Und bei der Tombola will ich natürlich auch gewinnen! Eine neue Tastatur oder ein schickes Keycap-Set wäre schon nett. Wer auch kommt: sag gern Hallo.",
+                    "post8.quote": "„Es gibt wenige Orte, an denen man Fremde nach der Dämpfung ihrer Stabilizer fragen kann, ohne komische Blicke zu ernten.“",
+                    "post8.image.alt": "Mechanicon-Logo auf cremefarbenem Hintergrund",
+                    "post8.image.title": "Mechanicon 2026 · Frankfurt am Main",
+                    "post8.image.caption": "Mechanicon 2026 · Frankfurt am Main · 17. Oktober",
+                    "post8.navTitle": "Mechanicon 2026 – ich bin dabei",
+                    "post7.navTitle": "Wie aus einer Corsair K70 ein Tastatur-Hobby wurde",
+                },
+                en: {
+                    "post8.meta": "On the road · Mechanicon 2026",
+                    "post8.date": "October 16, 2026",
+                    "post8.title": "Mechanicon 2026 – I'll be there",
+                    "post8.p1.before": "Tomorrow, on Saturday, 17 October, Mechanicon is taking place in Frankfurt – and I'll be attending for the second time. This year marks the tenth anniversary. Admission is free; you just need a free ticket from ",
+                    "post8.p1.after": ".",
+                    "post8.p2": "Last year I arrived too late to show anything – but just watching was well worth it. For the first time I got to try ergonomic keyboards. Interesting, no question – but I still prefer the classic look. What impressed me most was a handmade wooden split keyboard with a fabric wrist rest. The massive vintage Cherry keyboards were just as fascinating, easily packing 48 keys more than a standard full-size board. Very inspiring – or another board that looked more like a Japanese temple than a keyboard.",
+                    "post8.p3": "This time I'm bringing my best pieces and look forward to chatting with other enthusiasts – I'm sure I'll learn something, and maybe I can contribute a little too. And of course, I want to win at the raffle! A new keyboard or a neat keycap set would be pretty sweet. If you're coming too: feel free to say hello.",
+                    "post8.quote": "\"There are very few places where you can ask strangers about their stabilizer dampening without getting weird looks.\"",
+                    "post8.image.alt": "Mechanicon logo on a cream background",
+                    "post8.image.title": "Mechanicon 2026 · Frankfurt am Main",
+                    "post8.image.caption": "Mechanicon 2026 · Frankfurt am Main · 17 October",
+                    "post8.navTitle": "Mechanicon 2026 – I'll be there",
+                    "post7.navTitle": "How a Corsair K70 turned into a keyboard hobby",
+                }
+            };

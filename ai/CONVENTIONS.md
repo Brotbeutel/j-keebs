@@ -8,6 +8,7 @@
 - **Relative URLs and depth:** chrome and page URLs are relative (`index.html`, `images/…`, `./style.css`), which only works for pages served at their own filename. `404.html` is the one page GitHub Pages serves at any depth (`/j-keebs/foo/bar`): it sets `root_paths: true`, and `base.njk` then prefixes every chrome URL with `site.basePath`. **Do not use a `<base>` element** (it must precede URL-bearing elements and turns `#main` into a link to the homepage). Other pages must not set `root_paths`.
 - Page-local dictionaries live in `src/_data/i18n/<page-file-slug>.js` and are emitted by `base.njk` as `window.J_KEEBS_I18N`; the directory data file selects only the dictionary matching the current page. Shared UI strings live in `J_KEEBS_I18N_COMMON` (`main.js`); do not duplicate footer/nav keys in a page dictionary unless the page must override them. Add or override only keys used by that page, keeping the German visible template text as the source of truth.
 - Keep German visible text in the template as the no-JS source. Keep matching keys in the dictionary.
+- **Links inside translated text:** the dictionaries are applied with `textContent` (no HTML), so a `data-i18n` element must not contain child elements (`de_default_audit.py` reports `HAS-CHILD-ELEMENTS`). Put the link between text-only fragments: `<p><span data-i18n="x.before">…</span><a href="…">…</a><span data-i18n="x.after">…</span></p>`, with the spaces inside the fragment values (example: `src/pages/blog-mechanicon-2026.njk`, keys `post8.p1.before` / `post8.p1.after`).
 - **German is the source of truth.** If DE and EN differ, DE is right (owner, 2026-09-20); fix EN, not DE. If the German HTML default and the German dictionary differ, ask the owner which wording is final.
 - `id="guidesSubmenu"` and `id="siteNav"` must stay unique per document.
 - Legal pages stay German-only by design.
@@ -18,7 +19,7 @@
 
 ## Verification (before you say "done")
 
-- `npm run build` must finish without errors (21 pages).
+- `npm run build` must finish without errors (22 pages).
 - Unprefixed absolute URLs: `grep -rn "brotbeutel.github.io/" _site --include="*.html" --include="*.xml" --include="*.txt" | grep -v "brotbeutel.github.io/j-keebs"` must be empty.
 - Broken internal links / assets: check every `href`/`src` in `_site/*.html` against `_site/` (URL-decode `%20`), and every `#anchor` against the target page's IDs.
 - Scripts (Python 3, standard library only): `python scripts/check_links.py _site` checks every `href`/`src`/`srcset`, URL-decoded, against `_site/`, every `#anchor` against the target page's IDs, CSS `url()` references, and re-resolves `404.html` at deep paths; `python scripts/tag_balance.py _site` reports unbalanced tags. Both must report no problems. `python scripts/img_report.py` prints a before/after bytes-per-page table for the image pipeline (static file-size approximation, not a network trace — see its docstring).

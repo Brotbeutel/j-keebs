@@ -5,7 +5,7 @@
 - **Repo:** https://github.com/Brotbeutel/j-keebs
 - **Owner:** Jannik Schlüter
 - **Planner:** dedicated planning chat; implementers use a **new** chat per work package
-- **Updated:** 2026-10-14 (planner review of source `4e04a3e`)
+- **Updated:** 2026-10-17 (implementer run, P3-M implemented on source `05dc9dc`, uncommitted; last planner review: source `4e04a3e`, 2026-10-14)
 
 ## Snapshot
 
@@ -15,11 +15,13 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 
 **Local verification, planner review 2026-10-14 (fresh clone of `4e04a3e`, Node 22.22.2):** `npm ci && npm run build` → Copied 56, wrote 22 files (21 HTML + `sitemap.xml`), no errors; `python scripts/check_links.py _site` → 21 pages, **1197** references, 0 errors; `python scripts/tag_balance.py _site` → 0 problems; unprefixed-URL grep empty; no `@@`/`{{` left in `_site`; `diff readme.md ai/README.md` empty; `node --check main.js` ok; DE/EN dictionary key sets identical; German HTML defaults equal the German dictionaries except `about` `story.body` (R13) and two straight-quote differences (R11). Sitemap has 20 URLs (404 excluded). Details and all findings: `BACKLOG.md` → "Planner review 2026-10-14".
 
-**Workflow (2026-10-15):** six roles — Planner, Implementer, Writer, Designer, Lawyer, Owner (`AGENTS.md`, `ai/PROMPTS.md`); Writer/Designer/Lawyer deliverables go to `ai/drafts/` (prototypes to `design/`) and are integrated only after owner approval; tool catalog and baselines in `ai/TOOLS.md`; briefs in `ai/CONTENT.md`, `ai/DESIGN.md`, `ai/LEGAL.md`. These files and the three audit scripts in `scripts/` were delivered to the owner and are **not yet in the repo** until the owner copies and commits them.
+**Workflow (2026-10-15):** six roles — Planner, Implementer, Writer, Designer, Lawyer, Owner (`AGENTS.md`, `ai/PROMPTS.md`); Writer/Designer/Lawyer deliverables go to `ai/drafts/` (prototypes to `design/`) and are integrated only after owner approval; tool catalog and baselines in `ai/TOOLS.md`; briefs in `ai/CONTENT.md`, `ai/DESIGN.md`, `ai/LEGAL.md`. These files and the three audit scripts in `scripts/` are in the repo (verified 2026-10-16). `ai/README.md` is not (deleted in `6d8aa10`, still referenced — `BACKLOG.md` → "Found during P3-M").
 
 **Owner priorities (2026-10-15):** 1. Mechanicon post (P3-M, Due 2026-10-16, event Sat 2026-10-17), 2. contact page redesign (Designer D-1 → P3-C). Owner device test of the map: tapping the map itself does not colour it (R24).
 
-**Open launch-relevant findings:** R12 (owner-addressed notes visible on Impressum and Datenschutz — **High**, rider of P3-M), R24 (tapping the map itself does not colour it — contact redesign), R13 (About dictionary text wrong, owner rewrites the page; interim sync in P3-H), R14 (contact "X" resets the form, in the contact redesign), R16 (h1→h3 skip, in P3-H), R17 (Keychron keycaps → Glorious Aura V2, in P3-H), R18 (light-theme gold text contrast 2.24:1, needs owner visual OK), R19 (J80 article flow, owner content), R22 (cookies page omits a `sessionStorage` key — Lawyer), R23 (K70 origin-story contradiction — owner/Writer). Decided/resolved: R15 (credit stays; legal via separate bot), R20, R21.
+**Implementer run 2026-10-16 (source `05dc9dc`, fast-forwarded from `6d8aa10`):** `05dc9dc` (commit title "P3-C") brought the Writer draft for Mechanicon, the Designer draft D-1 (`status: draft`, with `design/contact-v1.html`), three prototype fonts, `images/Mechanicon_2026.jpg`, the removal of the two owner-addressed notes (R12) and `style.css` (absent since `e848d72`, identical to `3da476a`). **P3-M is implemented in the working tree (uncommitted):** the owner approved the Writer draft in chat, it is integrated verbatim — new page `blog-mechanicon-2026` (blog id 8, first teaser on `blog.html`, "previous" = Corsair, Corsair now has a "next" link), 22 pages, sitemap 21 URLs. Build and tools: see `TOOLS.md` baseline (22 pages, 1248 references, 0 link errors, 3 known `de_default_audit` findings, 13 a11y warnings incl. R16 on the new page). **Not done:** commit/push, deployed-site check; the approved text says "Morgen" but the event day is today, 2026-10-17 (`BACKLOG.md` → "Found during P3-M": owner decision needed before pushing). `ai/README.md` is missing but still referenced; `style.css` and fonts notes are in the same section.
+
+**Open launch-relevant findings:** R12 (owner-addressed notes on Impressum and Datenschutz — **High**, rider of P3-M; **removed in source by `05dc9dc`, deployment unchecked**), R24 (tapping the map itself does not colour it — contact redesign), R13 (About dictionary text wrong, owner rewrites the page; interim sync in P3-H), R14 (contact "X" resets the form, in the contact redesign), R16 (h1→h3 skip, in P3-H), R17 (Keychron keycaps → Glorious Aura V2, in P3-H), R18 (light-theme gold text contrast 2.24:1, needs owner visual OK), R19 (J80 article flow, owner content), R22 (cookies page omits a `sessionStorage` key — Lawyer), R23 (K70 origin-story contradiction — owner/Writer). Decided/resolved: R15 (credit stays; legal via separate bot), R20, R21.
 
 **Done in source (committed):**
 - P0/P0-B/P0-C — URL fixes, English slugs, base path
@@ -51,7 +53,7 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 ## In flight
 
 - [x] Everything through the contact panel redesign — committed; the homepage and contact page are confirmed live
-- [ ] **P3-M — Mechanicon announcement post + R12 rider** (event Sat 2026-10-17; Due 2026-10-16) ← current package, see `PLAN.md`
+- [x] **P3-M — Mechanicon announcement post + R12 rider** (event Sat 2026-10-17; Due 2026-10-16) — implemented 2026-10-16 in the working tree; **waiting for the owner: commit, push, check the Actions run and the live page** (`?v=<random>`). `PLAN.md` still names it as the current package until the planner retires it.
 - [ ] **D-1 — Designer: contact page redesign** (parallel, no code; brief in `ai/DESIGN.md`)
 - [ ] P3-C — contact migration of the approved design (`BACKLOG.md` → "Ready"; includes R14, R24)
 - [ ] P3-H — launch hygiene, reduced (R11 part, R13 interim, R16, R17)
@@ -74,8 +76,8 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 
 | Piece | File / place |
 | --- | --- |
-| Templates | `src/pages/*.njk` (21 pages + `sitemap.njk`), `src/pages/pages.11tydata.js` (layout, computed `og_url`, blog navigation), `src/_includes/base.njk` + `article-nav.njk`, `src/_data/site.js`, `src/_data/blog.js`, `src/_data/i18n/*.js` |
-| Output | `_site/` (21 HTML + assets + `img/` WebP), gitignored |
+| Templates | `src/pages/*.njk` (22 pages + `sitemap.njk`), `src/pages/pages.11tydata.js` (layout, computed `og_url`, blog navigation), `src/_includes/base.njk` + `article-nav.njk`, `src/_data/site.js`, `src/_data/blog.js`, `src/_data/i18n/*.js` |
+| Output | `_site/` (22 HTML + assets + `img/` WebP), gitignored |
 | Build / CI | Eleventy 3.1.6, `@11ty/eleventy-img` 7.x, `.github/workflows/deploy.yml` (Node 22) |
 | Hosting | GitHub Pages project site, base path `/j-keebs/` |
 | CSS | `style.css` (root, passthrough) |

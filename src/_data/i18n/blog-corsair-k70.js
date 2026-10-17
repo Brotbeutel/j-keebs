@@ -12,6 +12,7 @@ module.exports = {
                     "post7.image.caption": "Wie aus einer Corsair K70 ein Tastatur-Hobby wurde",
                     "post7.navTitle": "Wie aus einer Corsair K70 ein Tastatur-Hobby wurde",
                     "post6.navTitle": "Meine erste eigene Tastatur: die Tofu65 2.0",
+                    "post8.navTitle": "Mechanicon 2026 – ich bin dabei",
                 },
                 en: {
                     "post7.meta": "Personal · Keyboard story",
@@ -26,5 +27,6 @@ module.exports = {
                     "post7.image.caption": "How a Corsair K70 turned into a keyboard hobby",
                     "post7.navTitle": "How a Corsair K70 turned into a keyboard hobby",
                     "post6.navTitle": "My first custom keyboard: the Tofu65 2.0",
+                    "post8.navTitle": "Mechanicon 2026 – I'll be there",
                 }
             };

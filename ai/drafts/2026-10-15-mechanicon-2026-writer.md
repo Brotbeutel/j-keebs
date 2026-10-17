@@ -1,4 +1,4 @@
-# Text package: Mechanicon 2026 announcement — 2026-10-15 — status: draft
+# Text package: Mechanicon 2026 announcement — 2026-10-15 — status: integrated
 
 Target: `src/pages/blog-mechanicon-2026.njk` · `src/_data/i18n/blog-mechanicon-2026.js` · new records in `src/_data/blog.js` and `src/_data/i18n/blog.js`
 Reader and purpose: German keyboard hobbyists and community visitors; personal announcement for Mechanicon 2026 highlighting the owner's second visit, impressions from last year, and bringing own builds.

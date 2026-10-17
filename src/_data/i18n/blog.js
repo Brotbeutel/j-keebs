@@ -45,6 +45,12 @@ module.exports = {
                 "post7.excerpt": "Der Anfang war eigentlich ziemlich banal: Ich hatte eine Corsair K70 Vengeance. Sie war keineswegs eine schlechte Tastatur – aber ich war mit ihr…",
                 "post7.image.alt": "Wie aus einer Corsair K70 ein Tastatur-Hobby wurde",
                 "post7.image.title": "Wie aus einer Corsair K70 ein Tastatur-Hobby wurde",
+                "post8.meta": "Unterwegs · Mechanicon 2026",
+                "post8.date": "16. Oktober 2026",
+                "post8.title": "Mechanicon 2026 – ich bin dabei",
+                "post8.excerpt": "Morgen, am Samstag, dem 17. Oktober, findet in Frankfurt die Mechanicon statt – und ich bin zum zweiten Mal dabei. Diesmal mit meinen besten Stücken im Gepäck…",
+                "post8.image.alt": "Mechanicon-Logo auf cremefarbenem Hintergrund",
+                "post8.image.title": "Mechanicon 2026 · Frankfurt am Main",
                 "post4.quote": "Der PC sagt „Tastatur erkannt“. Die Tastatur sagt: „Nö.“",
             },
             en: {
@@ -93,6 +99,12 @@ module.exports = {
                 "post7.excerpt": "The beginning was pretty ordinary: I had a Corsair K70 Vengeance. It certainly wasn't a bad keyboard – but I wasn't completely happy with it.",
                 "post7.image.alt": "How a Corsair K70 turned into a keyboard hobby",
                 "post7.image.title": "How a Corsair K70 turned into a keyboard hobby",
+                "post8.meta": "On the road · Mechanicon 2026",
+                "post8.date": "October 16, 2026",
+                "post8.title": "Mechanicon 2026 – I'll be there",
+                "post8.excerpt": "Tomorrow, on Saturday, 17 October, Mechanicon is taking place in Frankfurt – and I'll be attending for the second time. This time with my best pieces in tow…",
+                "post8.image.alt": "Mechanicon logo on a cream background",
+                "post8.image.title": "Mechanicon 2026 · Frankfurt am Main",
                 "post4.quote": "The PC says „keyboard detected“. The keyboard says: „Nope.“",
             }
         };
