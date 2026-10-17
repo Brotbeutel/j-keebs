@@ -718,6 +718,9 @@ window.J_KEEBS_I18N_COMMON = {
     function initContactForm() {
         const form = document.getElementById("contactForm");
         const status = document.getElementById("contactFormStatus");
+        const statusBar = document.getElementById("contactFormStatusBar");
+        const closeButton = document.getElementById("contactFormClose");
+        let preserveFeedbackOnReset = false;
 
         /**
          * Get current language's translation dictionary.
@@ -735,6 +738,7 @@ window.J_KEEBS_I18N_COMMON = {
             const dict = currentDict();
             status.textContent = dict["c.form.success"] || "Thank you! Your message is on its way.";
             status.className = "form-status form-status--success";
+            if (statusBar) statusBar.textContent = dict["c.form.success"] || "Thanks! Message sent.";
             try {
                 const cleanUrl = window.location.pathname + window.location.hash;
                 window.history.replaceState({}, "", cleanUrl);
@@ -742,6 +746,39 @@ window.J_KEEBS_I18N_COMMON = {
         }
 
         if (!form) return;
+
+        function clearFeedback() {
+            const dict = currentDict();
+            if (status) {
+                status.textContent = "";
+                status.className = "form-status";
+            }
+            if (statusBar) statusBar.textContent = dict["c.form.statusText"] || "Connected";
+        }
+
+        function setFeedback(messageKey, fallback, className) {
+            const dict = currentDict();
+            const message = dict[messageKey] || fallback;
+            if (status) {
+                status.textContent = message;
+                status.className = "form-status " + className;
+            }
+            if (statusBar) statusBar.textContent = message;
+        }
+
+        form.addEventListener("reset", function () {
+            if (preserveFeedbackOnReset) {
+                preserveFeedbackOnReset = false;
+                return;
+            }
+            clearFeedback();
+        });
+
+        if (closeButton) {
+            closeButton.addEventListener("click", function () {
+                form.reset();
+            });
+        }
 
         form.addEventListener("submit", function (e) {
             // Honeypot spam protection
@@ -752,15 +789,11 @@ window.J_KEEBS_I18N_COMMON = {
             }
 
             e.preventDefault();
-            const dict = currentDict();
             const submitBtn = form.querySelector('button[type="submit"]');
 
             // Disable button and show sending message
             if (submitBtn) submitBtn.disabled = true;
-            if (status) {
-                status.textContent = dict["c.form.sending"] || "Sending…";
-                status.className = "form-status";
-            }
+            setFeedback("c.form.sending", "Sending…", "form-status--sending");
 
             // Submit via fetch.
             // IMPORTANT: FormSubmit's plain form-action endpoint (used below by the
@@ -791,17 +824,12 @@ window.J_KEEBS_I18N_COMMON = {
             })
                 .then(res => {
                     if (!res.ok) throw new Error("bad response");
+                    preserveFeedbackOnReset = true;
                     form.reset();
-                    if (status) {
-                        status.textContent = dict["c.form.success"] || "Thank you! Your message is on its way.";
-                        status.className = "form-status form-status--success";
-                    }
+                    setFeedback("c.form.success", "Thank you! Your message is on its way.", "form-status--success");
                 })
                 .catch(() => {
-                    if (status) {
-                        status.textContent = dict["c.form.error"] || "Oops, that didn't work. Please email me directly.";
-                        status.className = "form-status form-status--error";
-                    }
+                    setFeedback("c.form.error", "Oops, that didn't work. Please email me directly.", "form-status--error");
                 })
                 .finally(() => {
                     if (submitBtn) submitBtn.disabled = false;

@@ -29,16 +29,16 @@ python scripts/a11y_audit.py
 
 Compare every result with the baseline below and report the exact output. A result that differs from the baseline is either a regression (fix it) or an intended change (update the baseline here in the same package).
 
-## Baseline at source `05dc9dc` + P3-M (implementer run 2026-10-16; the P3-M files are uncommitted until the owner commits — then replace this id by the new commit)
+## Baseline at source `d033410` + owner-requested Win2k form element (working tree, 2026-10-17)
 
 | Tool | Expected output today |
 | --- | --- |
 | `npm run build` | 22 HTML pages + `sitemap.xml` (21 URLs), no errors |
-| `check_links.py` | 22 pages, 1248 references, 0 errors |
+| `check_links.py` | 22 pages, 1252 references, 0 errors |
 | `tag_balance.py` | 22 pages, 0 problems |
 | `i18n_audit.js` | 0 errors, 13 INFO lines (page keys the page's own HTML does not reference — mostly used by JS or by neighbouring articles; not defects) |
 | `de_default_audit.py` | **3 findings, exit 1:** `about.html` `story.body` (R13), `faq.html` `q4.a3` and `switches.html` `t3.desc` (straight closing quote, R11). Target after P3-H: **0 findings**. |
-| `a11y_audit.py` | 0 errors, 13 warnings: heading skip h1→h3 on 11 pages (R16: 404, contact, faq, 8 blog articles incl. `blog-mechanicon-2026`) plus `contact.html` inline `onclick` and focusable `#mapEmbed` without role (R14). Target after P3-H: 0 warnings. |
+| `a11y_audit.py` | 0 errors, 11 warnings: heading skip h1→h3 on 10 pages (R16: 404, faq, 8 blog articles incl. `blog-mechanicon-2026`) plus focusable `contact.html` `#mapEmbed` without role (R24). The contact title now uses an h2 and the reset button has no inline `onclick`; R14's reset behavior remains. Target after P3-H: 0 warnings. |
 
 ## What these tools cannot see
 
