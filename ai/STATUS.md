@@ -5,7 +5,7 @@
 - **Repo:** https://github.com/Brotbeutel/j-keebs
 - **Owner:** Jannik Schlüter
 - **Planner:** dedicated planning chat; implementers use a **new** chat per work package
-- **Updated:** 2026-10-17 (implementer run, P3-M implemented on source `05dc9dc`, uncommitted; last planner review: source `4e04a3e`, 2026-10-14)
+- **Updated:** 2026-10-17 (Designer image draft for Mechanicon; P3-M implementer run on source `05dc9dc`, uncommitted; last planner review: source `4e04a3e`, 2026-10-14)
 
 ## Snapshot
 
@@ -54,6 +54,7 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 
 - [x] Everything through the contact panel redesign — committed; the homepage and contact page are confirmed live
 - [x] **P3-M — Mechanicon announcement post + R12 rider** (event Sat 2026-10-17; Due 2026-10-16) — implemented 2026-10-16 in the working tree; **waiting for the owner: commit, push, check the Actions run and the live page** (`?v=<random>`). `PLAN.md` still names it as the current package until the planner retires it.
+- [ ] **P3-M image v2 — Designer draft** (Due: 2026-10-17) — review `design/Mechanicon_2026-v2.jpg` and `ai/drafts/2026-10-17-mechanicon-blog-image-designer.md`; the existing `images/Mechanicon_2026.jpg` is unchanged pending owner approval.
 - [ ] **D-1 — Designer: contact page redesign** (parallel, no code; brief in `ai/DESIGN.md`)
 - [ ] P3-C — contact migration of the approved design (`BACKLOG.md` → "Ready"; includes R14, R24)
 - [ ] P3-H — launch hygiene, reduced (R11 part, R13 interim, R16, R17)
