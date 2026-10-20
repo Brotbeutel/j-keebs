@@ -1,6 +1,6 @@
 # Agent entry
 
-Before changing or judging this site, read **`ai/README.md`**, then **`ai/STATUS.md`** and **`ai/PLAN.md`**. Check **`ai/USERNOTES.md`** too — quick owner notes land there between sessions. Your role decides what else to read (below).
+Before changing or judging this site, read **`readme.md`** (project overview), then **`ai/STATUS.md`** and **`ai/PLAN.md`**. Check **`ai/USERNOTES.md`** too — quick owner notes land there between sessions. `ai/README.md` is the map of the handoff folder. Your role decides what else to read (below).
 
 ## Roles — one role per chat
 

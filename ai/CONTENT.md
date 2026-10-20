@@ -21,6 +21,7 @@ J-Keebs is a workshop notebook, not a storefront: custom mechanical keyboards, m
 - German typography: „…“ (U+201E … U+201C), never the straight `"`; spaced en dash ` – `; `z. B.`; `10 €`. Check: `Select-String -Path <file> -Pattern '„[^“”]{1,60}"'` must find nothing. (R11 found five straight-quote leftovers.)
 - Product and project names exactly as the maker or owner writes them (Tofu65 2.0, G80-3000, J80-3000, QMK, VIA, ISO-DE).
 - Headlines in sentence case, no full stop. Meta description 50–160 characters and unique per page (`scripts/a11y_audit.py` warns otherwise). Blog `excerpt`: the opening sentence(s), cut with "…" where needed, roughly 120–160 characters.
+- **Time words:** evergreen articles use absolute dates ("am Samstag, 17. Oktober 2026"). Relative words ("morgen", "heute") are fine in an announcement that is tied to the date the post displays — the owner approved exactly that for the Mechanicon post (dated 16 October, "Morgen" = 17 October). The displayed date is the owner's choice.
 - Alt text says what is visible and relevant, not "Bild von …"; captions are one short line.
 - Articles ship in **DE (authoritative) and real EN** — the existing posts have natural English, not machine-stiff. Page copy outside articles stays German in the EN dictionary unless the owner asks for an English version (accepted decision, `ai/DECISIONS.md`).
 - Typical article length 250–600 words; the Writer proposes a length with the draft.
@@ -31,6 +32,7 @@ J-Keebs is a workshop notebook, not a storefront: custom mechanical keyboards, m
 2. **Facts come from one place each** (table below). Do not copy a fact into a second place; reference the source.
 3. Statements about third parties — brands, partners, other people's products, criticism, comparisons, event logos — and anything promotional or sponsored: flag "Lawyer: yes" in the package and say why. Promotional copy for a partner is written only on an owner brief and after a Lawyer check; sponsored content follows the "Werbung" rule in `CONVENTIONS.md`.
 4. Texts that contradict an existing page are not published until the owner resolves the contradiction (see "Known contradictions").
+5. Time-bound posts (events, deadlines) carry a `Due:` date in `BACKLOG.md`; after the date the owner decides whether the post stays as it is, gets a recap or is unpublished.
 
 ## Where each fact lives (single sources)
 
@@ -67,7 +69,7 @@ Add new owner-stated facts here (with the date) instead of burying them in a dra
 | About (`about.njk`, `about.js`) | Owner-written HTML text; dictionary text generated; owner will rewrite the whole page; origin (Bochum) and residence (Schwetzingen) must be kept apart | Writer, revise-mode, on the owner's input |
 | Blog 1 `blog-getting-started`, 2 `blog-old-keyboards`, 3 `blog-keyboards-for-others` | Short (75–132 words); `BACKLOG.md` says some posts are not original and must be rewritten or unpublished — the owner has not said which | Owner marks which; Writer rewrites or the owner unpublishes |
 | Blog 4–7 | Longer personal articles; originality not confirmed; R19 on post 4, R23 on post 7 | Owner confirms; fix flow/contradiction |
-| Blog 8 Mechanicon | Planned, due before 2026-10-17 (`PLAN.md` P3-M) | Writer package, or implementer draft under the P3-M rules |
+| Blog 8 Mechanicon | Published (displayed date 16 October 2026 by the owner's choice); Writer package `ai/drafts/2026-10-15-mechanicon-2026-writer.md` integrated; text and image approved by the owner — the image `images/Mechanicon_2026.jpg` stays | none |
 | Blog: Fat Plate Generator | Planned; needs the owner's source material | Writer, new-text mode |
 | Guides (Plates, Mods, Keycaps cards) | WIP cards, visible until launch (`ai/DECISIONS.md`) | Writer when the owner supplies the know-how |
 | Tools & Ressourcen descriptions | Owner's German one-liners exist (`BACKLOG.md`); qmk2via description unverified | Light polish pass on request |

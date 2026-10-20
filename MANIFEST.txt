@@ -1,0 +1,16 @@
+j-keebs handoff 2026-10-20 — files in this ZIP (copy over the repo; delete nothing; replaces the ZIP of 2026-10-19)
+AGENTS.md
+ai/BACKLOG.md
+ai/CONTENT.md
+ai/CONVENTIONS.md
+ai/DECISIONS.md
+ai/DESIGN.md
+ai/LEGAL.md
+ai/PLAN.md
+ai/PROMPTS.md
+ai/README.md
+ai/STATUS.md
+ai/TOOLS.md
+ai/drafts/2026-10-15-contact-designer.md
+ai/drafts/2026-10-17-mechanicon-blog-image-designer.md
+readme.md

@@ -29,7 +29,7 @@ Portfolio site for custom mechanical keyboards, modding and upcycling, with a fo
 ├── robots.txt            # static, hand-maintained (sitemap.xml is generated from src/pages/sitemap.njk)
 ├── eleventy.config.js    # input src/, output _site/, passthrough copy of the root assets
 ├── .github/workflows/deploy.yml   # build with Eleventy and deploy _site/ to GitHub Pages
-├── ai/                   # handoff notes for humans and agents (start with ai/README.md)
+├── ai/                   # handoff notes for humans and agents (start with AGENTS.md)
 └── AGENTS.md             # entry point for agents
 ```
 
