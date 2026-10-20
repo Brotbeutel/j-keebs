@@ -1,0 +1,126 @@
+# Conventions
+
+## Editing pages (Eleventy)
+
+- **Source of truth:** `src/pages/*.njk`, `src/_includes/base.njk`, `src/_data/site.js`. `_site/` is generated and gitignored — never edit it. Build with `npm run build`, preview with `npm run dev` (served under `/j-keebs/`).
+- **Shared chrome** (head, theme boot script, header, language/theme toggles, footer, fullscreen overlay) lives in `base.njk`; nav items live in `site.js`. Change it there, once. If a change seems to require touching many page files, stop and check whether it belongs in the layout or in data.
+- **Front matter per page:** `permalink` (must equal the public filename), `title`, `description`, `active_nav`; optional `og_image`, `extra_head`, `page_class`, `root_paths`. **Do not set `layout`, `og_url` or `canonical`** — they come from `src/pages/pages.11tydata.js` (see "URLs").
+- **Relative URLs and depth:** chrome and page URLs are relative (`index.html`, `images/…`, `./style.css`), which only works for pages served at their own filename. `404.html` is the one page GitHub Pages serves at any depth (`/j-keebs/foo/bar`): it sets `root_paths: true`, and `base.njk` then prefixes every chrome URL with `site.basePath`. **Do not use a `<base>` element** (it must precede URL-bearing elements and turns `#main` into a link to the homepage). Other pages must not set `root_paths`.
+- Page-local dictionaries live in `src/_data/i18n/<page-file-slug>.js` and are emitted by `base.njk` as `window.J_KEEBS_I18N`; the directory data file selects only the dictionary matching the current page. Shared UI strings live in `J_KEEBS_I18N_COMMON` (`main.js`); do not duplicate footer/nav keys in a page dictionary unless the page must override them. Add or override only keys used by that page, keeping the German visible template text as the source of truth.
+- Keep German visible text in the template as the no-JS source. Keep matching keys in the dictionary.
+- **Links inside translated text:** the dictionaries are applied with `textContent` (no HTML), so a `data-i18n` element must not contain child elements (`de_default_audit.py` reports `HAS-CHILD-ELEMENTS`). Put the link between text-only fragments: `<p><span data-i18n="x.before">…</span><a href="…">…</a><span data-i18n="x.after">…</span></p>`, with the spaces inside the fragment values (example: `src/pages/blog-mechanicon-2026.njk`, keys `post8.p1.before` / `post8.p1.after`).
+- **German is the source of truth.** If DE and EN differ, DE is right (owner, 2026-09-20); fix EN, not DE. If the German HTML default and the German dictionary differ, ask the owner which wording is final.
+- `id="guidesSubmenu"` and `id="siteNav"` must stay unique per document.
+- Legal pages stay German-only by design.
+- Do not recreate the old copy/paste pattern inside templates: repeated values belong in data files (see P2-F in `BACKLOG.md`).
+- Blog records live in `src/_data/blog.js` in display order. Each record owns its article slug, URL, navigation order, image, date, teaser and German no-JS defaults; `src/pages/pages.11tydata.js` derives the featured, teaser, previous and next values from that array.
+- `src/pages/sitemap.njk` (`layout: false`) generates `sitemap.xml`; it must never inherit `base.njk`.
+- Bulk changes across many templates: script with `assert` guards, then diff.
+
+## Verification (before you say "done")
+
+- `npm run build` must finish without errors (22 pages).
+- Unprefixed absolute URLs: `grep -rn "brotbeutel.github.io/" _site --include="*.html" --include="*.xml" --include="*.txt" | grep -v "brotbeutel.github.io/j-keebs"` must be empty.
+- Broken internal links / assets: check every `href`/`src` in `_site/*.html` against `_site/` (URL-decode `%20`), and every `#anchor` against the target page's IDs.
+- Scripts (Python 3, standard library only): `python scripts/check_links.py _site` checks every `href`/`src`/`srcset`, URL-decoded, against `_site/`, every `#anchor` against the target page's IDs, CSS `url()` references, and re-resolves `404.html` at deep paths; `python scripts/tag_balance.py _site` reports unbalanced tags. Both must report no problems. `python scripts/img_report.py` prints a before/after bytes-per-page table for the image pipeline (static file-size approximation, not a network trace — see its docstring).
+- Run the audit scripts listed in `ai/TOOLS.md` (`i18n_audit.js`, `de_default_audit.py`, `a11y_audit.py`) and compare with the baseline there.
+- Do not claim a live result without checking the deployed site after the push. Check with a cache-busting query string (`?v=<random>`): GitHub Pages and fetch tools can serve a stale copy of a single URL while others are already new (seen 2026-10-14).
+- A German visible default in a template and the German dictionary value for the same key must be identical. Compare them after touching copy; the planner review of 2026-10-14 found three diffs this way.
+
+## Commands for the owner
+
+The owner works in **Windows PowerShell**. Every owner step and every check the owner is supposed to run must be given as a PowerShell command. No `curl` (in PowerShell it is an alias of `Invoke-WebRequest` and behaves differently; use `Invoke-WebRequest` or `Select-String`, or a browser). No `grep`, `wc`, `head`, `&&`. Typical equivalents:
+
+| Task | PowerShell |
+| --- | --- |
+| Search text in built pages | `Select-String -Path _site\*.html -Pattern 'text' -SimpleMatch` |
+| Count matches | `(Select-String -Path _site\*.html -Pattern 'text' -SimpleMatch).Count` |
+| Size of a folder | `"{0:N1} MB" -f ((Get-ChildItem _site\img -File -Recurse \| Measure-Object Length -Sum).Sum / 1MB)` |
+| Largest files | `Get-ChildItem _site\img -File \| Sort-Object Length -Descending \| Select-Object -First 5 Name, Length` |
+| Files tracked by git | `(git ls-files node_modules).Count` |
+| Chain commands | separate lines, or `;` (not `&&`) |
+| Deleted files before committing | `git ls-files --deleted` and `git diff --cached --name-status --diff-filter=D` (both should print nothing unless you meant it) |
+| Live page, bypassing caches | `(Invoke-WebRequest "https://brotbeutel.github.io/j-keebs/contact.html?v=$(Get-Random)" -UseBasicParsing).StatusCode` |
+| Live page contains text | `(Invoke-WebRequest "https://brotbeutel.github.io/j-keebs/index.html?v=$(Get-Random)" -UseBasicParsing).Content -match 'Kailh Box Jade'` |
+| Latest Actions run | open `https://github.com/Brotbeutel/j-keebs/actions` in a browser (the API is rate-limited for anonymous callers) |
+
+Implementers may use their own (bash) tooling for their own checks, but the handoff must give the owner the PowerShell version.
+
+## Images
+
+- Gallery and blog photos are 16:9, mostly 1920×1080 (owner, 2026-09-20). Known non-16:9 files: `Werkbank_Hero.jpg` (526×1113), `J-Keebs-Logo.png` (1742×733), `Retro-PC_pixelart_generated.png` (64×64), `J-Keebs-Icon.ico`, `mechanicon_logo.png`, `og-preview.jpg` (1200×630), `apple-touch-icon.png` (180×180).
+- No large uncompressed photo dumps without asking. New photos: ≤ 1920 px wide.
+- **Requires Node ≥ 22** (`@11ty/eleventy-img`'s requirement; `node -v` to check).
+
+### Build-time image pipeline (P2-E, since 2026-09-23)
+
+Every `<img src="images/….jpg|.jpeg|.png">` in `src/pages/*.njk` / `src/_includes/base.njk` is rewritten at build time by the `imagePipeline` transform in `eleventy.config.js` — **write plain HTML in templates, nothing else to do:**
+
+```html
+<img src="images/My-New-Photo.jpg" alt="…" title="…">
+```
+
+The transform (not the ready-made `eleventyImageTransformPlugin` — it can't resolve `images/…` at the repo root; not a Nunjucks shortcode either, to keep templates plain HTML) generates WebP with `@11ty/eleventy-img`, writes them to `_site/img/` (hashed filenames, never committed), and replaces the tag's `src`/`width`/`height` with a `srcset`, a `sizes`, and a `data-full` attribute (widest candidate, used by `main.js` for a sharp fullscreen image). Every other attribute (`class`, `alt`, `title`, `data-slide`, `data-i18n-attr`, …) is kept as-is.
+
+- **Widths:** photos 640/1280/1920px; the three logos (`J-Keebs-Logo.png`, `OWA_Labs_Logo.png`, `PCBWay_Logo.png`) 240/480px. Never enlarged — eleventy-img drops any requested width above the source's real width.
+- **Quality:** WebP q78 (logos q75 — `OWA_Labs_Logo.png`'s 480px file was ~1KB over the 25KB cap at q78; a few quality points cost nothing and are invisible on flat logo art. Do **not** reach for `effort: 6` for this kind of saving — it costs ~4.6s *per file*, not milliseconds).
+- **Excluded** (untouched, no `data-no-optimize` needed): `Retro-PC_pixelart_generated.png`, `mechanicon_logo.png`. To exclude any other single image, add `data-no-optimize` to its `<img>` tag (stripped from the output, tag left otherwise unchanged).
+- **`sizes`:** looked up by usage context in `eleventy.config.js`'s `SIZES_BY_CONTEXT` (gallery / single-polaroid / blog-featured / blog-teaser / partner-logo / header-logo / footer-logo / the one-off `Werkbank_Hero.jpg` hero). Context is detected from the `<img>`'s own attributes (`data-slide`, `class`) where possible, otherwise from the nearest preceding `<figure class="…">` in the rendered HTML. **A new reusable image component needs a new context**: add its class to `detectContext()` and a matching entry to `SIZES_BY_CONTEXT` — don't let it fall through to the `"100vw"` default. The current values were computed from `style.css` at 375/768/1280/1920px (no browser available in the sandbox that built P2-E); see `ai/STATUS.md` for the derivation and get a real DevTools measurement before trusting them for a very different layout.
+- **Loading policy:** the transform picks it automatically — the first non-logo processed `<img>` in a page's rendered document order gets `loading="eager" fetchpriority="high"`, every later one `loading="lazy" decoding="async"`. Logos are excluded from this and keep whatever the template already says (header logo: no attribute = implicit eager; footer/partner logos: `loading="lazy"`). So: **don't hand-set `loading`/`fetchpriority` on a processed `<img>`** — reordering content on the page changes which image "wins" automatically. If a page ever needs a *different* image to be the eager one than "the first one in the HTML", reorder the markup rather than fighting the transform.
+- `images/` itself stays a passthrough copy (`eleventy.config.js`) — old absolute URLs (`og:image`, external hotlinks) keep working unchanged.
+- **Social preview tags** use the JPEG/PNG originals in `images/`, never the generated WebP in `img/`. Default card: `images/og-preview.jpg` (1200×630). `apple-touch-icon` is `images/apple-touch-icon.png` (180×180). Pages may set `og_image` in front matter as a path **relative to the site root** (`images/x.jpg`, never an absolute URL); `base.njk` builds `site.url + "/" + og_image` and falls back to `images/og-preview.jpg`.
+
+## Fonts
+
+- Fonts are **self-hosted**: woff2 files and their licence texts in `fonts/` (provenance in `fonts/README.md`), `@font-face` blocks with `font-display: swap` at the top of `style.css`, copied to `_site/fonts/` by `eleventy.config.js`. Families: Libre Caslon Text (400, 400 italic, 700), IBM Plex Sans (400–700), Courier Prime (400, 700), Playwrite DE Grund (variable, 100–400), Silkscreen (400, 700; pixel UI of the contact panel, Fontsource, licence `LICENSE-silkscreen.txt`), Gohufont, Press Start 2P and VT323 (Win2k contact window; licences alongside the font files).
+- Keep the `--font-*` tokens and their fallback stacks. To add a weight: add the woff2 (Latin subset) to `fonts/`, add an `@font-face`, keep the licence file next to it.
+- Never link Google Fonts or any other font CDN (see "What not to do").
+
+## CSS / JS
+
+- Tokens live in `:root` (dark set) and `[data-theme="light"]` in `style.css`. Do not hardcode one-off hex in new components if a token exists.
+- Theme key: `localStorage["jkeebs-theme"]`. Language key: `localStorage["jkeebs-lang"]`.
+- Default language in JS is `"en"`; `<html lang="en">` matches it. This is a **confirmed, intentional decision (2026-09-03)**. The visible body copy stays German. Do not translate page copy without an explicit go-ahead and do not "fix" the `lang`/copy mismatch by changing `lang`.
+- Gallery logic expects `.polaroid-frame`, `[data-slide]`, `.carousel-dots`. Fullscreen expects `#fullscreenOverlay`.
+
+## URLs
+
+- The site is a GitHub Pages **project page** at `https://brotbeutel.github.io/j-keebs/`. Every absolute URL (`canonical`, `og:url`, `og:image`, `twitter:image`, JSON-LD `url`, `sitemap.xml`, `robots.txt`, FormSubmit `_next`) must include `/j-keebs/`.
+- Renaming a page = new `permalink`. The owner deleted all redirect stubs (2026-09-11): old URLs 404. If a redirect is wanted, add a redirect template (see `PLAN.md`) and say so explicitly.
+- `sitemap.xml` is generated; a renamed or new page appears in it automatically. Update every internal `href` in the same change. `robots.txt` stays a static passthrough file.
+- **Computed URLs (P2-F1).** The site's own base URL lives once, in `src/_data/site.js` (`site.url`, no trailing slash). `src/pages/pages.11tydata.js` sets `layout: "base.njk"` for every page and computes `og_url = site.url + page.url` (`/` for index, `/404.html` for the 404 page). `base.njk` renders `canonical` as `canonical or og_url`; do not duplicate that fallback. A page author therefore sets **neither `og_url` nor `canonical`**, and never types the domain into a template.
+- `og_image` is relative (`images/….jpg`); see "Images".
+- In a page **body** use `{{ og_url }}` for the page's own absolute URL (e.g. FormSubmit `_next` in `contact.njk`: `{{ og_url }}?sent=1`). `canonical` is normally unset, so `{{ canonical }}` renders empty.
+- Front-matter strings such as `extra_head` are injected raw and are not rendered by Nunjucks, so `{{ … }}` does not work there. Write the token `@@OG_URL@@` instead (used by the JSON-LD `url` in `index.njk`); `base.njk` replaces it with the page's canonical URL. Check `_site` for leftover `@@` after adding one.
+
+## Roles, text and deadlines
+
+- Six roles (`AGENTS.md`, `PROMPTS.md`): Planner, Implementer, Writer, Designer, Lawyer, Owner. One role per chat. Writer, Designer and Lawyer change no site code and can run in parallel with an implementer.
+- **Copy:** visible text comes from the owner, from an owner-approved Writer package in `ai/drafts/`, or from the work-package spec. Implementers do not invent copy or facts; missing text becomes a "needs Writer" entry in `BACKLOG.md`.
+- **Facts** have one home each (`ai/CONTENT.md`, "Where each fact lives"). Do not repeat a fact in a second place; when two places disagree, record it in "Known contradictions" and ask the owner.
+- **Design:** the Designer's spec lives in `ai/drafts/`, the prototype in `design/<topic>-vN.html` (reference only, never published, no external requests). An implementer rebuilds it in `src/` + `style.css` + `main.js`, lists every deviation in the report, and the owner checks the acceptance criteria on a real device. UI strings still go through `data-i18n` (DE + EN).
+- **Fast lane:** when the owner explicitly says "build it now", an implementer may start from a draft spec or from the owner's chat description. The report states the scope the owner gave, lists every deviation from the spec, and the spec's status line becomes `integrated` with a note on what is still partial. `STATUS.md` and `BACKLOG.md` are updated as always (seen 2026-10-16/17).
+- **Design approval:** the owner approves a Designer spec only after reading its requirements trace (`ai/DESIGN.md`); for interaction-heavy features or large packages the optional Reviewer (`ai/PROMPTS.md`) checks it first.
+- **Parity table:** for design work the implementer's report contains a table — every item of the spec's component inventory → implemented yes/no/partial → file:line — and anything "no" goes to `BACKLOG.md` the same day. (The map activation layer of the Win2k prototype was lost because nothing compared prototype and page: R24.)
+- **Delivering files to the owner:** a planner ZIP lists exactly the files it contains. The owner copies them into the repo (no folder mirroring or sync that deletes) and checks the deletions before committing: `git ls-files --deleted` and `git diff --cached --name-status --diff-filter=D` must show nothing unexpected. (Commit `e848d72` deleted `style.css`, 3545 lines, on 2026-10-15; `05dc9dc` restored it; Actions most likely failed in between.)
+- **Drafts** (`ai/drafts/`) are never published. Status line: `draft` → `owner-approved` → `integrated`; only `owner-approved` drafts are integrated, verbatim.
+- **Deadlines:** an item that depends on an external date carries `Due: YYYY-MM-DD` in `BACKLOG.md` / `PLAN.md`; planners check these first (Mechanicon 2026-10-17 was nearly missed because the note did not say it was urgent).
+- **Legal impact:** an implementer who adds a service, a network request or a storage key writes "Legal impact: yes" in `BACKLOG.md` so the Lawyer can update `ai/LEGAL.md` and the legal pages.
+- **Tools:** run everything in `ai/TOOLS.md` before saying "done" and compare with its baseline.
+
+## Legal pages
+
+- Impressum, Datenschutz, Cookies and AGB are German-only, owner-controlled text. Implementers may fix typography and markup, but never change legal wording, "Stand" dates or the set of described services — except verbatim from a Lawyer memo in `ai/drafts/` that the owner has approved (`status: owner-approved`, see `ai/LEGAL.md`).
+- **No editorial notes addressed to the owner in visible markup** ("ergänze bitte …", "deine eigene Vorlage"). Put such reminders here or in `DECISIONS.md` instead (a leftover of this kind sat on Impressum and Datenschutz until 2026-10-14, see `BACKLOG.md` R12).
+- Triggers that require the owner to extend the legal pages (moved here from the removed notes): **selling anything or adding affiliate/sponsored links beyond PCBWay** → Impressum (Umsatzsteuer-ID, Streitschlichtung wording) and AGB; **any new external service** (analytics, embeds, fonts, maps, forms) → Datenschutz and Cookies; **new local-storage keys or cookies** → Cookies.
+- PCBWay is a compensated (barter) partner: `rel="sponsored"` plus a visible "Werbung" marker where the partner is promoted; the owner decided on 2026-10-14 to keep the discreet sitewide "Powered by PCBWay" footer credit. **Legal questions go to the Lawyer role** (`ai/LEGAL.md`) — planners and implementers record facts for it (`BACKLOG.md` R15) but give no legal verdicts. Uncompensated partners (OWA LABS) need neither.
+
+## What not to do
+
+- No Astro, React or other framework. Eleventy is the approved and installed generator.
+- Never commit `node_modules/`, `_site/`, `.cursor/`, `content/` or secrets (all listed in `.gitignore`; `node_modules/` and `.cursor/` were untracked in P2-D).
+- No new third-party requests (fonts, CDNs, embeds, analytics) without a privacy check and an update of the privacy/cookie pages by the owner. Fonts in particular are served from this site only.
+- Do not claim accessibility or performance wins in the README without a check.
+- Do not expand the guides listing with more empty cards.
+- Do not restore `main-original.js`.
+- Do not add a `<base>` element (see "Editing pages", relative URLs and depth).

@@ -11,6 +11,7 @@ Before changing or judging this site, read **`readme.md`** (project overview), t
 | **Writer** | Words of the site: articles, page copy, meta, alt text, EN versions | `CONTENT`, `GOALS`, `DECISIONS` | A text package in `ai/drafts/` | Edits code; writes legal pages; invents facts |
 | **Designer** | Look and feel: layout, components and their states, motion, UX flows | `DESIGN`, `GOALS`, `DECISIONS`, `CONVENTIONS` | A design spec in `ai/drafts/` + a prototype in `design/` | Edits production code; writes final copy or legal wording; uses external fonts/requests |
 | **Lawyer** | German/EU legal questions and the four legal pages | `LEGAL`, `DECISIONS`, `CONVENTIONS` | A legal memo in `ai/drafts/` | Edits code; presents a draft as a guarantee; relies on memory instead of current sources |
+| **Reviewer** (optional) | An independent check of a Designer spec or an implementer's work | `PLAN`, `CONVENTIONS`, `TOOLS`, `DESIGN` | A verdict with findings in the chat | Changes anything; reviews its own work |
 | **Owner** (Jannik) | Decisions, approvals, commits, deployment | — | Approval of drafts (`status: owner-approved`) | — |
 
 Prompts for each role: **`ai/PROMPTS.md`**. Writer, Designer and Lawyer deliverables are drafts: nothing from `ai/drafts/` is integrated before the owner has approved it.

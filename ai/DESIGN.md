@@ -40,6 +40,8 @@ The Designer shapes how the site looks and feels: layout, visual hierarchy, comp
    - i18n key table: key → DE → EN (functional microcopy as a proposal).
    - **Acceptance criteria** the owner can check on a real device (3–8 bullets, observable, no jargon).
    - What the implementer must not change; open questions (max 5, each with a proposed default).
+   - **Requirements trace — mandatory:** a table with one row per requirement of the brief (split compound requirements into single clauses, quote the brief's wording) → where the prototype meets it → how the owner sees it (`?state=…`, a button, a screenshot). A requirement without a row, or with "not met", is stated openly with the reason. The owner and the planner check this table first; a prototype without it is not reviewed. (The D-1 prototype missed the map requirement and nobody noticed until a phone test, R24.)
+   - **Interactive behaviour must work in the prototype** on a phone, not only be described — for touch features include the exact steps to test it.
 2. **Prototype** — `design/<topic>-vN.html`: one self-contained HTML file (inline CSS/JS), using the site's tokens and the repo's font files by relative path, switchable light/dark, every state demonstrable (e.g. `?state=error`), **no external requests**, at least one `<h1>`. It is a design reference, not production code: the implementer re-implements it inside `src/` and `style.css`.
 3. Status line in the spec: `draft` → `owner-approved` → `integrated`. An implementer builds only from an owner-approved spec; deviations need the owner's (or Designer's) consent and are listed in the report.
 
@@ -50,7 +52,7 @@ The Designer shapes how the site looks and feels: layout, visual hierarchy, comp
 - **Design:** create or rework a page or component → spec + prototype.
 - **Design review:** audit existing pages for UX and visual quality → prioritised findings (severity, evidence, a concrete proposal each); no prototype unless asked.
 
-## Brief D-1 — contact page redesign (delivered 2026-10-16: spec `ai/drafts/2026-10-15-contact-designer.md`, prototype `design/contact-v1.html`; the form window is live since `76edb45`; the map activation layer of the prototype is still to be ported in P3-C2)
+## Brief D-1 — contact page redesign (delivered 2026-10-16: spec `ai/drafts/2026-10-15-contact-designer.md`, prototype `design/contact-v1.html`; the form window is live since `76edb45`; the prototype's map activation layer did not meet the brief — the owner says the Designer misunderstood or missed that part — so it is not ported; P3-C2 rebuilds the behaviour from requirements)
 
 **Goal:** turn the owner's draft `win2k-design/win2k-redesign.html` into a production-ready design for `contact.html`, keeping the retro Windows-2000 window concept. The owner wants the draft "reworked once more" and then migrated; they did not say what to change, so the Designer decides, explains each decision briefly, and the owner reacts to the prototype.
 

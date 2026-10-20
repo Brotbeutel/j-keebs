@@ -69,7 +69,7 @@ Add new owner-stated facts here (with the date) instead of burying them in a dra
 | About (`about.njk`, `about.js`) | Owner-written HTML text; dictionary text generated; owner will rewrite the whole page; origin (Bochum) and residence (Schwetzingen) must be kept apart | Writer, revise-mode, on the owner's input |
 | Blog 1 `blog-getting-started`, 2 `blog-old-keyboards`, 3 `blog-keyboards-for-others` | Short (75–132 words); `BACKLOG.md` says some posts are not original and must be rewritten or unpublished — the owner has not said which | Owner marks which; Writer rewrites or the owner unpublishes |
 | Blog 4–7 | Longer personal articles; originality not confirmed; R19 on post 4, R23 on post 7 | Owner confirms; fix flow/contradiction |
-| Blog 8 Mechanicon | Published (displayed date 16 October 2026 by the owner's choice); Writer package `ai/drafts/2026-10-15-mechanicon-2026-writer.md` integrated; text and image approved by the owner — the image `images/Mechanicon_2026.jpg` stays | none |
+| Blog 8 Mechanicon | Published (displayed date 16 October 2026 by the owner's choice); its Writer package was integrated and later deleted by the owner (2026-10-20); text and image approved by the owner — the image `images/Mechanicon_2026.jpg` stays | none |
 | Blog: Fat Plate Generator | Planned; needs the owner's source material | Writer, new-text mode |
 | Guides (Plates, Mods, Keycaps cards) | WIP cards, visible until launch (`ai/DECISIONS.md`) | Writer when the owner supplies the know-how |
 | Tools & Ressourcen descriptions | Owner's German one-liners exist (`BACKLOG.md`); qmk2via description unverified | Light polish pass on request |

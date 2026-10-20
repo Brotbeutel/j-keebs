@@ -1,4 +1,5 @@
-j-keebs handoff 2026-10-20 — files in this ZIP (copy over the repo; delete nothing; replaces the ZIP of 2026-10-19)
+j-keebs handoff 2026-10-20 (second version) — files in this ZIP: copy over the repo, delete nothing, replaces all earlier handoff ZIPs.
+No Mechanicon draft files are included; deleting them stays your call.
 AGENTS.md
 ai/BACKLOG.md
 ai/CONTENT.md
@@ -12,5 +13,5 @@ ai/README.md
 ai/STATUS.md
 ai/TOOLS.md
 ai/drafts/2026-10-15-contact-designer.md
-ai/drafts/2026-10-17-mechanicon-blog-image-designer.md
+ai/drafts/README.md
 readme.md
