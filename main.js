@@ -12,8 +12,8 @@
  * - Accessibility features (focus management, keyboard navigation)
  * 
  * All user preferences (language, theme) are persisted to localStorage.
- * The module uses a custom attribute-based i18n system with data-i18n,
- * data-i18n-html, and data-i18n-attr attributes for translation.
+ * The module uses a custom attribute-based i18n system with data-i18n
+ * and data-i18n-attr attributes for translation.
  * 
  * @version 2.0.0
  * @author J-Keebs
@@ -1164,13 +1164,60 @@ window.J_KEEBS_I18N_COMMON = {
     }
 
     function initMapTouchActivation() {
-        const map = document.getElementById("mapEmbed");
-        const card = map && map.closest(".card");
+        const mapEmbed = document.getElementById("mapEmbed");
+        const mapActivate = document.getElementById("mapActivate");
+        if (!mapEmbed) return;
+        const card = mapEmbed.closest(".card");
         if (!card) return;
 
+        function activatePanel() {
+            if (mapEmbed.classList.contains("is-active")) return;
+            card.classList.add("is-map-active");
+            mapEmbed.classList.add("is-active");
+            if (mapActivate) {
+                mapActivate.setAttribute("aria-hidden", "true");
+                mapActivate.tabIndex = -1;
+            }
+        }
+
+        function deactivatePanel() {
+            if (!mapEmbed.classList.contains("is-active")) return;
+            card.classList.remove("is-map-active");
+            mapEmbed.classList.remove("is-active");
+            if (mapActivate) {
+                mapActivate.removeAttribute("aria-hidden");
+                mapActivate.tabIndex = 0;
+            }
+        }
+
+        card.addEventListener("pointerdown", function () {
+            activatePanel();
+        });
+
+        if (mapActivate) {
+            mapActivate.addEventListener("click", function () {
+                activatePanel();
+            });
+        }
+
         document.addEventListener("pointerdown", function (event) {
-            card.classList.toggle("is-map-active", card.contains(event.target));
+            if (mapEmbed.classList.contains("is-active") && !card.contains(event.target)) {
+                deactivatePanel();
+            }
         }, true);
+
+        document.addEventListener("focusin", function (event) {
+            if (mapEmbed.classList.contains("is-active") && !card.contains(event.target)) {
+                deactivatePanel();
+            }
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" && mapEmbed.classList.contains("is-active")) {
+                deactivatePanel();
+                if (mapActivate) mapActivate.focus();
+            }
+        });
     }
 
     // ============================================================================

@@ -99,22 +99,6 @@
 }
 
 @font-face {
-    font-family: "Silkscreen";
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url("./fonts/silkscreen-latin-400-normal.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: "Silkscreen";
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url("./fonts/silkscreen-latin-700-normal.woff2") format("woff2");
-}
-
-@font-face {
     font-family: "Playwrite DE Grund";
     font-style: normal;
     font-weight: 100 400;
@@ -2645,792 +2629,6 @@ textarea { min-height: 8.5rem; resize: vertical; }
     .article-nav__link--next { text-align: left; align-items: flex-start; margin-left: 0; }
 }
 
-/* ==========================================================================
-/* ==========================================================================
-   J-Keebs — Win2K Window UI (Theme-Adapted & Pixelated)
-   ========================================================================== */
-.win2k-window {
-    background-color: var(--surface) !important;
-    border-top: 3px solid rgba(255, 255, 255, 0.7) !important;
-    border-left: 3px solid rgba(255, 255, 255, 0.7) !important;
-    border-right: 3px solid rgba(0, 0, 0, 0.6) !important;
-    border-bottom: 3px solid rgba(0, 0, 0, 0.6) !important;
-    box-shadow: inset 2px 2px var(--bg), inset -1px -1px var(--border-strong) !important;
-    padding: 3px;
-    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
-    -webkit-font-smoothing: none !important;
-    -moz-osx-font-smoothing: grayscale !important;
-    font-smooth: never !important;
-    color: var(--text) !important;
-    margin-bottom: 2rem;
-}
-
-[data-theme="dark"] .win2k-window {
-    border-top: 3px solid rgba(255, 255, 255, 0.15) !important;
-    border-left: 3px solid rgba(255, 255, 255, 0.15) !important;
-    border-right: 3px solid rgba(0, 0, 0, 0.9) !important;
-    border-bottom: 3px solid rgba(0, 0, 0, 0.9) !important;
-}
-
-.win2k-titlebar {
-    background: linear-gradient(90deg, var(--accent), var(--accent-2)) !important;
-    color: var(--swatch-charcoal) !important;
-    padding: 5px 6px 5px 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
-    font-weight: bold;
-    font-size: 15px !important;
-    letter-spacing: 0.04em;
-    text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
-}
-
-.win2k-titlebar__text {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.win2k-btn {
-    background-color: var(--surface) !important;
-    border-top: 3px solid rgba(255, 255, 255, 0.7) !important;
-    border-left: 3px solid rgba(255, 255, 255, 0.7) !important;
-    border-right: 3px solid rgba(0, 0, 0, 0.6) !important;
-    border-bottom: 3px solid rgba(0, 0, 0, 0.6) !important;
-    box-shadow: inset -2px -2px var(--border-strong), inset 1px 1px rgba(255,255,255,0.3) !important;
-    color: var(--text) !important;
-    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
-    font-weight: bold;
-    font-size: 15px !important;
-    line-height: 1;
-    padding: 2px 7px 3px 7px !important;
-    cursor: default;
-    min-width: 0;
-    -webkit-font-smoothing: none !important;
-}
-
-[data-theme="dark"] .win2k-btn {
-    border-top: 3px solid rgba(255, 255, 255, 0.15) !important;
-    border-left: 3px solid rgba(255, 255, 255, 0.15) !important;
-    border-right: 3px solid rgba(0, 0, 0, 0.9) !important;
-    border-bottom: 3px solid rgba(0, 0, 0, 0.9) !important;
-}
-
-.win2k-btn--close {
-    margin-left: auto;
-}
-
-.win2k-btn:active {
-    border-top: 3px solid rgba(0, 0, 0, 0.6) !important;
-    border-left: 3px solid rgba(0, 0, 0, 0.6) !important;
-    border-right: 3px solid rgba(255, 255, 255, 0.7) !important;
-    border-bottom: 3px solid rgba(255, 255, 255, 0.7) !important;
-    box-shadow: inset 2px 2px var(--border-strong) !important;
-    padding: 3px 6px 3px 8px !important;
-}
-
-[data-theme="dark"] .win2k-btn:active {
-    border-top: 3px solid rgba(0, 0, 0, 0.9) !important;
-    border-left: 3px solid rgba(0, 0, 0, 0.9) !important;
-    border-right: 3px solid rgba(255, 255, 255, 0.15) !important;
-    border-bottom: 3px solid rgba(255, 255, 255, 0.15) !important;
-}
-
-.win2k-body {
-    padding: 16px;
-    background-color: var(--surface) !important;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.win2k-dialog-header {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    margin-bottom: 8px;
-}
-
-.win2k-monitor-icon {
-    width: 8rem;
-    height: auto;
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
-}
-
-.win2k-body p, .win2k-body span, .win2k-body h3, .win2k-body label {
-    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
-    -webkit-font-smoothing: none !important;
-    color: var(--text) !important;
-    font-size: 13px !important;
-}
-
-.win2k-body a {
-    color: var(--accent-strong) !important;
-    text-decoration: underline !important;
-    font-weight: bold !important;
-}
-
-.win2k-window input[type="text"],
-.win2k-window input[type="email"],
-.win2k-window textarea {
-    border-top: 3px solid rgba(0, 0, 0, 0.6) !important;
-    border-left: 3px solid rgba(0, 0, 0, 0.6) !important;
-    border-right: 3px solid rgba(255, 255, 255, 0.7) !important;
-    border-bottom: 3px solid rgba(255, 255, 255, 0.7) !important;
-    box-shadow: inset 2px 2px var(--border-strong), inset -1px -1px var(--surface) !important;
-    background-color: var(--bg) !important;
-    color: var(--text) !important;
-    border-radius: 0 !important;
-    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
-    -webkit-font-smoothing: none !important;
-    font-size: 13px !important;
-    padding: 5px 6px !important;
-    transition: none !important;
-}
-
-[data-theme="dark"] .win2k-window input[type="text"],
-[data-theme="dark"] .win2k-window input[type="email"],
-[data-theme="dark"] .win2k-window textarea {
-    border-top: 3px solid rgba(0, 0, 0, 0.9) !important;
-    border-left: 3px solid rgba(0, 0, 0, 0.9) !important;
-    border-right: 3px solid rgba(255, 255, 255, 0.15) !important;
-    border-bottom: 3px solid rgba(255, 255, 255, 0.15) !important;
-}
-
-.win2k-window input[type="text"]:focus,
-.win2k-window input[type="email"]:focus,
-.win2k-window textarea:focus {
-    outline: 1px dotted var(--text) !important;
-    outline-offset: -3px !important;
-}
-
-.win2k-window button[type="submit"] {
-    background-color: var(--surface) !important;
-    border-top: 3px solid rgba(255, 255, 255, 0.7) !important;
-    border-left: 3px solid rgba(255, 255, 255, 0.7) !important;
-    border-right: 3px solid rgba(0, 0, 0, 0.6) !important;
-    border-bottom: 3px solid rgba(0, 0, 0, 0.6) !important;
-    box-shadow: inset -2px -2px var(--border-strong), inset 1px 1px rgba(255,255,255,0.3) !important;
-    color: var(--text) !important;
-    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif !important;
-    -webkit-font-smoothing: none !important;
-    font-size: 15px !important;
-    font-weight: normal !important;
-    letter-spacing: normal;
-    padding: 6px 16px !important;
-    cursor: default !important;
-    border-radius: 0 !important;
-    transition: none !important;
-}
-
-[data-theme="dark"] .win2k-window button[type="submit"] {
-    border-top: 3px solid rgba(255, 255, 255, 0.15) !important;
-    border-left: 3px solid rgba(255, 255, 255, 0.15) !important;
-    border-right: 3px solid rgba(0, 0, 0, 0.9) !important;
-    border-bottom: 3px solid rgba(0, 0, 0, 0.9) !important;
-}
-
-/* Contact form refinement: keep the retro cue, but let the panel belong to the site. */
-.win2k-window {
-    background: var(--surface) !important;
-    border: 1px solid var(--border-strong) !important;
-    border-radius: var(--radius) !important;
-    box-shadow: var(--shadow-soft) !important;
-    padding: 0 !important;
-    font-family: var(--font-body) !important;
-    -webkit-font-smoothing: antialiased !important;
-    -moz-osx-font-smoothing: grayscale !important;
-    color: var(--text) !important;
-}
-
-.win2k-titlebar {
-    background: var(--surface-2) !important;
-    color: var(--text) !important;
-    border-bottom: 1px solid var(--border-strong);
-    padding: 0.75rem 0.9rem;
-    font-family: var(--font-body) !important;
-    font-size: 0.82rem !important;
-    letter-spacing: 0.04em;
-    text-shadow: none;
-}
-
-.win2k-titlebar__text::before {
-    content: "▣";
-    color: var(--accent);
-    font-family: var(--font-mono) !important;
-    margin-right: 0.45rem;
-}
-
-.win2k-btn,
-.win2k-window button[type="submit"] {
-    background: transparent !important;
-    border: 1px solid var(--border-strong) !important;
-    border-radius: var(--radius-sm) !important;
-    box-shadow: none !important;
-    color: var(--text) !important;
-    font-family: var(--font-body) !important;
-    font-size: 0.85rem !important;
-    -webkit-font-smoothing: antialiased !important;
-}
-
-.win2k-btn {
-    padding: 0.15rem 0.45rem !important;
-    min-width: 1.8rem;
-    cursor: pointer;
-}
-
-.win2k-btn:hover,
-.win2k-btn:focus-visible {
-    background: var(--accent) !important;
-    color: var(--bg) !important;
-}
-
-.win2k-btn:active,
-.win2k-window button[type="submit"]:active {
-    border: 1px solid var(--border-strong) !important;
-    box-shadow: none !important;
-    padding: 0.15rem 0.45rem !important;
-}
-
-.win2k-body {
-    padding: clamp(1rem, 3vw, 1.5rem);
-    background: var(--surface) !important;
-    gap: 1.25rem;
-}
-
-.win2k-dialog-header {
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 0.25rem;
-}
-
-.win2k-monitor-icon {
-    width: clamp(3.5rem, 16vw, 5rem);
-    height: auto;
-    flex: 0 0 auto;
-}
-
-.win2k-body p,
-.win2k-body span,
-.win2k-body h3,
-.win2k-body label {
-    font-family: var(--font-body) !important;
-    -webkit-font-smoothing: antialiased !important;
-    color: var(--text) !important;
-    font-size: inherit !important;
-}
-
-.win2k-body .meta {
-    color: var(--accent) !important;
-    font-family: var(--font-mono) !important;
-    font-size: 0.72rem !important;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-.win2k-body .muted {
-    color: var(--text-muted) !important;
-    line-height: 1.55;
-}
-
-.win2k-body a {
-    color: var(--accent-strong) !important;
-    font-weight: 600 !important;
-}
-
-.win2k-window input[type="text"],
-.win2k-window input[type="email"],
-.win2k-window textarea {
-    border: 1px solid var(--border-strong) !important;
-    border-radius: var(--radius-sm) !important;
-    box-shadow: none !important;
-    background: var(--bg) !important;
-    color: var(--text) !important;
-    font-family: var(--font-body) !important;
-    -webkit-font-smoothing: antialiased !important;
-    font-size: 1rem !important;
-    line-height: 1.4;
-    padding: 0.7rem 0.75rem !important;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
-}
-
-.win2k-window input[type="text"]:focus,
-.win2k-window input[type="email"]:focus,
-.win2k-window textarea:focus {
-    outline: 2px solid var(--accent-bright) !important;
-    outline-offset: 1px !important;
-    border-color: var(--accent-strong) !important;
-    box-shadow: none !important;
-}
-
-.win2k-window textarea {
-    min-height: 8rem;
-}
-
-.win2k-window button[type="submit"] {
-    background: var(--accent) !important;
-    color: var(--bg) !important;
-    cursor: pointer !important;
-    font-size: 0.95rem !important;
-    font-weight: 700 !important;
-    padding: 0.75rem 1rem !important;
-}
-
-.win2k-window button[type="submit"]:hover,
-.win2k-window button[type="submit"]:focus-visible {
-    background: var(--accent-bright) !important;
-    color: var(--bg) !important;
-}
-
-@media (max-width: 480px) {
-    .win2k-dialog-header {
-        align-items: flex-start;
-    }
-
-    .win2k-monitor-icon {
-        width: 3.5rem;
-    }
-}
-
-.win2k-window button[type="submit"]:active {
-    border-top: 3px solid rgba(0, 0, 0, 0.6) !important;
-    border-left: 3px solid rgba(0, 0, 0, 0.6) !important;
-    border-right: 3px solid rgba(255, 255, 255, 0.7) !important;
-    border-bottom: 3px solid rgba(255, 255, 255, 0.7) !important;
-    box-shadow: inset 2px 2px var(--border-strong) !important;
-    transform: none !important;
-    padding: 7px 15px 5px 17px !important;
-}
-
-[data-theme="dark"] .win2k-window button[type="submit"]:active {
-    border-top: 3px solid rgba(0, 0, 0, 0.9) !important;
-    border-left: 3px solid rgba(0, 0, 0, 0.9) !important;
-    border-right: 3px solid rgba(255, 255, 255, 0.15) !important;
-    border-bottom: 3px solid rgba(255, 255, 255, 0.15) !important;
-}
-
-.win2k-window button[type="submit"]:active {
-    border: 1px solid var(--border-strong) !important;
-    box-shadow: none !important;
-    padding: 0.75rem 1rem !important;
-}
-
-/* Windows 2000 reference, J-Keebs interpretation: pixel labels, terminal colors,
-   and a compact title bar without recreating the stock dialog chrome. */
-.win2k-window {
-    --terminal-ink: #111a2d;
-    --terminal-blue: #1d4f78;
-    --terminal-cyan: #7be0e4;
-    --terminal-coral: #ef806b;
-    --terminal-paper: #f4edda;
-    --terminal-line: #9bb7b9;
-    background: var(--terminal-paper) !important;
-    border: 1px solid var(--terminal-blue) !important;
-    border-radius: 0.25rem !important;
-    box-shadow: 8px 8px 0 rgba(17, 26, 45, 0.18) !important;
-    color: var(--terminal-ink) !important;
-    overflow: hidden;
-}
-
-[data-theme="dark"] .win2k-window {
-    background: var(--terminal-ink) !important;
-    border-color: var(--terminal-cyan) !important;
-    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.35) !important;
-    color: var(--terminal-paper) !important;
-}
-
-.win2k-titlebar {
-    position: relative;
-    background: var(--terminal-blue) !important;
-    border: 0 !important;
-    border-bottom: 3px solid var(--terminal-cyan) !important;
-    color: #fff !important;
-    min-height: 2.75rem;
-    padding: 0.7rem 0.8rem 0.65rem 1rem;
-    font-family: var(--font-mono) !important;
-    font-size: 0.78rem !important;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.win2k-titlebar__text::before {
-    content: "[ ]";
-    color: var(--terminal-cyan);
-    font-family: var(--font-mono) !important;
-    margin-right: 0.5rem;
-}
-
-.win2k-titlebar__controls {
-    display: flex;
-    gap: 0.35rem;
-}
-
-.win2k-btn {
-    background: var(--terminal-coral) !important;
-    border: 0 !important;
-    border-radius: 0.15rem !important;
-    box-shadow: 2px 2px 0 rgba(17, 26, 45, 0.35) !important;
-    color: var(--terminal-ink) !important;
-    font-family: var(--font-mono) !important;
-    font-size: 0.8rem !important;
-    font-weight: 700;
-    min-width: 1.6rem;
-    padding: 0.2rem 0.35rem !important;
-}
-
-.win2k-btn:hover,
-.win2k-btn:focus-visible {
-    background: var(--terminal-cyan) !important;
-    color: var(--terminal-ink) !important;
-}
-
-.win2k-btn:active {
-    box-shadow: none !important;
-    transform: translate(2px, 2px);
-}
-
-.win2k-body {
-    background: transparent !important;
-    color: inherit !important;
-    gap: 1.4rem;
-    padding: clamp(1.2rem, 3vw, 1.8rem);
-}
-
-.win2k-dialog-header {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 1rem;
-    align-items: center;
-    margin-bottom: 0;
-    padding-bottom: 1.2rem;
-    border-bottom: 1px dashed var(--terminal-line);
-}
-
-.win2k-monitor-icon {
-    width: clamp(3.75rem, 15vw, 5.5rem);
-    height: auto;
-    padding: 0.35rem;
-    background: var(--terminal-blue);
-    border: 2px solid var(--terminal-cyan);
-    image-rendering: pixelated;
-}
-
-.win2k-body p,
-.win2k-body span,
-.win2k-body h3,
-.win2k-body label {
-    color: inherit !important;
-    font-family: var(--font-body) !important;
-    font-size: inherit !important;
-    -webkit-font-smoothing: antialiased !important;
-}
-
-.win2k-body .meta,
-.win2k-body label > span {
-    color: var(--terminal-blue) !important;
-    font-family: var(--font-mono) !important;
-    font-size: 0.72rem !important;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-[data-theme="dark"] .win2k-body .meta,
-[data-theme="dark"] .win2k-body label > span {
-    color: var(--terminal-cyan) !important;
-}
-
-.win2k-body .muted {
-    color: #3d4b59 !important;
-    line-height: 1.55;
-}
-
-[data-theme="dark"] .win2k-body .muted {
-    color: #c5d0d1 !important;
-}
-
-.win2k-body a {
-    color: var(--terminal-blue) !important;
-    font-weight: 700 !important;
-}
-
-[data-theme="dark"] .win2k-body a {
-    color: var(--terminal-cyan) !important;
-}
-
-.win2k-window input[type="text"],
-.win2k-window input[type="email"],
-.win2k-window textarea {
-    background: rgba(255, 255, 255, 0.6) !important;
-    border: 1px solid var(--terminal-line) !important;
-    border-radius: 0.15rem !important;
-    box-shadow: inset 3px 3px 0 rgba(17, 26, 45, 0.08) !important;
-    color: var(--terminal-ink) !important;
-    font-family: var(--font-body) !important;
-    font-size: 1rem !important;
-    margin-top: 0.4rem;
-    padding: 0.7rem 0.75rem !important;
-}
-
-[data-theme="dark"] .win2k-window input[type="text"],
-[data-theme="dark"] .win2k-window input[type="email"],
-[data-theme="dark"] .win2k-window textarea {
-    background: #1b2940 !important;
-    border-color: #547789 !important;
-    box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.25) !important;
-    color: var(--terminal-paper) !important;
-}
-
-.win2k-window input[type="text"]:focus,
-.win2k-window input[type="email"]:focus,
-.win2k-window textarea:focus {
-    border-color: var(--terminal-coral) !important;
-    box-shadow: 0 0 0 2px rgba(239, 128, 107, 0.25) !important;
-    outline: 0 !important;
-}
-
-.win2k-window textarea {
-    min-height: 8rem;
-}
-
-.win2k-window button[type="submit"] {
-    background: var(--terminal-coral) !important;
-    border: 0 !important;
-    border-radius: 0.15rem !important;
-    box-shadow: 3px 3px 0 var(--terminal-ink) !important;
-    color: var(--terminal-ink) !important;
-    cursor: pointer !important;
-    font-family: var(--font-mono) !important;
-    font-size: 0.8rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.04em;
-    padding: 0.8rem 1rem !important;
-    text-transform: uppercase;
-}
-
-.win2k-window button[type="submit"]:hover,
-.win2k-window button[type="submit"]:focus-visible {
-    background: var(--terminal-cyan) !important;
-    color: var(--terminal-ink) !important;
-}
-
-.win2k-window button[type="submit"]:active {
-    box-shadow: none !important;
-    padding: 0.8rem 1rem !important;
-    transform: translate(3px, 3px);
-}
-
-/* ==========================================================================
-/* Final Win2K balance: recognizable chrome, local pixel-mono type, restrained tint. */
-.win2k-window {
-    --w2k-bg: #3b3028;
-    --w2k-panel: #4a3b30;
-    --w2k-title: #5a3d24;
-    --w2k-text: #f4ead2;
-    --w2k-input: #2f271f;
-    --w2k-highlight: #cdbb91;
-    --w2k-shadow: #211914;
-    --w2k-accent: #c59b52;
-    background: var(--w2k-bg) !important;
-    border: 2px solid var(--w2k-highlight) !important;
-    border-right-color: var(--w2k-shadow) !important;
-    border-bottom-color: var(--w2k-shadow) !important;
-    border-radius: 0 !important;
-    box-shadow: inset 1px 1px 0 var(--w2k-panel), 5px 5px 0 rgba(24, 33, 42, 0.18) !important;
-    color: var(--w2k-text) !important;
-}
-
-[data-theme="dark"] .win2k-window {
-    --w2k-bg: #ddd0af;
-    --w2k-panel: #eee5cc;
-    --w2k-title: #77512e;
-    --w2k-text: #2b2119;
-    --w2k-input: #fff8e8;
-    --w2k-highlight: #fff4d0;
-    --w2k-shadow: #6b4b30;
-    --w2k-accent: #a87533;
-    box-shadow: inset 1px 1px 0 var(--w2k-panel), 5px 5px 0 rgba(0, 0, 0, 0.3) !important;
-}
-
-.win2k-titlebar {
-    background: linear-gradient(90deg, var(--w2k-title), color-mix(in srgb, var(--w2k-title) 78%, #ffffff)) !important;
-    border: 0 !important;
-    border-bottom: 2px solid var(--w2k-shadow) !important;
-    color: var(--w2k-text) !important;
-    font-family: var(--font-body) !important;
-    font-size: 0.82rem !important;
-    letter-spacing: 0.02em;
-    padding: 0.45rem 0.5rem 0.45rem 0.7rem;
-    -webkit-font-smoothing: none !important;
-}
-
-.win2k-titlebar__text::before {
-    content: "▣";
-    color: var(--w2k-accent);
-    font-family: var(--font-mono) !important;
-    margin-right: 0.35rem;
-}
-
-.win2k-btn,
-.win2k-window button[type="submit"] {
-    background: var(--w2k-panel) !important;
-    border: 2px solid var(--w2k-highlight) !important;
-    border-right-color: var(--w2k-shadow) !important;
-    border-bottom-color: var(--w2k-shadow) !important;
-    border-radius: 0 !important;
-    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.35) !important;
-    color: var(--w2k-text) !important;
-    font-family: var(--font-body) !important;
-    font-size: 0.8rem !important;
-    -webkit-font-smoothing: none !important;
-}
-
-.win2k-btn {
-    align-items: center;
-    cursor: pointer;
-    display: inline-flex;
-    justify-content: center;
-    min-width: 1.7rem;
-    width: 1.7rem;
-    height: 1.7rem;
-    padding: 0 !important;
-    aspect-ratio: 1;
-}
-
-.win2k-btn:hover,
-.win2k-btn:focus-visible,
-.win2k-window button[type="submit"]:hover,
-.win2k-window button[type="submit"]:focus-visible {
-    background: var(--w2k-accent) !important;
-    color: #ffffff !important;
-}
-
-@media (hover: hover) {
-    .win2k-window:hover {
-        box-shadow: var(--shadow) !important;
-        transform: translateY(-4px);
-        border-color: var(--accent) !important;
-    }
-}
-
-.win2k-btn:active,
-.win2k-window button[type="submit"]:active {
-    border-top-color: var(--w2k-shadow) !important;
-    border-left-color: var(--w2k-shadow) !important;
-    border-right-color: var(--w2k-highlight) !important;
-    border-bottom-color: var(--w2k-highlight) !important;
-    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.18) !important;
-    padding: 0 !important;
-    transform: none;
-}
-
-.win2k-window button[type="submit"] {
-    color: var(--w2k-text) !important;
-    font-family: var(--font-body) !important;
-    font-weight: 700 !important;
-    letter-spacing: normal;
-    padding: 0.55rem 1rem !important;
-    text-transform: none;
-}
-
-.win2k-window button[type="submit"]:active {
-    padding: 0.55rem 1rem !important;
-}
-
-.win2k-body {
-    background: var(--w2k-bg) !important;
-    color: var(--w2k-text) !important;
-    padding: clamp(1rem, 3vw, 1.4rem);
-}
-
-.win2k-dialog-header {
-    display: grid;
-    grid-template-columns: minmax(8rem, 0.42fr) minmax(0, 1fr);
-    align-items: stretch;
-    gap: 1rem;
-    border-bottom: 1px dotted var(--w2k-shadow);
-    padding-bottom: 1rem;
-}
-
-.win2k-monitor-icon {
-    background: var(--w2k-title);
-    border: 2px solid var(--w2k-highlight);
-    border-right-color: var(--w2k-shadow);
-    border-bottom-color: var(--w2k-shadow);
-    padding: 0.25rem;
-    width: 100%;
-    height: 100%;
-    min-height: 7rem;
-    object-fit: contain;
-}
-
-.win2k-body p,
-.win2k-body span,
-.win2k-body h3,
-.win2k-body label {
-    color: var(--w2k-text) !important;
-}
-
-.win2k-body .meta,
-.win2k-body label > span {
-    color: var(--w2k-highlight) !important;
-    font-family: "Silkscreen", "Fixedsys Excelsior 3.01", Fixedsys, Terminal, "MS Sans Serif", var(--font-mono), monospace !important;
-    font-size: 0.72rem !important;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    -webkit-font-smoothing: none !important;
-}
-
-[data-theme="dark"] .win2k-body .meta,
-[data-theme="dark"] .win2k-body label > span {
-    color: var(--w2k-title) !important;
-}
-
-.win2k-body .muted {
-    color: var(--w2k-text) !important;
-    opacity: 0.82;
-}
-
-.win2k-body a {
-    color: var(--w2k-accent) !important;
-    font-weight: 700 !important;
-}
-
-@media (max-width: 480px) {
-    .win2k-dialog-header {
-        grid-template-columns: minmax(5.5rem, 0.36fr) minmax(0, 1fr);
-    }
-
-    .win2k-monitor-icon {
-        min-height: 5.5rem;
-    }
-}
-
-.win2k-window input[type="text"],
-.win2k-window input[type="email"],
-.win2k-window textarea {
-    background: var(--w2k-input) !important;
-    border: 2px solid var(--w2k-shadow) !important;
-    border-right-color: var(--w2k-highlight) !important;
-    border-bottom-color: var(--w2k-highlight) !important;
-    border-radius: 0 !important;
-    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.22) !important;
-    color: var(--w2k-text) !important;
-    padding: 0.6rem 0.65rem !important;
-}
-
-.win2k-window input[type="text"]:focus,
-.win2k-window input[type="email"]:focus,
-.win2k-window textarea:focus {
-    border-color: var(--w2k-title) !important;
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--w2k-accent) 42%, transparent) !important;
-    outline: 0 !important;
-}
 
 /* Win2k contact form element from design/contact-v1.html. */
 .retro-form-window,
@@ -3449,6 +2647,8 @@ textarea { min-height: 8.5rem; resize: vertical; }
     --retro-input: #2b2826;
     --retro-accent: #c29b62;
     --retro-accent-hover: #d8b278;
+    --retro-accent-light: #ffe39e;
+    --retro-accent-dark: #5a3e12;
     width: 100%;
     min-width: 0;
     padding: 3px;
@@ -3473,18 +2673,28 @@ html[data-theme="light"] .retro-form-window {
     --retro-input: #f9f5ea;
     --retro-accent: #b38b4d;
     --retro-accent-hover: #9c753a;
+    --retro-accent-light: #fff0c2;
+    --retro-accent-dark: #5a3e12;
 }
 
 @media (hover: hover) {
-    .retro-form-window:hover {
-        box-shadow: var(--shadow);
+    .retro-form-window:hover,
+    .retro-form-window:focus-within {
+        box-shadow: 4px 8px 0 rgba(0, 0, 0, 0.45);
         transform: translateY(-4px);
     }
 }
 
-.retro-form-window:focus-within {
-    box-shadow: var(--shadow);
-    transform: translateY(-4px);
+@media (prefers-reduced-motion: reduce) {
+    .retro-form-window {
+        transition: none;
+    }
+    @media (hover: hover) {
+        .retro-form-window:hover,
+        .retro-form-window:focus-within {
+            transform: none;
+        }
+    }
 }
 
 .retro-form-window__titlebar {
@@ -3763,79 +2973,74 @@ html[data-theme="light"] .retro-contact-form__input:focus {
 }
 
 .retro-contact-form__checkbox-group label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.retro-contact-form__checkbox-group input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-    border: 0;
-}
-
-.retro-contact-form__checkbox-group label span {
-    position: relative;
     display: inline-flex;
-    min-height: 18px;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    min-height: 44px;
+    cursor: pointer;
+    user-select: none;
+    color: var(--retro-text);
+    font-family: "Gohufont", monospace;
+    font-size: 14px;
+    font-weight: 700;
 }
 
-.retro-contact-form__checkbox-group label span::before {
-    width: 18px;
-    height: 18px;
-    flex: 0 0 18px;
-    background: var(--retro-input);
-    border-top: 2px solid var(--retro-border-dark);
-    border-left: 2px solid var(--retro-border-dark);
-    border-right: 2px solid var(--retro-border-light);
-    border-bottom: 2px solid var(--retro-border-light);
-    content: "";
+.retro-contact-form__checkbox-group input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    flex: 0 0 20px;
+    margin: 0;
+    padding: 0;
+    background-color: var(--retro-input);
+    border-top: 3px solid var(--retro-border-dark);
+    border-left: 3px solid var(--retro-border-dark);
+    border-right: 3px solid var(--retro-border-light);
+    border-bottom: 3px solid var(--retro-border-light);
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.6);
+    border-radius: 0;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px 10px;
+    image-rendering: pixelated;
 }
 
-.retro-contact-form__checkbox-group label span::after {
-    position: absolute;
-    top: 3px;
-    left: 6px;
-    display: none;
-    width: 5px;
-    height: 9px;
-    border-right: 2px solid #1e1c1a;
-    border-bottom: 2px solid #1e1c1a;
-    content: "";
-    transform: rotate(45deg);
+.retro-contact-form__checkbox-group input[type="checkbox"]:hover,
+.retro-contact-form__checkbox-group label:hover input[type="checkbox"],
+.retro-contact-form__checkbox-group input[type="checkbox"]:active,
+.retro-contact-form__checkbox-group input[type="checkbox"]:checked,
+.retro-contact-form__checkbox-group input[type="checkbox"]:focus {
+    background-color: var(--retro-input);
+    border-top: 3px solid var(--retro-border-dark);
+    border-left: 3px solid var(--retro-border-dark);
+    border-right: 3px solid var(--retro-border-light);
+    border-bottom: 3px solid var(--retro-border-light);
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.6);
 }
 
-.retro-contact-form__checkbox-group input:checked + span::before {
-    background: var(--retro-accent);
-    border-top-color: var(--retro-border-light);
-    border-left-color: var(--retro-border-light);
-    border-right-color: var(--retro-border-dark);
-    border-bottom-color: var(--retro-border-dark);
-}
-
-.retro-contact-form__checkbox-group input:checked + span::after {
-    display: block;
-}
-
-.retro-contact-form__checkbox-group input:focus-visible + span::before {
+.retro-contact-form__checkbox-group input[type="checkbox"]:focus-visible {
     outline: 2px solid var(--retro-accent);
     outline-offset: 2px;
 }
 
-.retro-contact-form__checkbox-group label:hover span::before {
-    background-color: color-mix(in srgb, var(--retro-input) 88%, var(--retro-accent));
+.retro-contact-form__checkbox-group input[type="checkbox"]:checked {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' shape-rendering='crispEdges'%3E%3Cpath fill='%23c29b62' d='M8 1h2v2H8zm-1 1h2v2H7zm-1 1h2v2H6zm-1 1h2v2H5zm-1 1h2v2H4zm-1 1h2v2H3zm-1-1h2v2H2zm-1-1h2v2H1z'/%3E%3C/svg%3E");
 }
 
-.retro-contact-form__checkbox-group label:hover input:checked + span::before {
-    background: var(--retro-accent-hover);
+html[data-theme="light"] .retro-contact-form__checkbox-group input[type="checkbox"]:checked {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' shape-rendering='crispEdges'%3E%3Cpath fill='%23b38b4d' d='M8 1h2v2H8zm-1 1h2v2H7zm-1 1h2v2H6zm-1 1h2v2H5zm-1 1h2v2H4zm-1 1h2v2H3zm-1-1h2v2H2zm-1-1h2v2H1z'/%3E%3C/svg%3E");
+}
+
+.retro-contact-form__checkbox-group input[type="checkbox"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.retro-contact-form__checkbox-group label:has(input:disabled) {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .retro-contact-form__privacy {
@@ -3878,10 +3083,18 @@ html[data-theme="light"] .retro-contact-form__input:focus {
     color: #1a1816;
     background: var(--retro-accent);
     font-weight: 700;
+    border-top-color: var(--retro-accent-light);
+    border-left-color: var(--retro-accent-light);
+    border-right-color: var(--retro-accent-dark);
+    border-bottom-color: var(--retro-accent-dark);
 }
 
 .retro-contact-form__button--primary:hover {
     background: var(--retro-accent-hover);
+    border-top-color: #ffebba;
+    border-left-color: #ffebba;
+    border-right-color: #4a320c;
+    border-bottom-color: #4a320c;
 }
 
 .retro-contact-form__button:active {
@@ -3889,6 +3102,13 @@ html[data-theme="light"] .retro-contact-form__input:focus {
     border-left-color: var(--retro-border-dark);
     border-right-color: var(--retro-border-light);
     border-bottom-color: var(--retro-border-light);
+}
+
+.retro-contact-form__button--primary:active {
+    border-top-color: var(--retro-accent-dark);
+    border-left-color: var(--retro-accent-dark);
+    border-right-color: var(--retro-accent-light);
+    border-bottom-color: var(--retro-accent-light);
 }
 
 .retro-contact-form__button:disabled {
@@ -4040,6 +3260,7 @@ html[data-theme="light"] .retro-contact-form__input:focus {
    ========================================================================== */
 
 .map-embed {
+    position: relative;
     margin-top: 0.9rem;
     border-radius: var(--radius);
     outline: none;
@@ -4059,32 +3280,86 @@ html[data-theme="light"] .retro-contact-form__input:focus {
     height: 100%;
     border: 0;
     filter: grayscale(1) contrast(1.05);
-    transition: filter 0.25s ease;
+    transition: filter 650ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.card.is-map-active .map-embed__frame iframe,
+.map-embed.is-active .map-embed__frame iframe {
+    filter: grayscale(0);
 }
 
 @media (hover: hover) {
-    .map-embed__frame:hover iframe,
+    .card:hover .map-embed__frame iframe,
+    .map-embed:hover .map-embed__frame iframe,
     .card__body.contact-method:hover .map-embed__frame iframe {
         filter: grayscale(0);
     }
 }
 
-@media (hover: none) {
-    .card.is-map-active .map-embed__frame iframe {
-        filter: grayscale(0);
-    }
-}
-
-.card__body.contact-method:active .map-embed__frame iframe,
-.map-embed:active .map-embed__frame iframe,
-.map-embed:focus .map-embed__frame iframe,
 .map-embed__frame:focus-within iframe {
     filter: grayscale(0);
 }
 
-.map-embed:focus-visible .map-embed__frame {
+.map-activate {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0 0 12px;
+    border: 0;
+    background: rgba(0, 0, 0, 0.001);
+    cursor: pointer;
+    touch-action: pan-y;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 2;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.map-activate span {
+    display: inline-block;
+    padding: 0.35rem 0.65rem;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+    transition: border-color 0.15s ease;
+}
+
+.map-activate:hover span {
+    border-color: var(--accent);
+}
+
+.map-activate:focus-visible {
     outline: 2px solid var(--accent-bright);
-    outline-offset: 3px;
+    outline-offset: -2px;
+    border-radius: var(--radius);
+}
+
+.map-activate:focus-visible span {
+    border-color: var(--accent-bright);
+}
+
+.card.is-map-active .map-activate,
+.map-embed.is-active .map-activate {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .map-embed__frame iframe,
+    .map-activate {
+        transition: none !important;
+    }
 }
 
 @media (max-width: 480px) {

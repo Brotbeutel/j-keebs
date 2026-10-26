@@ -2,8 +2,8 @@
 title: "D-1 — Contact page redesign (1:1 Win2k-Vorlage)"
 date: 2026-10-16
 role: Designer
-status: integrated (partial)
-integration_note: "Built on 2026-10-17 on the owner's explicit scope (form window only, from design/contact-v1.html). Not yet ported: the map activation layer (R24), the 650 ms map fade, the window float. Dropdown and validation are being designed in D-2. See BACKLOG.md R24, R27–R30 and PLAN.md P3-C2."
+status: integrated
+integration_note: "Integrated across 2026-10-17 migration and 2026-10-20 P3-C2 (form window, ISO-DE checkbox inset & pixel checkmark, send button accent bevel, window float, map activation layer with 650 ms transition, dead CSS & Silkscreen removal). The dropdown popup and custom validation UI are scheduled for D-2 / P3-C3. See BACKLOG.md R30 and PLAN.md P3-C3."
 ---
 
 # D-1 — Contact page redesign (1:1 Win2k-Vorlage)

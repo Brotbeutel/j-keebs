@@ -72,7 +72,7 @@ The transform (not the ready-made `eleventyImageTransformPlugin` — it can't re
 
 ## Fonts
 
-- Fonts are **self-hosted**: woff2 files and their licence texts in `fonts/` (provenance in `fonts/README.md`), `@font-face` blocks with `font-display: swap` at the top of `style.css`, copied to `_site/fonts/` by `eleventy.config.js`. Families: Libre Caslon Text (400, 400 italic, 700), IBM Plex Sans (400–700), Courier Prime (400, 700), Playwrite DE Grund (variable, 100–400), Silkscreen (400, 700; pixel UI of the contact panel, Fontsource, licence `LICENSE-silkscreen.txt`), Gohufont, Press Start 2P and VT323 (Win2k contact window; licences alongside the font files).
+- Fonts are **self-hosted**: woff2 files and their licence texts in `fonts/` (provenance in `fonts/README.md`), `@font-face` blocks with `font-display: swap` at the top of `style.css`, copied to `_site/fonts/` by `eleventy.config.js`. Families: Libre Caslon Text (400, 400 italic, 700), IBM Plex Sans (400–700), Courier Prime (400, 700), Playwrite DE Grund (variable, 100–400), Gohufont, Press Start 2P and VT323 (Win2k contact window; licences alongside the font files).
 - Keep the `--font-*` tokens and their fallback stacks. To add a weight: add the woff2 (Latin subset) to `fonts/`, add an `@font-face`, keep the licence file next to it.
 - Never link Google Fonts or any other font CDN (see "What not to do").
 

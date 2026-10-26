@@ -5,7 +5,7 @@
 - **Repo:** https://github.com/Brotbeutel/j-keebs
 - **Owner:** Jannik Schlüter
 - **Planner:** dedicated planning chat; implementers use a **new** chat per work package
-- **Updated:** 2026-10-20 (planner review of source `76edb45`; owner answers of 2026-10-20 folded)
+- **Updated:** 2026-10-20 (P3-C2 executed in working tree; contact polish, map activation, CSS cleanup)
 
 ## Snapshot
 
@@ -23,7 +23,7 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 
 **Owner test 2026-10-19 (real phone):** the map still stays grey when it is used without touching the card around it (R24 — the Designer's activation layer was never ported); the ISO-DE box does not react to a click and is not inset like the text fields (R27); the send button has a grey border around a gold fill (R28); the form window does not float on hover/click like the other tiles (R29); the dropdown and the browser's "Bitte füllen Sie dieses Feld aus" bubble do not match the design (R30).
 
-**Open launch-relevant findings:** R24, R27–R31 (contact form, above and in `BACKLOG.md`), R25 (font licence provenance for Gohufont/VT323 — Lawyer), R13 (About dictionary text wrong; owner rewrites the page; interim sync in P3-H), R16 (h1→h3 skip, P3-H), R17 (Keychron keycaps → Glorious Aura V2, P3-H), R18 (light-theme gold text contrast 2.24:1, needs owner visual OK), R19 (J80 article flow, owner content), R22 (cookies page omits a `sessionStorage` key — Lawyer), R23 (K70 origin-story contradiction — owner/Writer). **Done:** R12 (live), P3-M. **Decided/resolved:** R15 (credit stays; legal via the Lawyer role), R20, R21. **Legal impact:** the form now also sends `topic` and `iso_de_layout` — the Lawyer confirms the notice covers them (`ai/LEGAL.md` L4).
+**Open launch-relevant findings:** R30 (dropdown & validation styling, Designer D-2 → P3-C3), R25 (font licence provenance for Gohufont/VT323 — Lawyer), R13 (About dictionary text wrong; owner rewrites the page; interim sync in P3-H), R16 (h1→h3 skip, P3-H), R17 (Keychron keycaps → Glorious Aura V2, P3-H), R18 (light-theme gold text contrast 2.24:1, needs owner visual OK), R19 (J80 article flow, owner content), R22 (cookies page omits a `sessionStorage` key — Lawyer), R23 (K70 origin-story contradiction — owner/Writer). **Done in source (uncommitted):** R24 (map activation & 650 ms fade), R27 (inset ISO-DE checkbox with pixel mark), R28 (send button accent bevel), R29 (window float on hover/:focus-within), R31 (cleanup of dead win2k CSS and unused Silkscreen font). **Done:** R12 (live), P3-M. **Decided/resolved:** R15 (credit stays; legal via the Lawyer role), R20, R21. **Legal impact:** the form now also sends `topic` and `iso_de_layout` — the Lawyer confirms the notice covers them (`ai/LEGAL.md` L4).
 
 **Incident (2026-10-15):** commit `e848d72` ("Planner session update") deleted `style.css` (3545 lines) together with adding the planner files; `05dc9dc` restored it on 2026-10-16. `check_links.py` aborts when `_site/style.css` is missing, so the Actions runs in between most likely failed before deploying and Pages kept the previous version. Cause unknown (the delivered ZIP did not contain `style.css`). **Confirmed 2026-10-20 on the public Actions page:** runs 29 and 30 failed, runs 31–34 are green, the badge reads "passing". Safeguards are in `CONVENTIONS.md` ("Delivering files to the owner").
 
@@ -44,6 +44,7 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 - Contact panel redesign — self-hosted Silkscreen, pixel-art header, neutral title bar, beveled controls; form behaviour unchanged (`eb10aec`…`3da476a`); **replaced** on 2026-10-17 by the Win2k form window (below)
 - P3-M — Mechanicon announcement post (`blog-mechanicon-2026`, image `images/Mechanicon_2026.jpg`) and R12 (owner notes removed from Impressum/Datenschutz) (`8460d4f`, `d033410`)
 - Win2k contact-form window from `design/contact-v1.html` (owner-scoped slice of D-1/P3-C): self-hosted Gohufont, Press Start 2P, VT323; topic select; ISO-DE checkbox; status bar; DE/EN strings; FormSubmit AJAX + no-JS fallback kept (`76edb45`)
+- P3-C2 — contact form polish (inset checkbox with pixel mark R27, send button accent bevel R28, window float on hover/:focus-within R29), map touch-activation layer with 650 ms transition and outside release (R24, a11y warning resolved), CSS cleanup removing ~786 lines of dead `.win2k-*` rules and unused Silkscreen font (R31)
 
 **Earlier per-package verification (condensed; full logs are in git history):** P2-E2/F1/F2/F3/remaining/P3 each ended with build 21 pages + `sitemap.xml`, link check 1195 references (1197 since the Silkscreen font files), tag balance 0, image report 94–95 % byte reduction, README parity. P2-F1 additionally proved byte-identical rendered HTML for all 21 pages before/after.
 
@@ -60,7 +61,7 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 
 - [x] P3-M — Mechanicon post + R12 — done (`d033410`); R12 confirmed live 2026-10-19; post and image approved by the owner
 - [x] Win2k contact-form window — done and live (`76edb45`)
-- [ ] **P3-C2 — contact form polish, map activation, CSS cleanup** (R24, R27–R29, R31) ← current package, see `PLAN.md`
+- [x] **P3-C2 — contact form polish, map activation, CSS cleanup** (R24, R27–R29, R31) — done in source
 - [ ] **D-2 — Designer: Win2k dropdown + validation message** (parallel, no code; brief in `ai/DESIGN.md`) → P3-C3 (implement)
 - [ ] P3-H — launch hygiene, reduced (R11 part, R13 interim, R16, R17)
 - [ ] Owner gates: see "Still open" above and `BACKLOG.md` → "Next candidates"
@@ -90,7 +91,7 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 | JS | `main.js` (root, passthrough) |
 | i18n | `J_KEEBS_I18N_COMMON` in `main.js` + page-local dictionaries in `src/_data/i18n/<page-file-slug>.js` (selected by `src/pages/pages.11tydata.js`, emitted by `base.njk`) |
 | Contact | FormSubmit (AJAX + no-JS fallback) |
-| Map | OpenStreetMap iframe, auto-loading, desaturated until hover/focus |
-| Fonts | Self-hosted woff2 in `fonts/` (Libre Caslon Text, IBM Plex Sans, Courier Prime, Playwrite DE Grund, Gohufont, Press Start 2P, VT323; Silkscreen is now unused — removal queued in P3-C2) |
+| Map | OpenStreetMap iframe, auto-loading, desaturated until hover/focus, tap-activation layer with 650 ms transition |
+| Fonts | Self-hosted woff2 in `fonts/` (Libre Caslon Text, IBM Plex Sans, Courier Prime, Playwrite DE Grund, Gohufont, Press Start 2P, VT323) |
 | Images | `images/` (originals, passthrough) + `_site/img/` (generated WebP, build-time). Social default: `images/og-preview.jpg`. Touch icon: `images/apple-touch-icon.png`. |
 | Scripts | `scripts/check_links.py`, `scripts/tag_balance.py`, `scripts/img_report.py` (Python 3); `scripts/generate_social_assets.js` (needs `sharp`, now a direct dev dependency) |
