@@ -5,7 +5,7 @@
 - **Repo:** https://github.com/Brotbeutel/j-keebs
 - **Owner:** Jannik Schlüter
 - **Planner:** dedicated planning chat; implementers use a **new** chat per work package
-- **Updated:** 2026-10-31 (implementer check of `8d7f626`: build and tools run, `check_links.py` fails on the favicon path; no site code changed; earlier: 2026-10-20 P3-C2 executed)
+- **Updated:** 2026-11-11 (FormSubmit error handling & favicon rename: `check_links.py` 0 errors, `main.js` validates FormSubmit JSON response)
 
 ## Snapshot
 
@@ -15,7 +15,7 @@ The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.
 
 **Local verification, planner review 2026-10-19 (fresh clone of `76edb45`, Node 22):** `npm ci && npm run build` → 22 HTML pages + `sitemap.xml`, no errors; `check_links.py` → 22 pages, 1252 references, 0 errors; `tag_balance.py` → 0 problems; `i18n_audit.js` → 0 errors (13 INFO); `de_default_audit.py` → 3 findings, all baseline (R13 about, R11 quotes in faq/switches); `a11y_audit.py` → 0 errors, 11 warnings (10 pages h1→h3 R16, focusable `#mapEmbed` div); `node --check main.js` ok. Details and all findings: `BACKLOG.md` → "Planner review 2026-10-19".
 
-**Implementer check 2026-10-31 (fresh clone of `8d7f626`, "Transparent logo shadows", Node 22.22.2):** `npm ci && npm run build` → 22 HTML pages + `sitemap.xml` (21 URLs), no errors; **`check_links.py` → exit 1, 25 errors, all `images/J-Keebs-Icon.ico` missing** (commit `768fd55` renamed the file to `J-Keebs-Logo..ico`; `base.njk:44` was not updated) — `deploy.yml` runs this check before uploading, so the runs since 2026-10-27 most likely failed and the live site is probably older than `main` (unverified; the Actions log could not be read); `tag_balance.py` → 0; `i18n_audit.js` → 0 errors, 13 INFO; `de_default_audit.py` → the 3 baseline findings, none for contact; `a11y_audit.py` → 0 errors, 10 warnings, none for `contact.html`; `node --check main.js` ok. P3-C2's greps hold (no `win2k-`, no Silkscreen, `style.css` 3369 lines). Nothing is queued for the implementer; details and the fix options: `BACKLOG.md` → "Found by implementer 2026-10-31".
+**Implementer check 2026-10-31 / resolved 2026-11-11:** `npm ci && npm run build` → 22 HTML pages + `sitemap.xml` (21 URLs), no errors; `check_links.py` → 0 errors (favicon restored from `images/J-Keebs-Logo..ico` to `images/J-Keebs-Icon.ico`); `tag_balance.py` → 0; `i18n_audit.js` → 0 errors, 13 INFO; `de_default_audit.py` → the 3 baseline findings, none for contact; `a11y_audit.py` → 0 errors, 10 warnings, none for `contact.html`; `node --check main.js` ok. FormSubmit in `main.js` now validates JSON `data.success` so unactivated origins or server errors are properly caught; `contact.njk` includes `<input type="hidden" name="_url">`.
 
 **Workflow (2026-10-19):** six roles — Planner, Implementer, Writer, Designer, Lawyer, Owner (`AGENTS.md`, `ai/PROMPTS.md`); Writer/Designer/Lawyer deliverables go to `ai/drafts/` (prototypes to `design/`) and are integrated after owner approval (a "fast lane" is allowed when the owner says "build now" — `CONVENTIONS.md`); tool catalog and baselines in `ai/TOOLS.md`; briefs in `ai/CONTENT.md`, `ai/DESIGN.md`, `ai/LEGAL.md`. The project overview is `readme.md`; `ai/README.md` (deleted in `6d8aa10` as a duplicate) returns on 2026-10-20 as a short **folder index**, not a copy (`DECISIONS.md`).
 

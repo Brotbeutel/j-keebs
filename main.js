@@ -911,12 +911,19 @@ window.J_KEEBS_I18N_COMMON = {
                 body: JSON.stringify(payload)
             })
                 .then(res => {
-                    if (!res.ok) throw new Error("bad response");
+                    if (!res.ok) throw new Error("Network response was not ok (HTTP " + res.status + ")");
+                    return res.json().catch(() => ({}));
+                })
+                .then(data => {
+                    if (data && (data.success === false || data.success === "false")) {
+                        throw new Error(data.message || "FormSubmit rejected submission");
+                    }
                     preserveFeedbackOnReset = true;
                     form.reset();
                     setFeedback("c.form.success", "Thank you! Your message is on its way.", "form-status--success");
                 })
-                .catch(() => {
+                .catch(err => {
+                    console.error("FormSubmit submission error:", err);
                     setFeedback("c.form.error", "Oops, that didn't work. Please email me directly.", "form-status--error");
                 })
                 .finally(() => {
