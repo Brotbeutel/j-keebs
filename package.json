@@ -14,7 +14,7 @@
   },
   "keywords": [],
   "author": "Jannik Schlüter",
-  "license": "ISC",
+  "license": "MIT",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Brotbeutel/j-keebs/issues"
