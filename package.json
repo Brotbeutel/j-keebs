@@ -24,5 +24,8 @@
     "@11ty/eleventy": "^3.1.6",
     "@11ty/eleventy-img": "^7.0.0",
     "sharp": "^0.35.5"
+  },
+  "overrides": {
+    "markdown-it": "^14.3.3"
   }
 }
