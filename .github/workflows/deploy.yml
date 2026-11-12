@@ -39,6 +39,9 @@ jobs:
           npm audit --json > /tmp/npm-audit.json || true
           node -e "const a=require('/tmp/npm-audit.json'); for (const [name,v] of Object.entries(a.vulnerabilities || {})) { console.log(name + ': ' + v.severity + ' | direct=' + v.isDirect + ' | range=' + v.range + ' | fixAvailable=' + JSON.stringify(v.fixAvailable)); for (const item of v.via || []) if (typeof item === 'object') console.log('  advisory:', item.title, '| url=' + item.url, '| range=' + item.range); } console.log('Totals:', JSON.stringify(a.metadata?.vulnerabilities || {}));"
 
+      - name: Fail on high or critical dependency vulnerabilities
+        run: npm audit --audit-level=high
+
       - name: Build with Eleventy
         run: npm run build
 
