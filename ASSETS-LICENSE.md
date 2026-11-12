@@ -7,6 +7,7 @@ Unless a file or its accompanying notice explicitly says otherwise, the followin
 - The J-Keebs name, logo, logo artwork, icons and brand design.
 - Original photographs, keyboard-build photos, workshop photos and other images created for J-Keebs.
 - Original illustrations, visual compositions, page mockups and design assets in `images/`, `design/` and `win2k-design/`.
+- Editorial content, articles, guides, captions and other original written material published on the site.
 
 Copyright in original J-Keebs photography, graphics and branding remains with Jannik Schlüter. All rights reserved. No permission to copy, modify, redistribute, publish or use these assets commercially is granted by the code licence. Ask the relevant rights holder for permission.
 
