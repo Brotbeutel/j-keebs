@@ -62,9 +62,11 @@ Text elements carry `data-i18n` keys (attributes: `data-i18n-attr`); dictionarie
 - FormSubmit (contact form)
 - OpenStreetMap (contact page map)
 
-## License
+## Licensing
 
-This project is proprietary. All content and code are the intellectual property of J-Keebs.
+- **Source code:** MIT License — see `LICENSE`. You may use, copy, modify, distribute and sell derivative works, provided the copyright and licence notice are retained.
+- **Logos, branding, original photographs and other visual assets:** not covered by MIT. All rights reserved unless an individual asset notice says otherwise; see `ASSETS-LICENSE.md`.
+- **Third-party assets and fonts:** remain subject to their respective owners' rights and bundled licence notices.
 
 ## Author
 
