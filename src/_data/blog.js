@@ -39,7 +39,7 @@ module.exports = [
         date: "27. Juli 2026",
         datetime: "2026-07-27",
         title: "Wie aus einer Corsair K70 ein Tastatur-Hobby wurde",
-        excerpt: "Als meine Corsair K70 Vengeance RGB langsam den Geist aufgab, suchte ich Ersatz – und entdeckte dabei die Mechanical-Keyboard-Community.",
+        excerpt: "Der Anfang war eigentlich ziemlich banal: Ich hatte eine Corsair K70 Vengeance. Sie war keineswegs eine schlechte Tastatur – aber ich war mit ihr…",
         imageAlt: "Wie aus einer Corsair K70 ein Tastatur-Hobby wurde",
         imageTitle: "Wie aus einer Corsair K70 ein Tastatur-Hobby wurde",
     },
