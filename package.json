@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npx @11ty/eleventy",
     "dev": "npx @11ty/eleventy --serve",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run build && python scripts/check_links.py _site && python scripts/tag_balance.py _site && node scripts/i18n_audit.js && python scripts/de_default_audit.py && python scripts/a11y_audit.py",
+    "audit": "npm test"
   },
   "repository": {
     "type": "git",
