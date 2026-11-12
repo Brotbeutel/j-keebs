@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="960" height="510" viewBox="0 0 960 510" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Win2k Titlebar Gradient (Warm retro brass/charcoal from contact.html) -->
+    <linearGradient id="win2k-title-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60513e"/>
+      <stop offset="50%" stop-color="#4a3d2e"/>
+      <stop offset="100%" stop-color="#32291f"/>
+    </linearGradient>
+
+    <!-- CRT Glow Gradient -->
+    <radialGradient id="crt-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7bf096" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#1e1c1a" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Outer Window Drop Shadow -->
+    <filter id="win2k-shadow" x="-5%" y="-5%" width="112%" height="112%">
+      <feDropShadow dx="4" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+
+    <style>
+      /* --- Fonts and Base Styling --- */
+      @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&amp;family=Courier+Prime:wght@400;700&amp;display=swap');
+
+      .font-sans {
+        font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      .font-mono {
+        font-family: 'Courier Prime', 'Consolas', 'Courier New', monospace;
+      }
+
+      /* --- Animations --- */
+      /* 1. Terminal Blinking Cursor */
+      @keyframes blink {
+        0%, 49% { opacity: 1; }
+        50%, 100% { opacity: 0; }
+      }
+      .blink-cursor {
+        animation: blink 0.9s infinite;
+      }
+
+      /* 2. Pulsing Status Online LED */
+      @keyframes pulse-led {
+        0%, 100% {
+          opacity: 1;
+          filter: drop-shadow(0 0 3px #55d676);
+        }
+        50% {
+          opacity: 0.45;
+          filter: none;
+        }
+      }
+      .status-led {
+        animation: pulse-led 2s infinite ease-in-out;
+      }
+
+      /* 3. Terminal Message Cycler */
+      @keyframes cycle-msg-1 {
+        0%, 28% { opacity: 1; visibility: visible; }
+        33%, 95% { opacity: 0; visibility: hidden; }
+        100% { opacity: 1; visibility: visible; }
+      }
+      @keyframes cycle-msg-2 {
+        0%, 30% { opacity: 0; visibility: hidden; }
+        35%, 62% { opacity: 1; visibility: visible; }
+        67%, 100% { opacity: 0; visibility: hidden; }
+      }
+      @keyframes cycle-msg-3 {
+        0%, 64% { opacity: 0; visibility: hidden; }
+        69%, 95% { opacity: 1; visibility: visible; }
+        100% { opacity: 0; visibility: hidden; }
+      }
+
+      .msg-1 {
+        opacity: 1;
+        animation: cycle-msg-1 12s infinite;
+      }
+      .msg-2 {
+        opacity: 0;
+        animation: cycle-msg-2 12s infinite;
+      }
+      .msg-3 {
+        opacity: 0;
+        animation: cycle-msg-3 12s infinite;
+      }
+
+      /* 4. RX/TX Data Activity Blink */
+      @keyframes rxtx-blink {
+        0%, 80%, 100% { fill: #a3998e; font-weight: normal; }
+        85%, 95% { fill: #c29b62; font-weight: bold; }
+      }
+      .rxtx-act {
+        animation: rxtx-blink 2.2s infinite ease-in-out;
+      }
+
+      .btn-hover:hover {
+        filter: brightness(1.08);
+      }
+    </style>
+  </defs>
+
+  <!-- ================= WINDOW CONTAINER ================= -->
+  <g filter="url(#win2k-shadow)">
+    <!-- Base Window Body (#3c3836) -->
+    <rect x="8" y="8" width="944" height="494" fill="#3c3836"/>
+    
+    <!-- 3D Bevel Border (Light top/left #5a544f, Dark bottom/right #1e1c1a) -->
+    <polygon points="8,8 952,8 949,11 11,11 11,499 8,502" fill="#5a544f"/>
+    <polygon points="952,8 952,502 8,502 11,499 949,499 949,11" fill="#1e1c1a"/>
+  </g>
+
+  <!-- ================= TITLEBAR ================= -->
+  <g>
+    <!-- Titlebar Gradient Fill -->
+    <rect x="11" y="11" width="938" height="32" fill="url(#win2k-title-grad)"/>
+
+    <!-- Left: Retro PC Icon (Pixel Art) -->
+    <image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABJmVYSWZJSSoACAAAAAsAAAEEAAEAAABAAAAAAQEEAAEAAABAAAAAAgEDAAMAAACSAAAADgECABIAAACYAAAAEgEDAAEAAAABAAAAGgEFAAEAAACqAAAAGwEFAAEAAACyAAAAKAEDAAEAAAACAAAAMQECAAsAAAC6AAAAMgECABQAAADGAAAAaYcEAAEAAADaAAAAAAAAAAgACAAIAENyZWF0ZWQgd2l0aCBHSU1QACwBAAABAAAALAEAAAEAAABHSU1QIDMuMi40AAAyMDI2OjA4OjI4IDE4OjE4OjQxAAMAEJACAAcAAAAEAQAAhpIHABkAAAAMAQAAAaADAAEAAAABAAAAAAAAACswMjowMAAAAAAAAAAAAABDcmVhdGVkIHdpdGggR0lNUACsx05lAAABhWlDQ1BJQ0MgcHJvZmlsZQAAeJx9kb9Lw0AcxV9bpVUrDnaQ0iFDdbKLijiWKhbBQmkrtOpgcukvaNKQpLg4Cq4FB38sVh1cnHV1cBUEwR8g/gHipOgiJX4vKbSI8eC4D+/uPe7eAd5WjSlGXxxQVFPPJBNCvrAq+F8RQAQDCGNIZIaWyi7m4Dq+7uHh612MZ7mf+3MMy0WDAR6BOM403STeIJ7dNDXO+8QhVhFl4nPiSZ0uSPzIdcnhN85lm708M6TnMvPEIWKh3MNSD7OKrhDPEEdlRaV8b95hmfMWZ6XWYJ178hcGi+pKlus0I0hiCSmkIUBCA1XUYCJGq0qKgQztJ1z8YdufJpdErioYORZQhwLR9oP/we9ujdL0lJMUTAD9L5b1MQ74d4F207K+jy2rfQL4noErteuvt4C5T9KbXS16BIxsAxfXXU3aAy53gLEnTdRFW/LR9JZKwPsZfVMBGL0FBtec3jr7OH0ActTV8g1wcAhMlCl73eXdgd7e/j3T6e8HkBRysvdfY3kAAA1zaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/Pgo8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJYTVAgQ29yZSA0LjQuMC1FeGl2MiI+CiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIKICAgIHhtbG5zOnN0RXZ0PSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VFdmVudCMiCiAgICB4bWxuczpHSU1QPSJodHRwOi8vd3d3LmdpbXAub3JnL3htcC8iCiAgICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyIKICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIKICAgeG1wTU06RG9jdW1lbnRJRD0iZ2ltcDpkb2NpZDpnaW1wOmUyODVmOTYzLTNlNGYtNGZhOC04OTM4LTVlMDY0ZTMxYjY3ZSIKICAgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowMTk1NTBiZC0yODFmLTQxYzUtYmU2Yy1lY2YzNjlhMzI0NWEiCiAgIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpkZjFiYzgyYS0zZmY5LTRhMzEtOTlkZC05YjQzZDZhYjliNTgiCiAgIEdJTVA6QVBJPSIzLjAiCiAgIEdJTVA6UGxhdGZvcm09IldpbmRvd3MiCiAgIEdJTVA6VGltZVN0YW1wPSIxNzg3OTMzOTIyMzczMDI4IgogICBHSU1QOlZlcnNpb249IjMuMi40IgogICBkYzpGb3JtYXQ9ImltYWdlL3BuZyIKICAgdGlmZjpPcmllbnRhdGlvbj0iMSIKICAgeG1wOkNyZWF0b3JUb29sPSJHSU1QIgogICB4bXA6TWV0YWRhdGFEYXRlPSIyMDI2LTA4LTI4VDE4OjE4OjQxKzAyOjAwIgogICB4bXA6TW9kaWZ5RGF0ZT0iMjAyNi0wOC0yOFQxODoxODo0MSswMjowMCI+CiAgIDx4bXBNTTpIaXN0b3J5PgogICAgPHJkZjpTZXE+CiAgICAgPHJkZjpsaQogICAgICBzdEV2dDphY3Rpb249InNhdmVkIgogICAgICBzdEV2dDpjaGFuZ2VkPSIvIgogICAgICBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjhjM2U4MDMwLWQzNjMtNDYwMy1iMzA4LTQ1ZTcwNTNiOWE1YSIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iR0lNUCAzLjIuNCAoV2luZG93cykiCiAgICAgIHN0RXZ0OndoZW49IjIwMjYtMDgtMjhUMTg6MTg6NDIrMDIiLz4KICAgIDwvcmRmOlNlcT4KICAgPC94bXBNTTpIaXN0b3J5PgogIDwvcmRmOkRlc2NyaXB0aW9uPgogPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgIAo8P3hwYWNrZXQgZW5kPSJ3Ij8+qsrwQQAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+oIHBASKu7dK9cAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAXVklEQVR42u2be3Bc133fP+c+9glgF4v3YkEAJAiQAB8SKZGiKJEyJVXKWHJk107kqrYnteLGdVynrpK4k8406TidOJ20ad26cdrJyLJTuY4Tx5YfsuSIEmkrFB+m+RCfIEGCAIj3YrHvvfee0z92sbgLLF5N0ulMc8kZ3L3Pc36P7+/3+/7Ohb/f/v/exIonhFAASin8Xg+GobOzvxtd19CEDmjYClKZHOcvXGHhWiGqP1Kt9cK/g00ptebrjGoHW5ojqjHSyO5d/Ug7Tz6f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" x="18" y="16" width="22" height="22"/>
+
+    <!-- Titlebar Text -->
+    <text x="48" y="32" class="font-sans" font-size="13" font-weight="700" fill="#f0e6d2" letter-spacing="0.5">
+      Brotbeutel_Profile.exe — [Jannik Schlüter :: Developer &amp; Keyboard Builder]
+    </text>
+
+    <!-- Right: Win2k Window Buttons (Min, Max, Close) -->
+    <!-- Minimize -->
+    <g transform="translate(878, 16)">
+      <rect x="0" y="0" width="18" height="18" fill="#3c3836"/>
+      <polygon points="0,0 18,0 17,1 1,1 1,17 0,18" fill="#5a544f"/>
+      <polygon points="18,0 18,18 0,18 1,17 17,17 17,1" fill="#1e1c1a"/>
+      <line x1="4" y1="13" x2="14" y2="13" stroke="#f0e6d2" stroke-width="2"/>
+    </g>
+
+    <!-- Maximize -->
+    <g transform="translate(900, 16)">
+      <rect x="0" y="0" width="18" height="18" fill="#3c3836"/>
+      <polygon points="0,0 18,0 17,1 1,1 1,17 0,18" fill="#5a544f"/>
+      <polygon points="18,0 18,18 0,18 1,17 17,17 17,1" fill="#1e1c1a"/>
+      <rect x="4" y="5" width="10" height="9" fill="none" stroke="#f0e6d2" stroke-width="1.5"/>
+    </g>
+
+    <!-- Close Button (✕) -->
+    <g transform="translate(922, 16)">
+      <rect x="0" y="0" width="18" height="18" fill="#3c3836"/>
+      <polygon points="0,0 18,0 17,1 1,1 1,17 0,18" fill="#5a544f"/>
+      <polygon points="18,0 18,18 0,18 1,17 17,17 17,1" fill="#1e1c1a"/>
+      <path d="M5 5 L13 13 M13 5 L5 13" stroke="#f0e6d2" stroke-width="1.6"/>
+    </g>
+  </g>
+
+  <!-- ================= DIALOG HEADER (INTRO & PIXEL ART) ================= -->
+  <g transform="translate(24, 52)">
+    <!-- Main Dialog Headline -->
+    <text x="0" y="24" class="font-sans" font-size="18" font-weight="700" fill="#c29b62" letter-spacing="0.5">
+      [ Willkommen im Profil von Jannik Schlüter (@Brotbeutel) ]
+    </text>
+
+    <!-- Subtitle / Mission Statement -->
+    <text x="0" y="47" class="font-sans" font-size="13" font-weight="400" fill="#e8e0d5">
+      Software-Entwickler &amp; Erbauer mechanischer Tastaturen aus Schwetzingen, Deutschland.
+    </text>
+    <text x="0" y="66" class="font-sans" font-size="13" font-weight="400" fill="#a3998e">
+      Fokus auf kompromisslose deutsche ISO-Layouts (ISO-DE), QMK/VIA-Firmware, Upcycling &amp; Open-Source-Tools.
+    </text>
+
+    <!-- Badges / Role Tags -->
+    <g transform="translate(0, 77)">
+      <!-- Badge 1 -->
+      <rect x="0" y="0" width="102" height="22" rx="1" fill="#2b2826" stroke="#5a544f" stroke-width="1"/>
+      <text x="51" y="15" class="font-mono" font-size="10" font-weight="700" fill="#c29b62" text-anchor="middle">DEVELOPER</text>
+
+      <!-- Badge 2 -->
+      <rect x="110" y="0" width="138" height="22" rx="1" fill="#2b2826" stroke="#5a544f" stroke-width="1"/>
+      <text x="179" y="15" class="font-mono" font-size="10" font-weight="700" fill="#c29b62" text-anchor="middle">KEYBOARD BUILDER</text>
+
+      <!-- Badge 3 -->
+      <rect x="256" y="0" width="124" height="22" rx="1" fill="#2b2826" stroke="#5a544f" stroke-width="1"/>
+      <text x="318" y="15" class="font-mono" font-size="10" font-weight="700" fill="#c29b62" text-anchor="middle">ISO-DE FOCUS</text>
+
+      <!-- Badge 4 -->
+      <rect x="388" y="0" width="112" height="22" rx="1" fill="#2b2826" stroke="#5a544f" stroke-width="1"/>
+      <text x="444" y="15" class="font-mono" font-size="10" font-weight="700" fill="#c29b62" text-anchor="middle">UPCYCLING</text>
+    </g>
+
+    <!-- Right Side: Pixel Art PC Preview Box (Win2k Inset) -->
+    <g transform="translate(796, 0)">
+      <!-- Inset Frame -->
+      <rect x="0" y="0" width="116" height="102" fill="#2b2826"/>
+      <polygon points="0,0 116,0 114,2 2,2 2,100 0,102" fill="#1e1c1a"/>
+      <polygon points="116,0 116,102 0,102 2,100 114,100 114,2" fill="#5a544f"/>
+
+      <!-- Inner CRT glow -->
+      <rect x="4" y="4" width="108" height="78" fill="#1d1b1a"/>
+      <rect x="4" y="4" width="108" height="78" fill="url(#crt-glow)"/>
+
+      <!-- Pixel Art PC Image -->
+      <image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABJmVYSWZJSSoACAAAAAsAAAEEAAEAAABAAAAAAQEEAAEAAABAAAAAAgEDAAMAAACSAAAADgECABIAAACYAAAAEgEDAAEAAAABAAAAGgEFAAEAAACqAAAAGwEFAAEAAACyAAAAKAEDAAEAAAACAAAAMQECAAsAAAC6AAAAMgECABQAAADGAAAAaYcEAAEAAADaAAAAAAAAAAgACAAIAENyZWF0ZWQgd2l0aCBHSU1QACwBAAABAAAALAEAAAEAAABHSU1QIDMuMi40AAAyMDI2OjA4OjI4IDE4OjE4OjQxAAMAEJACAAcAAAAEAQAAhpIHABkAAAAMAQAAAaADAAEAAAABAAAAAAAAACswMjowMAAAAAAAAAAAAABDcmVhdGVkIHdpdGggR0lNUACsx05lAAABhWlDQ1BJQ0MgcHJvZmlsZQAAeJx9kb9Lw0AcxV9bpVUrDnaQ0iFDdbKLijiWKhbBQmkrtOpgcukvaNKQpLg4Cq4FB38sVh1cnHV1cBUEwR8g/gHipOgiJX4vKbSI8eC4D+/uPe7eAd5WjSlGXxxQVFPPJBNCvrAq+F8RQAQDCGNIZIaWyi7m4Dq+7uHh612MZ7mf+3MMy0WDAR6BOM403STeIJ7dNDXO+8QhVhFl4nPiSZ0uSPzIdcnhN85lm708M6TnMvPEIWKh3MNSD7OKrhDPEEdlRaV8b95hmfMWZ6XWYJ178hcGi+pKlus0I0hiCSmkIUBCA1XUYCJGq0qKgQztJ1z8YdufJpdErioYORZQhwLR9oP/we9ujdL0lJMUTAD9L5b1MQ74d4F207K+jy2rfQL4noErteuvt4C5T9KbXS16BIxsAxfXXU3aAy53gLEnTdRFW/LR9JZKwPsZfVMBGL0FBtec3jr7OH0ActTV8g1wcAhMlCl73eXdgd7e/j3T6e8HkBRysvdfY3kAAA1zaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/Pgo8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJYTVAgQ29yZSA0LjQuMC1FeGl2MiI+CiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIKICAgIHhtbG5zOnN0RXZ0PSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VFdmVudCMiCiAgICB4bWxuczpHSU1QPSJodHRwOi8vd3d3LmdpbXAub3JnL3htcC8iCiAgICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyIKICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIKICAgeG1wTU06RG9jdW1lbnRJRD0iZ2ltcDpkb2NpZDpnaW1wOmUyODVmOTYzLTNlNGYtNGZhOC04OTM4LTVlMDY0ZTMxYjY3ZSIKICAgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowMTk1NTBiZC0yODFmLTQxYzUtYmU2Yy1lY2YzNjlhMzI0NWEiCiAgIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpkZjFiYzgyYS0zZmY5LTRhMzEtOTlkZC05YjQzZDZhYjliNTgiCiAgIEdJTVA6QVBJPSIzLjAiCiAgIEdJTVA6UGxhdGZvcm09IldpbmRvd3MiCiAgIEdJTVA6VGltZVN0YW1wPSIxNzg3OTMzOTIyMzczMDI4IgogICBHSU1QOlZlcnNpb249IjMuMi40IgogICBkYzpGb3JtYXQ9ImltYWdlL3BuZyIKICAgdGlmZjpPcmllbnRhdGlvbj0iMSIKICAgeG1wOkNyZWF0b3JUb29sPSJHSU1QIgogICB4bXA6TWV0YWRhdGFEYXRlPSIyMDI2LTA4LTI4VDE4OjE4OjQxKzAyOjAwIgogICB4bXA6TW9kaWZ5RGF0ZT0iMjAyNi0wOC0yOFQxODoxODo0MSswMjowMCI+CiAgIDx4bXBNTTpIaXN0b3J5PgogICAgPHJkZjpTZXE+CiAgICAgPHJkZjpsaQogICAgICBzdEV2dDphY3Rpb249InNhdmVkIgogICAgICBzdEV2dDpjaGFuZ2VkPSIvIgogICAgICBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjhjM2U4MDMwLWQzNjMtNDYwMy1iMzA4LTQ1ZTcwNTNiOWE1YSIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iR0lNUCAzLjIuNCAoV2luZG93cykiCiAgICAgIHN0RXZ0OndoZW49IjIwMjYtMDgtMjhUMTg6MTg6NDIrMDIiLz4KICAgIDwvcmRmOlNlcT4KICAgPC94bXBNTTpIaXN0b3J5PgogIDwvcmRmOkRlc2NyaXB0aW9uPgogPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgIAo8P3hwYWNrZXQgZW5kPSJ3Ij8+qsrwQQAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+oIHBASKu7dK9cAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAXVklEQVR42u2be3Bc133fP+c+9glgF4v3YkEAJAiQAB8SKZGiKJEyJVXKWHJk107kqrYnteLGdVynrpK4k8406TidOJ20ad26cdrJyLJTuY4Tx5YfsuSIEmkrFB+m+RCfIEGCAIj3YrHvvfee0z92sbgLLF5N0ulMc8kZ3L3Pc36P7+/3+/7Ohb/f/v/exIonhFAASin8Xg+GobOzvxtd19CEDmjYClKZHOcvXGHhWiGqP1Kt9cK/g00ptebrjGoHW5ojqjHSyO5d/Ug7Tz6f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" x="18" y="7" width="80" height="72"/>
+
+      <!-- Mini Label -->
+      <text x="58" y="94" class="font-mono" font-size="9" fill="#a3998e" text-anchor="middle" letter-spacing="1">
+        WORKBENCH.EXE
+      </text>
+    </g>
+  </g>
+
+  <!-- ================= INSET PROFILE FORM FIELDS ================= -->
+  <!-- ROW 1: Identity & Specialization -->
+  <g transform="translate(24, 168)">
+    <!-- Field 1: User / Identity (Left) -->
+    <g>
+      <text x="0" y="0" class="font-sans" font-size="12" font-weight="600" fill="#a3998e">User / Identity:</text>
+      <!-- Inset Box -->
+      <g transform="translate(0, 6)">
+        <rect x="0" y="0" width="440" height="34" fill="#2b2826"/>
+        <polygon points="0,0 440,0 438,2 2,2 2,32 0,34" fill="#1e1c1a"/>
+        <polygon points="440,0 440,34 0,34 2,32 438,32 438,2" fill="#5a544f"/>
+        <text x="12" y="22" class="font-sans" font-size="13" font-weight="600" fill="#f0e6d2">
+          Jannik Schlüter <tspan fill="#a3998e" font-weight="400">(@Brotbeutel)</tspan>
+        </text>
+        <rect x="355" y="6" width="74" height="22" rx="1" fill="#3c3836" stroke="#5a544f" stroke-width="1"/>
+        <text x="392" y="21" class="font-mono" font-size="10" font-weight="700" fill="#c29b62" text-anchor="middle">VERIFIED</text>
+      </g>
+    </g>
+
+    <!-- Field 2: Base / Location (Right) -->
+    <g transform="translate(460, 0)">
+      <text x="0" y="0" class="font-sans" font-size="12" font-weight="600" fill="#a3998e">Base / Location:</text>
+      <!-- Inset Box -->
+      <g transform="translate(0, 6)">
+        <rect x="0" y="0" width="452" height="34" fill="#2b2826"/>
+        <polygon points="0,0 452,0 450,2 2,2 2,32 0,34" fill="#1e1c1a"/>
+        <polygon points="452,0 452,34 0,34 2,32 450,32 450,2" fill="#5a544f"/>
+        <!-- Clean Pin Icon -->
+        <g transform="translate(12, 10)">
+          <path d="M5 0 C2.24 0 0 2.24 0 5 C0 8.5 5 14 5 14 C5 14 10 8.5 10 5 C10 2.24 7.76 0 5 0 Z M5 7 C3.9 7 3 6.1 3 5 C3 3.9 3.9 3 5 3 C6.1 3 7 3.9 7 5 C7 6.1 6.1 7 5 7 Z" fill="#c29b62"/>
+        </g>
+        <text x="28" y="22" class="font-sans" font-size="13" font-weight="400" fill="#e8e0d5">
+          Schwetzingen, Baden-Württemberg, Germany
+        </text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ROW 2: Projects & Tech Stack -->
+  <g transform="translate(24, 230)">
+    <!-- Field 3: Featured Repositories (Left) -->
+    <g>
+      <text x="0" y="0" class="font-sans" font-size="12" font-weight="600" fill="#a3998e">Primary Projects &amp; Repositories:</text>
+      <g transform="translate(0, 6)">
+        <rect x="0" y="0" width="440" height="34" fill="#2b2826"/>
+        <polygon points="0,0 440,0 438,2 2,2 2,32 0,34" fill="#1e1c1a"/>
+        <polygon points="440,0 440,34 0,34 2,32 438,32 438,2" fill="#5a544f"/>
+        <text x="12" y="22" class="font-sans" font-size="13" font-weight="400" fill="#c29b62">
+          J-Keebs <tspan fill="#a3998e">·</tspan> Fat-Plate-Gen <tspan fill="#a3998e">·</tspan> Plates-n-Cases <tspan fill="#a3998e">·</tspan> QMK Mods
+        </text>
+      </g>
+    </g>
+
+    <!-- Field 4: Tech Stack (Right) -->
+    <g transform="translate(460, 0)">
+      <text x="0" y="0" class="font-sans" font-size="12" font-weight="600" fill="#a3998e">Developer Stack &amp; Hardware Tools:</text>
+      <g transform="translate(0, 6)">
+        <rect x="0" y="0" width="452" height="34" fill="#2b2826"/>
+        <polygon points="0,0 452,0 450,2 2,2 2,32 0,34" fill="#1e1c1a"/>
+        <polygon points="452,0 452,34 0,34 2,32 450,32 450,2" fill="#5a544f"/>
+        <text x="12" y="22" class="font-sans" font-size="13" font-weight="400" fill="#e8e0d5">
+          TS/JS · Node · Eleventy · Python · C/QMK · 3D-CAD · Soldering
+        </text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ROW 3: Terminal Feed / Live Status Inset Box -->
+  <g transform="translate(24, 292)">
+    <text x="0" y="0" class="font-sans" font-size="12" font-weight="600" fill="#a3998e">Live Console Feed / Active Work:</text>
+    <g transform="translate(0, 6)">
+      <!-- Deep Dark Terminal Background (#1e1c1a) -->
+      <rect x="0" y="0" width="912" height="52" fill="#1e1c1a"/>
+      <!-- Inset 3D Bevel -->
+      <polygon points="0,0 912,0 910,2 2,2 2,50 0,52" fill="#141312"/>
+      <polygon points="912,0 912,52 0,52 2,50 910,50 910,2" fill="#5a544f"/>
+
+      <!-- Shell Prompt -->
+      <text x="14" y="23" class="font-mono" font-size="12" font-weight="700" fill="#c29b62">root@brotbeutel:~$</text>
+
+      <!-- Animated Message 1 -->
+      <g class="msg-1">
+        <text x="165" y="23" class="font-mono" font-size="12" fill="#f0e6d2">
+          Building custom mechanical keyboards with sound, feel &amp; ISO-DE focus...
+        </text>
+      </g>
+
+      <!-- Animated Message 2 -->
+      <g class="msg-2">
+        <text x="165" y="23" class="font-mono" font-size="12" fill="#f0e6d2">
+          Upcycling vintage Cherry G80-3000 boards with modern QMK &amp; VIA electronics...
+        </text>
+      </g>
+
+      <!-- Animated Message 3 -->
+      <g class="msg-3">
+        <text x="165" y="23" class="font-mono" font-size="12" fill="#f0e6d2">
+          Developing open-source generators &amp; tools for the German keeb scene...
+        </text>
+      </g>
+
+      <!-- Subtext / Specs line -->
+      <text x="14" y="42" class="font-mono" font-size="11" fill="#7d7368">
+        [SYSINFO] Architecture: German ISO-DE · Switches: Lubed (Krytox 205g0) · Firmware: VIA Ready
+      </text>
+
+      <!-- Blinking Cursor -->
+      <rect x="888" y="12" width="8" height="14" fill="#c29b62" class="blink-cursor"/>
+    </g>
+  </g>
+
+  <!-- ================= ACTION BUTTONS (WIN2K RETRO STYLE) ================= -->
+  <g transform="translate(24, 380)">
+    <!-- Primary Button: Portfolio (Gold Bevel) -->
+    <g transform="translate(0, 0)" class="btn-hover">
+      <rect x="0" y="0" width="310" height="34" fill="#c29b62"/>
+      <polygon points="0,0 310,0 308,2 2,2 2,32 0,34" fill="#ffe39e"/>
+      <polygon points="310,0 310,34 0,34 2,32 308,32 308,2" fill="#5a3e12"/>
+      <text x="155" y="22" class="font-sans" font-size="13" font-weight="700" fill="#1e1c1a" text-anchor="middle">
+        🌐 Live Portfolio: brotbeutel.github.io/j-keebs
+      </text>
+    </g>
+
+    <!-- Secondary Button: Contact Form -->
+    <g transform="translate(325, 0)" class="btn-hover">
+      <rect x="0" y="0" width="280" height="34" fill="#3c3836"/>
+      <polygon points="0,0 280,0 278,2 2,2 2,32 0,34" fill="#5a544f"/>
+      <polygon points="280,0 280,34 0,34 2,32 278,32 278,2" fill="#1e1c1a"/>
+      <text x="140" y="22" class="font-sans" font-size="13" font-weight="600" fill="#f0e6d2" text-anchor="middle">
+        ✉️ Kontaktformular (Contact.exe)
+      </text>
+    </g>
+
+    <!-- Secondary Button: LinkedIn -->
+    <g transform="translate(620, 0)" class="btn-hover">
+      <rect x="0" y="0" width="292" height="34" fill="#3c3836"/>
+      <polygon points="0,0 292,0 290,2 2,2 2,32 0,34" fill="#5a544f"/>
+      <polygon points="292,0 292,34 0,34 2,32 290,32 290,2" fill="#1e1c1a"/>
+      <text x="146" y="22" class="font-sans" font-size="13" font-weight="600" fill="#f0e6d2" text-anchor="middle">
+        💼 LinkedIn: Jannik Schlüter
+      </text>
+    </g>
+  </g>
+
+  <!-- ================= STATUSBAR ================= -->
+  <g transform="translate(12, 465)">
+    <!-- Statusbar background -->
+    <rect x="0" y="0" width="936" height="32" fill="#3c3836"/>
+    <!-- Inset border -->
+    <polygon points="0,0 936,0 934,2 2,2 2,30 0,32" fill="#1e1c1a"/>
+    <polygon points="936,0 936,32 0,32 2,30 934,30 934,2" fill="#5a544f"/>
+
+    <!-- Panel 1: Online Status (Pulsing LED) -->
+    <g transform="translate(8, 5)">
+      <rect x="0" y="0" width="180" height="22" fill="#33302e"/>
+      <polygon points="0,0 180,0 178,1 1,1 1,21 0,22" fill="#1e1c1a"/>
+      <polygon points="180,0 180,22 0,22 1,21 178,21 178,1" fill="#5a544f"/>
+      <circle cx="16" cy="11" r="4.5" fill="#55d676" class="status-led"/>
+      <text x="28" y="15" class="font-mono" font-size="11" fill="#f0e6d2">STATUS: 200 OK</text>
+    </g>
+
+    <!-- Panel 2: Location -->
+    <g transform="translate(196, 5)">
+      <rect x="0" y="0" width="220" height="22" fill="#33302e"/>
+      <polygon points="0,0 220,0 218,1 1,1 1,21 0,22" fill="#1e1c1a"/>
+      <polygon points="220,0 220,22 0,22 1,21 218,21 218,1" fill="#5a544f"/>
+      <text x="10" y="15" class="font-mono" font-size="11" fill="#a3998e">LOC: SCHWETZINGEN (DE)</text>
+    </g>
+
+    <!-- Panel 3: Layout -->
+    <g transform="translate(424, 5)">
+      <rect x="0" y="0" width="210" height="22" fill="#33302e"/>
+      <polygon points="0,0 210,0 208,1 1,1 1,21 0,22" fill="#1e1c1a"/>
+      <polygon points="210,0 210,22 0,22 1,21 208,21 208,1" fill="#5a544f"/>
+      <text x="10" y="15" class="font-mono" font-size="11" fill="#c29b62">LAYOUT: DEUTSCHES ISO-DE</text>
+    </g>
+
+    <!-- Panel 4: Baud Rate & Active RX/TX -->
+    <g transform="translate(642, 5)">
+      <rect x="0" y="0" width="286" height="22" fill="#33302e"/>
+      <polygon points="0,0 286,0 284,1 1,1 1,21 0,22" fill="#1e1c1a"/>
+      <polygon points="286,0 286,22 0,22 1,21 284,21 284,1" fill="#5a544f"/>
+      <text x="12" y="15" class="font-mono" font-size="11" fill="#a3998e">
+        COM1: 9600 BAUD <tspan class="rxtx-act">[TX/RX]</tspan> · VIA: READY
+      </text>
+    </g>
+  </g>
+</svg>
