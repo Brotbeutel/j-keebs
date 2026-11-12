@@ -5,11 +5,11 @@
 - **Repo:** https://github.com/Brotbeutel/j-keebs
 - **Owner:** Jannik Schlüter
 - **Planner:** dedicated planning chat; implementers use a **new** chat per work package
-- **Updated:** 2026-11-11 (FormSubmit error handling & favicon rename: `check_links.py` 0 errors, `main.js` validates FormSubmit JSON response)
+- **Updated:** 2026-11-12 (repository audit: CI hardened, markdown-it vulnerability patched, font licence notices corrected)
 
 ## Snapshot
 
-The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → `check_links.py` → `tag_balance.py` → upload `_site/` → GitHub Pages; no `paths-ignore`, so every push builds and deploys). `HEAD` and `origin/main` are `76edb45` ("Win2k redesign update", 2026-10-17 11:38). Since the review of `4e04a3e`: planner handoff files and tools committed (`e848d72`), `ai/README.md` deleted by the owner (`6d8aa10`), P3-M (Mechanicon post + R12) in `8460d4f`/`d033410`, the Win2k contact-form window in `76edb45`. The latest `main` commit is `7c3810e` ("Fix FormSubmit response validation and restore favicon filename", 2026-11-11 22:35 UTC). GitHub Actions run #44 completed successfully and deployed that commit to GitHub Pages.
+The site is **live and deployed** via GitHub Actions (`.github/workflows/deploy.yml`: `npm ci` → `npm run build` → `check_links.py` → `tag_balance.py` → upload `_site/` → GitHub Pages; no `paths-ignore`, so every push builds and deploys). `main` remains at `7c3810e` ("Fix FormSubmit response validation and restore favicon filename", 2026-11-11 22:35 UTC); this audit is being prepared on `fix/site-title-and-quality-audit` and has not been merged or deployed. The audit branch adds pull-request CI, updates the npm audit gate, pins the transitive `markdown-it` dependency to patched 14.3.3, and corrects the Gohufont and VT323 licence notices. Pull-request Actions run #52 verified the dependency audit at 0 vulnerabilities, a 22-page build, 1,250 checked references with 0 errors, and 0 HTML tag-balance problems.
 
 **Live state (planner fetch 2026-10-19):** the contact page shows the new Win2k form window (`J-Keebs_Contact.exe`, topic dropdown, "ISO-DE Layout bevorzugt", status bar) and the unchanged OSM map; the Impressum no longer contains the owner-addressed note (R12 confirmed live). The owner confirmed the Mechanicon post is published (its date is 16 October on purpose, so "Morgen" is correct; text and image are approved) and tested the page on a phone (see findings). The Actions run log and `sitemap.xml` could not be fetched. Fetch tools can serve stale copies of a single URL — bypass caches with `?v=<random>`.
 
