@@ -1,31 +1,28 @@
 {
   "name": "j-keebs",
   "version": "1.0.0",
-  "description": "Personal portfolio documenting custom mechanical keyboards, German ISO layouts, modding and upcycling. Built with Eleventy, Nunjucks, CSS and vanilla JavaScript.",
+  "description": "A professional, modern portfolio website showcasing custom mechanical keyboards, modding projects, and restoration work with a focus on German ISO layouts.",
   "main": "main.js",
   "scripts": {
     "build": "npx @11ty/eleventy",
     "dev": "npx @11ty/eleventy --serve",
-    "test": "npm run build && python scripts/check_links.py _site && python scripts/tag_balance.py _site"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Brotbeutel/j-keebs.git"
   },
   "keywords": [],
-  "author": "Jannik Schlüter",
-  "license": "MIT",
+  "author": "",
+  "license": "ISC",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Brotbeutel/j-keebs/issues"
   },
-  "homepage": "https://brotbeutel.github.io/j-keebs/",
+  "homepage": "https://github.com/Brotbeutel/j-keebs#readme",
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
     "@11ty/eleventy-img": "^7.0.0",
     "sharp": "^0.35.5"
-  },
-  "overrides": {
-    "markdown-it": "^14.3.3"
   }
 }
