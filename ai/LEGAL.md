@@ -58,7 +58,7 @@ Selling anything, or sponsored/affiliate links beyond PCBWay → Impressum (VAT 
 | L8 | Third-party names, logos and opinions: the Mechanicon logo is live in the Mechanicon article (a second image candidate was not adopted); product names and the AI-generated pixel-art and concept images (label and rights); brand opinions in the FAQ. | Medium |
 | L9 | Accessibility law (BFSG): does it apply to a non-commercial hobby site? | Low |
 | L10 | Address form in legal pages ("du" today): acceptable, or should the formal form be used? | Low |
-| L11 | Font licences for the Win2k window (`BACKLOG.md` R25): `fonts/LICENSE-gohufont.txt` is a four-line notice ("Guillaume Litaudon", "WTFPL / SIL OFL / MIT", "FontPixel web package") without licence text and its authorship and licence are unverified; `fonts/LICENSE-vt323.txt` is a three-line summary, not the OFL text that has to accompany the font; Press Start 2P has the full text. Verify the upstream source and terms, supply the proper licence texts — or recommend replacing Gohufont with a font whose licence is verifiable. | Medium |
+| L11 | Font licences for the Win2k window (`BACKLOG.md` R25): upstream Gohufont is attributed to Hugo Chargois and released under WTFPL v2 (`https://github.com/hchargois/gohufont`); the local attribution and licence notice have been corrected. VT323 upstream (`https://github.com/phoikoi/VT323`) is SIL OFL 1.1 and its full upstream licence text is now bundled. Remaining question: verify the provenance/version of the FontPixel WOFF2 conversion and whether its packaging adds terms beyond the upstream licence. | Medium |
 
 ## Legal memo (the Lawyer's deliverable)
 
