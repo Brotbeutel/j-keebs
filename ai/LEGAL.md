@@ -58,7 +58,7 @@ Selling anything, or sponsored/affiliate links beyond PCBWay → Impressum (VAT 
 | L8 | Third-party names, logos and opinions: the Mechanicon logo is live in the Mechanicon article (a second image candidate was not adopted); product names and the AI-generated pixel-art and concept images (label and rights); brand opinions in the FAQ. | Medium |
 | L9 | Accessibility law (BFSG): does it apply to a non-commercial hobby site? | Low |
 | L10 | Address form in legal pages ("du" today): acceptable, or should the formal form be used? | Low |
-| L11 | Font licences for the Win2k window (`BACKLOG.md` R25): `fonts/LICENSE-gohufont.txt` is a four-line notice ("Guillaume Litaudon", "WTFPL / SIL OFL / MIT", "FontPixel web package") without licence text and its authorship and licence are unverified; `fonts/LICENSE-vt323.txt` is a three-line summary, not the OFL text that has to accompany the font; Press Start 2P has the full text. Verify the upstream source and terms, supply the proper licence texts — or recommend replacing Gohufont with a font whose licence is verifiable. | Medium |
+| L11 | Font licences for the Win2k window (`BACKLOG.md` R25): upstream Gohufont is attributed to Hugo Chargois and released under WTFPL v2 (`https://github.com/hchargois/gohufont`); local attribution and licence text corrected. VT323 upstream (`https://github.com/phoikoi/VT323`) is SIL OFL 1.1 and the full licence text is bundled. Remaining checks: exact FontPixel WOFF2 conversion source/version and the VT323 binary subset (repository evidence indicates the file named Latin is actually Vietnamese and lacks German umlauts). | Medium |
 
 ## Legal memo (the Lawyer's deliverable)
 
@@ -79,3 +79,5 @@ Open questions for the owner: <max 5, each with a proposed default>
 ```
 
 After the owner sets `status: owner-approved`, an implementer applies the wording verbatim, updates the "Stand" lines and this register, and sets `status: integrated`.
+
+| L12 | Code and asset licensing: the owner chose MIT for the source code. Root `LICENSE`, `package.json`, and README now identify MIT. The MIT grant is expressly limited to source code; J-Keebs logos, branding, original photographs, illustrations, editorial text and other visual assets are reserved in `ASSETS-LICENSE.md`. Third-party marks/assets/fonts remain under their respective rights/licences. | Medium |
