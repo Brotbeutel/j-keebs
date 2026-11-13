@@ -1,4 +1,28 @@
-Gohufont License
-Copyright (c) 2010 Guillaume Litaudon
-Distributed under the WTFPL / SIL Open Font License / MIT License.
-FontPixel web package.
+Gohufont — licence and attribution
+
+Font: Gohufont, 14 px bold bitmap font (webfont conversion)
+Original author: Hugo Chargois
+Original project: https://github.com/hchargois/gohufont
+Original project website: https://font.gohu.org/
+Licence: Do What The Fuck You Want To Public License (WTFPL), Version 2, December 2004.
+
+The upstream Gohufont project identifies Hugo Chargois as the author and
+releases the font under WTFPL v2. The previous notice naming Guillaume
+Litaudon and listing three alternative licences was not supported by the
+upstream project and has been corrected.
+
+Upstream licence text (COPYING-LICENSE):
+
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+                    Version 2, December 2004
+
+ Copyright (C) 2004 Sam Hocevar
+  14 rue de Plaisance, 75014 Paris, France
+ Everyone is permitted to copy and distribute verbatim or modified
+ copies of this license document, and changing it is allowed as long
+ as the name is changed.
+
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+  0. You just DO WHAT THE FUCK YOU WANT TO.
